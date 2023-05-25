@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1055282426009",
+    "project_id": "cursin-aad94",
+    "storage_bucket": "cursin-aad94.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1055282426009:android:4a5072afde2ad282e58808",
+        "android_client_info": {
+          "package_name": "com.appcursin.blogspot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1055282426009-taofnfvjq585u51ob48b7hdhpvvrd2em.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkmD0mbzYqeoaxSXRbo8IigKiBpREMDos"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1055282426009-taofnfvjq585u51ob48b7hdhpvvrd2em.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

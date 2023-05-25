@@ -1,0 +1,17 @@
+ESTOS SON SOLO APUNTES DE COMANDO QUE SE UTILIZÓ. 
+ABAJO SE TIENE LOS APUNTES DE ALIAS Y PASS PARA EVITAR PERDER DICHAS CREDENCIALES
+
+keytool -genkey -v -keystore C:\flutter_project\cursin2\cursin-main\android\app\upload-keystore.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias sd
+
+keytool -genkey -v -keystore C:/flutter_project/cursin2/cursin-main/android/app/keystore.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias sd -storetype JKS
+
+alias: sd
+pass: ul109000
+
+keytool -genkey -v -keystore C:\\flutter_project\\cursin2\\cursin-main\\android\\app\\upload-keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias sd -storetype JKS
+
+keytool -genkey -v -keystore C:/flutter_project/llaves/cursin/upload-keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias sd -storetype JKS
+
+
+C:\\Users\\USER_NAME\\Desktop\\ksk.jks
+keytool -importkeystore -srckeystore C:/flutter_project/cursin2/cursin-main/android/app/upload-keystore.jks -destkeystore C:/flutter_project/cursin2/cursin-main/android/app/upload-keystore.jks -deststoretype pkcs12
