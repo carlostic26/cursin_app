@@ -43,12 +43,6 @@ class webviewState extends State<webview> {
     super.initState();
     isloaded = true;
     if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
-
-    if (widget.nombreEntidad == 'Teachlr' || widget.nombreEntidad == 'Meta') {
-      Future.delayed(Duration(seconds: 10), () {
-        _dialogVideoNoCarga(context);
-      });
-    }
   }
 
   Future<void> userAgentOfChrome() async {

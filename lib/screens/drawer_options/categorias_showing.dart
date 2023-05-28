@@ -219,21 +219,6 @@ class _categoriaState extends State<categorias> {
             });
 
             SharedPreferences prefs = await SharedPreferences.getInstance();
-
-            // Obtener el valor actual del estado booleando del dialogo
-            bool dialogoProg = prefs.getBool('cerraDialogoProg') ?? false;
-
-            if (dialogoProg == false) {
-              int numberr = 0;
-              var rng = Random();
-              numberr = rng.nextInt(2);
-              print('number es: $numberr');
-              if (numberr == 1) {
-                Future.delayed(const Duration(seconds: 3), () {
-                  _showDialogCursosProgYouTube();
-                });
-              }
-            }
           });
         }
         break;
@@ -939,7 +924,7 @@ class _categoriaState extends State<categorias> {
     }
   }
 
-  void _showDialogCursosProgYouTube() {
+  /*  void _showDialogCursosProgYouTube() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -1085,4 +1070,5 @@ class _categoriaState extends State<categorias> {
           );
         });
   }
+ */
 }

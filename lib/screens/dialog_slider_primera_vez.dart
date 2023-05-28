@@ -485,7 +485,7 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
             //SizedBox(height: 10),
             RichText(
               text: TextSpan(
-                style: TextStyle(fontSize: 16, color: Colors.black),
+                style: TextStyle(fontSize: 13, color: Colors.black),
                 children: [
                   TextSpan(
                     text: 'Entiendo que',
@@ -498,7 +498,7 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
                     ),
                   ),
                   TextSpan(
-                    text: 'me servirá como una ',
+                    text: 'me servirá como una buena',
                   ),
                   TextSpan(
                     text: 'herramienta',
@@ -539,7 +539,10 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
                 backgroundColor: MaterialStateProperty.all<Color>(
                     Color.fromARGB(255, 3, 60, 90)),
               ),
-              child: Text('Finalizar'),
+              child: Text(
+                'Finalizar',
+                style: TextStyle(fontSize: 13),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
                 Navigator.of(context).push(

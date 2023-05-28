@@ -1,17 +1,20 @@
+import 'dart:async';
+
 import 'package:cursin/model/dbhelper.dart';
 import 'package:cursin/screens/percent_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 AppOpenAd? openAd;
 
-Future<void> loadAd() async {
+/* Future<void> loadAd() async {
   //Anun de apertura
   await AppOpenAd.load(
       adUnitId:
           // test:  // ca-app-pub-3940256099942544/3419835294
           // real: ca-app-pub-4336409771912215/5446190186 || real2:ca-app-pub-4336409771912215/5955842482
-          'ca-app-pub-4336409771912215/5955842482',
+          'ca-app-pub-3940256099942544/3419835294',
       request: const AdRequest(),
       adLoadCallback: AppOpenAdLoadCallback(onAdLoaded: (ad) {
         openAd = ad;
@@ -20,6 +23,33 @@ Future<void> loadAd() async {
         print("adv failed to load $error");
       }),
       orientation: AppOpenAd.orientationPortrait);
+} */
+
+bool isAdLoaded = false;
+
+Future<void> loadAd() async {
+  //Anuncio de apertura
+  await AppOpenAd.load(
+    adUnitId:
+        // test:  // ca-app-pub-3940256099942544/3419835294
+        // real: ca-app-pub-4336409771912215/5446190186 || real2:ca-app-pub-4336409771912215/5955842482
+        'ca-app-pub-4336409771912215/5955842482',
+    request: const AdRequest(),
+    adLoadCallback: AppOpenAdLoadCallback(
+      onAdLoaded: (ad) {
+        openAd = ad;
+        openAd!.show();
+        print("**Anuncio cargado correctamente");
+        isAdLoaded = true; // El anuncio se cargó y mostró correctamente
+      },
+      onAdFailedToLoad: (error) {
+        print("Error al cargar el anuncio: $error");
+
+        isAdLoaded = false; // El anuncio no se cargó o mostró correctamente
+      },
+    ),
+    orientation: AppOpenAd.orientationPortrait,
+  );
 }
 
 Future<void> main() async {
@@ -31,7 +61,20 @@ Future<void> main() async {
   await DatabaseHandler().initializeDB();
 
   await MobileAds.instance.initialize();
+  // Inicializar anuncio de apertura y cancelar después de 9 segundos
   await loadAd();
+  Timer(Duration(seconds: 9), () async {
+    if (isAdLoaded == false) {
+      openAd?.dispose();
+      print("Anuncio de apertura cancelado después de 9 segundos.");
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('adCancelado', true);
+    } else {
+      print("Anuncio de apertura mostrado correctamente.");
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('adCancelado', false);
+    }
+  });
 
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
