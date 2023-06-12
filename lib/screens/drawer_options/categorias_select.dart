@@ -11,18 +11,15 @@ import 'package:cursin/model/curso_lista_model.dart';
 import 'package:cursin/screens/drawer_options/categorias_showing.dart';
 import 'package:cursin/model/dbhelper.dart';
 import 'package:cursin/screens/infoScreens/info_app.dart';
-import 'package:cursin/screens/infoScreens/info_cursin.dart';
 import 'package:cursin/screens/drawer_options/ultimos_cursos.dart';
 import 'package:cursin/screens/drawer_options/search_courses.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:mailto/mailto.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:giff_dialog/giff_dialog.dart';
-import 'package:cron/cron.dart';
 
 class CategoriasSelectCards extends StatefulWidget {
   @override
@@ -100,19 +97,6 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
     var rng = Random();
     numberr = rng.nextInt(7); //8 numbers
     print("numero aleatorio es: " + numberr.toString());
-
-    if (numberr == 2) {
-      Future.delayed(const Duration(seconds: 30), () {
-        _showShareDialog();
-      });
-    }
-
-    if (numberr == 7) {
-      //show dialog cursos nuevos de la semana
-      Future.delayed(const Duration(seconds: 3), () {
-        _showNewCoursesDialog();
-      });
-    }
   }
 
   @override
@@ -2679,7 +2663,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
     return number;
   }
 
-  void _showShareDialog() {
+/*   void _showShareDialog() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -2742,7 +2726,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
               ]);
         });
   }
-
+ */
   Future _mailto() async {
     final mailtoLink = Mailto(
       to: ['cursinapp@gmail.com'],

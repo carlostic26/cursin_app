@@ -5,14 +5,12 @@ import 'package:cursin/screens/drawer_options/delete_anun.dart';
 import 'package:giff_dialog/giff_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cursin/model/curso_lista_model.dart';
-import 'package:cursin/model/notification_api.dart';
 import 'package:cursin/screens/course_option.dart';
 import 'package:cursin/model/dbhelper.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:mailto/mailto.dart';
-import 'package:restart_app/restart_app.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -285,19 +283,8 @@ class _CourseDetailState extends State<CourseDetail> {
 
     createRewardedAd();
 
-    //init notification
-    NotificationApi.init();
-    listenNotifications();
-
     getSharedPrefs();
     super.initState();
-  }
-
-  void listenNotifications() =>
-      NotificationApi.onNotifications.stream.listen(onClickedNotifications);
-
-  void onClickedNotifications(String? payload) {
-    Restart.restartApp();
   }
 
   int randNum = 0;

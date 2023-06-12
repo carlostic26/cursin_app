@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cursin/model/dbhelper.dart';
-import 'package:cursin/model/notification_api.dart';
 import 'package:cursin/screens/drawer_options/certificados.dart';
 import 'package:cursin/screens/courses_webview.dart';
 import 'package:cursin/screens/drawer_options/categorias_select.dart';
@@ -82,8 +81,6 @@ class _UltimosCursosListaState extends State<UltimosCursosLista> {
     loadStaticBannerAd();
     //loadInlineBannerAd();
 
-    startDialogWelcome();
-
     handler = DatabaseHandler();
     handler.initializeDB().whenComplete(() async {
       setState(() {
@@ -91,15 +88,8 @@ class _UltimosCursosListaState extends State<UltimosCursosLista> {
       });
     });
 
-    //show notifications daily || PUEDE QUE ESTO NO SIRVA
-    NotificationApi.init(initScheduled: true);
-    listenNotifications();
-
     super.initState();
   }
-
-  void listenNotifications() =>
-      NotificationApi.onNotifications.stream.listen(onClickedNotifications);
 
   void onClickedNotifications(String? payload) {
     Restart.restartApp();
@@ -116,20 +106,6 @@ class _UltimosCursosListaState extends State<UltimosCursosLista> {
   }
 
   bool welcomShowed = true;
-
-  Future<void> startDialogWelcome() async {
-    if (welcomShowed) {
-      Future.delayed(const Duration(seconds: 20), () {
-        int number = 0;
-        var rng = Random();
-        number = rng.nextInt(4); // 20%
-        print("numero aleatorio de aviso video es: " + number.toString());
-        if (number.toString() == '4') {
-          _showDialogWelcome();
-        }
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -709,202 +685,7 @@ class _UltimosCursosListaState extends State<UltimosCursosLista> {
     );
   }
 
-  void _showDialogWelcome() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return SimpleDialog(
-              title: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "¡Bienvenid@! ✨",
-                      style: TextStyle(color: Colors.blue, fontSize: 20.0),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      '¡Esperamos que encuentres ese curso que tanto buscas!' +
-                          '\n\nRecuerda revisar semanalmente la App de Cursin, ' +
-                          'porque indexamos nuevos cursos gratis con certificado.',
-                      style: TextStyle(color: Colors.black, fontSize: 14.0),
-                    ),
-                  ]),
-              children: <Widget>[
-                Container(
-                  alignment: Alignment.topCenter,
-                  padding: EdgeInsets.symmetric(horizontal: 5.0),
-                  child: ElevatedButton(
-                      style: ButtonStyle(
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                            side: BorderSide(
-                              color: Colors.blueAccent,
-                              width: 2.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                      child: Text(
-                        'Ok',
-                        style: TextStyle(fontSize: 15, color: Colors.white),
-                      ),
-                      //when user press "ok" dismiss dialog
-                      onPressed: () {
-                        Navigator.pop(context);
-                        Future.delayed(const Duration(seconds: 500), () {
-                          NotificationApi.showNotification(
-                              title:
-                                  'Hemos agregado nuevos cursos esta semana que podrían interesarte🎓',
-                              body: 'Entra y revisa si te gustan 👀');
-                        });
-
-                        Future.delayed(const Duration(seconds: 130), () {
-                          //function random 0,1,2 to show random dialog
-                          int numberr = 0;
-                          var rng = Random();
-                          numberr = rng.nextInt(3);
-                          print("numero aleatorio es: " + numberr.toString());
-
-                          if (numberr == 1) {
-                            Future.delayed(const Duration(seconds: 15), () {
-                              _showShareDialog();
-                            });
-                          }
-                        });
-                      }),
-                ),
-              ]);
-        });
-  }
-
   bool bugShowed = false;
-
-/*   void _showDialogBug() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return SimpleDialog(
-              title: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Sugerencia ⚠️",
-                      style: TextStyle(color: Colors.blue, fontSize: 20.0),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      'Si presentas algún problema en Cursin (bug) intenta volver a abrir la App, o reportar el error en el menú lateral' +
-                          '\n\nEn algunos Smartphone los anuncios tardan un tiempo en cargarse. \n\nSi te pasa, solo abre la App mas tarde',
-                      style: TextStyle(color: Colors.black, fontSize: 14.0),
-                    ),
-                  ]),
-              children: <Widget>[
-                Container(
-                  alignment: Alignment.topCenter,
-                  padding: EdgeInsets.symmetric(horizontal: 5.0),
-                  child: ElevatedButton(
-                      style: ButtonStyle(
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                            side: BorderSide(
-                              color: Colors.blueAccent,
-                              width: 2.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                      child: Text(
-                        'Entiendo',
-                        style: TextStyle(fontSize: 15, color: Colors.white),
-                      ),
-                      onPressed: () {
-                        Future.delayed(const Duration(seconds: 6), () {
-                          NotificationApi.showNotification(
-                              title:
-                                  'Hemos subido nuevos cursos esta semana 🎓',
-                              body: 'Entra y revisa si te gustan 🧑🏼‍🎓');
-                        });
-
-                        Navigator.pop(context);
-                      }),
-                ),
-              ]);
-        });
-  }
- */
-  void _showShareDialog() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return SimpleDialog(
-              title: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "¡Pásala a tus amigos! 😎",
-                      style: TextStyle(color: Colors.blue, fontSize: 19.0),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      'Sabemos que tienes un montón amigos que están nesitando cursos gratis con certificado.\n\n' +
-                          'Compárteles la App de Cursin para ayudarlos a estudiar y mejorar su perfil académico y profesional.',
-                      style: TextStyle(color: Colors.black, fontSize: 14.0),
-                    ),
-                  ]),
-              children: <Widget>[
-                Container(
-                  alignment: Alignment.topCenter,
-                  padding: EdgeInsets.symmetric(horizontal: 5.0),
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                          side: BorderSide(
-                            color: Colors.blue,
-                            width: 2.0,
-                          ),
-                        ),
-                      ),
-                    ),
-                    child: Text(
-                      'Compartir App',
-                      style: TextStyle(fontSize: 15, color: Colors.white),
-                    ),
-                    onPressed: () {
-                      shareText();
-                    },
-                  ),
-                ),
-                Column(
-                  children: [
-                    InkWell(
-                      child: Text('Más tarde',
-                          style: TextStyle(
-                              //decoration: TextDecoration.underline,
-                              color: Colors.blue)),
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ],
-                ),
-              ]);
-        });
-  }
 
   _showDialogSolicitarCurso(BuildContext context) {
     showDialog(

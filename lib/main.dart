@@ -8,23 +8,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 AppOpenAd? openAd;
 
-/* Future<void> loadAd() async {
-  //Anun de apertura
-  await AppOpenAd.load(
-      adUnitId:
-          // test:  // ca-app-pub-3940256099942544/3419835294
-          // real: ca-app-pub-4336409771912215/5446190186 || real2:ca-app-pub-4336409771912215/5955842482
-          'ca-app-pub-3940256099942544/3419835294',
-      request: const AdRequest(),
-      adLoadCallback: AppOpenAdLoadCallback(onAdLoaded: (ad) {
-        openAd = ad;
-        openAd!.show();
-      }, onAdFailedToLoad: (error) {
-        print("adv failed to load $error");
-      }),
-      orientation: AppOpenAd.orientationPortrait);
-} */
-
 bool isAdLoaded = false;
 
 Future<void> loadAd() async {
@@ -33,7 +16,7 @@ Future<void> loadAd() async {
     adUnitId:
         // test:  // ca-app-pub-3940256099942544/3419835294
         // real: ca-app-pub-4336409771912215/5446190186 || real2:ca-app-pub-4336409771912215/5955842482
-        'ca-app-pub-4336409771912215/5955842482',
+        'ca-app-pub-3940256099942544/3419835294',
     request: const AdRequest(),
     adLoadCallback: AppOpenAdLoadCallback(
       onAdLoaded: (ad) {
@@ -51,6 +34,23 @@ Future<void> loadAd() async {
     orientation: AppOpenAd.orientationPortrait,
   );
 }
+
+/* Future<void> loadAd() async {
+  //Anun de apertura
+  await AppOpenAd.load(
+      adUnitId:
+          // test:  // ca-app-pub-3940256099942544/3419835294
+          // real: ca-app-pub-4336409771912215/5446190186 || real2:ca-app-pub-4336409771912215/5955842482
+          'ca-app-pub-3940256099942544/3419835294',
+      request: const AdRequest(),
+      adLoadCallback: AppOpenAdLoadCallback(onAdLoaded: (ad) {
+        openAd = ad;
+        openAd!.show();
+      }, onAdFailedToLoad: (error) {
+        print("adv failed to load $error");
+      }),
+      orientation: AppOpenAd.orientationPortrait);
+} */
 
 Future<void> main() async {
   // init adv

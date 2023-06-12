@@ -701,7 +701,7 @@ class _certificadosScreenState extends State<certificadosScreen> {
     return number;
   }
 
-  void _showShareDialog() {
+/*   void _showShareDialog() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -764,7 +764,7 @@ class _certificadosScreenState extends State<certificadosScreen> {
               ]);
         });
   }
-
+ */
   Future _mailto() async {
     final mailtoLink = Mailto(
       to: ['cursinapp@gmail.com'],

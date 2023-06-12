@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cursin/model/dbhelper.dart';
-import 'package:cursin/model/notification_api.dart';
 import 'package:cursin/screens/drawer_options/certificados.dart';
 import 'package:cursin/screens/courses_webview.dart';
 import 'package:cursin/screens/drawer_options/categorias_select.dart';
@@ -81,15 +80,8 @@ class _CoursesFavsState extends State<CoursesFavs> {
       });
     });
 
-    //show notifications daily || PUEDE QUE ESTO NO SIRVA
-    NotificationApi.init(initScheduled: true);
-    listenNotifications();
-
     super.initState();
   }
-
-  void listenNotifications() =>
-      NotificationApi.onNotifications.stream.listen(onClickedNotifications);
 
   void onClickedNotifications(String? payload) {
     Restart.restartApp();

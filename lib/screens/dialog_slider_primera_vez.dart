@@ -316,7 +316,8 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
             style: TextStyle(fontSize: 16, color: Colors.black),
             children: [
               TextSpan(
-                text: 'Porque',
+                text:
+                    'Porque ya no tendrás que pagar por conocimiento.\n\nPorque',
               ),
               TextSpan(
                 text: ' siempre ',
@@ -349,7 +350,7 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
                 ),
               ),
               TextSpan(
-                text: 'constantemente, añadiendo',
+                text: 'constantemente con',
               ),
               TextSpan(
                 text: ' nuevos cursos ',
@@ -359,7 +360,7 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
                 ),
               ),
               TextSpan(
-                text: 'para que siempre tengas la posibilidad de',
+                text: 'para que siempre tengas las ganas de',
               ),
               TextSpan(
                 text: ' aprender  ',
@@ -372,7 +373,7 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
                 text: 'lo que sea sin tener que',
               ),
               TextSpan(
-                text: ' pagar nada.',
+                text: ' pagar por ello.',
                 style: TextStyle(
                   color: Colors.green,
                   fontWeight: FontWeight.bold,
@@ -411,20 +412,21 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
                 text: 'una plataforma que produce los cursos online.\n\n',
               ),
               TextSpan(
-                text: 'Su objetivo es buscar, indexar,',
+                text: 'Cursin busca, indexa,',
               ),
               TextSpan(
-                text: ' recopilar y',
+                text: ' recopila y',
               ),
               TextSpan(
-                text: ' organizar ',
+                text: ' organiza ',
                 style: TextStyle(
                   color: Colors.green,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               TextSpan(
-                text: 'los diferentes accesos a cursos online gratuitos de',
+                text:
+                    'los diferentes accesos a cursos online gratuitos de toda',
               ),
               TextSpan(
                 text: ' la web.',
@@ -501,7 +503,7 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
                     text: 'me servirá como una buena',
                   ),
                   TextSpan(
-                    text: 'herramienta',
+                    text: ' herramienta',
                     style: TextStyle(
                       color: Colors.green,
                       fontWeight: FontWeight.bold,
@@ -528,7 +530,7 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
                     ),
                   ),
                   TextSpan(
-                    text: 'cuando lo necesite desde mi móvil.',
+                    text: 'cuando más lo necesite.',
                   ),
                 ],
               ),

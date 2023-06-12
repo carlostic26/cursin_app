@@ -144,7 +144,7 @@ class _percentIndicatorState extends State<percentIndicator> {
                   style: ButtonStyle(
                     backgroundColor: _buttonEnabled
                         ? MaterialStateProperty.all<Color>(Colors
-                            .blue) // Color de fondo cuando está habilitado
+                            .green) // Color de fondo cuando está habilitado
                         : MaterialStateProperty.all<Color>(Colors
                             .grey), // Color de fondo cuando está deshabilitado
                   ),
