@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:cursin/screens/drawer_options/categorias_select.dart';
+import 'package:cursin/screens/drawer/drawer_options/categorias_select.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';

@@ -83,11 +83,11 @@ class _infoAppState extends State<infoApp> {
                 child: Column(
                   children: [
                     Container(
-                        height: 120,
-                        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                        height: 200,
+                        padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
                         child: Image.asset("assets/logo.png")),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
@@ -133,7 +133,7 @@ class _infoAppState extends State<infoApp> {
 
                     //para que sirve
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.fromLTRB(5, 10, 5, 0),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
@@ -178,7 +178,7 @@ class _infoAppState extends State<infoApp> {
                     ),
 
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.fromLTRB(5, 10, 5, 0),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
@@ -223,7 +223,7 @@ class _infoAppState extends State<infoApp> {
                     ),
 
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.fromLTRB(5, 10, 5, 0),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
@@ -270,7 +270,7 @@ class _infoAppState extends State<infoApp> {
                     ),
 
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.fromLTRB(5, 10, 5, 0),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
@@ -313,17 +313,13 @@ class _infoAppState extends State<infoApp> {
                                                         child: Text(
                                                           '  www.cursin.app  ',
                                                           style: TextStyle(
-                                                              backgroundColor:
-                                                                  Color
-                                                                      .fromARGB(
-                                                                          72,
-                                                                          5,
-                                                                          235,
-                                                                          48),
                                                               fontSize: 18,
                                                               color:
                                                                   Colors.white),
                                                         )),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
                                                   ],
                                                 ),
                                               )),
@@ -336,7 +332,7 @@ class _infoAppState extends State<infoApp> {
                     ),
 
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.fromLTRB(5, 10, 5, 0),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
@@ -381,7 +377,7 @@ class _infoAppState extends State<infoApp> {
                     ),
 
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.fromLTRB(5, 10, 5, 0),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
@@ -460,7 +456,7 @@ class _infoAppState extends State<infoApp> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(10, 1, 10, 1),
                       child: Text(
-                          "Si la App te ha parecido útil, deja una calificación de 5 estrellas" +
+                          "Apóyanos con una calificación de 5 estrellas" +
                               " y un comentario positivo en Play Store",
                           style: TextStyle(
                             //fontWeight: FontWeight.bold,
@@ -489,7 +485,7 @@ class _infoAppState extends State<infoApp> {
                           ),
                         ),
                         child: Text(
-                          'Calificar 5 ⭐ en PlayStore',
+                          'Dar 5 ⭐ en PlayStore',
                           style: TextStyle(fontSize: 15, color: Colors.white),
                         ),
                         onPressed: () {

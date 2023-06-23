@@ -4,9 +4,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cursin/model/curso_lista_model.dart';
 import 'package:cursin/screens/detail_course.dart';
 import 'package:cursin/model/dbhelper.dart';
-import 'package:cursin/screens/drawer_options/categorias_select.dart';
-import 'package:cursin/screens/drawer_options/search_courses.dart';
-import 'package:cursin/screens/drawer_options/ultimos_cursos.dart';
+import 'package:cursin/screens/drawer/drawer_options/categorias_select.dart';
+import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
+import 'package:cursin/screens/drawer/drawer_options/ultimos_cursos.dart';
 import 'package:flutter/material.dart';
 import 'package:giff_dialog/giff_dialog.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -890,25 +890,6 @@ class _categoriaState extends State<categorias> {
         });
   }
 
-  void shareText() {
-    Share.share("Encontré esta App que da acceso a muchos cursos con certificado completamente gratis🥳" +
-        "\nSe llama Cursin 👏🏻 Aprovechala que recién se estrenó en la PlayStore" +
-        "\n\nLa App recopila y muestra semanalmente cursos gratis sobre:" +
-        "\n🖥️ Desarrollo Web, móvil, front, back" +
-        "\n📚 Telcomunicaciones y TIC" +
-        "\n🧬 Salud y Bienestar" +
-        "\n🈵 Idiomas" +
-        "\n💵 Economia, Finanzas y administración" +
-        "\n⚖️ Ciencias sociales y jurídicas" +
-        "\n🎓 Ingenierías" +
-        "\n🎉 Mucho más..." +
-        "\n\n\nBaja la App directamente desde la PlayStore: \nhttps://play.google.com/store/apps/details?id=com.appcursin.blogspot");
-  }
-
-  void showFloating(BuildContext context) {
-    // ignore: unused_label
-  }
-
   // ignore: non_constant_identifier_names
   FloatingButtonCondition(BuildContext context) {
     if (widget.catProviene == "Crypto") {
@@ -923,152 +904,4 @@ class _categoriaState extends State<categorias> {
           onPressed: () => _showDialogAddCourse(context)); */
     }
   }
-
-  /*  void _showDialogCursosProgYouTube() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return SimpleDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
-            ),
-            title: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      "¿Cómo encontrar el mejor curso de programación?",
-                      style: TextStyle(
-                          color: Color.fromARGB(255, 0, 67, 101),
-                          fontSize: 19.0,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      launch('https://youtu.be/LG1I9XT7FZs?t=126');
-                    },
-                    child: Container(
-                      height: 170,
-                      width: MediaQuery.of(context).size.width,
-                      child: CachedNetworkImage(
-                        imageUrl:
-                            'https://i.ytimg.com/vi/LG1I9XT7FZs/maxresdefault.jpg',
-                        fit: BoxFit.contain,
-                        placeholder: (context, url) =>
-                            Center(child: CircularProgressIndicator()),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    'Aprender a buscar correctamente cualquier curso de programación gratis dentro de Cursin App con este video.',
-                    style: TextStyle(color: Colors.black, fontSize: 14.0),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Column(
-                          children: [
-                            ElevatedButton(
-                              style: ButtonStyle(
-                                shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                ),
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.grey),
-                              ),
-                              child: Text(
-                                'Luego',
-                                style: TextStyle(
-                                    fontSize: 10, color: Colors.white),
-                              ),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(0, 0, 0, 5),
-                                    child: GestureDetector(
-                                      onTap: () async {
-                                        Navigator.pop(context);
-
-                                        //no vuelve a mostrar dicho dialogo, envia dato a shared preferences
-
-                                        SharedPreferences prefs =
-                                            await SharedPreferences
-                                                .getInstance();
-
-                                        // Guardar el nuevo valor del dialogo en SharedPreferences
-                                        prefs.setBool('cerraDialogoProg', true);
-                                      },
-                                      child: Text(
-                                        'No volver a mostrar',
-                                        style: TextStyle(
-                                          color: Colors.blue,
-                                          fontSize: 8,
-                                          decoration: TextDecoration.underline,
-                                        ),
-                                      ),
-                                    )),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 20, 10),
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                              ),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.green),
-                            ),
-                            child: Text(
-                              'Abrir en\nYouTube',
-                              style:
-                                  TextStyle(fontSize: 10, color: Colors.white),
-                            ),
-                            onPressed: () {
-                              launch('https://youtu.be/LG1I9XT7FZs?t=103');
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                ]),
-          );
-        });
-  }
- */
 }

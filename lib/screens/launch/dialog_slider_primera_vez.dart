@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cursin/screens/drawer_options/carruselCertifiedWidget.dart';
-import 'package:cursin/screens/drawer_options/categorias_select.dart';
+import 'package:cursin/screens/drawer/drawer_options/carruselCertifiedWidget.dart';
+import 'package:cursin/screens/drawer/drawer_options/categorias_select.dart';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';

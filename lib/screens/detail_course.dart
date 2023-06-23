@@ -1,7 +1,7 @@
 import 'dart:io';
-import 'package:cursin/screens/drawer_options/certificados.dart';
-import 'package:cursin/screens/drawer_options/courses_favs.dart';
-import 'package:cursin/screens/drawer_options/delete_anun.dart';
+import 'package:cursin/screens/drawer/drawer_options/certificados.dart';
+import 'package:cursin/screens/drawer/drawer_options/courses_favs.dart';
+import 'package:cursin/screens/drawer/drawer_options/delete_anun.dart';
 import 'package:giff_dialog/giff_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cursin/model/curso_lista_model.dart';
