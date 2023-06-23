@@ -100,14 +100,27 @@ class _courseOptionState extends State<courseOption> {
                       onPrimary: Colors.white, // Establece el color del texto
                     ),
                     onPressed: () {
-                      Navigator.of(context).pop();
-                      Navigator.of(context).push(MaterialPageRoute(
+                      //Navigator.of(context).pop();
+                      /*  Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => webview(
                                 nameCourse: widget.nameCourse,
                                 urlCourse: widget.urlCourse,
                                 imgCourse: widget.imgCourse,
                                 nombreEntidad: widget.nombreEntidad,
-                              )));
+                              ))); */
+
+                      Navigator.of(context).pushReplacement(
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  webview(
+                            nameCourse: widget.nameCourse,
+                            urlCourse: widget.urlCourse,
+                            imgCourse: widget.imgCourse,
+                            nombreEntidad: widget.nombreEntidad,
+                          ),
+                        ),
+                      );
 
                       //muestra por 3 seg dialogo de carga || a los 3 segundos se cierra el dialogo
                       showDialog(

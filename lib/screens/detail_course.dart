@@ -187,13 +187,26 @@ class _CourseDetailState extends State<CourseDetail> {
         print("numero aleatorio es: " + number.toString());
 
         if (number == 1) {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => courseOption(
-                    nameCourse: widget.td.title,
-                    urlCourse: widget.td.urlcourse,
-                    imgCourse: widget.td.imgcourse,
-                    nombreEntidad: widget.td.entidad,
-                  )));
+          Navigator.of(context).push(
+            PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) =>
+                  courseOption(
+                nameCourse: widget.td.title,
+                urlCourse: widget.td.urlcourse,
+                imgCourse: widget.td.imgcourse,
+                nombreEntidad: widget.td.entidad,
+              ),
+              transitionDuration:
+                  Duration(milliseconds: 500), // Duración de la transición
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return FadeTransition(
+                  opacity: animation,
+                  child: child,
+                );
+              },
+            ),
+          );
         }
         enterAcces = 0;
       }
@@ -252,12 +265,19 @@ class _CourseDetailState extends State<CourseDetail> {
   String validadorCursoGuardado = "Guardar curso";
   bool click = false;
 
-  Future<Null> getSharedPrefs() async {
+  Future<void> getSharedPrefs() async {
     SharedPreferences cursosFavString = await SharedPreferences.getInstance();
 
-    setState(() {
-      getCoursesStringShP = cursosFavString.getString('coursesFavorites')!;
-    });
+    String? coursesFavorites = cursosFavString.getString('coursesFavorites');
+
+    if (coursesFavorites != null) {
+      setState(() {
+        getCoursesStringShP = coursesFavorites;
+      });
+    } else {
+      // Aquí puedes manejar el caso en que no se obtenga un valor válido
+      // Puedes mostrar un aviso, asignar un valor por defecto, o realizar cualquier otra acción necesaria.
+    }
   }
 
   int enterAcces = 0;

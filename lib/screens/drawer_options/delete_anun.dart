@@ -79,7 +79,7 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
     if (rewardedAd == null) {
       if (enterAcces <= 2) {
         Fluttertoast.showToast(
-          msg: "Espera a que se cargue e intentalo de nuevo", // message
+          msg: "Intentalo de nuevo.", // message
           toastLength: Toast.LENGTH_LONG, // length
           gravity: ToastGravity.BOTTOM, // location
         );
@@ -90,7 +90,7 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
           Fluttertoast.showToast(
             msg: "Vuelve más tarde por más monedas", // message
             toastLength: Toast.LENGTH_SHORT, // length
-            gravity: ToastGravity.CENTER, // location
+            gravity: ToastGravity.BOTTOM, // location
           );
         }
         enterAcces++;
