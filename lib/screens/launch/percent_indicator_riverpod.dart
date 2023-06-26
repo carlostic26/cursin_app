@@ -1,61 +1,31 @@
-import 'package:cursin/main.dart';
+import 'package:cursin/controller/theme_preferences.dart';
+import 'package:cursin/provider/riverpod.dart';
 import 'package:cursin/screens/drawer/drawer_options/categorias_select.dart';
 import 'package:cursin/screens/launch/dialog_slider_primera_vez.dart';
+import 'package:cursin/screens/launch/percent_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/percent_indicator.dart';
-import 'package:mccounting_text/mccounting_text.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class percentIndicator extends StatefulWidget {
-  @override
-  _percentIndicatorState createState() => _percentIndicatorState();
-}
-
-class _percentIndicatorState extends State<percentIndicator> {
-  bool _isFirstBuild = true;
-
-  bool? contadorFinalizado = false;
-  bool isButtonVisible =
-      false; // Nuevo estado para controlar la visibilidad del botón
-  bool _buttonEnabled = false;
+class PercentIndicatorRiverpod extends ConsumerWidget {
+  const PercentIndicatorRiverpod({super.key});
 
   @override
-  void initState() {
-    super.initState();
-
-    isAdCancelado();
-    guardarPrimerAcceso();
-    _isFirstBuild =
-        false; // Establecer en false después de la primera construcción
+  Widget build(BuildContext context, WidgetRef ref) {
+    final maxCourses = ref.watch(maxCourses_rp);
+    final isFirstBuild = ref.watch(isFirstBuild_rp);
+    final contadorFinalizado = ref.watch(contadorFinalizado_rp);
+    final isButtonVisible = ref.watch(isButtonVisible_rp);
+    final buttonEnabled = ref.watch(buttonEnabled_rp);
 
     // Activa el botón después de 10 segundos
     Future.delayed(Duration(seconds: 10), () {
-      setState(() {
-        _buttonEnabled = true;
-      });
+      activarBoton(ref);
     });
-  }
 
-  Future<void> isAdCancelado() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool? mainAdCancelado = prefs.getBool('adCancelado') ?? false;
-
-    if (mainAdCancelado == true) {
-/*       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Anuncio de pertura cancelado 9s desp")),
-      ); */
-    } else {
-/*       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text("Anuncio de pertura mostrado dentro de los 9s")),
-      ); */
-    }
-  }
-
-  int maxCourses = 823;
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 3, 36, 53),
       body: Center(
@@ -131,7 +101,7 @@ class _percentIndicatorState extends State<percentIndicator> {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(0, 50, 0, 50),
                 child: TextButton(
-                  onPressed: _buttonEnabled
+                  onPressed: buttonEnabled
                       ? () async {
                           /*    
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -139,11 +109,11 @@ class _percentIndicatorState extends State<percentIndicator> {
                               content: Text("Has tocado en continuar"),
                             ), 
                           );*/
-                          isLoaded();
+                          isLoaded(context);
                         }
                       : null, // Desactiva el botón si no está habilitado
                   style: ButtonStyle(
-                    backgroundColor: _buttonEnabled
+                    backgroundColor: buttonEnabled
                         ? MaterialStateProperty.all<Color>(Colors
                             .green) // Color de fondo cuando está habilitado
                         : MaterialStateProperty.all<Color>(Colors
@@ -154,7 +124,7 @@ class _percentIndicatorState extends State<percentIndicator> {
                     'Continuar',
                     style: TextStyle(
                         fontSize: 12,
-                        color: _buttonEnabled ? Colors.white : Colors.blueGrey),
+                        color: buttonEnabled ? Colors.white : Colors.blueGrey),
                   ),
                 ),
               ),
@@ -165,6 +135,17 @@ class _percentIndicatorState extends State<percentIndicator> {
     );
   }
 
+  void activarBoton(ref) {
+    ref.read(buttonEnabled_rp.notifier).state = true;
+  }
+
+  void initTheme(ref) async {
+    // init theme
+    ThemePreference theme = ThemePreference();
+
+    ref.read(darkTheme_rp.notifier).state = await theme.getTheme();
+  }
+
   void guardarPrimerAcceso() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool? primerAcceso = prefs.getBool('primerAcceso');
@@ -173,9 +154,11 @@ class _percentIndicatorState extends State<percentIndicator> {
     }
   }
 
-  isLoaded() async {
+  isLoaded(context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool? primerAcceso = prefs.getBool('primerAcceso');
+    bool? primerAcceso = prefs.getBool('primerAcceso') ?? false;
+
+    print('primer acceso bool:$primerAcceso');
 
     if (primerAcceso == true) {
       Navigator.pushReplacement(
@@ -186,54 +169,5 @@ class _percentIndicatorState extends State<percentIndicator> {
             MaterialPageRoute(builder: (_) => CategoriasSelectCards()));
       }
     }
-  }
-}
-
-class CountingAnimation extends StatefulWidget {
-  final int endCount;
-
-  CountingAnimation({required this.endCount});
-
-  @override
-  _CountingAnimationState createState() => _CountingAnimationState();
-}
-
-class _CountingAnimationState extends State<CountingAnimation>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: Duration(seconds: 9),
-      vsync: this,
-    );
-    _animation = Tween<double>(begin: 0, end: widget.endCount.toDouble())
-        .animate(_controller);
-    _controller.forward();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animation,
-      builder: (BuildContext context, Widget? child) {
-        return Text(
-          _animation.value.toInt().toString(),
-          style: TextStyle(
-            fontSize: 10,
-            color: Colors.white,
-          ),
-        );
-      },
-    );
   }
 }

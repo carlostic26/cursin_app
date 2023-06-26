@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cursin/model/dbhelper.dart';
 import 'package:cursin/screens/drawer/drawer.dart';
 import 'package:cursin/screens/drawer/drawer_options/certificados.dart';
-import 'package:cursin/screens/courses_webview.dart';
+import 'package:cursin/screens/webview/courses_webview.dart';
 import 'package:cursin/screens/drawer/drawer_options/categorias_select.dart';
 import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
 import 'package:cursin/screens/infoScreens/agradecimientos.dart';
@@ -65,6 +65,12 @@ class _CoursesFavsState extends State<CoursesFavs> {
     SharedPreferences themePrefs = await SharedPreferences.getInstance();
     setState(() {
       darkTheme1 = themePrefs.getBool('isDarkTheme');
+    });
+  }
+
+  void updateDarkTheme(bool value) {
+    setState(() {
+      darkTheme1 = value;
     });
   }
 
@@ -150,36 +156,9 @@ class _CoursesFavsState extends State<CoursesFavs> {
                 child: const CircularProgressIndicator(),
               );
             } else if (snapshot.hasError) {
-              return Center(
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 8, 15, 8),
-                    child: RichText(
-                      text: TextSpan(
-                        text: "No tienes ningún curso guardado por el momento.",
-                        style: TextStyle(
-                            color: darkTheme1 == true
-                                ? Colors.white
-                                : Colors.black,
-                            fontSize: 15.0),
-                      ),
-                    ),
-                  ),
-                ),
-              );
+              return Text('Error: ${snapshot.error}');
             } else {
               var items = snapshot.data ?? <curso>[];
-              if (items.length == 0) {
-                return Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'No se encontraron cursos guardados',
-                      style: TextStyle(fontSize: 12.0),
-                    ),
-                  ),
-                );
-              }
 
               return Container(
                 margin: EdgeInsets.symmetric(
@@ -194,7 +173,6 @@ class _CoursesFavsState extends State<CoursesFavs> {
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
                       onTap: () {
-                        //Navigator.pop(context);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -207,125 +185,162 @@ class _CoursesFavsState extends State<CoursesFavs> {
                         );
                       },
                       child: Padding(
-                        padding: const EdgeInsets.fromLTRB(7, 5, 1, 5),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: darkTheme1 == true
-                                ? Colors.grey[850]
-                                : Colors.white, // Your desired background color
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Container(
-                            child: new Row(
-                              children: <Widget>[
-                                //IMAGEN DEL CURSO
-                                Padding(
-                                    padding: const EdgeInsets.fromLTRB(1.0, 1.0,
-                                        0.0, 1.0), //borde de la imagen
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(20.0),
-                                      child: CachedNetworkImage(
-                                        imageUrl: items[index].imgcourse,
-                                        width: 120.0,
-                                        height: 100.0,
-                                        fit: BoxFit.cover,
-                                        placeholder: (context, url) => Center(
-                                            child: CircularProgressIndicator()),
-                                        errorWidget: (context, url, error) =>
-                                            Icon(Icons.error),
-                                      ),
-                                    )),
-                                Container(
-                                  child: Expanded(
-                                    //para que no haya overflow
-                                    child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          8.0, 1.0, 1.0, 1.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                        padding: const EdgeInsets.fromLTRB(7, 5, 7, 5),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: darkTheme1 == true
+                                      ? Colors.grey[850]
+                                      : Colors
+                                          .white, // Your desired background color
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Container(
+                                  child: new Row(
+                                    children: <Widget>[
+                                      //IMAGEN DEL CURSO
+                                      Stack(
                                         children: [
-                                          Text(
-                                            items[index].title,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16,
-                                              //COLOR DEL TEXTO TITULO
-                                              color: Color.fromARGB(
-                                                  255, 53, 164, 255),
+                                          //IMAGEN DEL CURSO
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                0.5,
+                                                0.5,
+                                                0.0,
+                                                0.5), //borde de la imagen
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0),
+                                              child: CachedNetworkImage(
+                                                imageUrl:
+                                                    items[index].imgcourse,
+                                                width: 120.0,
+                                                height: 100.0,
+                                                fit: BoxFit.cover,
+                                                placeholder: (context, url) =>
+                                                    Center(
+                                                        child:
+                                                            CircularProgressIndicator()),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Icon(Icons.error),
+                                              ),
                                             ),
                                           ),
-                                          //SizedBox(height: 2),
-                                          Row(
-                                            children: [
-                                              new Expanded(
-                                                flex: 1,
-                                                child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      //entidad del curso
-                                                      Text(
-                                                        items[index].entidad,
-                                                        style: TextStyle(
-                                                          fontSize: 12,
-                                                          color: darkTheme1 ==
-                                                                  true
-                                                              ? Color.fromARGB(
-                                                                  255,
-                                                                  175,
-                                                                  175,
-                                                                  175)
-                                                              : Colors
-                                                                  .grey[850],
-                                                        ),
-                                                      ),
-
-                                                      //emision
-                                                      Text(items[index].emision,
-                                                          textAlign:
-                                                              TextAlign.left,
-                                                          style: TextStyle(
-                                                              fontSize: 10,
-                                                              color: darkTheme1 ==
-                                                                          true &&
-                                                                      items[index]
-                                                                              .emision ==
-                                                                          'Con certificado gratis'
-                                                                  ? Colors
-                                                                      .greenAccent
-                                                                  : darkTheme1 ==
-                                                                              false &&
-                                                                          items[index].emision ==
-                                                                              'Con certificado gratis'
-                                                                      ? Color.fromARGB(
-                                                                          255,
-                                                                          1,
-                                                                          77,
-                                                                          40)
-                                                                      : darkTheme1 == false ||
-                                                                              darkTheme1 == true &&
-                                                                                  items[index].emision !=
-                                                                                      'Con certificado gratis'
-                                                                          ? Colors
-                                                                              .grey
-                                                                          : null,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .normal)),
-                                                    ]),
+                                          // ICONO EN LA ESQUINA SUPERIOR DERECHA
+                                          Positioned(
+                                            top: 3,
+                                            left: 0,
+                                            child: ClipOval(
+                                              child: Container(
+                                                color:
+                                                    Color.fromARGB(0, 0, 0, 0),
+                                                child: CachedNetworkImage(
+                                                  imageUrl: items[index]
+                                                              .emision ==
+                                                          'Con certificado gratis'
+                                                      ? 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh196XA1WTIRg2137-jK7x5yHCP7f4A9B6C0AsADMoSeyx9Mnz1CC1WVwGdHWn-Cr-RFGyGTSJ1JmaGoe2tKI3B8J9o7L2OZIkhM9dIiqeuXPHsg5WtPMwI8XrABN1EbQoJCy_CK_6YbNunLu8e6YIkWEDxVXz9lVSzQyXIbKLuFfecNje6wflFLgCa/w200-h200/3m7.PNG'
+                                                      : 'https://blogger.googleusercontent.com/img/a/AVvXsEjHD0pCtfjYChXbmlmbbZ-xHsf0EH1Jfzx2j7utG-3_3Rz5UvftUT9SfxAJ8iw3R59mQtN6pwk7iY6M0OO9I3eMzLqzIQeCIbBWoA6U3GtuVh1UWsHYANbPPKQWHmd41p3lAmXGexXG62eEtmmbdsldbmRyemO2B1zp4SrCslPg8wvxd9PbHWaFbA',
+                                                  width: 30.0,
+                                                  height: 30.0,
+                                                  fit: BoxFit.contain,
+                                                  placeholder: (context, url) =>
+                                                      Center(
+                                                          child:
+                                                              CircularProgressIndicator()),
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          Icon(Icons.error),
+                                                ),
                                               ),
-                                            ],
+                                            ),
                                           ),
                                         ],
                                       ),
-                                    ),
+                                      Container(
+                                        child: Expanded(
+                                          //para que no haya overflow
+                                          child: Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                8.0, 1.0, 1.0, 1.0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  items[index].title,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 16,
+                                                    //COLOR DEL TEXTO TITULO
+                                                    color: Color.fromARGB(
+                                                        255, 53, 164, 255),
+                                                  ),
+                                                ),
+                                                //SizedBox(height: 2),
+                                                Row(
+                                                  children: [
+                                                    new Expanded(
+                                                      flex: 1,
+                                                      child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            //entidad del curso
+                                                            Text(
+                                                              items[index]
+                                                                  .entidad,
+                                                              style: TextStyle(
+                                                                fontSize: 12,
+                                                                color: darkTheme1 ==
+                                                                        true
+                                                                    ? Color
+                                                                        .fromARGB(
+                                                                            255,
+                                                                            175,
+                                                                            175,
+                                                                            175)
+                                                                    : Colors.grey[
+                                                                        850],
+                                                              ),
+                                                            ),
+
+                                                            //emision
+                                                            Text(
+                                                                items[index]
+                                                                    .emision,
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .left,
+                                                                style: TextStyle(
+                                                                    fontSize: 10,
+                                                                    color: darkTheme1 == true && items[index].emision == 'Con certificado gratis'
+                                                                        ? Colors.greenAccent
+                                                                        : darkTheme1 == false && items[index].emision == 'Con certificado gratis'
+                                                                            ? Color.fromARGB(255, 1, 77, 40)
+                                                                            : darkTheme1 == false || darkTheme1 == true && items[index].emision != 'Con certificado gratis'
+                                                                                ? Colors.grey
+                                                                                : null,
+                                                                    fontWeight: FontWeight.normal)),
+                                                          ]),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
+                          ],
                         ),
                       ),
                     );

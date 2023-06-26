@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cursin/screens/courses_webview.dart';
+import 'package:cursin/screens/webview/courses_webview.dart';
 import 'package:cursin/screens/drawer/drawer.dart';
 import 'package:cursin/screens/drawer/drawer_options/carruselCertifiedWidget.dart';
 import 'package:cursin/screens/drawer/drawer_options/courses_favs.dart';

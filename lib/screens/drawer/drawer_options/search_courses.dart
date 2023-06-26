@@ -287,16 +287,16 @@ class _searchedCoursesState extends State<searchedCourses> {
 
                                       // ICONO EN LA ESQUINA SUPERIOR DERECHA
                                       Positioned(
-                                        top: 0,
-                                        right: 0,
+                                        top: 3,
+                                        left: 0,
                                         child: ClipOval(
                                           child: Container(
                                             color: Color.fromARGB(0, 0, 0, 0),
                                             child: CachedNetworkImage(
                                               imageUrl: items[index].emision ==
                                                       'Con certificado gratis'
-                                                  ? 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg47FbGEI3-uSohlADrOVj4PpGLayN75_jJZ4kxDhGy8N_VhwJyaTxRW_k3ippCAlN6qq4IbzBOjRRx6oh58T0FB3D2zZrIfwYKxAR8BVvUz9NRP8QjHd0UCzdBJdxuffliWdAo3riK0FCLyLVJO7jdne3Lw6QISZdY1b_JMr33PbyVXyihyw0Big/w200-h184/2%20n.png'
-                                                  : 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEienswSNHjvo7zp4KVcqk0vaqs6Fv0IJQEQiKfbebupiqB1hinFbtPEakC8XOrJRPqXTOnPX7pIIoqyBGCBUQL575IIZLnZHWAfIo4WY6Y8xtalIbJ1v4iYH0GLGZspqMAM-MWwDaEaHtq3FaU83W6TST2EUVBS8S_LkUa3ks8arPSKp-KfbOSWSg/w200-h184/1%20n.png',
+                                                  ? 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh196XA1WTIRg2137-jK7x5yHCP7f4A9B6C0AsADMoSeyx9Mnz1CC1WVwGdHWn-Cr-RFGyGTSJ1JmaGoe2tKI3B8J9o7L2OZIkhM9dIiqeuXPHsg5WtPMwI8XrABN1EbQoJCy_CK_6YbNunLu8e6YIkWEDxVXz9lVSzQyXIbKLuFfecNje6wflFLgCa/w200-h200/3m7.PNG'
+                                                  : 'https://blogger.googleusercontent.com/img/a/AVvXsEjHD0pCtfjYChXbmlmbbZ-xHsf0EH1Jfzx2j7utG-3_3Rz5UvftUT9SfxAJ8iw3R59mQtN6pwk7iY6M0OO9I3eMzLqzIQeCIbBWoA6U3GtuVh1UWsHYANbPPKQWHmd41p3lAmXGexXG62eEtmmbdsldbmRyemO2B1zp4SrCslPg8wvxd9PbHWaFbA',
                                               width: 30.0,
                                               height: 30.0,
                                               fit: BoxFit.contain,
@@ -371,7 +371,7 @@ class _searchedCoursesState extends State<searchedCourses> {
                                                                               true &&
                                                                           items[index].emision !=
                                                                               'Con certificado gratis'
-                                                                  ? Colors.red
+                                                                  ? Colors.grey
                                                                   : null,
                                                       fontWeight:
                                                           FontWeight.normal)),
