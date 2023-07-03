@@ -68,7 +68,7 @@ class webviewTutoScreenState extends State<webviewTutoScreen> {
               },
             ),
             title: Text(
-              'Noticias Cursin',
+              'Tutoriales Cursin',
               style: TextStyle(fontSize: 15),
             ),
             centerTitle: true,

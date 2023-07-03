@@ -93,6 +93,15 @@ class _drawerCursinState extends State<drawerCursin> {
                           //update to sharedPreferences and set new theme
                           updatingTheme();
                         });
+
+                        Future.delayed(Duration(milliseconds: 200), () {
+                          //Navigator.of(context).pop(true);
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => CategoriasSelectCards()),
+                          );
+                        });
                       },
                       activeColor: Colors.grey,
                       trackColor: Colors.black,
@@ -243,34 +252,6 @@ class _drawerCursinState extends State<drawerCursin> {
                             color: darkTheme1 == true
                                 ? Colors.white
                                 : Colors.grey[850])),
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
-                          child: AnimatedTextKit(
-                            animatedTexts: [
-                              ColorizeAnimatedText(
-                                'Nuevo',
-                                textStyle: TextStyle(
-                                  color: Colors.red,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                colors: [
-                                  Colors.red,
-                                  Colors.yellow,
-                                  Colors.green,
-                                  Colors.blue,
-                                  Colors.purple,
-                                ],
-                                speed: Duration(milliseconds: 500),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    )
                   ],
                 ),
                 leading: Icon(
@@ -375,11 +356,43 @@ class _drawerCursinState extends State<drawerCursin> {
             ),
 
             ListTile(
-                title: Text("Tutoriales Cursin",
-                    style: TextStyle(
-                        color: darkTheme1 == true
-                            ? Colors.white
-                            : Colors.grey[850])),
+                title: Row(
+                  children: [
+                    Text("Tutoriales Cursin",
+                        style: TextStyle(
+                            color: darkTheme1 == true
+                                ? Colors.white
+                                : Colors.grey[850])),
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
+                          child: AnimatedTextKit(
+                            animatedTexts: [
+                              ColorizeAnimatedText(
+                                'Nuevo',
+                                textStyle: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                colors: [
+                                  Colors.red,
+                                  Colors.yellow,
+                                  Colors.green,
+                                  Colors.blue,
+                                  Colors.purple,
+                                ],
+                                speed: Duration(milliseconds: 500),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
                 leading: Icon(
                   Icons.important_devices,
                   color: darkTheme1 == true ? Colors.white : Colors.grey[850],

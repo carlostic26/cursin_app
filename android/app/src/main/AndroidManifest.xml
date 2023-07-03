@@ -6,6 +6,7 @@
    <application
         android:usesCleartextTraffic="true"
         android:label="Cursin"
+        android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
 
         <!-- change ID app  to test ID in the next line. actually is the real id: 433...-->

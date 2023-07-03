@@ -74,7 +74,7 @@ class _CourseDetailState extends State<CourseDetail> {
   RewardedAd? rewardedAd;
   int rewardedAdAttempts = 0;
 
-  //Creating interstitial
+/*   //Creating interstitial
   //not used for the moment
   void createInterstitialAd() {
     InterstitialAd.load(
@@ -94,7 +94,7 @@ class _CourseDetailState extends State<CourseDetail> {
           }
         }));
   }
-
+ */
   //showing interstitial
   void showInterstitialAd() {
     if (interstitialAd == null) {
@@ -110,13 +110,10 @@ class _CourseDetailState extends State<CourseDetail> {
           //muestro curso
           launch(widget.td.urlcourse); //when ad closed, run this
           ad.dispose();
-          createInterstitialAd();
         },
         onAdFailedToShowFullScreenContent: (ad, error) {
           ad.dispose();
           print('failed to show the ad $ad');
-
-          createInterstitialAd();
         });
 
     interstitialAd!.show();
@@ -298,7 +295,7 @@ class _CourseDetailState extends State<CourseDetail> {
 
     adForCourse = false;
     //load ads
-    createInterstitialAd();
+    //createInterstitialAd();
     loadStaticBannerAd();
 
     createRewardedAd();
@@ -382,17 +379,17 @@ class _CourseDetailState extends State<CourseDetail> {
                   // ICONO EN LA ESQUINA SUPERIOR DERECHA
                   Positioned(
                     top: 5,
-                    right: 0,
+                    right: 2,
                     child: ClipRect(
                       child: Container(
                         color: Color.fromARGB(0, 0, 0, 0),
                         child: CachedNetworkImage(
                           imageUrl: widget.td.emision ==
                                   'Con certificado gratis'
-                              ? 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg47FbGEI3-uSohlADrOVj4PpGLayN75_jJZ4kxDhGy8N_VhwJyaTxRW_k3ippCAlN6qq4IbzBOjRRx6oh58T0FB3D2zZrIfwYKxAR8BVvUz9NRP8QjHd0UCzdBJdxuffliWdAo3riK0FCLyLVJO7jdne3Lw6QISZdY1b_JMr33PbyVXyihyw0Big/w200-h184/2%20n.png'
-                              : 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEienswSNHjvo7zp4KVcqk0vaqs6Fv0IJQEQiKfbebupiqB1hinFbtPEakC8XOrJRPqXTOnPX7pIIoqyBGCBUQL575IIZLnZHWAfIo4WY6Y8xtalIbJ1v4iYH0GLGZspqMAM-MWwDaEaHtq3FaU83W6TST2EUVBS8S_LkUa3ks8arPSKp-KfbOSWSg/w200-h184/1%20n.png',
-                          width: 55.0,
-                          height: 60.0,
+                              ? 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjRLFEHYVoLlL4hmFrf_qEamOxDChdKy-7qYGmeT_ca1X62LuytAVqc2gXWDemQpOe1Kf-2FUQElVYx8583Kk12sN7siuSabRY-iDCDfAqdW9mZEWQF-EAcsAhLM08leySmOYu6T-SgxuswHvxjcXgEdT8vWGcQgi1dQ_zcUhXoGhW4eg--sG1-tWyg/s1600/0623.png'
+                              : 'https://blogger.googleusercontent.com/img/a/AVvXsEjHD0pCtfjYChXbmlmbbZ-xHsf0EH1Jfzx2j7utG-3_3Rz5UvftUT9SfxAJ8iw3R59mQtN6pwk7iY6M0OO9I3eMzLqzIQeCIbBWoA6U3GtuVh1UWsHYANbPPKQWHmd41p3lAmXGexXG62eEtmmbdsldbmRyemO2B1zp4SrCslPg8wvxd9PbHWaFbA',
+                          width: 50.0,
+                          height: 50.0,
                           fit: BoxFit.contain,
                           placeholder: (context, url) =>
                               Center(child: CircularProgressIndicator()),
@@ -612,7 +609,7 @@ class _CourseDetailState extends State<CourseDetail> {
                         Expanded(
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.pushReplacement(
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (_) => certificadosScreen()),
@@ -816,6 +813,10 @@ class _CourseDetailState extends State<CourseDetail> {
                     alignment: Alignment.topCenter,
                     padding: EdgeInsets.symmetric(horizontal: 5.0),
                     child: ElevatedButton.icon(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.green),
+                      ),
                       onPressed: () async {
                         //Read all coins saved
                         SharedPreferences coinsPrefs =

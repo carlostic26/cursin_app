@@ -156,7 +156,8 @@ class _CoursesFavsState extends State<CoursesFavs> {
                 child: const CircularProgressIndicator(),
               );
             } else if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
+              print('error: ${snapshot.error}');
+              return Text('Error: No tienes ningun curso guardado.');
             } else {
               var items = snapshot.data ?? <curso>[];
 
@@ -233,7 +234,7 @@ class _CoursesFavsState extends State<CoursesFavs> {
                                           // ICONO EN LA ESQUINA SUPERIOR DERECHA
                                           Positioned(
                                             top: 3,
-                                            left: 0,
+                                            right: 0,
                                             child: ClipOval(
                                               child: Container(
                                                 color:
@@ -242,7 +243,7 @@ class _CoursesFavsState extends State<CoursesFavs> {
                                                   imageUrl: items[index]
                                                               .emision ==
                                                           'Con certificado gratis'
-                                                      ? 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh196XA1WTIRg2137-jK7x5yHCP7f4A9B6C0AsADMoSeyx9Mnz1CC1WVwGdHWn-Cr-RFGyGTSJ1JmaGoe2tKI3B8J9o7L2OZIkhM9dIiqeuXPHsg5WtPMwI8XrABN1EbQoJCy_CK_6YbNunLu8e6YIkWEDxVXz9lVSzQyXIbKLuFfecNje6wflFLgCa/w200-h200/3m7.PNG'
+                                                      ? 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjRLFEHYVoLlL4hmFrf_qEamOxDChdKy-7qYGmeT_ca1X62LuytAVqc2gXWDemQpOe1Kf-2FUQElVYx8583Kk12sN7siuSabRY-iDCDfAqdW9mZEWQF-EAcsAhLM08leySmOYu6T-SgxuswHvxjcXgEdT8vWGcQgi1dQ_zcUhXoGhW4eg--sG1-tWyg/s1600/0623.png'
                                                       : 'https://blogger.googleusercontent.com/img/a/AVvXsEjHD0pCtfjYChXbmlmbbZ-xHsf0EH1Jfzx2j7utG-3_3Rz5UvftUT9SfxAJ8iw3R59mQtN6pwk7iY6M0OO9I3eMzLqzIQeCIbBWoA6U3GtuVh1UWsHYANbPPKQWHmd41p3lAmXGexXG62eEtmmbdsldbmRyemO2B1zp4SrCslPg8wvxd9PbHWaFbA',
                                                   width: 30.0,
                                                   height: 30.0,

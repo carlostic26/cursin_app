@@ -36,6 +36,10 @@ if (keystorePropertiesFile.exists()) {
 android {
     compileSdkVersion 33
 
+    dexOptions {
+        javaMaxHeapSize "4g" // Aumenta la memoria asignada, por ejemplo, a 4 GB
+    }
+
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }

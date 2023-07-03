@@ -6,7 +6,7 @@ class CoinsPreference {
 
   Future<int> getCoins() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getInt('coins') ?? 2;
+    return prefs.getInt('coins') ?? 12;
   }
 
   setCoins(int coinsShp) async {

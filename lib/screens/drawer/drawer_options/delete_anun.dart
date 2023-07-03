@@ -271,9 +271,30 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
               ),
               SizedBox(height: 30),
 
+              Container(
+                alignment: Alignment.topCenter,
+                padding: EdgeInsets.symmetric(horizontal: 5.0),
+                child: Container(
+                  alignment: Alignment.topCenter,
+                  padding: EdgeInsets.symmetric(horizontal: 5.0),
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      showDialogConseguirMonedas();
+                    },
+                    icon: Icon(
+                      Icons.volunteer_activism,
+                      size: 20.0,
+                    ),
+                    label: Text('Conseguir monedas'), // <-- Text
+                  ),
+                ),
+              ),
+
+              SizedBox(height: 20),
+
               //eliminar coins para siempre, si el metodo funciona bien, se pasa a eliminar coins durante 2 meses
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(12.0),
                 child: Column(
                   children: [
                     Text(
@@ -282,9 +303,8 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
                           color:
                               darkTheme1 == true ? Colors.white : Colors.black),
                     ),
-                    SizedBox(height: 10),
                     Text(
-                      'Para conseguir monedas solo debes ver algunos videos.',
+                      '\n\nPara conseguir monedas solo debes ver algunos videos.\n',
                       style: TextStyle(
                           color:
                               darkTheme1 == true ? Colors.white : Colors.black),
@@ -292,7 +312,6 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 30),
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -503,27 +522,6 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 30),
-
-              Container(
-                alignment: Alignment.topCenter,
-                padding: EdgeInsets.symmetric(horizontal: 5.0),
-                child: Container(
-                  alignment: Alignment.topCenter,
-                  padding: EdgeInsets.symmetric(horizontal: 5.0),
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      showDialogConseguirMonedas();
-                    },
-                    icon: Icon(
-                      Icons.volunteer_activism,
-                      size: 20.0,
-                    ),
-                    label: Text('Conseguir monedas'), // <-- Text
-                  ),
-                ),
-              ),
-
               SizedBox(height: 30),
             ])));
   }

@@ -115,7 +115,7 @@ class _certificadosScreenState extends State<certificadosScreen> {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Text(
-                'Estos son algunos ejemplos de los certificados que puedes obtener de forma gratuita usando la app cursin como herramienta para encontrar cursos gratis online de toda internet.',
+                'Estos son algunos certificados que puedes obtener usando Cursin App como herramienta para encontrar cursos gratis online de toda internet.',
                 style: TextStyle(
                   fontSize: 12.0,
                   color: darkTheme1 == true ? Colors.white : Colors.black,
