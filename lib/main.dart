@@ -3,7 +3,6 @@ import 'package:cursin/controller/theme_preferences.dart';
 import 'package:cursin/screens/launch/percent_indicator_riverpod.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cursin/model/dbhelper.dart';
-import 'package:cursin/screens/launch/percent_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,7 +16,7 @@ Future<void> loadAd() async {
     adUnitId:
         // test:  // ca-app-pub-3940256099942544/3419835294
         // real: ca-app-pub-4336409771912215/5446190186 || real2:ca-app-pub-4336409771912215/5955842482
-        'ca-app-pub-3940256099942544/3419835294',
+        'ca-app-pub-4336409771912215/5955842482',
     request: const AdRequest(),
     adLoadCallback: AppOpenAdLoadCallback(
       onAdLoaded: (ad) {

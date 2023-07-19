@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cursin/screens/webview/courses_webview.dart';
 import 'package:flutter_webview_pro/webview_flutter.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -126,7 +127,22 @@ class _courseOptionState extends State<courseOption> {
                       showDialog(
                           context: context,
                           builder: (context) {
-                            Future.delayed(Duration(seconds: 4), () {
+                            int seconds = 5;
+
+                            if (widget.nombreEntidad
+                                .contains('Fundación Carlos Slim')) {
+                              seconds = 10;
+
+                              Future.delayed(Duration(seconds: seconds + 2),
+                                  () {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(SnackBar(
+                                  content: Text(
+                                      "Espera un momento mientras se carga el sitio..."),
+                                ));
+                              });
+                            }
+                            Future.delayed(Duration(seconds: seconds), () {
                               Navigator.of(context).pop(true);
                             });
 

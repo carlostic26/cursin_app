@@ -157,7 +157,7 @@ class _CoursesFavsState extends State<CoursesFavs> {
               );
             } else if (snapshot.hasError) {
               print('error: ${snapshot.error}');
-              return Text('Error: No tienes ningun curso guardado.');
+              return Text('No tienes ningun curso guardado.');
             } else {
               var items = snapshot.data ?? <curso>[];
 
