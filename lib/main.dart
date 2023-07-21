@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cursin/ads_ids/ads.dart';
 import 'package:cursin/controller/theme_preferences.dart';
 import 'package:cursin/screens/launch/percent_indicator_riverpod.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,12 +12,10 @@ AppOpenAd? openAd;
 bool isAdLoaded = false;
 
 Future<void> loadAd() async {
+  CursinAdsIds cursinAds = CursinAdsIds();
   //apertura
   await AppOpenAd.load(
-    adUnitId:
-        // test:  // ca-app-pub-3940256099942544/3419835294
-        // real: ca-app-pub-4336409771912215/5446190186 || real2:ca-app-pub-4336409771912215/5955842482
-        'ca-app-pub-4336409771912215/5955842482',
+    adUnitId: cursinAds.openApp_adUnitId,
     request: const AdRequest(),
     adLoadCallback: AppOpenAdLoadCallback(
       onAdLoaded: (ad) {

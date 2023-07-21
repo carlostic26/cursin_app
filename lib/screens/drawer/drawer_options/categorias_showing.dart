@@ -1,16 +1,13 @@
 import 'dart:math';
-
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cursin/ads_ids/ads.dart';
 import 'package:cursin/model/curso_lista_model.dart';
 import 'package:cursin/screens/detail_course.dart';
 import 'package:cursin/model/dbhelper.dart';
 import 'package:cursin/screens/drawer/drawer_options/categorias_select.dart';
 import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
-import 'package:cursin/screens/drawer/drawer_options/ultimos_cursos.dart';
 import 'package:flutter/material.dart';
-import 'package:giff_dialog/giff_dialog.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -28,33 +25,56 @@ class _categoriaState extends State<categorias> {
   late DatabaseHandler handler;
   Future<List<curso>>? _curso;
 
-  //ads variables
-  late BannerAd staticAd;
-  bool staticAdLoaded = false;
+  BannerAd? _anchoredAdaptiveAd;
+  bool _isLoaded = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _loadAdaptativeAd();
+  }
+
+  Future<void> _loadAdaptativeAd() async {
+    CursinAdsIds Cursin_ads = CursinAdsIds();
+    // Get an AnchoredAdaptiveBannerAdSize before loading the ad.
+    final AnchoredAdaptiveBannerAdSize? size =
+        await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
+            MediaQuery.of(context).size.width.truncate());
+
+    if (size == null) {
+      print('Unable to get height of anchored banner.');
+      return;
+    }
+
+    _anchoredAdaptiveAd = BannerAd(
+      // TODO: replace these test ad units with your own ad unit.
+      adUnitId: Cursin_ads.banner_adUnitId,
+      size: size,
+      request: AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          print('$ad loaded: ${ad.responseInfo}');
+          setState(() {
+            // When the ad is loaded, get the ad size and use it to set
+            // the height of the ad container.
+            _anchoredAdaptiveAd = ad as BannerAd;
+            _isLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          print('Anchored adaptive banner failedToLoad: $error');
+          ad.dispose();
+        },
+      ),
+    );
+    return _anchoredAdaptiveAd!.load();
+  }
 
   static const AdRequest request = AdRequest(
       //keywords: ['',''],
       //contentUrl: '',
       //nonPersonalizedAds: false
       );
-
-  void loadStaticBannerAd() {
-    staticAd = BannerAd(
-        //test: ca-app-pub-4336409771912215/8304641094  ||  real: ca-app-pub-4336409771912215/1019860019
-        adUnitId: 'ca-app-pub-4336409771912215/1019860019',
-        size: AdSize.banner,
-        request: request,
-        listener: BannerAdListener(onAdLoaded: (ad) {
-          setState(() {
-            staticAdLoaded = true;
-          });
-        }, onAdFailedToLoad: (ad, error) {
-          ad.dispose();
-          print('ad failed to load ${error.message}');
-        }));
-
-    staticAd.load();
-  }
 
   // get email to check login sesion
   String email = "";
@@ -76,7 +96,7 @@ class _categoriaState extends State<categorias> {
     //es necesario inicializar el sharedpreferences tema, para que la variable book darkTheme esté inicializada como la recepcion del valor del sharedpreferences
     getSharedThemePrefs();
 
-    loadStaticBannerAd();
+    _loadAdaptativeAd();
     tapFav = false;
 
     switch (widget.catProviene) {
@@ -815,24 +835,20 @@ class _categoriaState extends State<categorias> {
             }
           },
         ),
-        bottomNavigationBar: Container(
-          height: 60,
-          child: Center(
-            child: Column(
-              children: [
-                Container(
-                  //load de ad and give size
-                  child: AdWidget(
-                    ad: staticAd,
-                  ),
-                  width: staticAd.size.width.toDouble(),
-                  height: staticAd.size.height.toDouble(),
-                  alignment: Alignment.bottomCenter,
-                )
-              ],
-            ),
-          ),
-        ),
+        bottomNavigationBar: _anchoredAdaptiveAd != null && _isLoaded
+            ? Container(
+                color: Color.fromARGB(0, 33, 149, 243),
+                width: _anchoredAdaptiveAd!.size.width.toDouble(),
+                height: _anchoredAdaptiveAd!.size.height.toDouble(),
+                child: AdWidget(ad: _anchoredAdaptiveAd!),
+              )
+            : Container(
+                color: Color.fromARGB(0, 33, 149,
+                    243), // Aquí se establece el color del Container
+                width: _anchoredAdaptiveAd!.size.width.toDouble(),
+                height: _anchoredAdaptiveAd!.size.height.toDouble(),
+                child: AdWidget(ad: _anchoredAdaptiveAd!),
+              ),
       ),
     );
   }

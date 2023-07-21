@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cursin/ads_ids/ads.dart';
 import 'package:cursin/screens/drawer/drawer_options/certificados.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -29,6 +30,8 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
   int rewardedAdAttempts = 0;
   int actualCursinCoins = 0;
 
+  CursinAdsIds cursinAds = CursinAdsIds();
+
   static const AdRequest request = AdRequest(
       //keywords: ['',''],
       //contentUrl: '',
@@ -37,9 +40,7 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
 
   void createRewardedAd() {
     RewardedAd.load(
-        adUnitId: //rewarded ad, test: ca-app-pub-3940256099942544/5354046379 || real: ca-app-pub-4336409771912215/7921940595
-
-            'ca-app-pub-4336409771912215/7921940595',
+        adUnitId: cursinAds.reward_adUnitId,
         request: request,
         rewardedAdLoadCallback: RewardedAdLoadCallback(onAdLoaded: (ad) {
           rewardedAd = ad;

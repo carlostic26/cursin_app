@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cursin/ads_ids/ads.dart';
 import 'package:cursin/model/curso_lista_model.dart';
 import 'package:cursin/screens/detail_course.dart';
 import 'package:cursin/model/dbhelper.dart';
@@ -25,9 +26,50 @@ class _searchedCoursesState extends State<searchedCourses> {
   late DatabaseHandler handler;
   Future<List<curso>>? _todo;
 
-  //ads
-  late BannerAd staticAd;
-  bool staticAdLoaded = false;
+  BannerAd? _anchoredAdaptiveAd;
+  bool _isLoaded = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _loadAdaptativeAd();
+  }
+
+  Future<void> _loadAdaptativeAd() async {
+    CursinAdsIds cursinAds = CursinAdsIds();
+    // Get an AnchoredAdaptiveBannerAdSize before loading the ad.
+    final AnchoredAdaptiveBannerAdSize? size =
+        await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
+            MediaQuery.of(context).size.width.truncate());
+
+    if (size == null) {
+      print('Unable to get height of anchored banner.');
+      return;
+    }
+
+    _anchoredAdaptiveAd = BannerAd(
+      // TODO: replace these test ad units with your own ad unit.
+      adUnitId: cursinAds.banner_adUnitId,
+      size: size,
+      request: AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          print('$ad loaded: ${ad.responseInfo}');
+          setState(() {
+            // When the ad is loaded, get the ad size and use it to set
+            // the height of the ad container.
+            _anchoredAdaptiveAd = ad as BannerAd;
+            _isLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          print('Anchored adaptive banner failedToLoad: $error');
+          ad.dispose();
+        },
+      ),
+    );
+    return _anchoredAdaptiveAd!.load();
+  }
 
   final TextEditingController searchController = TextEditingController();
 
@@ -38,25 +80,6 @@ class _searchedCoursesState extends State<searchedCourses> {
       //contentUrl: '',
       //nonPersonalizedAds: false
       );
-
-  void loadStaticBannerAd() {
-    staticAd = BannerAd(
-        adUnitId: //test: ca-app-pub-4336409771912215/8304641094  ||  real: ca-app-pub-4336409771912215/1019860019
-
-            'ca-app-pub-4336409771912215/1019860019',
-        size: AdSize.banner,
-        request: request,
-        listener: BannerAdListener(onAdLoaded: (ad) {
-          setState(() {
-            staticAdLoaded = true;
-          });
-        }, onAdFailedToLoad: (ad, error) {
-          ad.dispose();
-          print('ad failed to load ${error.message}');
-        }));
-
-    staticAd.load();
-  }
 
   bool? darkTheme1;
 
@@ -72,7 +95,8 @@ class _searchedCoursesState extends State<searchedCourses> {
     //es necesario inicializar el sharedpreferences tema, para que la variable book darkTheme esté inicializada como la recepcion del valor del sharedpreferences
     getSharedThemePrefs();
     //load ads
-    loadStaticBannerAd();
+    //loadStaticBannerAd();
+    _loadAdaptativeAd();
   }
 
   Future<List<curso>> getListCoursesFound(query) async {
@@ -158,25 +182,20 @@ class _searchedCoursesState extends State<searchedCourses> {
                 ),
               ),
 
-        //ad banner bottom screen
-        bottomNavigationBar: Container(
-          height: 60,
-          child: Center(
-            child: Column(
-              children: [
-                Container(
-                  //load de ad and give size
-                  child: AdWidget(
-                    ad: staticAd,
-                  ),
-                  width: staticAd.size.width.toDouble(),
-                  height: staticAd.size.height.toDouble(),
-                  alignment: Alignment.bottomCenter,
-                )
-              ],
-            ),
-          ),
-        ),
+        bottomNavigationBar: _anchoredAdaptiveAd != null && _isLoaded
+            ? Container(
+                color: Color.fromARGB(0, 33, 149, 243),
+                width: _anchoredAdaptiveAd!.size.width.toDouble(),
+                height: _anchoredAdaptiveAd!.size.height.toDouble(),
+                child: AdWidget(ad: _anchoredAdaptiveAd!),
+              )
+            : Container(
+                color: Color.fromARGB(0, 33, 149,
+                    243), // Aquí se establece el color del Container
+                width: _anchoredAdaptiveAd!.size.width.toDouble(),
+                height: _anchoredAdaptiveAd!.size.height.toDouble(),
+                child: AdWidget(ad: _anchoredAdaptiveAd!),
+              ),
       ),
     );
   }
