@@ -271,6 +271,21 @@ class _drawerCursinState extends State<drawerCursin> {
                     ),
                   );
                 }),
+
+            ListTile(
+                title: Text("¿Problemas para ingresar?",
+                    style: TextStyle(
+                        color: darkTheme1 == true
+                            ? Colors.white
+                            : Colors.grey[850])),
+                leading: Icon(
+                  Icons.sentiment_very_dissatisfied_sharp,
+                  color: darkTheme1 == true ? Colors.white : Colors.grey[850],
+                ),
+                onTap: () {
+                  _showDialogBugCursok(context);
+                }),
+
             ListTile(
               title: Text("Reportar un problema",
                   style: TextStyle(
@@ -354,7 +369,20 @@ class _drawerCursinState extends State<drawerCursin> {
               //at press, run the method
               onTap: () => {showinfo(context)},
             ),
-
+            ListTile(
+              title: Text("Politica de privacidad",
+                  style: TextStyle(
+                      color: darkTheme1 == true
+                          ? Colors.white
+                          : Colors.grey[850])),
+              leading: Icon(
+                Icons.policy,
+                color: darkTheme1 == true ? Colors.white : Colors.grey[850],
+              ),
+              //at press, run the method
+              onTap: () => launch(
+                  'https://www.ticnoticos.com/2023/07/privacy-policy-cursin-encuentra-cursos.html'),
+            ),
             ListTile(
                 title: Row(
                   children: [
@@ -475,33 +503,6 @@ class _drawerCursinState extends State<drawerCursin> {
               ),
               //at press, run the method
               onTap: () => {GoAgradecimientos(context)},
-            ),
-            ListTile(
-                title: Text("¿Problemas para ingresar?",
-                    style: TextStyle(
-                        color: darkTheme1 == true
-                            ? Colors.white
-                            : Colors.grey[850])),
-                leading: Icon(
-                  Icons.sentiment_very_dissatisfied_sharp,
-                  color: darkTheme1 == true ? Colors.white : Colors.grey[850],
-                ),
-                onTap: () {
-                  _showDialogBugCursok(context);
-                }),
-            ListTile(
-              title: Text("Politica de privacidad",
-                  style: TextStyle(
-                      color: darkTheme1 == true
-                          ? Colors.white
-                          : Colors.grey[850])),
-              leading: Icon(
-                Icons.policy,
-                color: darkTheme1 == true ? Colors.white : Colors.grey[850],
-              ),
-              //at press, run the method
-              onTap: () => launch(
-                  'https://www.ticnoticos.com/2022/09/politica-cursin.html'),
             ),
           ],
         ),
