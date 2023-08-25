@@ -98,12 +98,12 @@ class _CourseDetailState extends State<CourseDetail> {
   RewardedAd? rewardedAd;
   int rewardedAdAttempts = 0;
 
-/*   //Creating interstitial
+//Creating interstitial
   //not used for the moment
   void createInterstitialAd() {
     InterstitialAd.load(
         // ignore: deprecated_member_use
-        adUnitId: InterstitialAd.testAdUnitId,
+        adUnitId: cursinAds.interstitial_adUnitId,
         request: request,
         adLoadCallback: InterstitialAdLoadCallback(onAdLoaded: (ad) {
           interstitialAd = ad;
@@ -118,11 +118,76 @@ class _CourseDetailState extends State<CourseDetail> {
           }
         }));
   }
- */
+
   //showing interstitial
   void showInterstitialAd() {
     if (interstitialAd == null) {
       print('trying to show before loading');
+      enterAcces++;
+
+      if (enterAcces == 1 || enterAcces == 2) {
+        Fluttertoast.showToast(
+          msg: "Reintentando...", // message
+          toastLength: Toast.LENGTH_SHORT, // length
+          gravity: ToastGravity.CENTER, // location
+        );
+      } else if (enterAcces == 3) {
+        Fluttertoast.showToast(
+          msg: "Tu telefono no ha cargado todos los componentes.", // message
+          toastLength: Toast.LENGTH_LONG, // length
+          gravity: ToastGravity.CENTER, // location
+        );
+      } else if (enterAcces == 4 || enterAcces == 5) {
+        Fluttertoast.showToast(
+          msg:
+              "Necesitas buena conexión. Cambiate a un Wi-Fi más cercano\nReintentando...", // message
+          toastLength: Toast.LENGTH_LONG, // length
+          gravity: ToastGravity.CENTER, // location
+        );
+
+        Navigator.pop(context);
+      } else if (enterAcces >= 6) {
+        Fluttertoast.showToast(
+          msg:
+              "No cuentas con buena conexión o estás usando algun bloqueador DNS. Es necesario que tu teléfono cargue los anuncios completamente.", // message
+          toastLength: Toast.LENGTH_LONG, // length
+          gravity: ToastGravity.CENTER, // location
+        );
+
+        //si definitivamente no ha cargado despues de 5 intentos, se genera un random al 50% para ingresar
+
+        int number = 0;
+        var rng = Random();
+        number = rng.nextInt(2); // 50%
+        print("numero aleatorio es: " + number.toString());
+
+        if (number == 1) {
+          Navigator.of(context).push(
+            PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) =>
+                  courseOption(
+                nameCourse: widget.td.title,
+                urlCourse: widget.td.urlcourse,
+                imgCourse: widget.td.imgcourse,
+                nombreEntidad: widget.td.entidad,
+              ),
+              transitionDuration:
+                  Duration(milliseconds: 500), // Duración de la transición
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return FadeTransition(
+                  opacity: animation,
+                  child: child,
+                );
+              },
+            ),
+          );
+        }
+        enterAcces = 0;
+      }
+
+      _showDialogProblemAds(context);
+
       return;
     }
 
@@ -130,9 +195,20 @@ class _CourseDetailState extends State<CourseDetail> {
         onAdShowedFullScreenContent: (ad) => print('ad showed $ad'),
 
         //when ad went closes
-        onAdDismissedFullScreenContent: (ad) {
-          //muestro curso
-          launch(widget.td.urlcourse); //when ad closed, run this
+        onAdDismissedFullScreenContent: (ad) async {
+          //set recent course acces, load actual last course
+          SharedPreferences lastCourse = await SharedPreferences.getInstance();
+          lastCourse.setString('lastCourse', widget.td.title);
+
+          //open screen to select option how to see course
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => courseOption(
+                    nameCourse: widget.td.title,
+                    urlCourse: widget.td.urlcourse,
+                    imgCourse: widget.td.imgcourse,
+                    nombreEntidad: widget.td.entidad,
+                  )));
+
           ad.dispose();
         },
         onAdFailedToShowFullScreenContent: (ad, error) {
@@ -317,10 +393,9 @@ class _CourseDetailState extends State<CourseDetail> {
 
     adForCourse = false;
     //load ads
-    //createInterstitialAd();
+    createInterstitialAd();
     //loadStaticBannerAd();
     _loadAdaptativeAd();
-
     createRewardedAd();
 
     getSharedPrefs();
@@ -1155,7 +1230,8 @@ class _CourseDetailState extends State<CourseDetail> {
                                 )),
                       );
                     } else {
-                      showRewardedAd(); //show ad
+                      showInterstitialAd();
+                      //showRewardedAd(); //show ad
                       Navigator.pop(context); //close dialog
                     }
                   }
