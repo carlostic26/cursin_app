@@ -96,13 +96,14 @@ class _certificadosScreenState extends State<certificadosScreen> {
   void initState() {
     super.initState();
 
-    _loadAdaptativeAd();
+    //_loadAdaptativeAd();
     //es necesario inicializar el sharedpreferences tema, para que la variable book darkTheme esté inicializada como la recepcion del valor del sharedpreferences
     getSharedThemePrefs();
   }
 
   @override
   Widget build(BuildContext context) {
+    _loadAdaptativeAd();
     return Scaffold(
       backgroundColor: darkTheme1 == true ? Colors.grey[850] : Colors.white,
       appBar: AppBar(
@@ -216,16 +217,15 @@ class _certificadosScreenState extends State<certificadosScreen> {
       bottomNavigationBar: _anchoredAdaptiveAd != null && _isLoaded
           ? Container(
               color: Color.fromARGB(0, 33, 149, 243),
-              width: _anchoredAdaptiveAd!.size.width.toDouble(),
-              height: _anchoredAdaptiveAd!.size.height.toDouble(),
+              width: _anchoredAdaptiveAd?.size.width.toDouble(),
+              height: _anchoredAdaptiveAd?.size.height.toDouble(),
               child: AdWidget(ad: _anchoredAdaptiveAd!),
             )
           : Container(
-              color: Color.fromARGB(
-                  0, 33, 149, 243), // Aquí se establece el color del Container
-              width: _anchoredAdaptiveAd!.size.width.toDouble(),
-              height: _anchoredAdaptiveAd!.size.height.toDouble(),
-              child: AdWidget(ad: _anchoredAdaptiveAd!),
+              color: Color.fromARGB(0, 33, 149, 243),
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height *
+                  0.1, // 10% de la altura de la pantalla
             ),
     );
   }

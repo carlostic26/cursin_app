@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'services/local_notifications/local_notifications.dart';
+
 AppOpenAd? openAd;
 bool isAdLoaded = false;
 
@@ -61,6 +63,9 @@ Future<void> main() async {
       await prefs.setBool('adCancelado', false);
     }
   });
+
+  //solicitar permisos local notification
+  await LocalNotifications.requestPermissionLocalNotification();
 
   runApp(ProviderScope(
     child: MaterialApp(

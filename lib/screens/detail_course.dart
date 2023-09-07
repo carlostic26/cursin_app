@@ -45,32 +45,31 @@ class _CourseDetailState extends State<CourseDetail> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _loadAdaptativeAd();
+    if (!_isLoaded) {
+      _loadAdaptativeAd();
+    }
   }
 
   CursinAdsIds cursinAds = CursinAdsIds();
-  Future<void> _loadAdaptativeAd() async {
-    // Get an AnchoredAdaptiveBannerAdSize before loading the ad.
-    final AnchoredAdaptiveBannerAdSize? size =
+/*   Future<void> _loadAdaptativeAd() async {
+    CursinAdsIds Cursin_ads = CursinAdsIds();
+    final adSize =
         await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
             MediaQuery.of(context).size.width.truncate());
 
-    if (size == null) {
+    if (adSize == null) {
       print('Unable to get height of anchored banner.');
       return;
     }
 
     _anchoredAdaptiveAd = BannerAd(
-      // TODO: replace these test ad units with your own ad unit.
-      adUnitId: cursinAds.banner_adUnitId,
-      size: size,
+      adUnitId: Cursin_ads.banner_adUnitId,
+      size: adSize,
       request: AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (Ad ad) {
           print('$ad loaded: ${ad.responseInfo}');
           setState(() {
-            // When the ad is loaded, get the ad size and use it to set
-            // the height of the ad container.
             _anchoredAdaptiveAd = ad as BannerAd;
             _isLoaded = true;
           });
@@ -81,9 +80,9 @@ class _CourseDetailState extends State<CourseDetail> {
         },
       ),
     );
-    return _anchoredAdaptiveAd!.load();
+    await _anchoredAdaptiveAd!.load();
   }
-
+ */
   static const AdRequest request = AdRequest(
       //keywords: ['',''],
       //contentUrl: '',
@@ -388,6 +387,7 @@ class _CourseDetailState extends State<CourseDetail> {
 
   @override
   void initState() {
+    super.initState();
     //es necesario inicializar el sharedpreferences tema, para que la variable book darkTheme esté inicializada como la recepcion del valor del sharedpreferences
     getSharedThemePrefs();
 
@@ -395,17 +395,22 @@ class _CourseDetailState extends State<CourseDetail> {
     //load ads
     createInterstitialAd();
     //loadStaticBannerAd();
-    _loadAdaptativeAd();
+    //_loadAdaptativeAd();
     createRewardedAd();
 
     getSharedPrefs();
-    super.initState();
   }
 
   int randNum = 0;
+  bool _isAdLoaded = false;
 
   @override
   Widget build(BuildContext context) {
+    if (!_isAdLoaded) {
+      _loadAdaptativeAd();
+      _isAdLoaded = true;
+    }
+
     return WillPopScope(
       onWillPop: () async {
         //Navigator.pop(context);
@@ -923,7 +928,14 @@ class _CourseDetailState extends State<CourseDetail> {
                         int actualCoins =
                             coinsPrefs.getInt('cursinCoinsSHP') ?? 2;
 
-                        if (actualCoins >= 12) {
+                        //data that ask if the last acces to course is the same course in the moment:
+                        SharedPreferences lastCourse =
+                            await SharedPreferences.getInstance();
+                        lastCourse.getString('lastCourse');
+
+                        if (actualCoins >= 12 ||
+                            widget.td.title ==
+                                lastCourse.getString('lastCourse')) {
                           //Navigator.pop(context); //close dialog
                           Navigator.of(context).push(
                             MaterialPageRoute(
@@ -976,19 +988,60 @@ class _CourseDetailState extends State<CourseDetail> {
         bottomNavigationBar: _anchoredAdaptiveAd != null && _isLoaded
             ? Container(
                 color: Color.fromARGB(0, 33, 149, 243),
-                width: _anchoredAdaptiveAd!.size.width.toDouble(),
-                height: _anchoredAdaptiveAd!.size.height.toDouble(),
+                width: _anchoredAdaptiveAd?.size.width.toDouble(),
+                height: _anchoredAdaptiveAd?.size.height.toDouble(),
                 child: AdWidget(ad: _anchoredAdaptiveAd!),
               )
             : Container(
-                color: Color.fromARGB(0, 33, 149,
-                    243), // Aquí se establece el color del Container
-                width: _anchoredAdaptiveAd!.size.width.toDouble(),
-                height: _anchoredAdaptiveAd!.size.height.toDouble(),
-                child: AdWidget(ad: _anchoredAdaptiveAd!),
+                color: Color.fromARGB(0, 33, 149, 243),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height *
+                    0.1, // 10% de la altura de la pantalla
               ),
       ),
     );
+  }
+
+  Future<void> _loadAdaptativeAd() async {
+    if (_isAdLoaded) {
+      return;
+    }
+
+    final AnchoredAdaptiveBannerAdSize? size =
+        await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
+            MediaQuery.of(context).size.width.truncate());
+
+    if (size == null) {
+      print('Unable to get height of anchored banner.');
+      return;
+    }
+
+    BannerAd loadedAd = BannerAd(
+      adUnitId: cursinAds.banner_adUnitId,
+      size: size,
+      request: AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          print('$ad loaded: ${ad.responseInfo}');
+          setState(() {
+            _anchoredAdaptiveAd = ad as BannerAd;
+            _isLoaded =
+                true; // Set _isLoaded to true only when ad is loaded successfully.
+          });
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          print('Anchored adaptive banner failedToLoad: $error');
+          ad.dispose();
+        },
+      ),
+    );
+
+    try {
+      await loadedAd.load();
+    } catch (e) {
+      print('Error loading anchored adaptive banner: $e');
+      loadedAd.dispose();
+    }
   }
 
   List messageMail = ["", "", "", "", ""];
@@ -1206,34 +1259,9 @@ class _CourseDetailState extends State<CourseDetail> {
                   if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
                     print('connected');
 
-                    //data that ask if the last acces to course is the same course in the moment:
-                    SharedPreferences lastCourse =
-                        await SharedPreferences.getInstance();
-                    lastCourse.getString('lastCourse');
-
-                    //if actual course is the same to last course
-                    if (title == lastCourse.getString('lastCourse')) {
-                      //no ads for the same course, go course without see ads
-                      print('no ads for the same course');
-
-                      //close this screen
-                      //Navigator.pop(context);
-
-                      //go to webview screen
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (context) => courseOption(
-                                  nameCourse: title,
-                                  urlCourse: urlcourse,
-                                  imgCourse: img,
-                                  nombreEntidad: entidad,
-                                )),
-                      );
-                    } else {
-                      showInterstitialAd();
-                      //showRewardedAd(); //show ad
-                      Navigator.pop(context); //close dialog
-                    }
+                    showInterstitialAd();
+                    //showRewardedAd(); //show ad
+                    Navigator.pop(context); //close dialog
                   }
                   //if doesnt exist conection, then show toast to advert
                 } on SocketException catch (_) {
@@ -1403,62 +1431,6 @@ class _CourseDetailState extends State<CourseDetail> {
         });
   }
 
-/*   void _showDialogBugCursok(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return SimpleDialog(
-              title: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Problemas al entrar",
-                      style: TextStyle(color: Colors.blue, fontSize: 20.0),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      'En algunos teléfonos la carga de anuncios suele tardarse más que en otros, dependiendo del smartphone que tengas. \n' +
-                          '\nTe recomendamos 4 posibles soluciones: \n\n' +
-                          '1. ¡No te aceleres! no ingreses tan rápido a los cursos cuando recien abras la app. Esto no le da tiempo a tu telefono de cargar los componentes necesarios para funcionar. Revisa varios cursos antes de entrar mientras esperas.' +
-                          ' \n\n2. Verifica tu conexión a internet. Los cursos funcionan solo si tienes conexión a internet, cambiate a WiFi si no puedes entrar con datos móviles.' +
-                          ' \n\n3. Corrige tu DNS de conexion para que no bloquee los anuncios, ya que estos son necesarios para que Cursin pueda seguir existiendo.' +
-                          ' \n\n4. Intenta volver abrir el curso 2 o 3 veces. O vuelve en un par de minutos.',
-                      style: TextStyle(color: Colors.black, fontSize: 13.0),
-                    ),
-                  ]),
-              children: <Widget>[
-                Container(
-                  alignment: Alignment.topCenter,
-                  padding: EdgeInsets.symmetric(horizontal: 5.0),
-                  child: ElevatedButton(
-                      style: ButtonStyle(
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                            side: BorderSide(
-                              color: Colors.blueAccent,
-                              width: 2.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                      child: Text(
-                        'Entiendo',
-                        style: TextStyle(fontSize: 15, color: Colors.white),
-                      ),
-                      //when user press "De acuerdo", it wil continue to add course dialog to pass another screen
-                      onPressed: () => {
-                            Navigator.pop(context),
-                          }),
-                ),
-              ]);
-        });
-  }
- */
   Future<void> sendSharedPreferences() async {
     SharedPreferences cursosFavString = await SharedPreferences.getInstance();
     String? getCoursesStringShP = cursosFavString.getString('coursesFavorites');

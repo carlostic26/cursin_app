@@ -31,32 +31,30 @@ class _categoriaState extends State<categorias> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _loadAdaptativeAd();
+    if (!_isLoaded) {
+      _loadAdaptativeAd();
+    }
   }
 
-  Future<void> _loadAdaptativeAd() async {
+/*   Future<void> _loadAdaptativeAd() async {
     CursinAdsIds Cursin_ads = CursinAdsIds();
-    // Get an AnchoredAdaptiveBannerAdSize before loading the ad.
-    final AnchoredAdaptiveBannerAdSize? size =
+    final adSize =
         await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
             MediaQuery.of(context).size.width.truncate());
 
-    if (size == null) {
+    if (adSize == null) {
       print('Unable to get height of anchored banner.');
       return;
     }
 
     _anchoredAdaptiveAd = BannerAd(
-      // TODO: replace these test ad units with your own ad unit.
       adUnitId: Cursin_ads.banner_adUnitId,
-      size: size,
+      size: adSize,
       request: AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (Ad ad) {
           print('$ad loaded: ${ad.responseInfo}');
           setState(() {
-            // When the ad is loaded, get the ad size and use it to set
-            // the height of the ad container.
             _anchoredAdaptiveAd = ad as BannerAd;
             _isLoaded = true;
           });
@@ -67,38 +65,10 @@ class _categoriaState extends State<categorias> {
         },
       ),
     );
-    return _anchoredAdaptiveAd!.load();
+    await _anchoredAdaptiveAd!.load();
   }
-
-  static const AdRequest request = AdRequest(
-      //keywords: ['',''],
-      //contentUrl: '',
-      //nonPersonalizedAds: false
-      );
-
-  // get email to check login sesion
-  String email = "";
-  var children;
-
-  late bool tapFav;
-
-  bool? darkTheme1;
-
-  Future<Null> getSharedThemePrefs() async {
-    SharedPreferences themePrefs = await SharedPreferences.getInstance();
-    setState(() {
-      darkTheme1 = themePrefs.getBool('isDarkTheme');
-    });
-  }
-
-  @override
-  void initState() {
-    //es necesario inicializar el sharedpreferences tema, para que la variable book darkTheme esté inicializada como la recepcion del valor del sharedpreferences
-    getSharedThemePrefs();
-
-    _loadAdaptativeAd();
-    tapFav = false;
-
+ */
+  void setCategory() {
     switch (widget.catProviene) {
       case "Transporte":
         {
@@ -342,8 +312,39 @@ class _categoriaState extends State<categorias> {
         }
         break;
     }
+  }
 
+  @override
+  void initState() {
     super.initState();
+    //es necesario inicializar el sharedpreferences tema, para que la variable book darkTheme esté inicializada como la recepcion del valor del sharedpreferences
+    getSharedThemePrefs();
+
+    //_loadAdaptativeAd();
+    tapFav = false;
+
+    setCategory();
+  }
+
+  static const AdRequest request = AdRequest(
+      //keywords: ['',''],
+      //contentUrl: '',
+      //nonPersonalizedAds: false
+      );
+
+  // get email to check login sesion
+  String email = "";
+  var children;
+
+  late bool tapFav;
+
+  bool? darkTheme1;
+
+  Future<Null> getSharedThemePrefs() async {
+    SharedPreferences themePrefs = await SharedPreferences.getInstance();
+    setState(() {
+      darkTheme1 = themePrefs.getBool('isDarkTheme');
+    });
   }
 
   //Methods that receive the list select from dbhelper
@@ -575,8 +576,15 @@ class _categoriaState extends State<categorias> {
     });
   }
 
+  bool _isAdLoaded = false;
+
   @override
   Widget build(BuildContext context) {
+    if (!_isAdLoaded) {
+      _loadAdaptativeAd();
+      _isAdLoaded = true;
+    }
+
     return WillPopScope(
       onWillPop: () async {
         //Navigator.pop(context);
@@ -838,19 +846,55 @@ class _categoriaState extends State<categorias> {
         bottomNavigationBar: _anchoredAdaptiveAd != null && _isLoaded
             ? Container(
                 color: Color.fromARGB(0, 33, 149, 243),
-                width: _anchoredAdaptiveAd!.size.width.toDouble(),
-                height: _anchoredAdaptiveAd!.size.height.toDouble(),
+                width: _anchoredAdaptiveAd?.size.width.toDouble(),
+                height: _anchoredAdaptiveAd?.size.height.toDouble(),
                 child: AdWidget(ad: _anchoredAdaptiveAd!),
               )
             : Container(
-                color: Color.fromARGB(0, 33, 149,
-                    243), // Aquí se establece el color del Container
-                width: _anchoredAdaptiveAd!.size.width.toDouble(),
-                height: _anchoredAdaptiveAd!.size.height.toDouble(),
-                child: AdWidget(ad: _anchoredAdaptiveAd!),
+                color: Color.fromARGB(0, 33, 149, 243),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height *
+                    0.1, // 10% de la altura de la pantalla
               ),
       ),
     );
+  }
+
+  Future<void> _loadAdaptativeAd() async {
+    if (_isAdLoaded) {
+      return;
+    }
+
+    final AnchoredAdaptiveBannerAdSize? size =
+        await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
+            MediaQuery.of(context).size.width.truncate());
+
+    if (size == null) {
+      print('Unable to get height of anchored banner.');
+      return;
+    }
+
+    CursinAdsIds Cursin_ads = CursinAdsIds();
+
+    _anchoredAdaptiveAd = BannerAd(
+      adUnitId: Cursin_ads.banner_adUnitId,
+      size: size,
+      request: AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          print('$ad loaded: ${ad.responseInfo}');
+          setState(() {
+            _anchoredAdaptiveAd = ad as BannerAd;
+            _isLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          print('Anchored adaptive banner failedToLoad: $error');
+          ad.dispose();
+        },
+      ),
+    );
+    await _anchoredAdaptiveAd!.load();
   }
 
   void _showDialogDigitalizados(BuildContext context) {

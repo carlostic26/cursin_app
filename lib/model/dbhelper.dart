@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cursin/model/curso_lista_model.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,7 +10,7 @@ class DatabaseHandler {
   Future<Database> initializeDB() async {
     String path = await getDatabasesPath();
     return openDatabase(
-      join(path, 'courses006.db'),
+      join(path, 'courses009.db'),
       onCreate: (database, version) async {
         final String sql = ''
             'CREATE TABLE cursos ('
@@ -32,6 +34,23 @@ class DatabaseHandler {
         final String addCourse = ''
             'INSERT INTO cursos(title, entidad, categoria, emision, imgcourse, urlcourse, idioma, duracion, description) VALUES '
             //
+            '("Curso gratis de cómo ser contratado", "Odin Project", "Profesionales, TIC, Programación", "Con certificado gratis", "https://blogger.googleusercontent.com/img/a/AVvXsEgSotMVyh4YWaouVpf4Wc8kJ7ADH712CnXCnm7IIOWxBxTmzQJSSsHNXkRS272rP3K3lTgdeq45ucg3QBXAcuiUWrM6ptxHGL_bD66JypEuTMvyT-L5Lrgv9msOGknQnogyENAte_wPEPSDEjTxnCNYn6OaR82J-UidoTpi3u0r2cjL0z7nlWq9GKye", "https://www.theodinproject.com/paths/full-stack-ruby-on-rails/courses/getting-hired", "Inglés", "3 horas", "El desarrollo web es un viaje de aprendizaje y crecimiento para toda la vida. ¡Continúa ese viaje en un equipo de desarrollo profesional! Aprenderás dónde encontrar trabajo, cómo hacer excelentes entrevistas y las mejores estrategias para lanzar tu carrera.++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
+            //
+            '("Curso gratis de React con Odin Project", "Odin Project", "Programación", "Con certificado gratis", "https://blogger.googleusercontent.com/img/a/AVvXsEhHelwX-1EACL830sOwRS7X-sf4No3CW9qVyeq7GOdczCfm7bhRSbKdxF0of68F6AmI15jr9aYi_132o7y0gwvf-MTUw63kBhsWTl-xU1FD56bSKGTWmcxHa4Hwyvizt6yj904civChP6WJb6qVJyNgRgfbC9LOv0nbAHLzYp0fHxklmaHSAAfna0fc", "https://www.theodinproject.com/paths/full-stack-ruby-on-rails/courses/react", "Inglés", "3 horas", "Aprendamos React, la biblioteca de JavaScript más popular para crear interfaces de usuario. ¡Lleva tus habilidades de frontend a un nivel completamente nuevo!++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
+            //
+            '("Curso gratis de JavaScript con Odin Project", "Odin Project", "Programación", "Con certificado gratis", "https://blogger.googleusercontent.com/img/a/AVvXsEjw-wJP4m_Tqt9XKBO-KgY_lIcHUSXDiebwHyOTIVUIgN9jbOegLppXWB66H9IWYL-nYN-dSV2X-5HifPY4YAz69LZ5NqHG7VsAIDWQQD3gu_NKuIUZkT7XR_xa37Xaik4KZ9UODyUT75fgwXLanWn95vAWLanJom_6_QQCvwNHcaN46zIFF4uD1yBF", "https://www.theodinproject.com/paths/full-stack-ruby-on-rails/courses/javascript", "Inglés", "3 horas", "¡Haga que sus sitios web sean dinámicos e interactivos con JavaScript! Crearás características y aplicaciones independientes. Este módulo incluye proyectos en los que aprenderá cómo manipular el DOM, utilizar principios de programación orientada a objetos y obtener datos del mundo real utilizando API.++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
+            //
+            '("Curso gratis Avanzado de HTML y CSS", "Odin Project", "Programación", "Con certificado gratis", "https://blogger.googleusercontent.com/img/a/AVvXsEgGwyjTs7Kiz0ZYt1N2Gz1x60eJzyS6m1-KcWSNjk4W_xfZMMS8pA7NaaNXuIngU9tKwQtHE9L4_aSzHC1aUa3dNzolgTc9nV0XFMBiU3Y7EPfm05j8LPQRLHf6H0sanWlOkwLcQo9qybxYgqSea-iFLRlwLJfH-WnPlGwTXqdh2JRIBSsCI9-XI4Nm", "https://www.theodinproject.com/paths/full-stack-ruby-on-rails/courses/advanced-html-and-css", "Inglés", "3 horas", "Es hora de profundizar y convertirte en el experto en CSS que mereces ser. ¡Después de este curso, estarás equipado para crear proyectos web que se vean hermosos en cualquier dispositivo!++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
+            //
+            '("Curso gratis de Ruby on Rails", "Odin Project", "Programación", "Con certificado gratis", "https://blogger.googleusercontent.com/img/a/AVvXsEiV3WGDBHSQLdBgX74jM-menT6MgmvEkXT42LRj9oyD1g41aqGEwI1vq3_H39k5HPF7LlD2QhgPw1GYt55Sx_hFie71ARc-XqycPH0bpihpPzKOgvJ9iKDa0DYD305H0sIEn0V1yXBHXlOrSG1xEWkMEHRzaBN_0KQuNFXBNNG3vdo5qDld_hYqnyvP", "https://www.theodinproject.com/paths/full-stack-ruby-on-rails/courses/ruby-on-rails", "Inglés", "3 horas", "¡Lleva Ruby al siguiente nivel con el framework Ruby on Rails! Aprenda a crear completamente el backend de su sitio utilizando el patrón de diseño Modelo-Vista-Controlador. Ganarás la confianza para lanzar un sitio web en menos de una hora.++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
+            //
+            '("Curso gratis de Bases de Datos", "Odin Project", "Programación", "Con certificado gratis", "https://blogger.googleusercontent.com/img/a/AVvXsEjrZqpF3xyLDiCfx3iqPvxINJhzYToWcWhmgtpudgQGTIbzI9q39zCKIKv7d46hK0nAGT2BvjmuIiY50tltgr2pPps65hPsHl2HkuRgjwqdnBQvje3VPjCxVEii2z9ei3h6m9ecrd-lKhxEZRJfGnlDzgwwTfCaNdIE53hIpOb9EnHkv1IIMB_w1VVp", "https://www.theodinproject.com/paths/full-stack-ruby-on-rails/courses/databases", "Inglés", "3 horas", "Las bases de datos se utilizan para organizar y capturar grandes cantidades de datos, normalmente mediante la introducción, almacenamiento, recuperación y gestión de la información. Este curso se centrará en las bases de datos relacionales, que son ampliamente utilizadas para almacenar datos y SQL, el lenguaje utilizado para consultar la base de datos.++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
+            //
+            '("Curso gratis intermedio de HTML y CSS", "Odin Project", "Programación", "Con certificado gratis", "https://blogger.googleusercontent.com/img/a/AVvXsEjg-Th4DzdTmCk0xmdZC38kp8l-2nxXzF1u_NYpmuCsX_ts9FNavXeA_g3mJOFZJ_12K76W9LiT505yUfSY_-7iZTq8UYJa06qGN1V4SC8dE3KSYGEPxL1drDdu8mMU046dDbi8PL8-tbzr1hI_jHv2O6NwuQcot2nEninU9JXmqqoUIpp1Rz8pHEpP", "https://www.theodinproject.com/paths/full-stack-ruby-on-rails/courses/intermediate-html-and-css", "Inglés", "3 horas", "Aprendamos un poco más sobre lo que puedes hacer con HTML y CSS.++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
+            //
+            '("Curso gratis de Ruby", "Odin Project", "Programación", "Con certificado gratis", "https://blogger.googleusercontent.com/img/a/AVvXsEh8VLe4ux6_AaYJHBRZn1uIb_CFPUDS5pE6YXCqxUl-45E4qxPzVTbqDtPCCmBY0dGd_jXUqmLNP7WPnyjb4zNvMDDvLNq4__QblTMgCiLKcztjQuTPw4ALiVr21ZyzON2Z7YJN3OIq38T3B_eaLepetU9AKQbWqW5OX5iKN_ay79z7K-SbnJ5b9S5D", "https://www.theodinproject.com/paths/full-stack-ruby-on-rails/courses/ruby", "Inglés", "3 horas", "Es hora de sumergirse profundamente en Ruby, el lenguaje diseñado para la felicidad del programador. Cubrirá el diseño orientado a objetos, las pruebas y las estructuras de datos, ¡conocimientos esenciales para aprender otros lenguajes de programación, también!++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
+            //
+
             '("Curso gratis de Introducción a la programación", "Odin Project", "Programación", "Con certificado gratis", "https://blogger.googleusercontent.com/img/a/AVvXsEj4AqOz3QI0RfDBKbBw0TJhuXMd6q1TqV3I5vNXiu_lBumJi0YClzGglpZ4Bd3MWQbPupPL7wY6hAzH6YOEEps7lJM4S-2vqA2ARy6z78dpdB07xQJGh2doSb_Af4Tfz3QSIrtjHQxByMFRvTaBQz99FOmNT7RkUofgZEjiu4Opa7DsBurjWN15ErWD", "https://www.theodinproject.com/paths/foundations/courses/foundations", "Inglés", "5 horas", "¡Aquí es donde todo comienza! Una introducción práctica a todas las herramientas esenciales que necesitará para crear sitios web reales y funcionales. Aprenderá lo que realmente hacen los desarrolladores web: las bases que necesitará para cursos posteriores.++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
             //
             '("Curso gratis de Fundamentos de la programación: Más allá de lo básico", "Linkedin Learning", "Programación", "Con certificado gratis", "https://blogger.googleusercontent.com/img/a/AVvXsEj-PPsQAQYKulB8FzI3ruyzylv9INFNLD1GSJGLjqbvOpUhc44xELrCCtfJo3fGxx2w_MXoUjQLSr2vTAU8ytgHlKBG5YZNRHPQhKEfFD1tMVtcIFVZ8ow1Msll7kpEJ9lxYjlsuRKx4NQYHY0clPo4WYeFbHOVJkDn1rhQrmdmEDllu-6hyNxzOB6j", "https://es.linkedin.com/learning/fundamentos-de-la-programacion-mas-alla-de-lo-basico?trk=learning-path&upsellOrderOrigin=default_guest_learning", "Español", "3 horas", "Continúa tu viaje por la programación profundizando en los conceptos básicos, las prácticas y la terminología. En esta entrega de la serie “Fundamentos de la programación”, la instructora Natalia Corea va más allá de lo básico, utilizando Python para abordar una variedad de conceptos y habilidades intermedios y avanzados que puedes añadir a tu repertorio de programación. Natalia aborda la creación y el trabajo con colecciones y bucles, la combinación y manipulación de cadenas y el uso de código externo; todos ellos conceptos fundamentales, independientemente del lenguaje de programación con el que acabes trabajando. Repasa varios procesos esenciales, como la elección de un estilo de código y la depuración. Además, profundiza en algunos conceptos más avanzados, como la gestión de memoria y el multihilo.++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
@@ -1816,6 +1835,30 @@ class DatabaseHandler {
       result.addAll(r);
     }
     return queryFavorites.map((e) => curso.fromMap(e)).toList();
+  }
+
+  //este metodo retorna el numero total de cursos encontrados por categoria
+  Future<int> getTotalCoursesInCategory(String category) async {
+    final db = await initializeDB();
+    final List<Map<String, dynamic>> queryResult = await db.rawQuery(
+        'SELECT COUNT(*) as count FROM cursos WHERE categoria like ?',
+        ['%$category%']);
+
+    return queryResult[0]['count'] ?? 0;
+  }
+
+  //este metodo retorna un curso de forma aleatoria respecto a la categoria en cuestión
+  Future<curso?> getRandomCourse(String category) async {
+    final db = await initializeDB();
+    final List<Map<String, dynamic>> queryResult = await db.rawQuery(
+        'SELECT * FROM cursos WHERE categoria like ?', ['%$category%']);
+
+    if (queryResult.isEmpty) {
+      return null; // No courses in the specified category.
+    }
+
+    final int randomIndex = Random().nextInt(queryResult.length);
+    return curso.fromMap(queryResult[randomIndex]);
   }
 
   Future<List<curso>> categoriaTrabajos() async {

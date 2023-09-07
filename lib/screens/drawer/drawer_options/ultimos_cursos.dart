@@ -98,8 +98,7 @@ class _UltimosCursosListaState extends State<UltimosCursosLista> {
     //es necesario inicializar el sharedpreferences tema, para que la variable book darkTheme esté inicializada como la recepcion del valor del sharedpreferences
     getSharedThemePrefs();
 
-    _loadAdaptativeAd();
-    //loadInlineBannerAd();
+    //_loadAdaptativeAd();
 
     handler = DatabaseHandler();
     handler.initializeDB().whenComplete(() async {
@@ -129,6 +128,7 @@ class _UltimosCursosListaState extends State<UltimosCursosLista> {
 
   @override
   Widget build(BuildContext context) {
+    _loadAdaptativeAd();
     return WillPopScope(
       onWillPop: () async {
         //Navigator.pop(context);
@@ -376,16 +376,15 @@ class _UltimosCursosListaState extends State<UltimosCursosLista> {
         bottomNavigationBar: _anchoredAdaptiveAd != null && _isLoaded
             ? Container(
                 color: Color.fromARGB(0, 33, 149, 243),
-                width: _anchoredAdaptiveAd!.size.width.toDouble(),
-                height: _anchoredAdaptiveAd!.size.height.toDouble(),
+                width: _anchoredAdaptiveAd?.size.width.toDouble(),
+                height: _anchoredAdaptiveAd?.size.height.toDouble(),
                 child: AdWidget(ad: _anchoredAdaptiveAd!),
               )
             : Container(
-                color: Color.fromARGB(0, 33, 149,
-                    243), // Aquí se establece el color del Container
-                width: _anchoredAdaptiveAd!.size.width.toDouble(),
-                height: _anchoredAdaptiveAd!.size.height.toDouble(),
-                child: AdWidget(ad: _anchoredAdaptiveAd!),
+                color: Color.fromARGB(0, 33, 149, 243),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height *
+                    0.1, // 10% de la altura de la pantalla
               ),
         drawer: drawerCursin(context: context),
       ),

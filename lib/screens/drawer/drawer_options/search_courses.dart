@@ -94,9 +94,6 @@ class _searchedCoursesState extends State<searchedCourses> {
   void initState() {
     //es necesario inicializar el sharedpreferences tema, para que la variable book darkTheme esté inicializada como la recepcion del valor del sharedpreferences
     getSharedThemePrefs();
-    //load ads
-    //loadStaticBannerAd();
-    _loadAdaptativeAd();
   }
 
   Future<List<curso>> getListCoursesFound(query) async {
@@ -108,6 +105,7 @@ class _searchedCoursesState extends State<searchedCourses> {
 
   @override
   Widget build(BuildContext context) {
+    _loadAdaptativeAd();
     return WillPopScope(
       onWillPop: () async {
         //home es ultimo cursos agregados
@@ -185,16 +183,15 @@ class _searchedCoursesState extends State<searchedCourses> {
         bottomNavigationBar: _anchoredAdaptiveAd != null && _isLoaded
             ? Container(
                 color: Color.fromARGB(0, 33, 149, 243),
-                width: _anchoredAdaptiveAd!.size.width.toDouble(),
-                height: _anchoredAdaptiveAd!.size.height.toDouble(),
+                width: _anchoredAdaptiveAd?.size.width.toDouble(),
+                height: _anchoredAdaptiveAd?.size.height.toDouble(),
                 child: AdWidget(ad: _anchoredAdaptiveAd!),
               )
             : Container(
-                color: Color.fromARGB(0, 33, 149,
-                    243), // Aquí se establece el color del Container
-                width: _anchoredAdaptiveAd!.size.width.toDouble(),
-                height: _anchoredAdaptiveAd!.size.height.toDouble(),
-                child: AdWidget(ad: _anchoredAdaptiveAd!),
+                color: Color.fromARGB(0, 33, 149, 243),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height *
+                    0.1, // 10% de la altura de la pantalla
               ),
       ),
     );

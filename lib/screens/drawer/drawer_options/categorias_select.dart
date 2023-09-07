@@ -2,26 +2,14 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cursin/screens/drawer/drawer.dart';
-import 'package:cursin/screens/drawer/drawer_options/certificados.dart';
-import 'dart:math';
-import 'package:cursin/screens/drawer/drawer_options/courses_favs.dart';
-import 'package:cursin/screens/drawer/drawer_riverpod.dart';
-import 'package:cursin/screens/webview/courses_webview.dart';
-import 'package:cursin/screens/drawer/drawer_options/delete_anun.dart';
-import 'package:cursin/screens/infoScreens/agradecimientos.dart';
 import 'package:cursin/model/curso_lista_model.dart';
 import 'package:cursin/screens/drawer/drawer_options/categorias_showing.dart';
 import 'package:cursin/model/dbhelper.dart';
-import 'package:cursin/screens/infoScreens/info_app.dart';
-import 'package:cursin/screens/drawer/drawer_options/ultimos_cursos.dart';
 import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cursin/services/local_notifications/local_notifications.dart';
 import 'package:flutter/material.dart';
-import 'package:mailto/mailto.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:giff_dialog/giff_dialog.dart';
 
 class CategoriasSelectCards extends StatefulWidget {
   @override
@@ -201,6 +189,9 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                     ],
                                   ),
                                   onTap: () async {
+                                    //metodo que activa la notificacion cada 24h con porbabilidad de 1/3
+                                    setLocalNotification('Finanzas');
+
                                     Navigator.pop(context);
                                     Navigator.push(
                                       context,
@@ -292,6 +283,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                     ],
                                   ),
                                   onTap: () async {
+                                    setLocalNotification('TIC');
                                     Navigator.pop(context);
                                     Navigator.push(
                                       context,
@@ -383,6 +375,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                     ],
                                   ),
                                   onTap: () async {
+                                    setLocalNotification('Programación');
                                     Navigator.pop(context);
                                     Navigator.push(
                                       context,
@@ -472,101 +465,13 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                     ],
                                   ),
                                   onTap: () async {
+                                    setLocalNotification('Idiomas');
                                     Navigator.pop(context);
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => categorias(
                                             catProviene: "Idiomas",
-                                            puntoPartida: 'categorias_select'),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-
-                //PROFESIONALES
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      child: new Row(
-                        children: <Widget>[
-                          Padding(
-                            //PADDING OF THE IMAGE
-                            padding:
-                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
-                            child: new Container(
-                              alignment: Alignment.center,
-                              child: CachedNetworkImage(
-                                imageUrl: iconProfesionales,
-                                width: 90.0,
-                                height: 90.0,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ),
-                          ),
-                          new Container(
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 16.0, 8.0),
-                                child: GestureDetector(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'FORMACIÓN PROFESIONAL',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Cursos gratis relacionados con el mejoramiento y crecimiento del perfil profesional',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: darkTheme1 == true
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                  onTap: () async {
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => categorias(
-                                            catProviene: "Profesionales",
                                             puntoPartida: 'categorias_select'),
                                       ),
                                     );
@@ -650,12 +555,193 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                     ],
                                   ),
                                   onTap: () async {
+                                    setLocalNotification('Marketing');
                                     Navigator.pop(context);
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => categorias(
                                             catProviene: "Marketing",
+                                            puntoPartida: 'categorias_select'),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
+                //Razonamiento Cuantitativo
+                SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color:
+                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Container(
+                      child: new Row(
+                        children: <Widget>[
+                          Padding(
+                            //PADDING OF THE IMAGE
+                            padding:
+                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
+                            child: new Container(
+                              alignment: Alignment.center,
+                              child: CachedNetworkImage(
+                                imageUrl: iconRazonamiento,
+                                width: 90.0,
+                                height: 90.0,
+                                fit: BoxFit.cover,
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                              ),
+                            ),
+                          ),
+                          new Container(
+                            child: Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(
+                                    8.0, 8.0, 16.0, 8.0),
+                                child: GestureDetector(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'RAZONAMIENTO CUANTITATIVO',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                          color: Colors.blue,
+                                        ),
+                                      ),
+                                      SizedBox(height: 5),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            'Cursos gratis relacionados con los números, las matematicas, el cálculo, analisis numericos, estadistica y razonamiento cuantitativo en general',
+                                            style: TextStyle(
+                                              fontSize: 10,
+                                              color: darkTheme1 == true
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 5),
+                                    ],
+                                  ),
+                                  onTap: () async {
+                                    setLocalNotification('Razonamiento');
+                                    Navigator.pop(context);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => categorias(
+                                            catProviene: "Razonamiento",
+                                            puntoPartida: 'categorias_select'),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
+                //Salud
+                SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color:
+                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Container(
+                      child: new Row(
+                        children: <Widget>[
+                          Padding(
+                            //PADDING OF THE IMAGE
+                            padding:
+                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
+                            child: new Container(
+                              alignment: Alignment.center,
+                              child: CachedNetworkImage(
+                                imageUrl: iconSalud,
+                                width: 90.0,
+                                height: 90.0,
+                                fit: BoxFit.cover,
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                              ),
+                            ),
+                          ),
+                          new Container(
+                            child: Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(
+                                    8.0, 8.0, 15.0, 8.0),
+                                child: GestureDetector(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'SALUD Y BIENESTAR',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                          color: Colors.blue,
+                                        ),
+                                      ),
+                                      SizedBox(height: 5),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            'Cursos gratis sobre el área del bienestar y la salud como medicina, psicologia, nutrición, cuidados, entre otros',
+                                            style: TextStyle(
+                                              fontSize: 10,
+                                              color: darkTheme1 == true
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 5),
+                                    ],
+                                  ),
+                                  onTap: () async {
+                                    setLocalNotification('Salud');
+                                    Navigator.pop(context);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => categorias(
+                                            catProviene: "Salud",
                                             puntoPartida: 'categorias_select'),
                                       ),
                                     );
@@ -743,101 +829,13 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                     ],
                                   ),
                                   onTap: () async {
+                                    setLocalNotification('Ciberseguridad');
                                     Navigator.pop(context);
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => categorias(
                                             catProviene: "Ciberseguridad",
-                                            puntoPartida: 'categorias_select'),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-
-                //Razonamiento Cuantitativo
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      child: new Row(
-                        children: <Widget>[
-                          Padding(
-                            //PADDING OF THE IMAGE
-                            padding:
-                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
-                            child: new Container(
-                              alignment: Alignment.center,
-                              child: CachedNetworkImage(
-                                imageUrl: iconRazonamiento,
-                                width: 90.0,
-                                height: 90.0,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ),
-                          ),
-                          new Container(
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 16.0, 8.0),
-                                child: GestureDetector(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'RAZONAMIENTO CUANTITATIVO',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Cursos gratis relacionados con los números, las matematicas, el cálculo, analisis numericos, estadistica y razonamiento cuantitativo en general',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: darkTheme1 == true
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                  onTap: () async {
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => categorias(
-                                            catProviene: "Razonamiento",
                                             puntoPartida: 'categorias_select'),
                                       ),
                                     );
@@ -921,101 +919,13 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                     ],
                                   ),
                                   onTap: () async {
+                                    setLocalNotification('Ingenieria');
                                     Navigator.pop(context);
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => categorias(
                                             catProviene: "Ingenieria",
-                                            puntoPartida: 'categorias_select'),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-
-                //Salud
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      child: new Row(
-                        children: <Widget>[
-                          Padding(
-                            //PADDING OF THE IMAGE
-                            padding:
-                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
-                            child: new Container(
-                              alignment: Alignment.center,
-                              child: CachedNetworkImage(
-                                imageUrl: iconSalud,
-                                width: 90.0,
-                                height: 90.0,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ),
-                          ),
-                          new Container(
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 15.0, 8.0),
-                                child: GestureDetector(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'SALUD Y BIENESTAR',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Cursos gratis sobre el área del bienestar y la salud como medicina, psicologia, nutrición, cuidados, entre otros',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: darkTheme1 == true
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                  onTap: () async {
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => categorias(
-                                            catProviene: "Salud",
                                             puntoPartida: 'categorias_select'),
                                       ),
                                     );
@@ -1099,6 +1009,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                     ],
                                   ),
                                   onTap: () async {
+                                    setLocalNotification('Datos');
                                     Navigator.pop(context);
                                     Navigator.push(
                                       context,
@@ -1189,12 +1100,103 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                     ],
                                   ),
                                   onTap: () async {
+                                    setLocalNotification('IA');
                                     Navigator.pop(context);
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => categorias(
                                             catProviene: "IA",
+                                            puntoPartida: 'categorias_select'),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
+                //PROFESIONALES
+                SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color:
+                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Container(
+                      child: new Row(
+                        children: <Widget>[
+                          Padding(
+                            //PADDING OF THE IMAGE
+                            padding:
+                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
+                            child: new Container(
+                              alignment: Alignment.center,
+                              child: CachedNetworkImage(
+                                imageUrl: iconProfesionales,
+                                width: 90.0,
+                                height: 90.0,
+                                fit: BoxFit.cover,
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                              ),
+                            ),
+                          ),
+                          new Container(
+                            child: Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(
+                                    8.0, 8.0, 16.0, 8.0),
+                                child: GestureDetector(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'FORMACIÓN PROFESIONAL',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                          color: Colors.blue,
+                                        ),
+                                      ),
+                                      SizedBox(height: 5),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            'Cursos gratis relacionados con el mejoramiento y crecimiento del perfil profesional',
+                                            style: TextStyle(
+                                              fontSize: 10,
+                                              color: darkTheme1 == true
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 5),
+                                    ],
+                                  ),
+                                  onTap: () async {
+                                    setLocalNotification('Profesionales');
+                                    Navigator.pop(context);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => categorias(
+                                            catProviene: "Profesionales",
                                             puntoPartida: 'categorias_select'),
                                       ),
                                     );
@@ -1278,6 +1280,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                     ],
                                   ),
                                   onTap: () async {
+                                    setLocalNotification('Artes');
                                     Navigator.pop(context);
                                     Navigator.push(
                                       context,
@@ -1367,6 +1370,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                     ],
                                   ),
                                   onTap: () async {
+                                    setLocalNotification('Cocina y alimentos');
                                     Navigator.pop(context);
                                     Navigator.push(
                                       context,
@@ -1387,7 +1391,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                   ),
                 ),
 
-                //MUSICA
+                //TRABAJOS VARIOS
                 SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
@@ -1407,7 +1411,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                             child: new Container(
                               alignment: Alignment.center,
                               child: CachedNetworkImage(
-                                imageUrl: iconMusica,
+                                imageUrl: iconTrabajos,
                                 width: 90.0,
                                 height: 90.0,
                                 fit: BoxFit.cover,
@@ -1429,7 +1433,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'MÚSICA',
+                                        'TRABAJOS VARIOS',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 20,
@@ -1442,7 +1446,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                             CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Text(
-                                            'Cursos gratis relacionados con los instrumentos musicales, géneros, canto y la música en general, incluyendo teoría musical, técnica de instrumentos, interpretación, composición, entre otros...',
+                                            'Cursos gratis relacionados con trabajos que no requieren una educación formal como limpiador, bodeguero, auxiliar, panadero, voluntario, paseador y más.',
                                             style: TextStyle(
                                               fontSize: 10,
                                               color: darkTheme1 == true
@@ -1456,101 +1460,13 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                     ],
                                   ),
                                   onTap: () async {
+                                    setLocalNotification('Trabajos Varios');
                                     Navigator.pop(context);
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => categorias(
-                                            catProviene: "musica",
-                                            puntoPartida: 'categorias_select'),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-
-                //SOCIALES Y JURIDICAS
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      child: new Row(
-                        children: <Widget>[
-                          Padding(
-                            //PADDING OF THE IMAGE
-                            padding:
-                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
-                            child: new Container(
-                              alignment: Alignment.center,
-                              child: CachedNetworkImage(
-                                imageUrl: iconSociales,
-                                width: 90.0,
-                                height: 90.0,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ),
-                          ),
-                          new Container(
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 11.0, 8.0),
-                                child: GestureDetector(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'SOCIALES, SOCIEDADES Y JURÍDICAS',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Cursos gratis relacionados con el derecho, la sociedad, las leyes y el trabajo social, incluyendo derecho, sociología, trabajo social, política, entre otros...',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: darkTheme1 == true
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                  onTap: () async {
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => categorias(
-                                            catProviene: "Sociales",
+                                            catProviene: "Trabajos Varios",
                                             puntoPartida: 'categorias_select'),
                                       ),
                                     );
@@ -1634,6 +1550,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                     ],
                                   ),
                                   onTap: () async {
+                                    setLocalNotification('Agropecuario');
                                     Navigator.pop(context);
                                     Navigator.push(
                                       context,
@@ -1723,6 +1640,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                     ],
                                   ),
                                   onTap: () async {
+                                    setLocalNotification('Transporte');
                                     Navigator.pop(context);
                                     Navigator.push(
                                       context,
@@ -1812,12 +1730,103 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                     ],
                                   ),
                                   onTap: () async {
+                                    setLocalNotification('Crypto');
                                     Navigator.pop(context);
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => categorias(
                                             catProviene: "Crypto",
+                                            puntoPartida: 'categorias_select'),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
+                //MUSICA
+                SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color:
+                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Container(
+                      child: new Row(
+                        children: <Widget>[
+                          Padding(
+                            //PADDING OF THE IMAGE
+                            padding:
+                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
+                            child: new Container(
+                              alignment: Alignment.center,
+                              child: CachedNetworkImage(
+                                imageUrl: iconMusica,
+                                width: 90.0,
+                                height: 90.0,
+                                fit: BoxFit.cover,
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                              ),
+                            ),
+                          ),
+                          new Container(
+                            child: Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(
+                                    8.0, 8.0, 16.0, 8.0),
+                                child: GestureDetector(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'MÚSICA',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                          color: Colors.blue,
+                                        ),
+                                      ),
+                                      SizedBox(height: 5),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            'Cursos gratis relacionados con los instrumentos musicales, géneros, canto y la música en general, incluyendo teoría musical, técnica de instrumentos, interpretación, composición, entre otros...',
+                                            style: TextStyle(
+                                              fontSize: 10,
+                                              color: darkTheme1 == true
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 5),
+                                    ],
+                                  ),
+                                  onTap: () async {
+                                    setLocalNotification('Musica');
+                                    Navigator.pop(context);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => categorias(
+                                            catProviene: "musica",
                                             puntoPartida: 'categorias_select'),
                                       ),
                                     );
@@ -1901,6 +1910,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                     ],
                                   ),
                                   onTap: () async {
+                                    setLocalNotification('belleza');
                                     Navigator.pop(context);
                                     Navigator.push(
                                       context,
@@ -1921,7 +1931,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                   ),
                 ),
 
-                //TRABAJOS VARIOS
+                //SOCIALES Y JURIDICAS
                 SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
@@ -1941,7 +1951,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                             child: new Container(
                               alignment: Alignment.center,
                               child: CachedNetworkImage(
-                                imageUrl: iconTrabajos,
+                                imageUrl: iconSociales,
                                 width: 90.0,
                                 height: 90.0,
                                 fit: BoxFit.cover,
@@ -1956,14 +1966,14 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                             child: Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 16.0, 8.0),
+                                    8.0, 8.0, 11.0, 8.0),
                                 child: GestureDetector(
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'TRABAJOS VARIOS',
+                                        'SOCIALES, SOCIEDADES Y JURÍDICAS',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 20,
@@ -1976,7 +1986,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                             CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Text(
-                                            'Cursos gratis relacionados con trabajos que no requieren una educación formal como limpiador, bodeguero, auxiliar, panadero, voluntario, paseador y más.',
+                                            'Cursos gratis relacionados con el derecho, la sociedad, las leyes y el trabajo social, incluyendo derecho, sociología, trabajo social, política, entre otros...',
                                             style: TextStyle(
                                               fontSize: 10,
                                               color: darkTheme1 == true
@@ -1990,12 +2000,13 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                     ],
                                   ),
                                   onTap: () async {
+                                    setLocalNotification('Sociales');
                                     Navigator.pop(context);
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => categorias(
-                                            catProviene: "Trabajos Varios",
+                                            catProviene: "Sociales",
                                             puntoPartida: 'categorias_select'),
                                       ),
                                     );
@@ -2011,7 +2022,6 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                 ),
 
                 //OTHERS
-
                 SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
@@ -2108,5 +2118,136 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
         context: context,
       ),
     );
+  }
+
+  void setLocalNotification(String category) async {
+    //obtiene un curso aleatorio de la categoria
+    await getOneRandomCourse(category);
+
+    //establece la notificación con el curso elegido
+    LocalNotifications.showLocalNotification(
+        id: 1, body: 'si funcionó', title: 'prueba', data: '');
+  }
+
+  getOneRandomCourse(String category) async {
+    //crea un metodo que busca uno de los cursos de la categoria seleccionada, y devuelve la info del curso: su title, entidad y tipo de emision
+    //dicha info será la que se le pase a la notificación.
+
+    //inicializa la db
+    final databaseHandler = DatabaseHandler();
+
+    //obtiene el total de cursos por categoria
+    final totalCoursesInCategory =
+        await databaseHandler.getTotalCoursesInCategory(category);
+
+    //muestra total de cursos por categoria
+    //muestra la info del curso en cuestión
+    if (totalCoursesInCategory > 0) {
+      final randomCourse = await databaseHandler.getRandomCourse(category);
+      if (randomCourse != null) {
+        Fluttertoast.showToast(
+          msg:
+              'Cursos de $category: $totalCoursesInCategory\nCurso elegido aleatoriamente: ${randomCourse.title}',
+          gravity: ToastGravity.BOTTOM,
+          toastLength: Toast.LENGTH_SHORT,
+        );
+      } else {
+        Fluttertoast.showToast(
+          msg: 'No se pudo encontrar un curso en la categoría $category.',
+          gravity: ToastGravity.BOTTOM,
+          toastLength: Toast.LENGTH_LONG,
+        );
+      }
+    } else {
+      Fluttertoast.showToast(
+        msg: 'No hay cursos en la categoría $category.',
+        gravity: ToastGravity.BOTTOM,
+        toastLength: Toast.LENGTH_LONG,
+      );
+    }
+
+    switch (category) {
+      case "Transporte":
+        {}
+        break;
+      case "Ingenieria":
+        {}
+        break;
+      case "Trabajos Varios":
+        {}
+        break;
+
+      case "Cocina y alimentos":
+        {}
+        break;
+
+      case "Agropecuario":
+        {}
+        break;
+
+      case "Marketing":
+        {}
+        break;
+
+      case "Razonamiento":
+        {}
+        break;
+
+      case "Belleza":
+        {}
+        break;
+
+      case "Artes":
+        {}
+        break;
+
+      case "Finanzas":
+        {}
+        break;
+
+      case "Salud":
+        {}
+        break;
+
+      case "Idiomas":
+        {}
+        break;
+
+      case "Programacion":
+        {}
+        break;
+
+      case "TIC":
+        {}
+        break;
+
+      case "Profesionales":
+        {}
+        break;
+
+      case "Ciberseguridad":
+        {}
+        break;
+
+      case "Sociales":
+        {}
+        break;
+
+      case "Crypto":
+        {}
+        break;
+
+      case "IA":
+        {}
+        break;
+
+      case "musica":
+        {}
+        break;
+
+      case "Ciencia y Análisis de Datos":
+        {}
+        break;
+    }
   }
 }

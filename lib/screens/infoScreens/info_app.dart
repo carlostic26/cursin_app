@@ -79,13 +79,14 @@ class _infoAppState extends State<infoApp> {
   void initState() {
     //load ads
     //loadStaticBannerAd();
-    _loadAdaptativeAd();
+    //_loadAdaptativeAd();
 
     getSharedThemePrefs();
   }
 
   @override
   Widget build(BuildContext context) {
+    _loadAdaptativeAd();
     return Scaffold(
       //no color backg cuz the backg is an image
       backgroundColor: darkTheme1 == true ? Colors.grey[850] : Colors.white,
@@ -530,16 +531,15 @@ class _infoAppState extends State<infoApp> {
       bottomNavigationBar: _anchoredAdaptiveAd != null && _isLoaded
           ? Container(
               color: Color.fromARGB(0, 33, 149, 243),
-              width: _anchoredAdaptiveAd!.size.width.toDouble(),
-              height: _anchoredAdaptiveAd!.size.height.toDouble(),
+              width: _anchoredAdaptiveAd?.size.width.toDouble(),
+              height: _anchoredAdaptiveAd?.size.height.toDouble(),
               child: AdWidget(ad: _anchoredAdaptiveAd!),
             )
           : Container(
-              color: Color.fromARGB(
-                  0, 33, 149, 243), // Aquí se establece el color del Container
-              width: _anchoredAdaptiveAd!.size.width.toDouble(),
-              height: _anchoredAdaptiveAd!.size.height.toDouble(),
-              child: AdWidget(ad: _anchoredAdaptiveAd!),
+              color: Color.fromARGB(0, 33, 149, 243),
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height *
+                  0.1, // 10% de la altura de la pantalla
             ),
     );
 

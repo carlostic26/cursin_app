@@ -16,6 +16,8 @@
            android:value="ca-app-pub-4336409771912215~1614171285"/>
 
         <activity
+            android:showWhenLocked="true"
+            android:turnScreenOn="true"
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
