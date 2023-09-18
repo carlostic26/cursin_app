@@ -3,7 +3,6 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-// ignore: camel_case_types
 class agradecimientosScreen extends StatefulWidget {
   const agradecimientosScreen(BuildContext context, {Key? key})
       : super(key: key);
@@ -12,9 +11,6 @@ class agradecimientosScreen extends StatefulWidget {
   _agradecimientosScreenState createState() => _agradecimientosScreenState();
 }
 
-//Subname to playstore
-//"Cursin: Cursos Gratis Certificables por organizaciones de alto valor.",
-// ignore: camel_case_types
 class _agradecimientosScreenState extends State<agradecimientosScreen> {
   //ads
   late BannerAd staticAd;

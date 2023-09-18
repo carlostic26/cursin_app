@@ -1,4 +1,7 @@
 // ignore_for_file: deprecated_member_use
+import 'dart:async';
+import 'dart:math';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cursin/screens/drawer/drawer.dart';
@@ -2001,6 +2004,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                   ),
                                   onTap: () async {
                                     setLocalNotification('Sociales');
+
                                     Navigator.pop(context);
                                     Navigator.push(
                                       context,
@@ -2123,10 +2127,6 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
   void setLocalNotification(String category) async {
     //obtiene un curso aleatorio de la categoria
     await getOneRandomCourse(category);
-
-    //establece la notificación con el curso elegido
-    LocalNotifications.showLocalNotification(
-        id: 1, body: 'si funcionó', title: 'prueba', data: '');
   }
 
   getOneRandomCourse(String category) async {
@@ -2151,6 +2151,9 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
           gravity: ToastGravity.BOTTOM,
           toastLength: Toast.LENGTH_SHORT,
         );
+
+        sendNotification(randomCourse.title, randomCourse.categoria,
+            randomCourse.emision, randomCourse.entidad);
       } else {
         Fluttertoast.showToast(
           msg: 'No se pudo encontrar un curso en la categoría $category.',
@@ -2165,89 +2168,46 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
         toastLength: Toast.LENGTH_LONG,
       );
     }
+  }
 
-    switch (category) {
-      case "Transporte":
-        {}
-        break;
-      case "Ingenieria":
-        {}
-        break;
-      case "Trabajos Varios":
-        {}
-        break;
+  void sendNotification(name, categoria, emision, entidad) async {
+    final LocalNotifications localNotifications = LocalNotifications();
 
-      case "Cocina y alimentos":
-        {}
-        break;
+    // Genera un número aleatorio entre 1 y 3 (ambos inclusive).
+    final random = Random();
+    final randomNumber = random.nextInt(3) + 1; // Genera números entre 1 y 3.
+    print('randomNumber: $randomNumber');
 
-      case "Agropecuario":
-        {}
-        break;
+    Fluttertoast.showToast(
+      msg: 'randmon $randomNumber',
+      gravity: ToastGravity.BOTTOM,
+      toastLength: Toast.LENGTH_LONG,
+    );
 
-      case "Marketing":
-        {}
-        break;
+    String title = '$name por $entidad';
+    String body = 'Es un nuevo curso indexado que podría interesarte $emision';
 
-      case "Razonamiento":
-        {}
-        break;
+    // Define la probabilidad de mostrar la notificación (33% de probabilidad).
+    if (randomNumber == 1 || randomNumber == 3 || randomNumber == 2) {
+      // Configura el retraso en segundos antes de mostrar la notificación.
 
-      case "Belleza":
-        {}
-        break;
-
-      case "Artes":
-        {}
-        break;
-
-      case "Finanzas":
-        {}
-        break;
-
-      case "Salud":
-        {}
-        break;
-
-      case "Idiomas":
-        {}
-        break;
-
-      case "Programacion":
-        {}
-        break;
-
-      case "TIC":
-        {}
-        break;
-
-      case "Profesionales":
-        {}
-        break;
-
-      case "Ciberseguridad":
-        {}
-        break;
-
-      case "Sociales":
-        {}
-        break;
-
-      case "Crypto":
-        {}
-        break;
-
-      case "IA":
-        {}
-        break;
-
-      case "musica":
-        {}
-        break;
-
-      case "Ciencia y Análisis de Datos":
-        {}
-        break;
+      await localNotifications.scheduleNotificationIn5Seconds(
+        id: 13,
+        title: title,
+        body: body,
+        data: '',
+      );
     }
   }
+
+/*     String title = '$name por $entidad';
+    String body = 'Es un nuevo curso indexado que podría interesarte $emision';
+
+    await localNotifications.showLocalNotification(
+      id: 13,
+      title: title,
+      body: body,
+      data: '',
+    );
+  } */
 }

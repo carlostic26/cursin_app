@@ -65,6 +65,7 @@ Future<void> main() async {
   });
 
   //solicitar permisos local notification
+  await LocalNotifications.initializeLocalNotificatios();
   await LocalNotifications.requestPermissionLocalNotification();
 
   runApp(ProviderScope(
