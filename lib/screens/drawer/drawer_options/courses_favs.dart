@@ -231,9 +231,8 @@ class _CoursesFavsState extends State<CoursesFavs> {
                                   child: new Row(
                                     children: <Widget>[
                                       //IMAGEN DEL CURSO
-                                      Stack(
+                                     Stack(
                                         children: [
-                                          //IMAGEN DEL CURSO
                                           Padding(
                                             padding: const EdgeInsets.fromLTRB(
                                                 0.5,
@@ -241,23 +240,40 @@ class _CoursesFavsState extends State<CoursesFavs> {
                                                 0.0,
                                                 0.5), //borde de la imagen
                                             child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(20.0),
-                                              child: CachedNetworkImage(
-                                                imageUrl:
-                                                    items[index].imgcourse,
-                                                width: 120.0,
-                                                height: 100.0,
-                                                fit: BoxFit.cover,
-                                                placeholder: (context, url) =>
-                                                    Center(
-                                                        child:
-                                                            CircularProgressIndicator()),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        Icon(Icons.error),
-                                              ),
-                                            ),
+                                                borderRadius:
+                                                    BorderRadius.circular(20.0),
+                                                child: Image.network(
+                                                  items[index].imgcourse,
+                                                  width: 120.0,
+                                                  height: 100.0,
+                                                  fit: BoxFit.cover,
+                                                  loadingBuilder:
+                                                      (BuildContext context,
+                                                          Widget child,
+                                                          ImageChunkEvent?
+                                                              loadingProgress) {
+                                                    if (loadingProgress ==
+                                                        null) {
+                                                      return child;
+                                                    } else {
+                                                      // En lugar de reemplazar la imagen, puedes superponer el indicador de progreso encima de ella.
+                                                      return Stack(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        children: [
+                                                          child, // Muestra la imagen de fondo.
+                                                          CircularProgressIndicator(), // Muestra el indicador de progreso encima de la imagen.
+                                                        ],
+                                                      );
+                                                    }
+                                                  },
+                                                  errorBuilder: (BuildContext
+                                                          context,
+                                                      Object error,
+                                                      StackTrace? stackTrace) {
+                                                    return Icon(Icons.error);
+                                                  },
+                                                )),
                                           ),
                                           // ICONO EN LA ESQUINA SUPERIOR DERECHA
                                           Positioned(
@@ -276,10 +292,6 @@ class _CoursesFavsState extends State<CoursesFavs> {
                                                   width: 30.0,
                                                   height: 30.0,
                                                   fit: BoxFit.contain,
-                                                  placeholder: (context, url) =>
-                                                      Center(
-                                                          child:
-                                                              CircularProgressIndicator()),
                                                   errorWidget:
                                                       (context, url, error) =>
                                                           Icon(Icons.error),

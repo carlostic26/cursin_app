@@ -2,10 +2,8 @@ import 'package:cursin/controller/theme_preferences.dart';
 import 'package:cursin/provider/riverpod.dart';
 import 'package:cursin/screens/drawer/drawer_options/categorias_select.dart';
 import 'package:cursin/screens/launch/dialog_slider_primera_vez.dart';
-import 'package:cursin/screens/launch/percent_indicator.dart';
+import 'package:cursin/old_deprecated/percent_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -103,12 +101,7 @@ class PercentIndicatorRiverpod extends ConsumerWidget {
                 child: TextButton(
                   onPressed: buttonEnabled
                       ? () async {
-                          /*    
-                          ScaffoldMessenger.of(context).showSnackBar(
-                       const SnackBar(
-                              content: Text("Has tocado en continuar"),
-                            ), 
-                          );*/
+                          guardarPrimerAcceso();
                           isLoaded(context);
                         }
                       : null, // Desactiva el botón si no está habilitado
@@ -149,7 +142,7 @@ class PercentIndicatorRiverpod extends ConsumerWidget {
   void guardarPrimerAcceso() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool? primerAcceso = prefs.getBool('primerAcceso');
-    if (primerAcceso != false) {
+    if (primerAcceso == null) {
       await prefs.setBool('primerAcceso', true);
     }
   }

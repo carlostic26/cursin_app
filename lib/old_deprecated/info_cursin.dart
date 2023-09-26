@@ -99,10 +99,7 @@ class _infoApp2State extends State<infoApp2> {
             style: TextStyle(fontSize: 16, color: Colors.black),
             children: [
               TextSpan(
-                text: 'Porque',
-              ),
-              TextSpan(
-                text: ' siempre ',
+                text: 'Siempre ',
                 style: TextStyle(
                   color: Colors.green,
                   fontWeight: FontWeight.bold,
@@ -122,7 +119,7 @@ class _infoApp2State extends State<infoApp2> {
                 text: 'para tu conocimiento, HV o LinkedIn.',
               ),
               TextSpan(
-                text: '\n\nPorque la app se',
+                text: '\n\nLa app se',
               ),
               TextSpan(
                 text: ' actualiza ',
@@ -181,7 +178,7 @@ class _infoApp2State extends State<infoApp2> {
             style: TextStyle(fontSize: 16, color: Colors.black),
             children: [
               TextSpan(
-                text: 'Cursin',
+                text: 'Esta app',
               ),
               TextSpan(
                 text: ' no es ',
@@ -191,7 +188,7 @@ class _infoApp2State extends State<infoApp2> {
                 ),
               ),
               TextSpan(
-                text: 'una plataforma que produce los cursos online.\n\n',
+                text: 'una plataforma que produce los cursos gratiso.\n\n',
               ),
               TextSpan(
                 text: 'Su objetivo es buscar, indexar,',

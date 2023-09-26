@@ -13,7 +13,7 @@ import 'services/local_notifications/local_notifications.dart';
 AppOpenAd? openAd;
 bool isAdLoaded = false;
 
-Future<void> loadAd() async {
+Future<void> loadOpenAd() async {
   CursinAdsIds cursinAds = CursinAdsIds();
   //apertura
   await AppOpenAd.load(
@@ -50,7 +50,8 @@ Future<void> main() async {
 
   await MobileAds.instance.initialize();
   // Inicializar anuncio de apertura y cancelar después de 9 segundos
-  await loadAd();
+  await loadOpenAd();
+
   Timer(Duration(seconds: 9), () async {
     if (isAdLoaded == false) {
       openAd?.dispose();

@@ -1,8 +1,6 @@
 // ignore_for_file: deprecated_member_use
 import 'dart:async';
 import 'dart:math';
-
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cursin/screens/drawer/drawer.dart';
 import 'package:cursin/model/curso_lista_model.dart';
@@ -24,7 +22,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
 
   String iconTIC =
       'https://blogger.googleusercontent.com/img/a/AVvXsEgZvTUOAyqkyiMrhGo705qIOtrPnABJdDecuUxSCoPDiLUHK8jW-3A64a6fxgiQh8VwbnIe8pASe_JaUYRjEVSK3lD3JskBrL06_OkXuEXJMeAF3O01sdFK2t4Vx5VteDcy_-qNkoWUNu4Czq9rm4fGAKqMzBFN69W26VIEsnWYEUFq-OD1ScneHA';
-  String iconDesarroolo =
+  String iconDesarrollo =
       'https://blogger.googleusercontent.com/img/a/AVvXsEh0SajSu7l9CJ_J9NporoCQbv3qoorL9Wd66VaqZrPTp5VlflQC6t_Mnlz1hRvcegfWHn3k1UBWyoAbCNLZXkv6QtqCSprHVDomUQ-Z5SJKg4eo1ANjv8kXEVv4JR7Hx9ukn0njzEi_QaIz_9JE0gybQAVxmZETkfHaNHBaYDTA9jeo7ac-G0d-kw';
   String iconFinanzas =
       'https://blogger.googleusercontent.com/img/a/AVvXsEhrfptcDX-_0shy7o4BojG3GOnOYSgZPhbFj65nNRvfOYeG4XzV_qBtm7iYp5MSPvIwAf0NfBdc0N_P3zWhKMcPKRmp_1ihfWzofpGxBMjQti_KQBtbO1pZRjiCAxBEP6V-aTeXzh6NmZcCI-NLYUrjoppsRrFF2b5_dTbCilRYgGd0_VCCOW0ZKw';
@@ -79,10 +77,141 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
     });
   }
 
+  int countFin = 0;
+  int countTIC = 0;
+  int countProg = 0;
+  int countIdiom = 0;
+  int countMark = 0;
+  int countRaz = 0;
+  int countSalud = 0;
+  int countSeguri = 0;
+  int countIng = 0;
+  int countCiencia = 0;
+  int countIA = 0;
+  int countProf = 0;
+  int countArtes = 0;
+  int countCocina = 0;
+  int countTrab = 0;
+  int countAgro = 0;
+  int counTransp = 0;
+  int countCrypto = 0;
+  int countMusic = 0;
+  int countModa = 0;
+  int countSociales = 0;
+
   @override
   // ignore: must_call_super
   void initState() {
     getSharedThemePrefs();
+
+    loadCountCourses();
+  }
+
+  Future<void> loadCountCourses() async {
+    final resultFin = await searchCountCoursesByCategory("Finanzas");
+    setState(() {
+      countFin = resultFin;
+    });
+
+    final resultTIC = await searchCountCoursesByCategory("TIC");
+    setState(() {
+      countTIC = resultTIC;
+    });
+
+    final resultProg = await searchCountCoursesByCategory("Programación");
+    setState(() {
+      countProg = resultProg;
+    });
+
+    final resultIdio = await searchCountCoursesByCategory("Idiomas");
+    setState(() {
+      countIdiom = resultIdio;
+    });
+
+    final resultMark = await searchCountCoursesByCategory("Marketing");
+    setState(() {
+      countMark = resultMark;
+    });
+
+    final resultRaz = await searchCountCoursesByCategory("Razonamiento");
+    setState(() {
+      countRaz = resultRaz;
+    });
+
+    final resultCib = await searchCountCoursesByCategory("Ciberseguridad");
+    setState(() {
+      countSeguri = resultCib;
+    });
+
+    final resultIng = await searchCountCoursesByCategory("Ingenieria");
+    setState(() {
+      countIng = resultIng;
+    });
+
+    final resultDatos = await searchCountCoursesByCategory("Datos");
+    setState(() {
+      countCiencia = resultDatos;
+    });
+
+    final resultIA = await searchCountCoursesByCategory(" IA ");
+    setState(() {
+      countIA = resultIA;
+    });
+
+    final resultProf = await searchCountCoursesByCategory("Profesionales");
+    setState(() {
+      countProf = resultProf;
+    });
+
+    final resultArt = await searchCountCoursesByCategory("Artes");
+    setState(() {
+      countArtes = resultArt;
+    });
+
+    final resultCoc = await searchCountCoursesByCategory("Cocina y alimentos");
+    setState(() {
+      countCocina = resultCoc;
+    });
+
+    final resultTrab = await searchCountCoursesByCategory("Trabajos Varios");
+    setState(() {
+      countTrab = resultTrab;
+    });
+
+    final resultAgro = await searchCountCoursesByCategory("Agropecuario");
+    setState(() {
+      countAgro = resultAgro;
+    });
+
+    final resultTrans = await searchCountCoursesByCategory("Transporte");
+    setState(() {
+      counTransp = resultTrans;
+    });
+
+    final resultCryp = await searchCountCoursesByCategory("Crypto");
+    setState(() {
+      countCrypto = resultCryp;
+    });
+
+    final resultBell = await searchCountCoursesByCategory("belleza");
+    setState(() {
+      countModa = resultBell;
+    });
+
+    final resultSalud = await searchCountCoursesByCategory("Salud");
+    setState(() {
+      countSalud = resultSalud;
+    });
+
+    final resultSoc = await searchCountCoursesByCategory("Sociales");
+    setState(() {
+      countSociales = resultSoc;
+    });
+
+    final resultMusic = await searchCountCoursesByCategory("Musica");
+    setState(() {
+      countMusic = resultMusic;
+    });
   }
 
   @override
@@ -117,2001 +246,250 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
         ],
         centerTitle: true,
       ),
-      body: Container(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Container(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(7, 5, 7, 5),
             child: Column(
               children: [
-                //ADMINISTRACION Y FINANZAS
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      child: new Row(
-                        children: <Widget>[
-                          Padding(
-                            //PADDING OF THE IMAGE
-                            padding:
-                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
-                            child: new Container(
-                              alignment: Alignment.center,
-                              child: CachedNetworkImage(
-                                imageUrl: iconFinanzas,
-                                width: 90.0,
-                                height: 90.0,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ),
-                          ),
-                          new Container(
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 15.0, 8.0),
-                                child: GestureDetector(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'FINANZAS Y NEGOCIOS',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Cursos gratis relacionados al mundo de las finanzas, la contabilidad, los negocios y la administración',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: darkTheme1 == true
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                  onTap: () async {
-                                    //metodo que activa la notificacion cada 24h con porbabilidad de 1/3
-                                    setLocalNotification('Finanzas');
-
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => categorias(
-                                            catProviene: "Finanzas",
-                                            puntoPartida: 'categorias_select'),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                // Finanzas
+                buildCategoryWidget(
+                  title: 'FINANZAS Y NEGOCIOS',
+                  imageUrl: iconFinanzas,
+                  count: '$countFin',
+                  description:
+                      'Cursos gratis relacionados al mundo de las finanzas, la contabilidad, los negocios y la administración',
+                  category: 'Finanzas',
                 ),
 
-                //TIC
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      child: new Row(
-                        children: <Widget>[
-                          Padding(
-                            //PADDING OF THE IMAGE
-                            padding:
-                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
-                            child: new Container(
-                              alignment: Alignment.center,
-                              child: CachedNetworkImage(
-                                imageUrl: iconTIC,
-                                width: 90.0,
-                                height: 90.0,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ),
-                          ),
-                          new Container(
-                            //alignment: Alignment.center,
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 15.0, 8.0),
-                                child: GestureDetector(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'INFORMÁTICA Y TIC',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Cursos gratis relacionados a las TIC, electrónica, redes, telecomunicaciones ofimática e informática en general.',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: darkTheme1 == true
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 15),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                  onTap: () async {
-                                    setLocalNotification('TIC');
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => categorias(
-                                            catProviene: "TIC",
-                                            puntoPartida: 'categorias_select'),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                // TIC
+                SizedBox(height: 3),
+                buildCategoryWidget(
+                  title: 'INFORMÁTICA Y TIC',
+                  imageUrl: iconTIC,
+                  count: '$countTIC',
+                  description:
+                      'Cursos gratis relacionados a las TIC, electrónica, redes, telecomunicaciones ofimática e informática en general.',
+                  category: 'TIC',
                 ),
 
-                //Programacion
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: darkTheme1 == true
-                          ? Colors.grey[850]
-                          : Colors.white, // Your desired background color
-
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      child: new Row(
-                        children: <Widget>[
-                          Padding(
-                            //PADDING OF THE IMAGE
-                            padding:
-                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
-                            child: new Container(
-                              alignment: Alignment.center,
-                              child: CachedNetworkImage(
-                                imageUrl: iconDesarroolo,
-                                width: 90.0,
-                                height: 90.0,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ),
-                          ),
-                          new Container(
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 15.0, 8.0),
-                                child: GestureDetector(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'DESARROLLO Y PROGRAMACIÓN',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Cursos gratis relacionado con el Software, el desarrollo y la programación en varios lenguajes.',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: darkTheme1 == true
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                  onTap: () async {
-                                    setLocalNotification('Programación');
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => categorias(
-                                            catProviene: "Programacion",
-                                            puntoPartida: 'categorias_select'),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                // Programación
+                SizedBox(height: 3),
+                buildCategoryWidget(
+                  title: 'DESARROLLO Y PROGRAMACIÓN',
+                  imageUrl: iconDesarrollo,
+                  count: '$countProg',
+                  description:
+                      'Cursos gratis sobre desarrollo de software, programación, lenguajes, entre otros.',
+                  category: 'Programacion',
                 ),
 
-                //IDIOMAS
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      child: new Row(
-                        children: <Widget>[
-                          Padding(
-                            //PADDING OF THE IMAGE
-                            padding:
-                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
-                            child: new Container(
-                              alignment: Alignment.center,
-                              child: CachedNetworkImage(
-                                imageUrl: iconIdiomas,
-                                width: 90.0,
-                                height: 90.0,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ),
-                          ),
-                          new Container(
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 16.0, 8.0),
-                                child: GestureDetector(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'IDIOMAS Y LENGUAJES',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Cursos gratis sobre Inglés, Japonés, Koreano, Ortografía y demás idiomas',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: darkTheme1 == true
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                  onTap: () async {
-                                    setLocalNotification('Idiomas');
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => categorias(
-                                            catProviene: "Idiomas",
-                                            puntoPartida: 'categorias_select'),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                // Idiomas
+                SizedBox(height: 3),
+                buildCategoryWidget(
+                  title: 'IDIOMAS Y LENGUAJES',
+                  imageUrl: iconIdiomas,
+                  count: '$countIdiom',
+                  description:
+                      'Cursos gratis sobre Inglés, Japonés, Koreano, Ortografía y demás idiomas',
+                  category: 'Idiomas',
                 ),
 
-                //Marketing digital
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      child: new Row(
-                        children: <Widget>[
-                          Padding(
-                            //PADDING OF THE IMAGE
-                            padding:
-                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
-                            child: new Container(
-                              alignment: Alignment.center,
-                              child: CachedNetworkImage(
-                                imageUrl: iconMarketing,
-                                width: 90.0,
-                                height: 90.0,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ),
-                          ),
-                          new Container(
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 16.0, 8.0),
-                                child: GestureDetector(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'MARKETING DIGITAL',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Cursos gratis relacionados con la promoción, publicidad, ventas en linea y marketing en general',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: darkTheme1 == true
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                  onTap: () async {
-                                    setLocalNotification('Marketing');
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => categorias(
-                                            catProviene: "Marketing",
-                                            puntoPartida: 'categorias_select'),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                // Profesionales
+                SizedBox(height: 3),
+                buildCategoryWidget(
+                  title: 'FORMACIÓN PROFESIONAL',
+                  imageUrl: iconProfesionales,
+                  count: '$countProf',
+                  description:
+                      'Cursos gratis relacionados con el mejoramiento y crecimiento del perfil profesional',
+                  category: 'Profesionales',
                 ),
 
-                //Razonamiento Cuantitativo
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      child: new Row(
-                        children: <Widget>[
-                          Padding(
-                            //PADDING OF THE IMAGE
-                            padding:
-                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
-                            child: new Container(
-                              alignment: Alignment.center,
-                              child: CachedNetworkImage(
-                                imageUrl: iconRazonamiento,
-                                width: 90.0,
-                                height: 90.0,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ),
-                          ),
-                          new Container(
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 16.0, 8.0),
-                                child: GestureDetector(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'RAZONAMIENTO CUANTITATIVO',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Cursos gratis relacionados con los números, las matematicas, el cálculo, analisis numericos, estadistica y razonamiento cuantitativo en general',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: darkTheme1 == true
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                  onTap: () async {
-                                    setLocalNotification('Razonamiento');
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => categorias(
-                                            catProviene: "Razonamiento",
-                                            puntoPartida: 'categorias_select'),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                // Marketing Digital
+                SizedBox(height: 3),
+                buildCategoryWidget(
+                  title: 'MARKETING DIGITAL',
+                  imageUrl: iconMarketing,
+                  count: '$countMark',
+                  description:
+                      'Cursos gratis relacionados con la promoción, publicidad, ventas en línea y marketing en general',
+                  category: 'Marketing',
                 ),
 
-                //Salud
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      child: new Row(
-                        children: <Widget>[
-                          Padding(
-                            //PADDING OF THE IMAGE
-                            padding:
-                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
-                            child: new Container(
-                              alignment: Alignment.center,
-                              child: CachedNetworkImage(
-                                imageUrl: iconSalud,
-                                width: 90.0,
-                                height: 90.0,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ),
-                          ),
-                          new Container(
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 15.0, 8.0),
-                                child: GestureDetector(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'SALUD Y BIENESTAR',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Cursos gratis sobre el área del bienestar y la salud como medicina, psicologia, nutrición, cuidados, entre otros',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: darkTheme1 == true
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                  onTap: () async {
-                                    setLocalNotification('Salud');
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => categorias(
-                                            catProviene: "Salud",
-                                            puntoPartida: 'categorias_select'),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                // Razonamiento Cuantitativo
+                SizedBox(height: 3),
+                buildCategoryWidget(
+                  title: 'RAZONAMIENTO CUANTITATIVO',
+                  imageUrl: iconRazonamiento,
+                  count: '$countRaz',
+                  description:
+                      'Cursos gratis sobre números, cálculo, análisis numéricos, estadística, entre otros',
+                  category: 'Razonamiento',
                 ),
 
-                //SEGURIDAD INFORMÁTICA
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      child: new Row(
-                        children: <Widget>[
-                          Padding(
-                            //PADDING OF THE IMAGE
-                            padding:
-                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
-                            child: new Container(
-                              alignment: Alignment.center,
-                              child: CachedNetworkImage(
-                                imageUrl: iconSeguridad,
-                                width: 90.0,
-                                height: 90.0,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) => Container(
-                                    height: 50,
-                                    width: 50,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2.0,
-                                    )),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ),
-                          ),
-                          new Container(
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 11.0, 8.0),
-                                child: GestureDetector(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'SEGURIDAD INFORMÁTICA',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Cursos gratis relacionados con el haking ético, seguridad en redes, seguridad informática en general',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: darkTheme1 == true
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                  onTap: () async {
-                                    setLocalNotification('Ciberseguridad');
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => categorias(
-                                            catProviene: "Ciberseguridad",
-                                            puntoPartida: 'categorias_select'),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                // Salud
+                SizedBox(height: 3),
+                buildCategoryWidget(
+                  title: 'SALUD Y BIENESTAR',
+                  imageUrl: iconSalud,
+                  count: '$countSalud',
+                  description:
+                      'Cursos gratis sobre el área del bienestar y la salud como medicina, psicología, nutrición, cuidados, entre otros',
+                  category: 'Salud',
                 ),
 
-                //INGENIERIA
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      child: new Row(
-                        children: <Widget>[
-                          Padding(
-                            //PADDING OF THE IMAGE
-                            padding:
-                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
-                            child: new Container(
-                              alignment: Alignment.center,
-                              child: CachedNetworkImage(
-                                imageUrl: iconIng,
-                                width: 90.0,
-                                height: 90.0,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ),
-                          ),
-                          new Container(
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 16.0, 8.0),
-                                child: GestureDetector(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'INGENIERIA',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Cursos gratis relacionados con la ingeniería civil, ingenieria mecánica, ingenieria industrial, ingenieria mecatrónica y afines.',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: darkTheme1 == true
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                  onTap: () async {
-                                    setLocalNotification('Ingenieria');
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => categorias(
-                                            catProviene: "Ingenieria",
-                                            puntoPartida: 'categorias_select'),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                // Seguridad Informática
+                SizedBox(height: 3),
+                buildCategoryWidget(
+                  title: 'SEGURIDAD INFORMÁTICA',
+                  imageUrl: iconSeguridad,
+                  count: '$countSeguri',
+                  description:
+                      'Cursos gratis relacionados con el hacking ético, seguridad en redes, seguridad informática en general',
+                  category: 'Ciberseguridad',
                 ),
 
-                //Ciencia y análisis de datos
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      child: new Row(
-                        children: <Widget>[
-                          Padding(
-                            //PADDING OF THE IMAGE
-                            padding:
-                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
-                            child: new Container(
-                              alignment: Alignment.center,
-                              child: CachedNetworkImage(
-                                imageUrl: iconDatos,
-                                width: 90.0,
-                                height: 90.0,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ),
-                          ),
-                          new Container(
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 16.0, 8.0),
-                                child: GestureDetector(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'CIENCIA Y ANÁLISIS DE DATOS',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Cursos gratis relacionados a la ciencia análisis de datos, desde cursos introductorios hasta mas completos con lenguajes y librerías',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: darkTheme1 == true
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                  onTap: () async {
-                                    setLocalNotification('Datos');
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => categorias(
-                                            catProviene:
-                                                "Ciencia y Análisis de Datos",
-                                            puntoPartida: 'categorias_select'),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                // Trabajos Varios
+                SizedBox(height: 3),
+                buildCategoryWidget(
+                  title: 'TRABAJOS VARIOS',
+                  imageUrl: iconTrabajos,
+                  count: '$countTrab',
+                  description:
+                      'Cursos gratis relacionados con trabajos que no requieren una educación formal como limpiador, bodeguero, auxiliar, panadero, voluntario, paseador y más.',
+                  category: 'Trabajos Varios',
                 ),
 
-                //INTELIGENCIA ARTIFICIAL
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      child: new Row(
-                        children: <Widget>[
-                          Padding(
-                            //PADDING OF THE IMAGE
-                            padding:
-                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
-                            child: new Container(
-                              alignment: Alignment.center,
-                              child: CachedNetworkImage(
-                                imageUrl: iconIA,
-                                width: 90.0,
-                                height: 90.0,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ),
-                          ),
-                          new Container(
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 16.0, 8.0),
-                                child: GestureDetector(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'INTELIGENCIA ARTIFICIAL',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Cursos gratis relacionados al mundo de la inteligencia artificial, redes neuronales, deep learning, machine learning, etc...',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: darkTheme1 == true
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                  onTap: () async {
-                                    setLocalNotification('IA');
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => categorias(
-                                            catProviene: "IA",
-                                            puntoPartida: 'categorias_select'),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                // Ingeniería
+                SizedBox(height: 3),
+                buildCategoryWidget(
+                  title: 'INGENIERIA',
+                  imageUrl: iconIng,
+                  count: '$countIng',
+                  description:
+                      'Cursos gratis relacionados con la ingeniería civil, ingeniería mecánica, ingeniería industrial, ingeniería mecatrónica y afines.',
+                  category: 'Ingenieria',
                 ),
 
-                //PROFESIONALES
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      child: new Row(
-                        children: <Widget>[
-                          Padding(
-                            //PADDING OF THE IMAGE
-                            padding:
-                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
-                            child: new Container(
-                              alignment: Alignment.center,
-                              child: CachedNetworkImage(
-                                imageUrl: iconProfesionales,
-                                width: 90.0,
-                                height: 90.0,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ),
-                          ),
-                          new Container(
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 16.0, 8.0),
-                                child: GestureDetector(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'FORMACIÓN PROFESIONAL',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Cursos gratis relacionados con el mejoramiento y crecimiento del perfil profesional',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: darkTheme1 == true
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                  onTap: () async {
-                                    setLocalNotification('Profesionales');
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => categorias(
-                                            catProviene: "Profesionales",
-                                            puntoPartida: 'categorias_select'),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                // Ciencia y Análisis de Datos
+                SizedBox(height: 3),
+                buildCategoryWidget(
+                  title: 'CIENCIA Y ANÁLISIS DE DATOS',
+                  imageUrl: iconDatos,
+                  count: '$countCiencia',
+                  description:
+                      'Cursos gratis desde básico a avanzado sobre tecnologias, modelos, lenguajes y librerías.',
+                  category: 'Ciencia y Análisis de Datos',
                 ),
 
-                //ARTES
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      child: new Row(
-                        children: <Widget>[
-                          Padding(
-                            //PADDING OF THE IMAGE
-                            padding:
-                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
-                            child: new Container(
-                              alignment: Alignment.center,
-                              child: CachedNetworkImage(
-                                imageUrl: iconArtes,
-                                width: 90.0,
-                                height: 90.0,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ),
-                          ),
-                          new Container(
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 30.0, 8.0),
-                                child: GestureDetector(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'ARTES',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Cursos gratis relacionados con el diseño gráfico, dibujo, literatura, actuación y arte en general, incluyendo pintura, escultura, fotografía, historia del arte, entre otros...',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: darkTheme1 == true
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                  onTap: () async {
-                                    setLocalNotification('Artes');
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => categorias(
-                                            catProviene: "Artes",
-                                            puntoPartida: 'categorias_select'),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                SizedBox(height: 3),
+                buildCategoryWidget(
+                  title: 'INTELIGENCIA ARTIFICIAL',
+                  imageUrl: iconIA,
+                  count: '$countIA',
+                  description:
+                      'Cursos gratis relacionados al mundo de la inteligencia artificial, redes neuronales, deep learning, machine learning, etc...',
+                  category: 'IA',
                 ),
 
-                //COCINA Y ALIMENTOS
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      child: new Row(
-                        children: <Widget>[
-                          Padding(
-                            //PADDING OF THE IMAGE
-                            padding:
-                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
-                            child: new Container(
-                              alignment: Alignment.center,
-                              child: CachedNetworkImage(
-                                imageUrl: iconCocina,
-                                width: 90.0,
-                                height: 90.0,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ),
-                          ),
-                          new Container(
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 11.0, 8.0),
-                                child: GestureDetector(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'COCINA Y ALIMENTOS',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Cursos gratis relacionados con la preparación y manipulación de alimentos, la nutrición y la gastronomía, incluyendo técnicas de cocina, repostería, panadería, cocina internacional, alimentación saludable, entre otros...',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: darkTheme1 == true
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                  onTap: () async {
-                                    setLocalNotification('Cocina y alimentos');
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => categorias(
-                                            catProviene: "Cocina y alimentos",
-                                            puntoPartida: 'categorias_select'),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                // Música
+                SizedBox(height: 3),
+                buildCategoryWidget(
+                  title: 'MÚSICA',
+                  imageUrl: iconMusica,
+                  count: '$countMusic',
+                  description:
+                      'Cursos gratis sobre instrumentos musicales, géneros, canto, teoría musical, técnica de instrumentos, interpretación, composición, entre otros...',
+                  category: 'musica',
                 ),
 
-                //TRABAJOS VARIOS
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      child: new Row(
-                        children: <Widget>[
-                          Padding(
-                            //PADDING OF THE IMAGE
-                            padding:
-                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
-                            child: new Container(
-                              alignment: Alignment.center,
-                              child: CachedNetworkImage(
-                                imageUrl: iconTrabajos,
-                                width: 90.0,
-                                height: 90.0,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ),
-                          ),
-                          new Container(
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 16.0, 8.0),
-                                child: GestureDetector(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'TRABAJOS VARIOS',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Cursos gratis relacionados con trabajos que no requieren una educación formal como limpiador, bodeguero, auxiliar, panadero, voluntario, paseador y más.',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: darkTheme1 == true
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                  onTap: () async {
-                                    setLocalNotification('Trabajos Varios');
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => categorias(
-                                            catProviene: "Trabajos Varios",
-                                            puntoPartida: 'categorias_select'),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                // Cocina y Alimentos
+                SizedBox(height: 3),
+                buildCategoryWidget(
+                  title: 'COCINA Y ALIMENTOS',
+                  imageUrl: iconCocina,
+                  count: '$countCocina',
+                  description:
+                      'Cursos gratis sonbre nutrición, alimentos y gastronomía, incluyendo técnicas de cocina, repostería, panadería, cocina internacional, entre otros...',
+                  category: 'Cocina y alimentos',
                 ),
 
-                //AGRO
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      child: new Row(
-                        children: <Widget>[
-                          Padding(
-                            //PADDING OF THE IMAGE
-                            padding:
-                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
-                            child: new Container(
-                              alignment: Alignment.center,
-                              child: CachedNetworkImage(
-                                imageUrl: iconAgro,
-                                width: 90.0,
-                                height: 90.0,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ),
-                          ),
-                          new Container(
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 11.0, 8.0),
-                                child: GestureDetector(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'AGROPECUARIO',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Cursos gratis relacionados con el sector agrícola y pecuario, incluyendo agricultura, ganadería, horticultura, piscicultura, apicultura, jardinería, entre otros...',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: darkTheme1 == true
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                  onTap: () async {
-                                    setLocalNotification('Agropecuario');
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => categorias(
-                                            catProviene: "Agropecuario",
-                                            puntoPartida: 'categorias_select'),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                // Transporte
+                SizedBox(height: 3),
+                buildCategoryWidget(
+                  title: 'TRANSPORTE',
+                  imageUrl: iconTransp,
+                  count: '$counTransp',
+                  description:
+                      'Cursos gratuitos relacionados con la conducción de vehículos: moto, carro, transporte de carga, transporte en general y más.',
+                  category: 'Transporte',
                 ),
 
-                //TRANSPORTE
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      child: new Row(
-                        children: <Widget>[
-                          Padding(
-                            //PADDING OF THE IMAGE
-                            padding:
-                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
-                            child: new Container(
-                              alignment: Alignment.center,
-                              child: CachedNetworkImage(
-                                imageUrl: iconTransp,
-                                width: 90.0,
-                                height: 90.0,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ),
-                          ),
-                          new Container(
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 11.0, 8.0),
-                                child: GestureDetector(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'TRANSPORTE',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Cursos gratuis relacionados con la conducción de vehículos: moto, carro, transporte de carga, transporte en general y más.',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: darkTheme1 == true
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                  onTap: () async {
-                                    setLocalNotification('Transporte');
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => categorias(
-                                            catProviene: "Transporte",
-                                            puntoPartida: 'categorias_select'),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                // Agropecuario
+                SizedBox(height: 3),
+                buildCategoryWidget(
+                  title: 'AGROPECUARIO',
+                  imageUrl: iconAgro,
+                  count: '$countAgro',
+                  description:
+                      'Cursos gratuitos relacionados con el sector agrícola y pecuario, incluyendo agricultura, ganadería, horticultura, piscicultura, apicultura, jardinería, entre otros...',
+                  category: 'Agropecuario',
                 ),
 
-                //CRYPTO Y TRADING
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      child: new Row(
-                        children: <Widget>[
-                          Padding(
-                            //PADDING OF THE IMAGE
-                            padding:
-                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
-                            child: new Container(
-                              alignment: Alignment.center,
-                              child: CachedNetworkImage(
-                                imageUrl: iconCrypto,
-                                width: 90.0,
-                                height: 90.0,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ),
-                          ),
-                          new Container(
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 16.0, 8.0),
-                                child: GestureDetector(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'CRYPTO Y TRADING',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Cursos gratis relacionados al mundo de las Criptomonedas, el blockchain y demás tecnologías de la web3',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: darkTheme1 == true
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                  onTap: () async {
-                                    setLocalNotification('Crypto');
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => categorias(
-                                            catProviene: "Crypto",
-                                            puntoPartida: 'categorias_select'),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                // Artes
+                SizedBox(height: 3),
+                buildCategoryWidget(
+                  title: 'ARTES',
+                  imageUrl: iconArtes,
+                  count: '$countArtes',
+                  description:
+                      'Cursos gratuitos relacionados con el diseño gráfico, dibujo, literatura, actuación y arte en general, incluyendo pintura, escultura, fotografía, historia del arte, entre otros...',
+                  category: 'Artes',
                 ),
 
-                //MUSICA
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      child: new Row(
-                        children: <Widget>[
-                          Padding(
-                            //PADDING OF THE IMAGE
-                            padding:
-                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
-                            child: new Container(
-                              alignment: Alignment.center,
-                              child: CachedNetworkImage(
-                                imageUrl: iconMusica,
-                                width: 90.0,
-                                height: 90.0,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ),
-                          ),
-                          new Container(
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 16.0, 8.0),
-                                child: GestureDetector(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'MÚSICA',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Cursos gratis relacionados con los instrumentos musicales, géneros, canto y la música en general, incluyendo teoría musical, técnica de instrumentos, interpretación, composición, entre otros...',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: darkTheme1 == true
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                  onTap: () async {
-                                    setLocalNotification('Musica');
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => categorias(
-                                            catProviene: "musica",
-                                            puntoPartida: 'categorias_select'),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                // Crypto y Trading
+                SizedBox(height: 3),
+                buildCategoryWidget(
+                  title: 'CRYPTO Y TRADING',
+                  imageUrl: iconCrypto,
+                  count: '$countCrypto',
+                  description:
+                      'Cursos gratis relacionados al mundo de las Criptomonedas, el blockchain y demás tecnologías de la web3',
+                  category: 'Crypto',
                 ),
 
-                //BELLEZA
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      child: new Row(
-                        children: <Widget>[
-                          Padding(
-                            //PADDING OF THE IMAGE
-                            padding:
-                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
-                            child: new Container(
-                              alignment: Alignment.center,
-                              child: CachedNetworkImage(
-                                imageUrl: iconCosmeticos,
-                                width: 90.0,
-                                height: 90.0,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ),
-                          ),
-                          new Container(
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 11.0, 8.0),
-                                child: GestureDetector(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'MODA Y BELLEZA',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Cursos gratis relacionados con el cuidado de la piel, tatoo, peluqueria, manicure, barberia, pedicure, dermatologia, entre otros...',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: darkTheme1 == true
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                  onTap: () async {
-                                    setLocalNotification('belleza');
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => categorias(
-                                            catProviene: "Belleza",
-                                            puntoPartida: 'categorias_select'),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                // Sociales, Sociedades y Jurídicas
+                SizedBox(height: 3),
+                buildCategoryWidget(
+                  title: 'SOCIALES, SOCIEDADES Y JURÍDICAS',
+                  imageUrl: iconSociales,
+                  count: '$countSociales',
+                  description:
+                      'Cursos gratis sobre derecho, sociedad, leyes, trabajo social, sociología, política, entre otros...',
+                  category: 'Sociales',
                 ),
 
-                //SOCIALES Y JURIDICAS
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      child: new Row(
-                        children: <Widget>[
-                          Padding(
-                            //PADDING OF THE IMAGE
-                            padding:
-                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
-                            child: new Container(
-                              alignment: Alignment.center,
-                              child: CachedNetworkImage(
-                                imageUrl: iconSociales,
-                                width: 90.0,
-                                height: 90.0,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ),
-                          ),
-                          new Container(
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 11.0, 8.0),
-                                child: GestureDetector(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'SOCIALES, SOCIEDADES Y JURÍDICAS',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Cursos gratis relacionados con el derecho, la sociedad, las leyes y el trabajo social, incluyendo derecho, sociología, trabajo social, política, entre otros...',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: darkTheme1 == true
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                  onTap: () async {
-                                    setLocalNotification('Sociales');
-
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => categorias(
-                                            catProviene: "Sociales",
-                                            puntoPartida: 'categorias_select'),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                // Moda y Belleza
+                SizedBox(height: 3),
+                buildCategoryWidget(
+                  title: 'MODA Y BELLEZA',
+                  imageUrl: iconCosmeticos,
+                  count: '$countModa',
+                  description:
+                      'Cursos gratis relacionados con el cuidado de la piel, tatuajes, peluquería, manicura, barbería, pedicura, dermatología, entre otros...',
+                  category: 'Belleza',
                 ),
 
-                //OTHERS
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:
-                          darkTheme1 == true ? Colors.grey[850] : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      child: new Row(
-                        children: <Widget>[
-                          Padding(
-                            //PADDING OF THE IMAGE
-                            padding:
-                                const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
-                            child: new Container(
-                              alignment: Alignment.center,
-                              child: CachedNetworkImage(
-                                imageUrl: iconOtros,
-                                width: 90.0,
-                                height: 90.0,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ),
-                          ),
-                          new Container(
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 30.0, 8.0),
-                                child: GestureDetector(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'OTROS CURSOS ...',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Aquí podrás encontrar los cursos que aún no tienen categoria debido al bajo numero registrados',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: darkTheme1 == true
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                  onTap: () async {
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => categorias(
-                                            catProviene: "Otros",
-                                            puntoPartida: 'categorias_select'),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                // Otros
+                SizedBox(height: 3),
+                buildCategoryWidget(
+                  title: 'OTROS CURSOS ...',
+                  imageUrl: iconOtros,
+                  count: '+800',
+                  description:
+                      'Aquí podrás encontrar los cursos que aún no tienen categoria debido al bajo numero registrados',
+                  category: 'Otros',
                 ),
               ],
             ),
@@ -2122,6 +500,129 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
         context: context,
       ),
     );
+  }
+
+  Widget buildCategoryWidget({
+    required String title,
+    required String imageUrl,
+    required String count,
+    required String description,
+    required String category,
+  }) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.130,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
+        child: Container(
+          decoration: BoxDecoration(
+            color: darkTheme1 == true ? Colors.grey[850] : Colors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          //card
+          child: Container(
+            child: Row(
+              children: <Widget>[
+                Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: CachedNetworkImage(
+                          imageUrl: imageUrl,
+                          width: 90.0,
+                          height: 90.0,
+                          fit: BoxFit.contain,
+                          placeholder: (context, url) =>
+                              CircularProgressIndicator(),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 10,
+                      left: 0,
+                      child: Container(
+                        padding: EdgeInsets.all(7.0),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.green,
+                        ),
+                        child: Text(
+                          count,
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  child: Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(2.0, 8.0, 2.0, 8.0),
+                      child: GestureDetector(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              title,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Colors.blue,
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              description,
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: darkTheme1 == true
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
+                            ),
+                          ],
+                        ),
+                        onTap: () async {
+                          setLocalNotification(category);
+                          //Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => categorias(
+                                catProviene: category,
+                                puntoPartida: 'categorias_select',
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<int> searchCountCoursesByCategory(String category) async {
+    //inicializa la db
+    final databaseHandler = DatabaseHandler();
+
+    //obtiene el total de cursos por categoria
+    final totalCoursesInCategory =
+        await databaseHandler.getTotalCoursesInCategory(category);
+
+    return totalCoursesInCategory;
   }
 
   void setLocalNotification(String category) async {
@@ -2145,28 +646,30 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
     if (totalCoursesInCategory > 0) {
       final randomCourse = await databaseHandler.getRandomCourse(category);
       if (randomCourse != null) {
-        Fluttertoast.showToast(
+/*         Fluttertoast.showToast(
           msg:
               'Cursos de $category: $totalCoursesInCategory\nCurso elegido aleatoriamente: ${randomCourse.title}',
           gravity: ToastGravity.BOTTOM,
           toastLength: Toast.LENGTH_SHORT,
-        );
+        ); */
 
         sendNotification(randomCourse.title, randomCourse.categoria,
             randomCourse.emision, randomCourse.entidad);
       } else {
-        Fluttertoast.showToast(
+/*         Fluttertoast.showToast(
           msg: 'No se pudo encontrar un curso en la categoría $category.',
           gravity: ToastGravity.BOTTOM,
           toastLength: Toast.LENGTH_LONG,
-        );
+        ); */
       }
+
+      return totalCoursesInCategory;
     } else {
-      Fluttertoast.showToast(
+/*       Fluttertoast.showToast(
         msg: 'No hay cursos en la categoría $category.',
         gravity: ToastGravity.BOTTOM,
         toastLength: Toast.LENGTH_LONG,
-      );
+      ); */
     }
   }
 
@@ -2178,20 +681,39 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
     final randomNumber = random.nextInt(3) + 1; // Genera números entre 1 y 3.
     print('randomNumber: $randomNumber');
 
-    Fluttertoast.showToast(
+/*     Fluttertoast.showToast(
       msg: 'randmon $randomNumber',
       gravity: ToastGravity.BOTTOM,
       toastLength: Toast.LENGTH_LONG,
-    );
+    ); */
 
     String title = '$name por $entidad';
-    String body = 'Es un nuevo curso indexado que podría interesarte $emision';
+    String body =
+        'Encontramos este nuevo curso gratis que necesitas ($emision). Entra y búscalo.';
 
     // Define la probabilidad de mostrar la notificación (33% de probabilidad).
-    if (randomNumber == 1 || randomNumber == 3 || randomNumber == 2) {
-      // Configura el retraso en segundos antes de mostrar la notificación.
+    if (randomNumber == 1) {
+      await Future.delayed(const Duration(minutes: 1)); // Espera 2 minutos
 
-      await localNotifications.scheduleNotificationIn5Seconds(
+      await localNotifications.showLocalNotification(
+        id: 13,
+        title: title,
+        body: body,
+        data: '',
+      );
+    } else if (randomNumber == 2) {
+      await Future.delayed(const Duration(minutes: 5)); // Espera 2 minutos
+
+      await localNotifications.showLocalNotification(
+        id: 13,
+        title: title,
+        body: body,
+        data: '',
+      );
+    } else if (randomNumber == 3) {
+      await Future.delayed(const Duration(hours: 24));
+
+      await localNotifications.showLocalNotification(
         id: 13,
         title: title,
         body: body,
@@ -2199,15 +721,4 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
       );
     }
   }
-
-/*     String title = '$name por $entidad';
-    String body = 'Es un nuevo curso indexado que podría interesarte $emision';
-
-    await localNotifications.showLocalNotification(
-      id: 13,
-      title: title,
-      body: body,
-      data: '',
-    );
-  } */
 }

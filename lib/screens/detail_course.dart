@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:cursin/ads_ids/ads.dart';
 import 'package:cursin/screens/drawer/drawer_options/certificados.dart';
@@ -38,6 +39,8 @@ class _CourseDetailState extends State<CourseDetail> {
 
   //is a bool that contains when user enter in a course to show ad, if user back, then ad will not showed again by the same course.
   late bool adForCourse;
+  bool _isVisible = true;
+  late Timer _timer; // Declarar la variable timer aquí
 
   BannerAd? _anchoredAdaptiveAd;
   bool _isLoaded = false;
@@ -399,6 +402,15 @@ class _CourseDetailState extends State<CourseDetail> {
     createRewardedAd();
 
     getSharedPrefs();
+
+    TimerLuzTablaInfo();
+  }
+
+  @override
+  void dispose() {
+    _timer
+        .cancel(); // Asegurarse de cancelar el temporizador al salir del widget
+    super.dispose();
   }
 
   int randNum = 0;
@@ -504,282 +516,40 @@ class _CourseDetailState extends State<CourseDetail> {
                   ),
                 ]),
                 SizedBox(
-                  height: 10,
-                ),
-
-                SizedBox(
-                  height: 20,
+                  height: 30,
                 ),
 
                 //NOMBRE CURSO
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Text(widget.td.title,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: darkTheme1 == true
-                                      ? Colors.white
-                                      : Colors.black,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold)),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Divider(
-                      color: darkTheme1 == true ? Colors.grey : Colors.black,
-                    ),
-                  ],
+                Text(widget.td.title,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: darkTheme1 == true ? Colors.white : Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold)),
+
+                SizedBox(
+                  height: 30,
                 ),
 
-                //IDIOMA
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Center(
-                            child: RichText(
-                                text: TextSpan(
-                              text: "🗣️ Idioma:",
-                              style: new TextStyle(
-                                fontSize: 15.0,
-                                color: darkTheme1 == true
-                                    ? Colors.white
-                                    : Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )),
-                          ),
-                        ),
-                        Expanded(
-                          child: Center(
-                            child: Text(widget.td.idioma,
-                                style: TextStyle(
-                                    color: darkTheme1 == true
-                                        ? Colors.white
-                                        : Colors.black,
-                                    fontWeight: FontWeight.normal)),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Divider(
-                      color: darkTheme1 == true ? Colors.grey : Colors.black,
-                    ),
-                  ],
+                //WidgetTablaInfo(darkTheme1: darkTheme1, widget: widget),
+
+                AnimatedContainer(
+                  duration: Duration(milliseconds: 200), // Duración más larga
+                  decoration: BoxDecoration(
+                    color: _isVisible
+                        ? Color.fromARGB(90, 117, 117, 117)
+                        : Colors.transparent, // Cambiar a transparente
+                    borderRadius: BorderRadius.circular(
+                        10.0), // Ajusta el valor según lo desees
+                  ),
+                  child:
+                      WidgetTablaInfo(darkTheme1: darkTheme1, widget: widget),
                 ),
 
-                //ENTIDAD
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Center(
-                            child: RichText(
-                                text: TextSpan(
-                              text: "🏢 Entidad:",
-                              style: new TextStyle(
-                                fontSize: 15.0,
-                                color: darkTheme1 == true
-                                    ? Colors.white
-                                    : Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )),
-                          ),
-                        ),
-                        Expanded(
-                          child: Center(
-                            child: Text(widget.td.entidad,
-                                style: TextStyle(
-                                    color: darkTheme1 == true
-                                        ? Colors.white
-                                        : Colors.black,
-                                    fontWeight: FontWeight.normal)),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Divider(
-                      color: darkTheme1 == true ? Colors.grey : Colors.black,
-                    ),
-                  ],
-                ),
-
-                //CATEGORIA
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Center(
-                            child: RichText(
-                                text: TextSpan(
-                              text: "🗂️ Categoría:",
-                              style: new TextStyle(
-                                fontSize: 15.0,
-                                color: darkTheme1 == true
-                                    ? Colors.white
-                                    : Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )),
-                          ),
-                        ),
-                        Expanded(
-                          child: Center(
-                            child: Text(widget.td.categoria,
-                                style: TextStyle(
-                                    color: darkTheme1 == true
-                                        ? Colors.white
-                                        : Colors.black,
-                                    fontWeight: FontWeight.normal)),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Divider(
-                      color: darkTheme1 == true ? Colors.grey : Colors.black,
-                    ),
-                  ],
-                ),
-
-                //DURACIÓN
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Center(
-                            child: RichText(
-                                text: TextSpan(
-                              text: "🕑 Duración:",
-                              style: new TextStyle(
-                                fontSize: 15.0,
-                                color: darkTheme1 == true
-                                    ? Colors.white
-                                    : Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )),
-                          ),
-                        ),
-                        Expanded(
-                          child: Center(
-                            child: Text(widget.td.duracion,
-                                style: TextStyle(
-                                    color: darkTheme1 == true
-                                        ? Colors.white
-                                        : Colors.black,
-                                    fontWeight: FontWeight.normal)),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Divider(
-                      color: darkTheme1 == true ? Colors.grey : Colors.black,
-                    ),
-                  ],
-                ),
-
-                //TIPO DE EMISION
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Center(
-                              child: RichText(
-                                  text: TextSpan(
-                            text: "🎖️ Tipo de emisión:",
-                            style: new TextStyle(
-                              fontSize: 15.0,
-                              color: darkTheme1 == true
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ))),
-                        ),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => certificadosScreen()),
-                              );
-                            },
-                            child: Center(
-                              child: Text(
-                                widget.td.emision,
-                                style: TextStyle(
-                                    color: darkTheme1 == true &&
-                                            widget.td.emision ==
-                                                'Con certificado gratis'
-                                        ? Colors.green
-                                        : darkTheme1 == false &&
-                                                widget.td.emision ==
-                                                    'Con certificado gratis'
-                                            ? Colors.green
-                                            : darkTheme1 == false ||
-                                                    darkTheme1 == true &&
-                                                        widget.td.emision !=
-                                                            'Con certificado gratis'
-                                                ? Colors.grey
-                                                : null,
-                                    fontWeight: FontWeight.normal),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Divider(
-                      color: darkTheme1 == true ? Colors.grey : Colors.black,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 40, 0),
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => certificadosScreen()),
-                                );
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(bottom: 5),
-                                child: Text(
-                                  'Ver certificados',
-                                  style: TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
-                                    decoration: TextDecoration.underline,
-                                  ),
-                                ),
-                              ),
-                            )),
-                      ),
-                    ),
-                  ],
-                ),
                 SizedBox(
                   height: 20,
                 ),
+
                 //BOTON COMPARTOR CURSP
                 Column(
                   children: [
@@ -1466,5 +1236,232 @@ class _CourseDetailState extends State<CourseDetail> {
         Fluttertoast.showToast(msg: 'Curso guardado en Favoritos');
       }
     }
+  }
+
+  void TimerLuzTablaInfo() {
+    _timer = Timer.periodic(Duration(milliseconds: 500), (timer) {
+      setState(() {
+        _isVisible = !_isVisible;
+      });
+    });
+
+    Timer(Duration(seconds: 6), () {
+      _timer.cancel();
+      setState(() {
+        _isVisible = false;
+      });
+    });
+  }
+}
+
+class WidgetTablaInfo extends StatelessWidget {
+  const WidgetTablaInfo(
+      {super.key, required this.darkTheme1, required this.widget});
+
+  final bool? darkTheme1;
+  final CourseDetail widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        //IDIOMA
+
+        Row(
+          children: [
+            Expanded(
+              child: Center(
+                child: RichText(
+                    text: TextSpan(
+                  text: "🗣️ Idioma:",
+                  style: new TextStyle(
+                    fontSize: 15.0,
+                    color: darkTheme1 == true ? Colors.white : Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
+              ),
+            ),
+            Expanded(
+              child: Center(
+                child: Text(widget.td.idioma,
+                    style: TextStyle(
+                        color: darkTheme1 == true ? Colors.white : Colors.black,
+                        fontWeight: FontWeight.normal)),
+              ),
+            ),
+          ],
+        ),
+        Divider(
+          color: darkTheme1 == true ? Colors.grey : Colors.black,
+        ),
+
+        //ENTIDAD
+
+        Row(
+          children: [
+            Expanded(
+              child: Center(
+                child: RichText(
+                    text: TextSpan(
+                  text: "🏢 Entidad:",
+                  style: new TextStyle(
+                    fontSize: 15.0,
+                    color: darkTheme1 == true ? Colors.white : Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
+              ),
+            ),
+            Expanded(
+              child: Center(
+                child: Text(widget.td.entidad,
+                    style: TextStyle(
+                        color: darkTheme1 == true ? Colors.white : Colors.black,
+                        fontWeight: FontWeight.normal)),
+              ),
+            ),
+          ],
+        ),
+        Divider(
+          color: darkTheme1 == true ? Colors.grey : Colors.black,
+        ),
+
+        //CATEGORIA
+
+        Row(
+          children: [
+            Expanded(
+              child: Center(
+                child: RichText(
+                    text: TextSpan(
+                  text: "🗂️ Categoría:",
+                  style: new TextStyle(
+                    fontSize: 15.0,
+                    color: darkTheme1 == true ? Colors.white : Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
+              ),
+            ),
+            Expanded(
+              child: Center(
+                child: Text(widget.td.categoria,
+                    style: TextStyle(
+                        color: darkTheme1 == true ? Colors.white : Colors.black,
+                        fontWeight: FontWeight.normal)),
+              ),
+            ),
+          ],
+        ),
+        Divider(
+          color: darkTheme1 == true ? Colors.grey : Colors.black,
+        ),
+
+        //DURACIÓN
+
+        Row(
+          children: [
+            Expanded(
+              child: Center(
+                child: RichText(
+                    text: TextSpan(
+                  text: "🕑 Duración:",
+                  style: new TextStyle(
+                    fontSize: 15.0,
+                    color: darkTheme1 == true ? Colors.white : Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
+              ),
+            ),
+            Expanded(
+              child: Center(
+                child: Text(widget.td.duracion,
+                    style: TextStyle(
+                        color: darkTheme1 == true ? Colors.white : Colors.black,
+                        fontWeight: FontWeight.normal)),
+              ),
+            ),
+          ],
+        ),
+        Divider(
+          color: darkTheme1 == true ? Colors.grey : Colors.black,
+        ),
+
+        //TIPO DE EMISION
+
+        Row(
+          children: [
+            Expanded(
+              child: Center(
+                  child: RichText(
+                      text: TextSpan(
+                text: "🎖️ Tipo de emisión:",
+                style: new TextStyle(
+                  fontSize: 15.0,
+                  color: darkTheme1 == true ? Colors.white : Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ))),
+            ),
+            Expanded(
+              child: Center(
+                child: Text(
+                  widget.td.emision,
+                  style: TextStyle(
+                      color: darkTheme1 == true &&
+                              widget.td.emision == 'Con certificado gratis'
+                          ? Colors.green
+                          : darkTheme1 == false &&
+                                  widget.td.emision == 'Con certificado gratis'
+                              ? Colors.green
+                              : darkTheme1 == false ||
+                                      darkTheme1 == true &&
+                                          widget.td.emision !=
+                                              'Con certificado gratis'
+                                  ? Colors.grey
+                                  : null,
+                      fontWeight: FontWeight.normal),
+                ),
+              ),
+            ),
+          ],
+        ),
+
+        Divider(
+          color: darkTheme1 == true ? Colors.grey : Colors.black,
+        ),
+
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 0, 40, 0),
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => certificadosScreen()),
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 5),
+                    child: Text(
+                      'Ver certificados',
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                )),
+          ),
+        ),
+      ],
+    );
   }
 }

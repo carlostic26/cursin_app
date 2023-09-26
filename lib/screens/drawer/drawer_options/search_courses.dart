@@ -277,56 +277,74 @@ class _searchedCoursesState extends State<searchedCourses> {
                                 child: new Row(
                                   children: <Widget>[
                                     //IMAGEN DEL CURSO
-                                    Stack(children: [
-                                      Padding(
+                                    Stack(
+                                      children: [
+                                        Padding(
                                           padding: const EdgeInsets.fromLTRB(
-                                              1.0,
-                                              1.0,
+                                              0.5,
+                                              0.5,
                                               0.0,
-                                              1.0), //borde de la imagen
+                                              0.5), //borde de la imagen
                                           child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(20.0),
-                                            child: CachedNetworkImage(
-                                              imageUrl: items[index].imgcourse,
-                                              width: 120.0,
-                                              height: 100.0,
-                                              fit: BoxFit.cover,
-                                              placeholder: (context, url) => Center(
-                                                  child:
-                                                      CircularProgressIndicator()),
-                                              errorWidget:
-                                                  (context, url, error) =>
-                                                      Icon(Icons.error),
-                                            ),
-                                          )),
-
-                                      // ICONO EN LA ESQUINA SUPERIOR DERECHA
-                                      Positioned(
-                                        top: 3,
-                                        right: 0,
-                                        child: ClipOval(
-                                          child: Container(
-                                            color: Color.fromARGB(0, 0, 0, 0),
-                                            child: CachedNetworkImage(
-                                              imageUrl: items[index].emision ==
-                                                      'Con certificado gratis'
-                                                  ? 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjRLFEHYVoLlL4hmFrf_qEamOxDChdKy-7qYGmeT_ca1X62LuytAVqc2gXWDemQpOe1Kf-2FUQElVYx8583Kk12sN7siuSabRY-iDCDfAqdW9mZEWQF-EAcsAhLM08leySmOYu6T-SgxuswHvxjcXgEdT8vWGcQgi1dQ_zcUhXoGhW4eg--sG1-tWyg/s1600/0623.png'
-                                                  : 'https://blogger.googleusercontent.com/img/a/AVvXsEjHD0pCtfjYChXbmlmbbZ-xHsf0EH1Jfzx2j7utG-3_3Rz5UvftUT9SfxAJ8iw3R59mQtN6pwk7iY6M0OO9I3eMzLqzIQeCIbBWoA6U3GtuVh1UWsHYANbPPKQWHmd41p3lAmXGexXG62eEtmmbdsldbmRyemO2B1zp4SrCslPg8wvxd9PbHWaFbA',
-                                              width: 30.0,
-                                              height: 30.0,
-                                              fit: BoxFit.contain,
-                                              placeholder: (context, url) => Center(
-                                                  child:
-                                                      CircularProgressIndicator()),
-                                              errorWidget:
-                                                  (context, url, error) =>
-                                                      Icon(Icons.error),
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0),
+                                              child: Image.network(
+                                                items[index].imgcourse,
+                                                width: 120.0,
+                                                height: 100.0,
+                                                fit: BoxFit.cover,
+                                                loadingBuilder:
+                                                    (BuildContext context,
+                                                        Widget child,
+                                                        ImageChunkEvent?
+                                                            loadingProgress) {
+                                                  if (loadingProgress == null) {
+                                                    return child;
+                                                  } else {
+                                                    // En lugar de reemplazar la imagen, puedes superponer el indicador de progreso encima de ella.
+                                                    return Stack(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      children: [
+                                                        child, // Muestra la imagen de fondo.
+                                                        CircularProgressIndicator(), // Muestra el indicador de progreso encima de la imagen.
+                                                      ],
+                                                    );
+                                                  }
+                                                },
+                                                errorBuilder: (BuildContext
+                                                        context,
+                                                    Object error,
+                                                    StackTrace? stackTrace) {
+                                                  return Icon(Icons.error);
+                                                },
+                                              )),
+                                        ),
+                                        // ICONO EN LA ESQUINA SUPERIOR DERECHA
+                                        Positioned(
+                                          top: 3,
+                                          right: 0,
+                                          child: ClipOval(
+                                            child: Container(
+                                              color: Color.fromARGB(0, 0, 0, 0),
+                                              child: CachedNetworkImage(
+                                                imageUrl: items[index]
+                                                            .emision ==
+                                                        'Con certificado gratis'
+                                                    ? 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjRLFEHYVoLlL4hmFrf_qEamOxDChdKy-7qYGmeT_ca1X62LuytAVqc2gXWDemQpOe1Kf-2FUQElVYx8583Kk12sN7siuSabRY-iDCDfAqdW9mZEWQF-EAcsAhLM08leySmOYu6T-SgxuswHvxjcXgEdT8vWGcQgi1dQ_zcUhXoGhW4eg--sG1-tWyg/s1600/0623.png'
+                                                    : 'https://blogger.googleusercontent.com/img/a/AVvXsEjHD0pCtfjYChXbmlmbbZ-xHsf0EH1Jfzx2j7utG-3_3Rz5UvftUT9SfxAJ8iw3R59mQtN6pwk7iY6M0OO9I3eMzLqzIQeCIbBWoA6U3GtuVh1UWsHYANbPPKQWHmd41p3lAmXGexXG62eEtmmbdsldbmRyemO2B1zp4SrCslPg8wvxd9PbHWaFbA',
+                                                width: 30.0,
+                                                height: 30.0,
+                                                fit: BoxFit.contain,
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Icon(Icons.error),
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ]),
+                                      ],
+                                    ),
                                     new Container(
                                       child: Expanded(
                                         //para que no haya overflow

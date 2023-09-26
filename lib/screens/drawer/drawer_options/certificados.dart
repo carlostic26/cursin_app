@@ -12,7 +12,7 @@ import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
 import 'package:cursin/screens/drawer/drawer_options/ultimos_cursos.dart';
 import 'package:cursin/screens/infoScreens/agradecimientos.dart';
 import 'package:cursin/screens/infoScreens/info_app.dart';
-import 'package:cursin/screens/infoScreens/info_cursin.dart';
+import 'package:cursin/old_deprecated/info_cursin.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';

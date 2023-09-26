@@ -36,38 +36,6 @@ class _categoriaState extends State<categorias> {
     }
   }
 
-/*   Future<void> _loadAdaptativeAd() async {
-    CursinAdsIds Cursin_ads = CursinAdsIds();
-    final adSize =
-        await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
-            MediaQuery.of(context).size.width.truncate());
-
-    if (adSize == null) {
-      print('Unable to get height of anchored banner.');
-      return;
-    }
-
-    _anchoredAdaptiveAd = BannerAd(
-      adUnitId: Cursin_ads.banner_adUnitId,
-      size: adSize,
-      request: AdRequest(),
-      listener: BannerAdListener(
-        onAdLoaded: (Ad ad) {
-          print('$ad loaded: ${ad.responseInfo}');
-          setState(() {
-            _anchoredAdaptiveAd = ad as BannerAd;
-            _isLoaded = true;
-          });
-        },
-        onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          print('Anchored adaptive banner failedToLoad: $error');
-          ad.dispose();
-        },
-      ),
-    );
-    await _anchoredAdaptiveAd!.load();
-  }
- */
   void setCategory() {
     switch (widget.catProviene) {
       case "Transporte":
@@ -585,278 +553,59 @@ class _categoriaState extends State<categorias> {
       _isAdLoaded = true;
     }
 
-    return WillPopScope(
-      onWillPop: () async {
-        //Navigator.pop(context);
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (_) =>
-                  CategoriasSelectCards()), // Categoria Select no necesita ningun argumento, ya que es la pantalla inicial
-        );
-        super.dispose();
-
-        return true;
-      },
-      child: Scaffold(
-        backgroundColor: darkTheme1 == true ? Colors.grey[850] : Colors.white,
-        floatingActionButton: FloatingButtonCondition(context),
-        appBar: AppBar(
-          leading: IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.white),
+    return Scaffold(
+      backgroundColor: darkTheme1 == true ? Colors.grey[850] : Colors.white,
+      floatingActionButton: FloatingButtonCondition(context),
+      appBar: AppBar(
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () {
+              //Navigator.of(context).pop(); //SE COMENTAREA ESTA LINEA PORQUE PRODUCE ERROR AL HABER 2 RUTAS DE NAVIGATOR
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (_) => CategoriasSelectCards()));
+            }),
+        title: Text(
+          "" + widget.catProviene,
+          style: TextStyle(
+            fontSize: 16.0, /*fontWeight: FontWeight.bold*/
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: IconButton(
+              icon: Icon(Icons.search),
               onPressed: () {
-                //Navigator.of(context).pop(); //SE COMENTAREA ESTA LINEA PORQUE PRODUCE ERROR AL HABER 2 RUTAS DE NAVIGATOR
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (_) => CategoriasSelectCards()));
-              }),
-          title: Text(
-            "" + widget.catProviene,
-            style: TextStyle(
-              fontSize: 16.0, /*fontWeight: FontWeight.bold*/
+                //pass to search screen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => searchedCourses(
+                      catProviene: widget.catProviene,
+                      puntoPartida: 'categorias',
+                    ),
+                  ),
+                );
+              },
             ),
           ),
-          actions: [
-            Padding(
-              padding: EdgeInsets.all(10),
-              child: IconButton(
-                icon: Icon(Icons.search),
-                onPressed: () {
-                  //pass to search screen
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => searchedCourses(
-                        catProviene: widget.catProviene,
-                        puntoPartida: 'categorias',
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
-          centerTitle: true,
-        ),
-        body: FutureBuilder<List<curso>>(
-          future: _curso,
-          builder: (BuildContext context, AsyncSnapshot<List<curso>> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: const CircularProgressIndicator(),
-              );
-            } else if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
-            } else {
-              var items = snapshot.data ?? <curso>[];
-
-              return Container(
-                margin: EdgeInsets.symmetric(
-                  horizontal: 1.0,
-                  vertical: 1.0,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: ListView.builder(
-                  itemCount: items.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => CourseDetail(
-                              //enviamos 3 parametros que nos lo pide el Course Detail, ya que,
-                              //1. Es el index de curso.
-                              //2. nombre de pantalla actual
-                              //3. Que categoria estamos
-                              td: items[index],
-                              puntoPartida: "categorias",
-                              catProvino: widget.catProviene,
-                            ),
-                          ),
-                        );
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(7, 5, 7, 5),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: darkTheme1 == true
-                                      ? Colors.grey[850]
-                                      : Colors
-                                          .white, // Your desired background color
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: Container(
-                                  child: new Row(
-                                    children: <Widget>[
-                                      //IMAGEN DEL CURSO
-                                      Stack(
-                                        children: [
-                                          //IMAGEN DEL CURSO
-                                          Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                0.5,
-                                                0.5,
-                                                0.0,
-                                                0.5), //borde de la imagen
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(20.0),
-                                              child: CachedNetworkImage(
-                                                imageUrl:
-                                                    items[index].imgcourse,
-                                                width: 120.0,
-                                                height: 100.0,
-                                                fit: BoxFit.cover,
-                                                placeholder: (context, url) =>
-                                                    Center(
-                                                        child:
-                                                            CircularProgressIndicator()),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        Icon(Icons.error),
-                                              ),
-                                            ),
-                                          ),
-                                          // ICONO EN LA ESQUINA SUPERIOR DERECHA
-                                          Positioned(
-                                            top: 3,
-                                            right: 0,
-                                            child: ClipOval(
-                                              child: Container(
-                                                color:
-                                                    Color.fromARGB(0, 0, 0, 0),
-                                                child: CachedNetworkImage(
-                                                  imageUrl: items[index]
-                                                              .emision ==
-                                                          'Con certificado gratis'
-                                                      ? 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjRLFEHYVoLlL4hmFrf_qEamOxDChdKy-7qYGmeT_ca1X62LuytAVqc2gXWDemQpOe1Kf-2FUQElVYx8583Kk12sN7siuSabRY-iDCDfAqdW9mZEWQF-EAcsAhLM08leySmOYu6T-SgxuswHvxjcXgEdT8vWGcQgi1dQ_zcUhXoGhW4eg--sG1-tWyg/s1600/0623.png'
-                                                      : 'https://blogger.googleusercontent.com/img/a/AVvXsEjHD0pCtfjYChXbmlmbbZ-xHsf0EH1Jfzx2j7utG-3_3Rz5UvftUT9SfxAJ8iw3R59mQtN6pwk7iY6M0OO9I3eMzLqzIQeCIbBWoA6U3GtuVh1UWsHYANbPPKQWHmd41p3lAmXGexXG62eEtmmbdsldbmRyemO2B1zp4SrCslPg8wvxd9PbHWaFbA',
-                                                  width: 30.0,
-                                                  height: 30.0,
-                                                  fit: BoxFit.contain,
-                                                  placeholder: (context, url) =>
-                                                      Center(
-                                                          child:
-                                                              CircularProgressIndicator()),
-                                                  errorWidget:
-                                                      (context, url, error) =>
-                                                          Icon(Icons.error),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Container(
-                                        child: Expanded(
-                                          //para que no haya overflow
-                                          child: Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                8.0, 1.0, 1.0, 1.0),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  items[index].title,
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 16,
-                                                    //COLOR DEL TEXTO TITULO
-                                                    color: Color.fromARGB(
-                                                        255, 53, 164, 255),
-                                                  ),
-                                                ),
-                                                //SizedBox(height: 2),
-                                                Row(
-                                                  children: [
-                                                    new Expanded(
-                                                      flex: 1,
-                                                      child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            //entidad del curso
-                                                            Text(
-                                                              items[index]
-                                                                  .entidad,
-                                                              style: TextStyle(
-                                                                fontSize: 12,
-                                                                color: darkTheme1 ==
-                                                                        true
-                                                                    ? Color
-                                                                        .fromARGB(
-                                                                            255,
-                                                                            175,
-                                                                            175,
-                                                                            175)
-                                                                    : Colors.grey[
-                                                                        850],
-                                                              ),
-                                                            ),
-
-                                                            //emision
-                                                            Text(
-                                                                items[index]
-                                                                    .emision,
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .left,
-                                                                style: TextStyle(
-                                                                    fontSize: 10,
-                                                                    color: darkTheme1 == true && items[index].emision == 'Con certificado gratis'
-                                                                        ? Colors.greenAccent
-                                                                        : darkTheme1 == false && items[index].emision == 'Con certificado gratis'
-                                                                            ? Color.fromARGB(255, 1, 77, 40)
-                                                                            : darkTheme1 == false || darkTheme1 == true && items[index].emision != 'Con certificado gratis'
-                                                                                ? Colors.grey
-                                                                                : null,
-                                                                    fontWeight: FontWeight.normal)),
-                                                          ]),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              );
-            }
-          },
-        ),
-        bottomNavigationBar: _anchoredAdaptiveAd != null && _isLoaded
-            ? Container(
-                color: Color.fromARGB(0, 33, 149, 243),
-                width: _anchoredAdaptiveAd?.size.width.toDouble(),
-                height: _anchoredAdaptiveAd?.size.height.toDouble(),
-                child: AdWidget(ad: _anchoredAdaptiveAd!),
-              )
-            : Container(
-                color: Color.fromARGB(0, 33, 149, 243),
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height *
-                    0.1, // 10% de la altura de la pantalla
-              ),
+        ],
+        centerTitle: true,
       ),
+      body: ShowCursos(curso: _curso, widget: widget, darkTheme1: darkTheme1),
+      bottomNavigationBar: _anchoredAdaptiveAd != null && _isLoaded
+          ? Container(
+              color: Color.fromARGB(0, 33, 149, 243),
+              width: _anchoredAdaptiveAd?.size.width.toDouble(),
+              height: _anchoredAdaptiveAd?.size.height.toDouble(),
+              child: AdWidget(ad: _anchoredAdaptiveAd!),
+            )
+          : Container(
+              color: Color.fromARGB(0, 33, 149, 243),
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height *
+                  0.1, // 10% de la altura de la pantalla
+            ),
     );
   }
 
@@ -963,5 +712,246 @@ class _categoriaState extends State<categorias> {
           child: Icon(Icons.add),
           onPressed: () => _showDialogAddCourse(context)); */
     }
+  }
+}
+
+class ShowCursos extends StatelessWidget {
+  const ShowCursos({
+    super.key,
+    required Future<List<curso>>? curso,
+    required this.widget,
+    required this.darkTheme1,
+  }) : _curso = curso;
+
+  final Future<List<curso>>? _curso;
+  final categorias widget;
+  final bool? darkTheme1;
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<curso>>(
+      future: _curso,
+      builder: (BuildContext context, AsyncSnapshot<List<curso>> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: const CircularProgressIndicator(),
+          );
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          var items = snapshot.data ?? <curso>[];
+
+          return Container(
+            margin: EdgeInsets.symmetric(
+              horizontal: 1.0,
+              vertical: 1.0,
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: ListView.builder(
+              itemCount: items.length,
+              itemBuilder: (BuildContext context, int index) {
+                return GestureDetector(
+                  onTap: () {
+                    //set notification
+                    //...
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CourseDetail(
+                          td: items[index],
+                          puntoPartida: "categorias",
+                          catProvino: widget.catProviene,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(7, 5, 7, 5),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: darkTheme1 == true
+                                  ? Colors.grey[850]
+                                  : Colors
+                                      .white, // Your desired background color
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Container(
+                              child: new Row(
+                                children: <Widget>[
+                                  //IMAGEN DEL CURSO
+                                  Stack(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(0.5,
+                                            0.5, 0.0, 0.5), //borde de la imagen
+                                        child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(20.0),
+                                            child: Image.network(
+                                              items[index].imgcourse,
+                                              width: 120.0,
+                                              height: 100.0,
+                                              fit: BoxFit.cover,
+                                                loadingBuilder:
+                                                  (BuildContext context,
+                                                      Widget child,
+                                                      ImageChunkEvent?
+                                                          loadingProgress) {
+                                                if (loadingProgress == null) {
+                                                  return child;
+                                                } else {
+                                                  // En lugar de reemplazar la imagen, puedes superponer el indicador de progreso encima de ella.
+                                                  return Stack(
+                                                    alignment: Alignment.center,
+                                                    children: [
+                                                      child, // Muestra la imagen de fondo.
+                                                      CircularProgressIndicator(), // Muestra el indicador de progreso encima de la imagen.
+                                                    ],
+                                                  );
+                                                }
+                                              },
+                                              errorBuilder:
+                                                  (BuildContext context,
+                                                      Object error,
+                                                      StackTrace? stackTrace) {
+                                                return Icon(Icons.error);
+                                              },
+                                            )),
+                                      ),
+                                      // ICONO EN LA ESQUINA SUPERIOR DERECHA
+                                      Positioned(
+                                        top: 3,
+                                        right: 0,
+                                        child: ClipOval(
+                                          child: Container(
+                                            color: Color.fromARGB(0, 0, 0, 0),
+                                            child: CachedNetworkImage(
+                                              imageUrl: items[index].emision ==
+                                                      'Con certificado gratis'
+                                                  ? 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjRLFEHYVoLlL4hmFrf_qEamOxDChdKy-7qYGmeT_ca1X62LuytAVqc2gXWDemQpOe1Kf-2FUQElVYx8583Kk12sN7siuSabRY-iDCDfAqdW9mZEWQF-EAcsAhLM08leySmOYu6T-SgxuswHvxjcXgEdT8vWGcQgi1dQ_zcUhXoGhW4eg--sG1-tWyg/s1600/0623.png'
+                                                  : 'https://blogger.googleusercontent.com/img/a/AVvXsEjHD0pCtfjYChXbmlmbbZ-xHsf0EH1Jfzx2j7utG-3_3Rz5UvftUT9SfxAJ8iw3R59mQtN6pwk7iY6M0OO9I3eMzLqzIQeCIbBWoA6U3GtuVh1UWsHYANbPPKQWHmd41p3lAmXGexXG62eEtmmbdsldbmRyemO2B1zp4SrCslPg8wvxd9PbHWaFbA',
+                                              width: 30.0,
+                                              height: 30.0,
+                                              fit: BoxFit.contain,
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      Icon(Icons.error),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Container(
+                                    child: Expanded(
+                                      //para que no haya overflow
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            8.0, 1.0, 1.0, 1.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              items[index].title,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                                //COLOR DEL TEXTO TITULO
+                                                color: Color.fromARGB(
+                                                    255, 53, 164, 255),
+                                              ),
+                                            ),
+                                            //SizedBox(height: 2),
+                                            Row(
+                                              children: [
+                                                new Expanded(
+                                                  flex: 1,
+                                                  child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        //entidad del curso
+                                                        Text(
+                                                          items[index].entidad,
+                                                          style: TextStyle(
+                                                            fontSize: 12,
+                                                            color: darkTheme1 ==
+                                                                    true
+                                                                ? Color
+                                                                    .fromARGB(
+                                                                        255,
+                                                                        175,
+                                                                        175,
+                                                                        175)
+                                                                : Colors
+                                                                    .grey[850],
+                                                          ),
+                                                        ),
+
+                                                        //emision
+                                                        Text(
+                                                            items[index]
+                                                                .emision,
+                                                            textAlign:
+                                                                TextAlign.left,
+                                                            style: TextStyle(
+                                                                fontSize: 10,
+                                                                color: darkTheme1 ==
+                                                                            true &&
+                                                                        items[index].emision ==
+                                                                            'Con certificado gratis'
+                                                                    ? Colors
+                                                                        .greenAccent
+                                                                    : darkTheme1 ==
+                                                                                false &&
+                                                                            items[index].emision ==
+                                                                                'Con certificado gratis'
+                                                                        ? Color.fromARGB(
+                                                                            255,
+                                                                            1,
+                                                                            77,
+                                                                            40)
+                                                                        : darkTheme1 == false ||
+                                                                                darkTheme1 == true &&
+                                                                                    items[index].emision !=
+                                                                                        'Con certificado gratis'
+                                                                            ? Colors
+                                                                                .grey
+                                                                            : null,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .normal)),
+                                                      ]),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          );
+        }
+      },
+    );
   }
 }

@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:mailto/mailto.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -438,7 +439,7 @@ class drawerRiverpod extends ConsumerWidget {
                 color: darkTheme == true ? Colors.white : Colors.grey[850],
               ),
               //at press, run the method
-              onTap: () => {GoAgradecimientos(context)},
+              onTap: () => {GoAgradecimientos(context, darkTheme)},
             ),
             ListTile(
                 title: Text("¿Problemas para ingresar?",
@@ -650,7 +651,8 @@ class drawerRiverpod extends ConsumerWidget {
         "\n\n\nBájala directamente desde la PlayStore: \nhttps://play.google.com/store/apps/details?id=com.appcursin.blogspot");
   }
 
-  void GoAgradecimientos(BuildContext context) {
+  Future<void> GoAgradecimientos(BuildContext context, darkTheme) async {
+    final BannerAd staticAd = await initializeBannerAd();
     Navigator.pop(context);
     Navigator.push(
       context,
@@ -658,9 +660,32 @@ class drawerRiverpod extends ConsumerWidget {
         builder:
             (_) => //aqui al tocar item de lista se pasa a su respectiva pantalla de editar
                 //que puede ser reemplazada por la de INFO CURSO en completos
-                agradecimientosScreen(context),
+                AgradecimientosScreen(
+          darkTheme1: darkTheme,
+          staticAd: staticAd,
+        ),
       ),
     );
+  }
+
+  // Función para inicializar los anuncios
+  Future<BannerAd> initializeBannerAd() async {
+    final AdRequest request = AdRequest();
+    final BannerAd staticAd = BannerAd(
+      adUnitId: 'ca-app-pub-4336409771912215/1019860019',
+      size: AdSize.banner,
+      request: request,
+      listener: BannerAdListener(onAdLoaded: (ad) {
+        // Realizar alguna acción cuando se cargue el anuncio
+      }, onAdFailedToLoad: (ad, error) {
+        ad.dispose();
+        print('ad failed to load ${error.message}');
+      }),
+    );
+
+    await staticAd.load();
+
+    return staticAd;
   }
 
   // ignore: non_constant_identifier_names

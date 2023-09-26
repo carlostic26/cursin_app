@@ -99,7 +99,7 @@ class LocalNotifications {
     );
   }
 
-    Future<void> scheduleNotificationIn5Seconds({
+  Future<void> scheduleNotificationIn5Seconds({
     required int id,
     String? title,
     String? body,

@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cursin/screens/drawer/drawer_options/carruselCertifiedWidget.dart';
 import 'package:cursin/screens/drawer/drawer_options/categorias_select.dart';
 
 import 'package:flutter/material.dart';
@@ -284,7 +283,7 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
               TextSpan(
                 text: ' de diferentes sitios de internet y plataformas educativas ' +
                     'como Google, IBM, Microsoft, Cisco, ONU, hp, Unicef, Meta, Kaggle, ' +
-                    'intel entre muchas otras más, con la posibilidad de obtener un',
+                    'intel entre otros.\n\nEstas plataformas emiten un',
               ),
               TextSpan(
                 text: ' certificado',
@@ -294,7 +293,7 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
                 ),
               ),
               TextSpan(
-                text: ' de finalización.',
+                text: ' de finalización, después de completar el curso.',
               ),
             ],
           ),
@@ -317,10 +316,10 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
             children: [
               TextSpan(
                 text:
-                    'Porque ya no tendrás que pagar por conocimiento.\n\nPorque',
+                    'Porque ya no tendrás que pagar por conocimiento nunca mas.\n\n',
               ),
               TextSpan(
-                text: ' siempre ',
+                text: 'Siempre ',
                 style: TextStyle(
                   color: Colors.green,
                   fontWeight: FontWeight.bold,
@@ -330,17 +329,18 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
                 text: 'vas a necesitar',
               ),
               TextSpan(
-                text: ' cursos gratis. ',
+                text: ' cursos gratis ',
                 style: TextStyle(
                   color: Colors.green,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               TextSpan(
-                text: 'para tu conocimiento, HV o LinkedIn.',
+                text:
+                    'para tu conocimiento, Curriculum Vitae (CV), Hoja de Vida (HV) o LinkedIn.',
               ),
               TextSpan(
-                text: '\n\nPorque la app se',
+                text: '\n\nLa app se',
               ),
               TextSpan(
                 text: ' actualiza ',
@@ -353,7 +353,7 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
                 text: 'constantemente con',
               ),
               TextSpan(
-                text: ' nuevos cursos ',
+                text: ' cursos nuevos ',
                 style: TextStyle(
                   color: Colors.green,
                   fontWeight: FontWeight.bold,
@@ -399,7 +399,7 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
             style: TextStyle(fontSize: 16, color: Colors.black),
             children: [
               TextSpan(
-                text: 'Cursin',
+                text: 'Esta app',
               ),
               TextSpan(
                 text: ' no es ',
@@ -409,7 +409,7 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
                 ),
               ),
               TextSpan(
-                text: 'una plataforma que produce los cursos online.\n\n',
+                text: 'una plataforma que produce los cursos gratis.\n\n',
               ),
               TextSpan(
                 text: 'Cursin busca, indexa,',
@@ -454,7 +454,7 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
             style: TextStyle(fontSize: 16, color: Colors.black),
             children: [
               TextSpan(
-                text: 'Cursin no recopila datos ni información, y no solicitamos ningún registro.\n\n' +
+                text: 'Esta app no recopila datos ni información, y no se solicita ningún registro interno.\n\n' +
                     'Los registros a los cursos son a través de las plataformas web que lo emitan.',
               ),
             ],
