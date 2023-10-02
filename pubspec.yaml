@@ -52,7 +52,7 @@ dependencies:
   flutter_downloader: ^1.10.2
   riverpod: ^2.3.6
   flutter_riverpod: ^2.3.6
-  #webview_flutter: ^4.2.0
+  animate_do: ^3.0.2
 
 dev_dependencies:
   flutter_test:

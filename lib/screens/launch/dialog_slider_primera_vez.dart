@@ -264,7 +264,7 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
                 text: ' cientos de ',
               ),
               TextSpan(
-                text: ' cursos',
+                text: 'Es una app muy útil para encontrar cientos de  cursos',
                 style: TextStyle(
                   color: Colors.green,
                   fontWeight: FontWeight.bold,
@@ -303,7 +303,7 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
       Column(children: [
         SizedBox(height: 10),
         Text(
-          '📚¿Por qué debo tenerlo?🤳🏻',
+          '📚¿Por qué tenerlo?🤳🏻',
           style: TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.bold,
@@ -315,8 +315,7 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
             style: TextStyle(fontSize: 16, color: Colors.black),
             children: [
               TextSpan(
-                text:
-                    'Porque ya no tendrás que pagar por conocimiento nunca mas.\n\n',
+                text: 'Porque ya no tendrás que pagar por conocimiento.\n\n',
               ),
               TextSpan(
                 text: 'Siempre ',
@@ -363,14 +362,16 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
                 text: 'para que siempre tengas las ganas de',
               ),
               TextSpan(
-                text: ' aprender  ',
+                text:
+                    'Porque ya no tendrás que pagar por conocimiento. Siempre vas a necesitar cursos gratis para tu conocimiento, Curriculum Vitae (CV), Hoja de Vida (HV) o LinkedIn. La app se actualiza constantemente con cursos nuevos para que siempre tengas las ganas de aprender  ',
                 style: TextStyle(
                   color: Colors.green,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               TextSpan(
-                text: 'lo que sea sin tener que',
+                text:
+                    'Porque ya no tendrás que pagar por conocimiento. Siempre vas a necesitar cursos gratis para tu conocimiento, Curriculum Vitae (CV), Hoja de Vida (HV) o LinkedIn. La app se actualiza constantemente con cursos nuevos para que siempre tengas las ganas de aprender lo que sea sin tener que',
               ),
               TextSpan(
                 text: ' pagar por ello.',

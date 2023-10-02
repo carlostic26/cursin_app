@@ -693,7 +693,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
 
     // Define la probabilidad de mostrar la notificación (33% de probabilidad).
     if (randomNumber == 1) {
-      await Future.delayed(const Duration(minutes: 1)); // Espera 2 minutos
+      await Future.delayed(const Duration(minutes: 2)); // Espera 2 minutos
 
       await localNotifications.showLocalNotification(
         id: 13,
@@ -702,7 +702,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
         data: '',
       );
     } else if (randomNumber == 2) {
-      await Future.delayed(const Duration(minutes: 5)); // Espera 2 minutos
+      await Future.delayed(const Duration(minutes: 8)); // Espera 2 minutos
 
       await localNotifications.showLocalNotification(
         id: 13,

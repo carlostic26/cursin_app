@@ -242,37 +242,17 @@ class _CoursesFavsState extends State<CoursesFavs> {
                                             child: ClipRRect(
                                                 borderRadius:
                                                     BorderRadius.circular(20.0),
-                                                child: Image.network(
-                                                  items[index].imgcourse,
+                                                child: CachedNetworkImage(
+                                                  imageUrl:
+                                                      items[index].imgcourse,
                                                   width: 120.0,
                                                   height: 100.0,
                                                   fit: BoxFit.cover,
-                                                  loadingBuilder:
-                                                      (BuildContext context,
-                                                          Widget child,
-                                                          ImageChunkEvent?
-                                                              loadingProgress) {
-                                                    if (loadingProgress ==
-                                                        null) {
-                                                      return child;
-                                                    } else {
-                                                      // En lugar de reemplazar la imagen, puedes superponer el indicador de progreso encima de ella.
-                                                      return Stack(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        children: [
-                                                          child, // Muestra la imagen de fondo.
-                                                          CircularProgressIndicator(), // Muestra el indicador de progreso encima de la imagen.
-                                                        ],
-                                                      );
-                                                    }
-                                                  },
-                                                  errorBuilder: (BuildContext
-                                                          context,
-                                                      Object error,
-                                                      StackTrace? stackTrace) {
-                                                    return Icon(Icons.error);
-                                                  },
+                                                  placeholder: (context, url) =>
+                                                      const CircularProgressIndicator(),
+                                                  errorWidget: (context, url,
+                                                          error) =>
+                                                      const Icon(Icons.error),
                                                 )),
                                           ),
                                           // ICONO EN LA ESQUINA SUPERIOR DERECHA
