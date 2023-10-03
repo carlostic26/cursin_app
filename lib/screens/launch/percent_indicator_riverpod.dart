@@ -141,11 +141,11 @@ class PercentIndicatorRiverpod extends ConsumerWidget {
 
   isLoaded(context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool? primerAcceso = prefs.getBool('primerAcceso') ?? false;
+    bool? primerAcceso = prefs.getBool('primerAcceso');
 
     print('primer acceso bool:$primerAcceso');
 
-    if (primerAcceso == true) {
+    if (primerAcceso == true || primerAcceso == null) {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (_) => TutorialScreen()));
     } else {

@@ -799,11 +799,15 @@ class ShowCursos extends StatelessWidget {
                                               height: 100.0,
                                               fit: BoxFit.cover,
                                               placeholder: (context, url) =>
-                                                  SizedBox(
-                                                      height: 30,
-                                                      width: 30,
-                                                      child:
-                                                          CircularProgressIndicator()),
+                                                  Container(
+                                                width:
+                                                    50, // Ajusta este valor a tu necesidad
+                                                height:
+                                                    50, // Ajusta este valor a tu necesidad
+                                                alignment: Alignment.center,
+                                                child:
+                                                    const CircularProgressIndicator(),
+                                              ),
                                               errorWidget:
                                                   (context, url, error) =>
                                                       const Icon(Icons.error),

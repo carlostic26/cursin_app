@@ -151,8 +151,12 @@ class _Slide extends StatelessWidget {
                   child: CachedNetworkImage(
                     imageUrl: imageUrl,
                     fit: BoxFit.contain,
-                    placeholder: (context, url) =>
-                        const CircularProgressIndicator(),
+                    placeholder: (context, url) => Container(
+                      width: 50, // Ajusta este valor a tu necesidad
+                      height: 50, // Ajusta este valor a tu necesidad
+                      alignment: Alignment.center,
+                      child: const CircularProgressIndicator(),
+                    ),
                   ),
                 ),
               ),

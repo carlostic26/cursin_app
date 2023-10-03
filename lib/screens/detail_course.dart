@@ -1245,7 +1245,7 @@ class _CourseDetailState extends State<CourseDetail> {
       });
     });
 
-    Timer(Duration(seconds: 6), () {
+    Timer(Duration(seconds: 3), () {
       _timer.cancel();
       setState(() {
         _isVisible = false;
