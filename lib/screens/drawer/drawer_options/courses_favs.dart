@@ -1,24 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cursin/ads_ids/ads.dart';
-import 'package:cursin/model/dbhelper.dart';
+import 'package:cursin/utils/ads_ids/ads.dart';
+import 'package:cursin/infrastructure/models/localdb/cursosdb_sqflite.dart';
 import 'package:cursin/screens/drawer/drawer.dart';
-import 'package:cursin/screens/drawer/drawer_options/certificados.dart';
-import 'package:cursin/screens/webview/courses_webview.dart';
 import 'package:cursin/screens/drawer/drawer_options/categorias_select.dart';
 import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
-import 'package:cursin/screens/infoScreens/agradecimientos.dart';
 import 'package:cursin/model/curso_lista_model.dart';
 import 'package:cursin/screens/detail_course.dart';
-import 'package:cursin/screens/infoScreens/info_app.dart';
-import 'package:cursin/screens/drawer/drawer_options/ultimos_cursos.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:mailto/mailto.dart';
 import 'package:restart_app/restart_app.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class CoursesFavs extends StatefulWidget {
   const CoursesFavs({super.key});
@@ -231,7 +222,7 @@ class _CoursesFavsState extends State<CoursesFavs> {
                                   child: new Row(
                                     children: <Widget>[
                                       //IMAGEN DEL CURSO
-                                     Stack(
+                                      Stack(
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.fromLTRB(

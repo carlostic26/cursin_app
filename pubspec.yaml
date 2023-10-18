@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 2.0.5+105
+version: 2.0.7+107
 
 environment:
   sdk: ">=2.18.0-0 <3.0.0"
@@ -64,17 +64,10 @@ flutter_icons:
   android: "launcher_icon"
   image_path: "assets/icon/ic_launcher.png"
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-# The following section is specific to Flutter.
 flutter:
 
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
   assets:
     - assets/logo.png
     - assets/blue_background.jpg

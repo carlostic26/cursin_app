@@ -1,10 +1,10 @@
 // ignore_for_file: camel_case_types
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cursin/ads_ids/ads.dart';
+import 'package:cursin/utils/ads_ids/ads.dart';
 import 'package:cursin/model/curso_lista_model.dart';
 import 'package:cursin/screens/detail_course.dart';
-import 'package:cursin/model/dbhelper.dart';
+import 'package:cursin/infrastructure/models/localdb/cursosdb_sqflite.dart';
 import 'package:cursin/screens/drawer/drawer_options/categorias_select.dart';
 import 'package:cursin/screens/drawer/drawer_options/categorias_showing.dart';
 import 'package:cursin/screens/drawer/drawer_options/ultimos_cursos.dart';

@@ -1,4 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:cursin/screens/drawer/drawer_options/entidades.dart';
 import 'package:cursin/screens/webview/courses_webview.dart';
 import 'package:cursin/screens/drawer/drawer_options/categorias_select.dart';
 import 'package:cursin/screens/drawer/drawer_options/certificados.dart';
@@ -171,6 +172,55 @@ class _drawerCursinState extends State<drawerCursin> {
                 Navigator.pop(context),
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (_) => CategoriasSelectCards())),
+              },
+            ),
+
+            ListTile(
+              title: Row(
+                children: [
+                  Text("Entidades",
+                      style: TextStyle(
+                          color: darkTheme1 == true
+                              ? Colors.white
+                              : Colors.grey[850])),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
+                        child: AnimatedTextKit(
+                          animatedTexts: [
+                            ColorizeAnimatedText(
+                              'Nuevo',
+                              textStyle: TextStyle(
+                                color: Colors.red,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              colors: [
+                                Colors.red,
+                                Colors.yellow,
+                                Colors.green,
+                                Colors.blue,
+                                Colors.purple,
+                              ],
+                              speed: Duration(milliseconds: 500),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              leading: Icon(
+                Icons.domain,
+                color: darkTheme1 == true ? Colors.white : Colors.grey[850],
+              ),
+              onTap: () => {
+                Navigator.pop(context),
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (_) => EntidadesScreen())),
               },
             ),
 

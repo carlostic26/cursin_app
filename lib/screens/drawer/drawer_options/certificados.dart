@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cursin/ads_ids/ads.dart';
+import 'package:cursin/utils/ads_ids/ads.dart';
 import 'package:cursin/screens/webview/courses_webview.dart';
 import 'package:cursin/screens/drawer/drawer.dart';
 import 'package:cursin/screens/drawer/drawer_options/carruselCertifiedWidget.dart';
@@ -12,7 +12,7 @@ import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
 import 'package:cursin/screens/drawer/drawer_options/ultimos_cursos.dart';
 import 'package:cursin/screens/infoScreens/agradecimientos.dart';
 import 'package:cursin/screens/infoScreens/info_app.dart';
-import 'package:cursin/old_deprecated/info_cursin.dart';
+import 'package:cursin/utils/old_deprecated/info_cursin.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -153,62 +153,43 @@ class _certificadosScreenState extends State<certificadosScreen> {
             //carrusel
             carruselCertifiedScreen(),
             SizedBox(height: 40),
-
             Padding(
               padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
               child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.0),
-                  color: Colors.green,
-                  boxShadow: [
-                    //BoxShadow(color: Color.fromARGB(255, 24, 24, 24), spreadRadius: 3),
-                  ],
-                ),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15.0),
-                  child: new ExpansionTile(
-                      backgroundColor: Colors.grey,
-                      title: Text('¿Cómo reclamo mi certificado?',
-                          style: new TextStyle(
-                            fontSize: 12.0,
-                            color: Colors.white,
-                          )),
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                              alignment: Alignment.center,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  new Card(
-                                      color: Colors.grey,
-                                      child: new Container(
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                                'Si en la tabla de información del curso dentro de Cursin, la emisión del certificado se encuentra marcada como "con certificado gratis" significa que no tendrás que pagar absolutamente nada por dicho diploma.\n\nSi en la tabla de información del curso dentro de Cursin, la emisión del certificdo se encuentra marcada como "Sin certificado" significa que puede que no emitan ningún certificado, o que puede que cobren por ello.\n'),
-                                            Text(
-                                                'Cada plataforma dueña de los cursos gratis es autónoma en la manera de emitir los certificados de finalización.'),
-                                            Text(
-                                                '\nLa mayoria de las plataformas libera los certificados una vez se alcanza el 100% de todas las clases o lecciones que conforman el curso.'),
-                                            Text(
-                                                '\nDependiendo de la plataforma que emite el curso, es posible que el certificado lo envíen directamente a tu correo electronico asociado'),
-                                            Text(
-                                                '\nDependiendo de la plataforma que emite el curso, es posible que el certificado pueda descargarse directamente. Por lo tanto, te recomendamos que abras el curso con el navegador si deseas descargar el certificado en tu dispositivo.'),
-                                          ],
-                                        ),
-                                      )),
-                                ],
-
-                                //img button save
+                  borderRadius: BorderRadius.circular(25.0),
+                  child: Card(
+                    color: Color.fromARGB(19, 158, 158, 158),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('¿Cómo reclamo mi certificado?',
+                              style: new TextStyle(
+                                fontSize: 18.0,
+                                color: darkTheme1 == true
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontWeight: FontWeight.bold,
                               )),
-                        ),
-                      ] // Add all items you wish to show when the tile is expanded
+                          SizedBox(height: 10.0),
+                          Text(
+                              'Si en la tabla de información del curso dentro de Cursin, la emisión del certificado se encuentra marcada como "con certificado gratis" significa que no tendrás que pagar absolutamente nada por dicho diploma.\n\nSi en la tabla de información del curso dentro de Cursin, la emisión del certificdo se encuentra marcada como "Sin certificado" significa que puede que no emitan ningún certificado, o que puede que cobren por ello.\n\nCada plataforma dueña de los cursos gratis es autónoma en la manera de emitir los certificados de finalización.\n\nLa mayoria de las plataformas libera los certificados una vez se alcanza el 100% de todas las clases o lecciones que conforman el curso.\n\nDependiendo de la plataforma que emite el curso, es posible que el certificado lo envíen directamente a tu correo electronico asociado\n\nDependiendo de la plataforma que emite el curso, es posible que el certificado pueda descargarse directamente. Por lo tanto, te recomendamos que abras el curso con el navegador si deseas descargar el certificado en tu dispositivo.',
+                              style: new TextStyle(
+                                fontSize: 12.0,
+                                color: darkTheme1 == true
+                                    ? Colors.white
+                                    : Colors.black,
+                              )),
+                        ],
                       ),
+                    ),
+                  ),
                 ),
               ),
             ),
+            SizedBox(height: 40),
           ],
         ),
       ),

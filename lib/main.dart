@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'package:cursin/ads_ids/ads.dart';
+import 'package:cursin/utils/ads_ids/ads.dart';
 import 'package:cursin/controller/theme_preferences.dart';
 import 'package:cursin/screens/launch/percent_indicator_riverpod.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:cursin/model/dbhelper.dart';
+import 'package:cursin/infrastructure/models/localdb/cursosdb_sqflite.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';

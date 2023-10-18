@@ -1,22 +1,7 @@
 import 'dart:async';
-import 'dart:io';
-import 'package:cursin/ads_ids/ads.dart';
-import 'package:cursin/screens/drawer/drawer_options/certificados.dart';
-import 'package:cursin/screens/drawer/drawer_options/courses_favs.dart';
-import 'package:cursin/screens/drawer/drawer_options/delete_anun.dart';
-import 'package:giff_dialog/giff_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cursin/model/curso_lista_model.dart';
-import 'package:cursin/screens/course_option.dart';
-import 'package:cursin/model/dbhelper.dart';
+import 'package:cursin/screens.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:mailto/mailto.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'dart:math';
 
 class CourseDetail extends StatefulWidget {
   curso td;
@@ -557,13 +542,10 @@ class _CourseDetailState extends State<CourseDetail> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          alignment: Alignment.topCenter,
-                          padding: EdgeInsets.symmetric(horizontal: 5.0),
-                          child: ElevatedButton.icon(
+                          child: IconButton(
                             onPressed: () {
                               setState(() {
                                 click = !click;
-                                //validadorCursoGuardado = "Curso guardado";
                               });
                               sendSharedPreferences();
                             },
@@ -573,59 +555,46 @@ class _CourseDetailState extends State<CourseDetail> {
                                       click == true
                                   ? Icons.favorite
                                   : Icons.favorite_border,
-                              // <-- Icon
-                              size: 20.0,
+                              size: 30.0,
                             ),
-                            label: Text(
-                              getCoursesStringShP.contains(widget.td.title) ==
-                                          true ||
-                                      click == true
-                                  ? 'Curso guardado'
-                                  : 'Guardar curso',
-                            ), // <-- Text
+                            color:
+                                getCoursesStringShP.contains(widget.td.title) ==
+                                            true ||
+                                        click == true
+                                    ? Colors.red
+                                    : Colors.grey,
                           ),
                         ),
                         Container(
-                          alignment: Alignment.topCenter,
-                          padding: EdgeInsets.symmetric(horizontal: 5.0),
-                          child: ElevatedButton.icon(
-                            onPressed: () {
-                              shareCourse();
-                            },
-                            icon: Icon(
-                              // <-- Icon
-                              Icons.share,
-                              size: 20.0,
-                            ),
-                            label: Text('Compartir'), // <-- Text
-                          ),
-                        ),
+                            alignment: Alignment.topCenter,
+                            padding: EdgeInsets.symmetric(horizontal: 2.0),
+                            child: IconButton(
+                              onPressed: () {
+                                shareCourse();
+                              },
+                              icon: Icon(
+                                Icons.share,
+                                size: 30.0,
+                              ),
+                              color: Colors.grey,
+                            )),
+                        Container(
+                            alignment: Alignment.topCenter,
+                            padding: EdgeInsets.symmetric(horizontal: 2.0),
+                            child: IconButton(
+                              onPressed: () {
+                                _showDialogToReportProblem(context);
+                              },
+                              icon: Icon(
+                                Icons.bug_report,
+                                size: 30,
+                              ),
+                              color: Colors.grey,
+                            )),
                       ],
                     ),
                     SizedBox(
                       height: 5,
-                    ),
-                    Container(
-                      width: 180,
-                      height: 22,
-                      alignment: Alignment.topCenter,
-                      padding: EdgeInsets.symmetric(horizontal: 1.0),
-                      child: ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red, // Background color
-                        ),
-                        onPressed: () {
-                          _showDialogToReportProblem(context);
-                        },
-                        icon: Icon(
-                          Icons.bug_report,
-                          size: 12,
-                        ),
-                        label: Text(
-                          'Reportar un problema',
-                          style: TextStyle(fontSize: 10),
-                        ), // <-- Text
-                      ),
                     ),
                   ],
                 ),

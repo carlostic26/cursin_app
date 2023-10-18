@@ -2,7 +2,7 @@ import 'package:cursin/controller/theme_preferences.dart';
 import 'package:cursin/provider/riverpod.dart';
 import 'package:cursin/screens/drawer/drawer_options/categorias_select.dart';
 import 'package:cursin/screens/launch/dialog_slider_primera_vez.dart';
-import 'package:cursin/old_deprecated/percent_indicator.dart';
+import 'package:cursin/utils/old_deprecated/percent_indicator.dart';
 import 'package:cursin/screens/launch/tutorial_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

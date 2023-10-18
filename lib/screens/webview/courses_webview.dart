@@ -1,13 +1,8 @@
 import 'dart:async';
-import 'package:cursin/screens/drawer/drawer_options/categorias_select.dart';
+import 'package:cursin/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'dart:io';
-import 'package:cursin/screens/course_option.dart';
 import 'package:flutter_webview_pro/webview_flutter.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'package:device_info_plus/device_info_plus.dart';
 
@@ -100,7 +95,8 @@ class webviewState extends State<webview> {
                         'Abrir con el navegador',
                         'Copiar Enlace',
                         'Descargar un archivo',
-                        '¿No cargan los videos?'
+                        '¿No cargan los videos?',
+                        'Reportar bug'
                       }.map((String choice) {
                         return PopupMenuItem<String>(
                           value: choice,
@@ -301,7 +297,162 @@ class webviewState extends State<webview> {
       case '¿No cargan los videos?':
         _dialogVideoNoCarga(context);
         break;
+      case 'Reportar bug':
+        _showDialogToReportProblem(context);
+        break;
     }
+  }
+
+  List messageMail = ["", "", "", "", ""];
+  late bool valPagCaida = false;
+  late bool valPagCaida2 = false;
+  late bool valPagCaida3 = false;
+  late bool valPagCaida4 = false;
+  late bool valPagCaida5 = false;
+
+  bool errorLinkCaido = false,
+      errorNoAds = false,
+      errorCursoIncorrecto = false,
+      errorNoPlayVideo = false,
+      errorPideCobro = false;
+
+  _showDialogToReportProblem(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return StatefulBuilder(// StatefulBuilder
+              builder: (context, setState) {
+            return SimpleDialog(children: [
+              Text(
+                "¿Qué ha ocurrido?\n",
+                style: TextStyle(color: Colors.blue, fontSize: 20.0),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 1,
+              ),
+              CheckboxListTile(
+                  title: Text(
+                    "Acceso caído al curso, no carga información y/o sale en blanco.",
+                    style: TextStyle(fontSize: 15.0),
+                  ),
+                  value: (valPagCaida),
+                  onChanged: (valPagCaida) => setState(() {
+                        if (!errorLinkCaido) {
+                          messageMail[0] =
+                              ("\n- Acceso caído al curso, no carga información y/o sale en blanco.\n");
+                          errorLinkCaido = true;
+                        } else {
+                          messageMail[0] = "";
+                          errorLinkCaido = false;
+                        }
+                        this.valPagCaida = valPagCaida!;
+                      })),
+              CheckboxListTile(
+                  title: Text(
+                    "Algunos videos no se reproducen.",
+                    style: TextStyle(fontSize: 15.0),
+                  ),
+                  value: (valPagCaida3),
+                  onChanged: (val) => setState(() {
+                        if (!errorNoPlayVideo) {
+                          messageMail[2] =
+                              ("\n- Algunos videos no se reproducen.");
+                          errorNoPlayVideo = true;
+                        } else {
+                          messageMail[2] = "";
+                          errorNoPlayVideo = false;
+                        }
+                        this.valPagCaida3 = val!;
+                      })),
+              CheckboxListTile(
+                  title: Text(
+                    "El curso no corresponde al presentado en Cursin.",
+                    style: TextStyle(fontSize: 15.0),
+                  ),
+                  value: (valPagCaida4),
+                  onChanged: (val) => setState(() {
+                        if (!errorCursoIncorrecto) {
+                          messageMail[3] =
+                              ("\n- El curso no corresponde al presentado en Cursin.\n");
+                          errorCursoIncorrecto = true;
+                        } else {
+                          messageMail[3] = "";
+                          errorCursoIncorrecto = false;
+                        }
+                        this.valPagCaida4 = val!;
+                      })),
+              CheckboxListTile(
+                  title: Text(
+                    "Me están cobrando el acceso al curso.",
+                    style: TextStyle(fontSize: 15.0),
+                  ),
+                  value: (valPagCaida5),
+                  onChanged: (val) => setState(() {
+                        if (!errorPideCobro) {
+                          messageMail[4] =
+                              ("\n- Me están cobrando el acceso al curso.\n\nAdjunto capture de pantalla como evidencia para que lo quiten de la app Cursin lo mas pronto.");
+                          errorPideCobro = true;
+                        } else {
+                          messageMail[4] = "";
+                          errorPideCobro = false;
+                        }
+                        this.valPagCaida5 = val!;
+                      })),
+              Container(
+                alignment: Alignment.topCenter,
+                padding: EdgeInsets.symmetric(horizontal: 5.0),
+                child: ElevatedButton(
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(
+                            color: Colors.blueAccent,
+                            width: 2.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                    child: Text(
+                      'Reportar',
+                      style: TextStyle(fontSize: 15, color: Colors.white),
+                    ),
+                    onPressed: () {
+                      if (errorNoPlayVideo) {
+                        //Muestra dialogo de problemas reproducir video de un curso
+                        Navigator.pop(context);
+                        _dialogVideoNoCarga(context);
+                      } else {
+                        _mailto();
+                      }
+                    }),
+              ),
+            ]);
+          });
+        });
+  }
+
+  Future _mailto() async {
+    final mailtoLink = Mailto(
+      to: ['cursinapp@gmail.com'],
+      cc: [''],
+      subject: 'Reporte de falla de un curso',
+      body: "Hola. Quiero reportar un problema del " +
+          widget.nameCourse +
+          " emitido por " +
+          widget.nombreEntidad +
+          "\n" +
+          messageMail[0] +
+          messageMail[1] +
+          messageMail[2] +
+          messageMail[3] +
+          messageMail[4],
+    );
+    // Convert the Mailto instance into a string.
+    // Use either Dart's string interpolation
+    // or the toString() method.
+    await launch('$mailtoLink');
   }
 
   //metodo para ejecutar el link de abrir en Chrome

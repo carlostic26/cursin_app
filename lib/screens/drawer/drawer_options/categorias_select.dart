@@ -5,7 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cursin/screens/drawer/drawer.dart';
 import 'package:cursin/model/curso_lista_model.dart';
 import 'package:cursin/screens/drawer/drawer_options/categorias_showing.dart';
-import 'package:cursin/model/dbhelper.dart';
+import 'package:cursin/infrastructure/models/localdb/cursosdb_sqflite.dart';
 import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
 import 'package:cursin/services/local_notifications/local_notifications.dart';
 import 'package:flutter/material.dart';

@@ -37,7 +37,7 @@ final slides = <SlideInfo>[
 //checkbox
   SlideInfo(
       'Comprendo que...',
-      'Cursin es un buscador de cursos y no es dueño de ellos. \n\nAunque todos los cursos son gratis, algunos pueden o no emitir diplomas o certificados. \n\nCursin se actualiza constantemente para avisarme cuando hay cursos nuevos. \n\nCursin me servirá como herramienta para encontrar cursos online gratis cuando lo necesite.',
+      'Cursin es un buscador de cursos y no es dueño de ellos. \n\nAunque todos los cursos son gratis, algunos pocos pueden no emitir diplomas o certificados. \n\nCursin se actualiza constantemente para avisarme cuando hay cursos nuevos. \n\nCursin me servirá como herramienta para encontrar cursos online gratis cuando lo necesite.',
       'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiqMAKKMpgeugG5DtqGLdUlYqIimMoi6KCbn12CsnIYB0JGbWT3Zc3MmASM16eETFiESLLKq-ZqWC4kmZHtKeMQAafD0p0w4j8CfwAfRimQEksLVYpWg5ms0FDOI2DWPWiSsDFWIcJ9eVT6QHi4J0wFAt9n89JP1G0RzbHFNHumaIaH52rkrb-_-c0l/w400-h246/img6.png'),
 ];
 

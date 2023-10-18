@@ -1,29 +1,11 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:cursin/controller/theme_preferences.dart';
-import 'package:cursin/provider/riverpod.dart';
-import 'package:cursin/screens/drawer/drawer_options/categorias_select.dart';
-import 'package:cursin/screens/drawer/drawer_options/certificados.dart';
-import 'package:cursin/screens/drawer/drawer_options/courses_favs.dart';
-import 'package:cursin/screens/drawer/drawer_options/delete_anun.dart';
-import 'package:cursin/screens/drawer/drawer_options/noticias_screen.dart';
-import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
-import 'package:cursin/screens/drawer/drawer_options/ultimos_cursos.dart';
-import 'package:cursin/screens/infoScreens/agradecimientos.dart';
-import 'package:cursin/screens/infoScreens/info_app.dart';
-import 'package:cursin/screens/webview/courses_webview.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cursin/screens.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:mailto/mailto.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:cursin/screens/drawer/drawer_options/ultimos_cursos.dart';
 
 class drawerRiverpod extends ConsumerWidget {
-  drawerRiverpod({super.key});
+  drawerRiverpod({Key? key, required this.context}) : super(key: key);
+
+  final BuildContext context;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -132,6 +114,22 @@ class drawerRiverpod extends ConsumerWidget {
                           darkTheme == true ? Colors.white : Colors.grey[850])),
               leading: Icon(
                 Icons.category,
+                color: darkTheme == true ? Colors.white : Colors.grey[850],
+              ),
+              onTap: () => {
+                Navigator.pop(context),
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (_) => CategoriasSelectCards())),
+              },
+            ),
+
+            ListTile(
+              title: Text("Entidades",
+                  style: TextStyle(
+                      color:
+                          darkTheme == true ? Colors.white : Colors.grey[850])),
+              leading: Icon(
+                Icons.domain,
                 color: darkTheme == true ? Colors.white : Colors.grey[850],
               ),
               onTap: () => {

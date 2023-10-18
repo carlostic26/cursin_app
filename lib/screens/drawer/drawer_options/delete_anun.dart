@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cursin/ads_ids/ads.dart';
+import 'package:cursin/utils/ads_ids/ads.dart';
 import 'package:cursin/screens/drawer/drawer_options/certificados.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';

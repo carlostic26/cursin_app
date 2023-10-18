@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cursin/ads_ids/ads.dart';
-import 'package:cursin/model/dbhelper.dart';
+import 'package:cursin/utils/ads_ids/ads.dart';
+import 'package:cursin/infrastructure/models/localdb/cursosdb_sqflite.dart';
 import 'package:cursin/screens/drawer/drawer.dart';
 import 'package:cursin/screens/drawer/drawer_options/certificados.dart';
 import 'package:cursin/screens/webview/courses_webview.dart';
@@ -11,7 +11,7 @@ import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
 import 'package:cursin/screens/infoScreens/agradecimientos.dart';
 import 'package:cursin/model/curso_lista_model.dart';
 import 'package:cursin/screens/detail_course.dart';
-import 'package:cursin/old_deprecated/info_cursin.dart';
+import 'package:cursin/utils/old_deprecated/info_cursin.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -237,14 +237,19 @@ class _UltimosCursosListaState extends State<UltimosCursosLista> {
                                                 borderRadius:
                                                     BorderRadius.circular(20.0),
                                                 child: CachedNetworkImage(
-  imageUrl: items[index].imgcourse,
-  width: 120.0,
-  height: 100.0,
-  fit: BoxFit.cover,
-  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-  errorWidget: (context, url, error) => const Icon(Icons.error),
-)
-),
+                                                  imageUrl:
+                                                      items[index].imgcourse,
+                                                  width: 120.0,
+                                                  height: 100.0,
+                                                  fit: BoxFit.cover,
+                                                  placeholder: (context, url) =>
+                                                      const Center(
+                                                          child:
+                                                              CircularProgressIndicator()),
+                                                  errorWidget: (context, url,
+                                                          error) =>
+                                                      const Icon(Icons.error),
+                                                )),
                                           ),
                                           // ICONO EN LA ESQUINA SUPERIOR DERECHA
                                           Positioned(

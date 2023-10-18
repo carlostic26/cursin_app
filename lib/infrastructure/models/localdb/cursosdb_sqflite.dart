@@ -9,7 +9,7 @@ class DatabaseHandler {
   Future<Database> initializeDB() async {
     String path = await getDatabasesPath();
     return openDatabase(
-      join(path, 'courses013.db'),
+      join(path, 'courses015.db'),
       onCreate: (database, version) async {
         final String sql = ''
             'CREATE TABLE cursos ('
@@ -24,6 +24,7 @@ class DatabaseHandler {
             ' duracion TEXT,'
             ' description TEXT'
             ');';
+
         await database.execute(sql);
 
         //'("Curso gratis de ", "Edutin Academy", "Idiomas", "Sin certificado", "", "", "Español", "00 horas","++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Aunque este curso NO CONTIENE un certificado de finalización gratuito, puedes tomarlo y finalizarlo en el momen que lo requieras. Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
@@ -32,6 +33,17 @@ class DatabaseHandler {
         final String addCourse = ''
             'INSERT INTO cursos(title, entidad, categoria, emision, imgcourse, urlcourse, idioma, duracion, description) VALUES '
             //
+            '("Curso gratis de Simulink", "MatLab", "TIC", "Con certificado gratis", "https://blogger.googleusercontent.com/img/a/AVvXsEg2BoYqFU6cZklqioqmZwdEZOOL34bqQ1sn1CyjkXTMm3IZfVQ-XA8y7wU4FKUYfDTEQyJgrWKo7WRgsYlvsgEQ5V7bCcV_YldHa8M_8byF5UzzDdEWmXGxrW25xZ_JhNbs4CovVhnmr6UrKd30XaZM4MDS3uVEXUA9-fljUrPngOUOydAL4gEjjMW4", "https://matlabacademy.mathworks.com/es/details/simulink-onramp/simulink", "Inglés", "2 horas", "Este curso es una introducción rápida a los conceptos básicos de Simulink, un entorno de diagramas de bloque que se utiliza para diseñar sistemas con modelos multidominio, simular antes de implementar en hardware y desplegar sin necesidad de escribir código. ++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
+            //
+            '("Curso gratis de Simscape", "MatLab", "TIC, Ingeniería", "Con certificado gratis", "https://blogger.googleusercontent.com/img/a/AVvXsEghLg5SbLQhNxHa2ur9Ensa8fT80U-YpugddBX7V7l0nJCMO8xaMC0k76NIHTqOtzBgZFDWt0q2mSrJ2aJuqRJQfvlAVkbHks4ZsXHpDrbgOI383Nc_hRmz5Vf_2RLkgvEA4-8dpip4aQzCZe3_nRxx6XBc9aGeBgLlWlKLkfQBVo2DTyxo7kEYBQAk", "https://matlabacademy.mathworks.com/es/details/simscape-onramp/simscape", "Inglés", "2 horas", "Este curso es un curso en línea que le enseña los conceptos básicos de Simscape, una herramienta de MATLAB para modelar y simular sistemas físicos multidominio. ++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
+            //
+            '("Curso gratis de Vision Artificial", "MatLab", "TIC, IA", "Con certificado gratis", "https://blogger.googleusercontent.com/img/a/AVvXsEiA_W8iU09qRo9XEDshh6nClsk4bA_MascFVjEIfwRruSwEwn1B8acD7f7onSOcwRxnINSK-BFdAS9iUSZHSS3-eXVQ3JUAQFYPc5uoIHOZXowwmmGTRwOcDweoebckJntcnqoYfdlNYRHIIi9AQ1seOwAMbpSYKsCnUw_VX_0bNUrX4hHoehUr-yq0", "https://matlabacademy.mathworks.com/es/details/computer-vision-onramp/orcv", "Inglés", "2 horas", "Este curso es un curso en línea que le enseña los conceptos básicos de la visión artificial, una rama de la inteligencia artificial que permite a las computadoras ver, observar y comprender imágenes digitales, videos y otras entradas visuales.++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
+            //
+            '("Curso gratis de Aprendizaje por refuerzo", "MatLab", "TIC, IA", "Con certificado gratis", "https://blogger.googleusercontent.com/img/a/AVvXsEgdJgVFBzfP33uy9qhRMqP2_EJNwYvgNSqbq0NuO7k4_pse4gEkGPct-G7Eov0Kaok63SlrDgWpsGOf51TvAbwVxKBFo_Cf1dM5pXN-N9YRcYTy7q48Nl8IQnXM2hUtfmgBrXQy0J2kEOcPFPsM73dE66G_rhhi9lQNI7CDesPL1zf5AEQdE7Pn3aRm", "https://matlabacademy.mathworks.com/es/details/reinforcement-learning-onramp/reinforcementlearning", "Inglés", "3 horas", "Este curso es un curso en línea que le enseña los conceptos básicos del aprendizaje por refuerzo, una rama de la inteligencia artificial que permite crear controladores inteligentes que aprenden a partir de la experiencia.++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
+            //
+            '("Curso gratis de simulación de convertidores", "MatLab", "TIC, Electronica", "Con certificado gratis", "https://blogger.googleusercontent.com/img/a/AVvXsEjtrsUykHjxyJXhUDM5hDrBJ4TsO_KkYBpHZd0yv3cQ6yOo7MPC5vfg2FIUszyB8bXf8Z-0Hkvh7qIztWFU-AGD2HyfHteOKLVJSCErK9Yu0oetfMqLhA7zOkVKW7k8x9KAeq0hgNl3pqO5BhYs5EdCJvGAW0zogLRgomksvMl9vIn67mha-1Ygs8Ax", "https://matlabacademy.mathworks.com/es/details/power-electronics-simulation-onramp/powerelectronics", "Inglés", "1 horas", "Este curso es un curso en línea que le enseña los conceptos básicos de la simulación de convertidores de electrónica de potencia en Simscape. ++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
+            //
+
             '("Curso gratis de Ortografía y redacción", "Fundación Carlos Slim", "Idiomas", "Con certificado gratis", "https://blogger.googleusercontent.com/img/a/AVvXsEhs-DgEn2wm8R1KeppWaWQH0hvbHhKE6xDlQYXDlayq6WfTPmej8jCj-Ie3IOttoSAuIYYQgj50OjW4WCpvfGZ43q00pA_dFNr7--r6i4oVLm3B7b1DKQ3-46FYWOqQUiNcAHXICJDuf-Fyq648c09koE0xOn1BcP_7hRLfE4XqJCNJLdmDUW9mfT24", "https://capacitateparaelempleo.org/cursos/view/211", "Español", "29 horas", "En esta capacitación conocerás las reglas básicas de ortografía y puntuación para que mejores tu comunicación escrita. Además, podrás identificar los elementos indispensables que forman una oración, para que logres desarrollar ideas claras y organizadas, de manera que puedas redactar cualquier tipo de texto.++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
             //
             '("Curso gratis de Contabilidad empresarial", "Fundación Carlos Slim", "Finanzas", "Con certificado gratis", "https://blogger.googleusercontent.com/img/a/AVvXsEiSgp8tvczprE0IUeKaUBSkRVw9niJqFJTUMf8spaEhBSve_83QtWU9nLEuh6Q0iEfLk5coKaWTW5thHg21QPSTlfYkjSkTvmvvvjq1_LmPXLSxvtAGVUcJAQxY42WIwI2pqWmy6Yqj0-dfcLHEcEoCGz-QbTXiCKx2zv3VugmSoXG9hN_j5KPHaJBT", "https://capacitateparaelempleo.org/cursos/view/167", "Español", "9 horas", "Este complemento es una guía que te permitirá identificar los pasos a seguir para implementar un Sistema de Información Contable que se adecúe a las necesidades de información de tu empresa.++De esta manera, serás capaz de obtener información precisa sobre la composición de su patrimonio así como de sus operaciones, lo cual facilitará la toma de decisiones de la dirección. ++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
@@ -1659,6 +1671,7 @@ class DatabaseHandler {
             '("Curso gratis de uñas" , "Edutin Academy", "Estilo y belleza", "Sin certificado", "https://sevilla.abc.es/estilo/bulevarsur/wp-content/uploads/sites/14/2019/07/tendencia-unas-multicolor-influencer.jpg", "https://edutin.com/curso-de-u%C3%B1as-3753", "Español", "07 horas", "++En este curso de uñas aprenderás aplicar los procesos asociados al aseo de las manos y pies por medio de la limpieza de sus uñas. Es fácil de aprender y solo se requiere tener conocimientos elementales. Este curso de uñas está dirigido para todo tipo de sujeto que esté interesado en aprender a mantener las uñas saludables y deseen fomentar su estética.  ++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Aunque este curso NO CONTIENE un certificado de finalización gratuito, puedes tomarlo y finalizarlo en el momen que lo requieras. Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional.")';
 
         await database.execute(addCourse);
+        //await database.execute(addCourse concat addCourse2);
 
         //deleteOldDatabases();
       },
@@ -1666,12 +1679,12 @@ class DatabaseHandler {
     );
   }
 
-  Future<void> deleteOldDatabases() async {
+/*   Future<void> deleteOldDatabases() async {
     for (int i = 1; i < 2; i++) {
       String dbName = 'courses$i.db';
       await deleteDatabase(dbName);
     }
-  }
+  } */
 
   Future<void> inserttodo(curso course) async {
     final db = await initializeDB();
