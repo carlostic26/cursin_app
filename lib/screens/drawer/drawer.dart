@@ -218,9 +218,13 @@ class _drawerCursinState extends State<drawerCursin> {
                 color: darkTheme1 == true ? Colors.white : Colors.grey[850],
               ),
               onTap: () => {
-                Navigator.pop(context),
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (_) => EntidadesScreen())),
+                //Navigator.pop(context),
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => EntidadesScreen(
+                              darkTheme1: darkTheme1,
+                            ))),
               },
             ),
 
@@ -407,34 +411,6 @@ class _drawerCursinState extends State<drawerCursin> {
               onTap: () => {goNoticias(context)},
             ),
             ListTile(
-              //Nombre de la app, objetivo, parrafo de uso basico, creador, linkedin de creador, etc
-              title: Text("Info de la app",
-                  style: TextStyle(
-                      color: darkTheme1 == true
-                          ? Colors.white
-                          : Colors.grey[850])),
-              leading: Icon(
-                Icons.info,
-                color: darkTheme1 == true ? Colors.white : Colors.grey[850],
-              ),
-              //at press, run the method
-              onTap: () => {showinfo(context)},
-            ),
-            ListTile(
-              title: Text("Politica de privacidad",
-                  style: TextStyle(
-                      color: darkTheme1 == true
-                          ? Colors.white
-                          : Colors.grey[850])),
-              leading: Icon(
-                Icons.policy,
-                color: darkTheme1 == true ? Colors.white : Colors.grey[850],
-              ),
-              //at press, run the method
-              onTap: () => launch(
-                  'https://ticnoticos.blogspot.com/2023/07/privacy-policy-cursin-encuentra-cursos.html'),
-            ),
-            ListTile(
                 title: Row(
                   children: [
                     Text("Tutoriales Cursin",
@@ -496,6 +472,35 @@ class _drawerCursinState extends State<drawerCursin> {
                         );
                       });
                 }),
+
+            ListTile(
+              //Nombre de la app, objetivo, parrafo de uso basico, creador, linkedin de creador, etc
+              title: Text("Info de la app",
+                  style: TextStyle(
+                      color: darkTheme1 == true
+                          ? Colors.white
+                          : Colors.grey[850])),
+              leading: Icon(
+                Icons.info,
+                color: darkTheme1 == true ? Colors.white : Colors.grey[850],
+              ),
+              //at press, run the method
+              onTap: () => {showinfo(context)},
+            ),
+            ListTile(
+              title: Text("Politica de privacidad",
+                  style: TextStyle(
+                      color: darkTheme1 == true
+                          ? Colors.white
+                          : Colors.grey[850])),
+              leading: Icon(
+                Icons.policy,
+                color: darkTheme1 == true ? Colors.white : Colors.grey[850],
+              ),
+              //at press, run the method
+              onTap: () => launch(
+                  'https://ticnoticos.blogspot.com/2023/07/privacy-policy-cursin-encuentra-cursos.html'),
+            ),
             ListTile(
               title: Text("Ayúdanos a mejorar",
                   style: TextStyle(

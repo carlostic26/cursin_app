@@ -183,348 +183,248 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
             ),
           ],
         ),
-        body: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(children: [
-              //img de eliminar anun
-              CachedNetworkImage(
-                height: MediaQuery.of(context).size.height * 0.15,
-                width: double.infinity,
-                imageUrl:
-                    'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEieP-_Xl4wgihWxdJj2sNp4CfM-dePbsRteCK-KUMkgsJYbbWpLtQlLD0t2APCE8rnIY1VfiCkbpTlYW8n1h9oiomi9BjThCq5rKuGut0xrAOPTNmumyNlaQnWzM9UlgCFA7HylzwOsM8sMReqFmUCKRyP4TdVyQzqX2ye1iBHnVycrFCiFEkxulA/w400-h149/ad.gif',
-                placeholder: (context, url) => Container(
-                  height: 30,
-                  width: 30,
-                  child: CircularProgressIndicator.adaptive(
-                    strokeWidth: 1.5,
-                  ),
-                ),
-                errorWidget: (context, url, error) => Icon(Icons.error),
-                fit: BoxFit.contain,
-              ),
-
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Total monedas: ',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: darkTheme1 == true
-                              ? Colors.white
-                              : Colors.black)),
-                  SizedBox(
+        body: Stack(children: [
+          SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(children: [
+                //img de eliminar anun
+                CachedNetworkImage(
+                  height: MediaQuery.of(context).size.height * 0.15,
+                  width: double.infinity,
+                  imageUrl:
+                      'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEieP-_Xl4wgihWxdJj2sNp4CfM-dePbsRteCK-KUMkgsJYbbWpLtQlLD0t2APCE8rnIY1VfiCkbpTlYW8n1h9oiomi9BjThCq5rKuGut0xrAOPTNmumyNlaQnWzM9UlgCFA7HylzwOsM8sMReqFmUCKRyP4TdVyQzqX2ye1iBHnVycrFCiFEkxulA/w400-h149/ad.gif',
+                  placeholder: (context, url) => Container(
                     height: 30,
                     width: 30,
-                    child: CachedNetworkImage(
-                      imageUrl:
-                          'https://blogger.googleusercontent.com/img/a/AVvXsEiwxIH9j_V6Jys6c-b_gE_rxAVTyp4PxyUGXoGWpexwanKxwBxpYcI2DR5pqxOAaOov0OTo83wrlK-YebnAuBV5ZTvzo9UIcLnYDuOYsV6iPaqN75COyqsKN-IZH9V9PSGn1qBpnM78DVk87NQBOVmJJJkBf2kz84LQIhWp87aNFpYY34YKglDXiw=w200-h200',
-                      placeholder: (context, url) =>
-                          CircularProgressIndicator(),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                    ),
-                  ), // icono de monedas
-                  Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: Text(
-                      '$actualCursinCoins',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color:
-                              darkTheme1 == true ? Colors.white : Colors.black),
+                    child: CircularProgressIndicator.adaptive(
+                      strokeWidth: 1.5,
                     ),
                   ),
-                  SizedBox(width: 15),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  fit: BoxFit.contain,
+                ),
 
-                  Container(
-                    height: 20,
-                    alignment: Alignment.topRight,
-                    padding: EdgeInsets.symmetric(horizontal: 5.0),
-                    child: Container(
-                      alignment: Alignment.topCenter,
-                      child: ElevatedButton.icon(
-                        onPressed: () {
-                          showDialogCanjearMonedas();
-                        },
-                        icon: Icon(Icons.volunteer_activism,
-                            size: 10.0,
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Total monedas: ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
                             color: darkTheme1 == true
-                                ? Colors.black
-                                : Colors.white),
-                        label: Text(
-                          'Canjear',
-                          style: TextStyle(
-                              fontSize: 10,
+                                ? Colors.white
+                                : Colors.black)),
+                    SizedBox(
+                      height: 30,
+                      width: 30,
+                      child: CachedNetworkImage(
+                        imageUrl:
+                            'https://blogger.googleusercontent.com/img/a/AVvXsEiwxIH9j_V6Jys6c-b_gE_rxAVTyp4PxyUGXoGWpexwanKxwBxpYcI2DR5pqxOAaOov0OTo83wrlK-YebnAuBV5ZTvzo9UIcLnYDuOYsV6iPaqN75COyqsKN-IZH9V9PSGn1qBpnM78DVk87NQBOVmJJJkBf2kz84LQIhWp87aNFpYY34YKglDXiw=w200-h200',
+                        placeholder: (context, url) =>
+                            CircularProgressIndicator(),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      ),
+                    ), // icono de monedas
+                    Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Text(
+                        '$actualCursinCoins',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: darkTheme1 == true
+                                ? Colors.white
+                                : Colors.black),
+                      ),
+                    ),
+                    SizedBox(width: 15),
+
+                    Container(
+                      height: 20,
+                      alignment: Alignment.topRight,
+                      padding: EdgeInsets.symmetric(horizontal: 5.0),
+                      child: Container(
+                        alignment: Alignment.topCenter,
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            showDialogCanjearMonedas();
+                          },
+                          icon: Icon(Icons.volunteer_activism,
+                              size: 10.0,
                               color: darkTheme1 == true
                                   ? Colors.black
                                   : Colors.white),
-                        ), // <-- Text
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.amber),
+                          label: Text(
+                            'Canjear',
+                            style: TextStyle(
+                                fontSize: 10,
+                                color: darkTheme1 == true
+                                    ? Colors.black
+                                    : Colors.white),
+                          ), // <-- Text
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(Colors.amber),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 30),
-
-              Container(
-                alignment: Alignment.topCenter,
-                padding: EdgeInsets.symmetric(horizontal: 5.0),
-                child: Container(
-                  alignment: Alignment.topCenter,
-                  padding: EdgeInsets.symmetric(horizontal: 5.0),
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      showDialogConseguirMonedas();
-                    },
-                    icon: Icon(
-                      Icons.volunteer_activism,
-                      size: 20.0,
-                    ),
-                    label: Text('Conseguir monedas'), // <-- Text
-                  ),
-                ),
-              ),
-
-              SizedBox(height: 20),
-
-              //eliminar coins para siempre, si el metodo funciona bien, se pasa a eliminar coins durante 2 meses
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  children: [
-                    Text(
-                      'Puedes eliminar para siempre el anuncio que se muestra antes de entrar a un curso dentro de la app Cursin cuando alcances 12 monedas.',
-                      style: TextStyle(
-                          color:
-                              darkTheme1 == true ? Colors.white : Colors.black),
-                    ),
-                    Text(
-                      '\n\nPara conseguir monedas solo debes ver algunos videos.\n',
-                      style: TextStyle(
-                          color:
-                              darkTheme1 == true ? Colors.white : Colors.black),
-                    ),
                   ],
                 ),
-              ),
+                SizedBox(height: 20),
 
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: Colors.green,
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10.0),
-                    child: new ExpansionTile(
-                        backgroundColor: Colors.grey,
-                        title: Text('¿Para qué sirven las monedas?',
-                            style: new TextStyle(
-                              fontSize: 12.0,
-                              color: Colors.white,
-                            )),
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                                alignment: Alignment.center,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    new Card(
-                                        color: Colors.grey,
-                                        child: new Container(
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                  'Sirven para eliminar los comerciales que salen antes de entrar a un curso encontrado dentro de Cursin. Debes tener en cuenta que se requieren al menos 12 para ello. '),
-                                            ],
-                                          ),
-                                        )),
-                                  ],
-                                )),
-                          ),
-                        ]),
+                Container(
+                  alignment: Alignment.topCenter,
+                  padding: EdgeInsets.symmetric(horizontal: 5.0),
+                  child: Container(
+                    alignment: Alignment.topCenter,
+                    padding: EdgeInsets.symmetric(horizontal: 5.0),
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        showDialogConseguirMonedas();
+                      },
+                      icon: Icon(
+                        Icons.volunteer_activism,
+                        size: 20.0,
+                      ),
+                      label: Text('Conseguir monedas'), // <-- Text
+                    ),
                   ),
                 ),
-              ),
 
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: Colors.green,
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10.0),
-                    child: new ExpansionTile(
-                        backgroundColor: Colors.grey,
-                        title: Text('¿Qué son los anuncios?',
-                            style: new TextStyle(
-                              fontSize: 12.0,
-                              color: Colors.white,
-                            )),
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                                alignment: Alignment.center,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    new Card(
-                                        color: Colors.grey,
-                                        child: new Container(
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                  'Son pequeños comerciales de video que te salen justo antes de entrar a cualquier curso que decidas tomar gracias a Cursin App.'),
-                                            ],
-                                          ),
-                                        )),
-                                  ],
-                                )),
-                          ),
-                        ]),
+                SizedBox(height: 10),
+
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Puedes eliminar para siempre el anuncio que se muestra antes de entrar a un curso dentro de la app Cursin cuando alcances 12 monedas.',
+                        style: TextStyle(
+                            color: darkTheme1 == true
+                                ? Colors.white
+                                : Colors.black),
+                      ),
+                      Text(
+                        '\nPara conseguir monedas solo debes ver algunos videos.\n',
+                        style: TextStyle(
+                            color: darkTheme1 == true
+                                ? Colors.white
+                                : Colors.black),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        '¿Para qué sirven las monedas?',
+                        style: TextStyle(
+                            fontSize: 22.0, // Esto sería similar a H1 en HTML
+                            color: darkTheme1 == true
+                                ? Colors.white
+                                : Colors.black,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Para eliminar los comerciales que salen antes de entrar a un curso encontrado dentro de Cursin. Debes tener en cuenta que se requieren al menos 12 para ello.',
+                          style: TextStyle(
+                              fontSize: 16.0, // Esto sería similar a H2 en HTML
+                              color: darkTheme1 == true
+                                  ? Colors.white
+                                  : Colors.black),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        '¿Qué son los anuncios?',
+                        style: TextStyle(
+                            fontSize: 22.0, // Esto sería similar a H1 en HTML
+                            color: darkTheme1 == true
+                                ? Colors.white
+                                : Colors.black,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Son pequeños comerciales de video que te salen justo antes de entrar a cualquier curso que decidas tomar gracias a Cursin App.',
+                          style: TextStyle(
+                              fontSize: 16.0, // Esto sería similar a H2 en HTML
+                              color: darkTheme1 == true
+                                  ? Colors.white
+                                  : Colors.black),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        '¿Por qué se muestran?',
+                        style: TextStyle(
+                            fontSize: 22.0, // Esto sería similar a H1 en HTML
+                            color: darkTheme1 == true
+                                ? Colors.white
+                                : Colors.black,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Son necesarios para seguir manteniendo la app en el tiempo. Sirven para seguir indexando nuevos cursos cada semana, reparar bugs, mejorar las interfaces y facilitar el proceso de búsqueda de cualquier curso gratis que necesites.',
+                          style: TextStyle(
+                              fontSize: 16.0, // Esto sería similar a H2 en HTML
+                              color: darkTheme1 == true
+                                  ? Colors.white
+                                  : Colors.black),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        '¿Cómo conseguir monedas?',
+                        style: TextStyle(
+                            fontSize: 22.0, // Esto sería similar a H1 en HTML
+                            color: darkTheme1 == true
+                                ? Colors.white
+                                : Colors.black,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Toca en el botón "Conseguir monedas" y espera a que se cargue un pequeño anuncio. Se entregan 2 monedas por cada uno que veas. De esta forma, reunirás la cantidad necesaria para eliminar los que se muestran antes de entrar a un curso.',
+                          style: TextStyle(
+                              fontSize: 16.0, // Esto sería similar a H2 en HTML
+                              color: darkTheme1 == true
+                                  ? Colors.white
+                                  : Colors.black),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        '¿Cómo canjear las monedas?',
+                        style: TextStyle(
+                            fontSize: 22.0, // Esto sería similar a H1 en HTML
+                            color: darkTheme1 == true
+                                ? Colors.white
+                                : Colors.black,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Una vez hayas alcanzado 12 monedas, puedes canjearlas para la eliminación del anuncio que se muestra antes de entrar a un curso. Para ello debes tocar en el botón "Canjear".',
+                          style: TextStyle(
+                              fontSize: 16.0, // Esto sería similar a H2 en HTML
+                              color: darkTheme1 == true
+                                  ? Colors.white
+                                  : Colors.black),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: Colors.green,
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10.0),
-                    child: new ExpansionTile(
-                        backgroundColor: Colors.grey,
-                        title: Text('¿Por qué se muestran?',
-                            style: new TextStyle(
-                              fontSize: 12.0,
-                              color: Colors.white,
-                            )),
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                                alignment: Alignment.center,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    new Card(
-                                        color: Colors.grey,
-                                        child: new Container(
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                  'Son necesarios para seguir manteniendo la app en el tiempo. Sirven para seguir indexando nuevos cursos cada semana, reparar bugs, mejorar las interfaces, y facilitar el proceso de búsqueda de cualquier curso gratis que necesites.'),
-                                            ],
-                                          ),
-                                        )),
-                                  ],
-                                )),
-                          ),
-                        ]),
-                  ),
-                ),
-              ),
-
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: Colors.green,
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10.0),
-                    child: new ExpansionTile(
-                        backgroundColor: Colors.grey,
-                        title: Text('¿Cómo conseguir monedas?',
-                            style: new TextStyle(
-                              fontSize: 12.0,
-                              color: Colors.white,
-                            )),
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                                alignment: Alignment.center,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    new Card(
-                                        color: Colors.grey,
-                                        child: new Container(
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                  'Toca en el botón "Conseguir monedas" y espera a que se cargue un pequeño anuncio. \n\nSe entregan 2 monedas por cada uno que veas. De esta forma reunirás la cantidad necesaria para eliminar los que se muestran antes de entrar a un curso.'),
-                                            ],
-                                          ),
-                                        )),
-                                  ],
-                                )),
-                          ),
-                        ]),
-                  ),
-                ),
-              ),
-
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: Colors.green,
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10.0),
-                    child: new ExpansionTile(
-                        backgroundColor: Colors.grey,
-                        title: Text('¿Cómo canjear las monedas?',
-                            style: new TextStyle(
-                              fontSize: 12.0,
-                              color: Colors.white,
-                            )),
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                                alignment: Alignment.center,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    new Card(
-                                        color: Colors.grey,
-                                        child: new Container(
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                  'Una vez hayas alcanzado 12 monedas, puedes canjearlas para la eliminación del anuncio que se muestra antes de entrar a un curso. Para ello debes tocar en el botón "Canjear".'),
-                                            ],
-                                          ),
-                                        )),
-                                  ],
-                                )),
-                          ),
-                        ]),
-                  ),
-                ),
-              ),
-              SizedBox(height: 30),
-            ])));
+                SizedBox(height: 200),
+              ])),
+        ]));
   }
 
   void showDialogConseguirMonedas() {

@@ -120,7 +120,7 @@ class _CourseDetailState extends State<CourseDetail> {
         );
       } else if (enterAcces == 3) {
         Fluttertoast.showToast(
-          msg: "Tu telefono no ha cargado todos los componentes.", // message
+          msg: "Tu telefono no cargó el anuncio.", // message
           toastLength: Toast.LENGTH_LONG, // length
           gravity: ToastGravity.CENTER, // location
         );
@@ -235,19 +235,20 @@ class _CourseDetailState extends State<CourseDetail> {
 
       if (enterAcces == 1 || enterAcces == 2) {
         Fluttertoast.showToast(
-          msg: "Reintentando...", // message
+          msg: "Intentalo de nuevo...", // message
           toastLength: Toast.LENGTH_SHORT, // length
           gravity: ToastGravity.CENTER, // location
         );
       } else if (enterAcces == 3) {
         Fluttertoast.showToast(
-          msg: "Tu telefono no ha cargado todos los componentes.", // message
+          msg: "Tu telefono no cargó el anuncio.", // message
           toastLength: Toast.LENGTH_LONG, // length
           gravity: ToastGravity.CENTER, // location
         );
       } else if (enterAcces == 4 || enterAcces == 5) {
         Fluttertoast.showToast(
-          msg: "Cambiate a un Wi-Fi más cercano\nReintentando...", // message
+          msg:
+              "Cambiate a un Wi-Fi más cercano\nIntentalo de nuevo.", // message
           toastLength: Toast.LENGTH_LONG, // length
           gravity: ToastGravity.CENTER, // location
         );
