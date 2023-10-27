@@ -58,7 +58,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
   // ignore: unused_field
   List<curso>? _cat;
 
-  bool? darkTheme1;
+  bool? darkTheme1 = false;
 
   Future<Null> getSharedThemePrefs() async {
     SharedPreferences themePrefs = await SharedPreferences.getInstance();
