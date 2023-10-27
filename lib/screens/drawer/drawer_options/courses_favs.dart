@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cursin/utils/ads_ids/ads.dart';
 import 'package:cursin/infrastructure/models/localdb/cursosdb_sqflite.dart';
 import 'package:cursin/screens/drawer/drawer.dart';
-import 'package:cursin/screens/drawer/drawer_options/categorias_select.dart';
+import 'package:cursin/screens/drawer/drawer_options/menu_categoria.dart';
 import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
 import 'package:cursin/model/curso_lista_model.dart';
 import 'package:cursin/screens/detail_course.dart';
@@ -375,7 +375,10 @@ class _CoursesFavsState extends State<CoursesFavs> {
                 height: MediaQuery.of(context).size.height *
                     0.1, // 10% de la altura de la pantalla
               ),
-        drawer: drawerCursin(context: context),
+        drawer: drawerCursin(
+          context: context,
+          darkTheme1: darkTheme1!,
+        ),
       ),
     );
   }

@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cursin/screens/drawer/drawer_options/categorias_select.dart';
+import 'package:cursin/screens/drawer/drawer_options/menu_categoria.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';

@@ -1,16 +1,6 @@
-// ignore_for_file: deprecated_member_use
-import 'dart:async';
-import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cursin/screens/drawer/drawer.dart';
-import 'package:cursin/model/curso_lista_model.dart';
-import 'package:cursin/screens/drawer/drawer_options/categorias_showing.dart';
-import 'package:cursin/infrastructure/models/localdb/cursosdb_sqflite.dart';
-import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
-import 'package:cursin/services/local_notifications/local_notifications.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import '../../../screens.dart';
 
 class CategoriasSelectCards extends StatefulWidget {
   @override
@@ -103,7 +93,6 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
   // ignore: must_call_super
   void initState() {
     getSharedThemePrefs();
-
     loadCountCourses();
   }
 
@@ -219,9 +208,28 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
     return Scaffold(
       backgroundColor: darkTheme1 == true ? Colors.grey[850] : Colors.white,
       appBar: AppBar(
+        elevation: 0,
+        backgroundColor: darkTheme1 == true ? Colors.grey[850] : Colors.white,
+
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: Icon(Icons.menu), // Icono del botón de hamburguesa
+              onPressed: () {
+                Scaffold.of(context)
+                    .openDrawer(); // Abre el cajón de navegación
+              },
+            );
+          },
+        ),
+        iconTheme: IconThemeData(
+          color: darkTheme1 == false ? Colors.grey[850] : Colors.white,
+        ), // Cambia el color del botón
+
         title: Text(
-          "Todas las Categorias",
+          "Categorias",
           style: TextStyle(
+            color: darkTheme1 == false ? Colors.grey[850] : Colors.white,
             fontSize: 16.0, /*fontWeight: FontWeight.bold*/
           ),
         ),
@@ -229,18 +237,9 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
           Padding(
             padding: EdgeInsets.all(10),
             child: IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-                //pass to search screen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => searchedCourses(
-                        catProviene: "sinCategoria",
-                        puntoPartida: 'categorias_select'),
-                  ),
-                );
-              },
+              color: darkTheme1 == false ? Colors.grey[850] : Colors.white,
+              icon: Icon(Icons.share),
+              onPressed: () {},
             ),
           ),
         ],
@@ -249,9 +248,19 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
       body: SingleChildScrollView(
         child: Container(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(7, 5, 7, 5),
+            padding: const EdgeInsets.fromLTRB(10, 25, 5, 5),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                //texto de saludo
+                //¡Hey! ¿Qué vamos a estudiar hoy?
+
+                saludoWidget(),
+
+                SizedBox(
+                  height: 30,
+                ),
+
                 // Finanzas
                 buildCategoryWidget(
                   title: 'FINANZAS Y NEGOCIOS',
@@ -498,6 +507,103 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
       ),
       drawer: drawerCursin(
         context: context,
+        darkTheme1: darkTheme1!,
+      ),
+    );
+  }
+
+  Widget saludoWidget() {
+    double sizeWidth = MediaQuery.of(context).size.width;
+    double sizeHeight = MediaQuery.of(context).size.height;
+    String palabraBusqueda = '';
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '¡Hey! ¿Qué vamos a estudiar hoy?',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 15,
+              color: Colors.grey,
+            ),
+          ),
+          Text(
+            'Explorar cursos',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 30,
+              color: darkTheme1 == false ? Colors.grey[450] : Colors.white,
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Container(
+            height: 50,
+            width: sizeWidth * 0.9,
+            child: Row(
+              children: [
+                Container(
+                  height: sizeHeight * 0.05,
+                  width: 5.0,
+                  color: Color.fromARGB(255, 84, 84, 84),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+                    child: TextField(
+                      onChanged: (text) {
+                        palabraBusqueda = text;
+                      },
+                      decoration: InputDecoration(
+                        hintText: 'Buscar...',
+                        hintStyle: TextStyle(
+                          color: darkTheme1 == false
+                              ? Colors.grey[450]
+                              : Color.fromARGB(150, 255, 255, 255),
+                        ),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            Icons.search,
+                            color: darkTheme1 == false
+                                ? Colors.grey[450]
+                                : Color.fromARGB(150, 255, 255, 255),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => searchedCourses(
+                                  catProviene: "sinCategoria",
+                                  puntoPartida: 'categorias_select',
+                                  palabraBusqueda: palabraBusqueda,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.transparent),
+                        ),
+                        // Cambia el color del texto al escribir en el TextField
+                        // Puedes personalizar el color aquí
+                        labelStyle: TextStyle(
+                          color: darkTheme1 == false
+                              ? Colors.grey[450]
+                              : Color.fromARGB(150, 255, 255,
+                                  255), // Cambia este color según tus preferencias
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -564,29 +670,70 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                 Container(
                   child: Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(2.0, 8.0, 2.0, 8.0),
+                      padding: const EdgeInsets.fromLTRB(2.0, 8.0, 0, 8.0),
                       child: GestureDetector(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        child: Row(
                           children: [
-                            Text(
-                              title,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                                color: Colors.blue,
+                            Flexible(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    title,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 17,
+                                      color: darkTheme1 == false
+                                          ? Colors.grey[450]
+                                          : Colors.white,
+                                    ),
+                                  ),
+                                  SizedBox(height: 5),
+                                  Text(
+                                    description,
+                                    style: TextStyle(
+                                      fontSize: 11,
+                                      color: darkTheme1 == true
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            SizedBox(height: 5),
-                            Text(
-                              description,
-                              style: TextStyle(
-                                fontSize: 11,
-                                color: darkTheme1 == true
-                                    ? Colors.white
-                                    : Colors.black,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.12,
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 12, 0),
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: InkWell(
+                                    onTap: () {
+                                      setLocalNotification(category);
+                                      //Navigator.pop(context);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => categorias(
+                                            catProviene: category,
+                                            puntoPartida: 'categorias_select',
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    borderRadius: BorderRadius.circular(
+                                        50.0), // Hacemos que el borde sea circular
+                                    child: Icon(
+                                      Icons.navigate_next,
+                                      color: darkTheme1 == false
+                                          ? Colors.grey[450]
+                                          : Colors.white,
+                                      size: 30,
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
+                            )
                           ],
                         ),
                         onTap: () async {
@@ -615,10 +762,8 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
   }
 
   Future<int> searchCountCoursesByCategory(String category) async {
-    //inicializa la db
     final databaseHandler = DatabaseHandler();
 
-    //obtiene el total de cursos por categoria
     final totalCoursesInCategory =
         await databaseHandler.getTotalCoursesInCategory(category);
 
@@ -626,50 +771,21 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
   }
 
   void setLocalNotification(String category) async {
-    //obtiene un curso aleatorio de la categoria
     await getOneRandomCourse(category);
   }
 
   getOneRandomCourse(String category) async {
-    //crea un metodo que busca uno de los cursos de la categoria seleccionada, y devuelve la info del curso: su title, entidad y tipo de emision
-    //dicha info será la que se le pase a la notificación.
-
-    //inicializa la db
     final databaseHandler = DatabaseHandler();
-
-    //obtiene el total de cursos por categoria
     final totalCoursesInCategory =
         await databaseHandler.getTotalCoursesInCategory(category);
 
-    //muestra total de cursos por categoria
-    //muestra la info del curso en cuestión
     if (totalCoursesInCategory > 0) {
       final randomCourse = await databaseHandler.getRandomCourse(category);
       if (randomCourse != null) {
-/*         Fluttertoast.showToast(
-          msg:
-              'Cursos de $category: $totalCoursesInCategory\nCurso elegido aleatoriamente: ${randomCourse.title}',
-          gravity: ToastGravity.BOTTOM,
-          toastLength: Toast.LENGTH_SHORT,
-        ); */
-
         sendNotification(randomCourse.title, randomCourse.categoria,
             randomCourse.emision, randomCourse.entidad);
-      } else {
-/*         Fluttertoast.showToast(
-          msg: 'No se pudo encontrar un curso en la categoría $category.',
-          gravity: ToastGravity.BOTTOM,
-          toastLength: Toast.LENGTH_LONG,
-        ); */
       }
-
       return totalCoursesInCategory;
-    } else {
-/*       Fluttertoast.showToast(
-        msg: 'No hay cursos en la categoría $category.',
-        gravity: ToastGravity.BOTTOM,
-        toastLength: Toast.LENGTH_LONG,
-      ); */
     }
   }
 
@@ -681,15 +797,9 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
     final randomNumber = random.nextInt(3) + 1; // Genera números entre 1 y 3.
     print('randomNumber: $randomNumber');
 
-/*     Fluttertoast.showToast(
-      msg: 'randmon $randomNumber',
-      gravity: ToastGravity.BOTTOM,
-      toastLength: Toast.LENGTH_LONG,
-    ); */
-
     String title = '$name por $entidad';
     String body =
-        'Encontramos este nuevo curso gratis que necesitas ($emision). Entra y búscalo.';
+        'Un nuevo curso gratis que necesitas, está $emision. Entra y búscalo.';
 
     // Define la probabilidad de mostrar la notificación (33% de probabilidad).
     if (randomNumber == 1) {

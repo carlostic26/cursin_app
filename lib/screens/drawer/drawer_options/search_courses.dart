@@ -5,18 +5,22 @@ import 'package:cursin/utils/ads_ids/ads.dart';
 import 'package:cursin/model/curso_lista_model.dart';
 import 'package:cursin/screens/detail_course.dart';
 import 'package:cursin/infrastructure/models/localdb/cursosdb_sqflite.dart';
-import 'package:cursin/screens/drawer/drawer_options/categorias_select.dart';
-import 'package:cursin/screens/drawer/drawer_options/categorias_showing.dart';
+import 'package:cursin/screens/drawer/drawer_options/menu_categoria.dart';
+import 'package:cursin/screens/drawer/drawer_options/listado_por_categoria.dart';
 import 'package:cursin/screens/drawer/drawer_options/ultimos_cursos.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class searchedCourses extends StatefulWidget {
-  searchedCourses({required this.catProviene, required this.puntoPartida});
+  searchedCourses(
+      {required this.catProviene,
+      required this.puntoPartida,
+      this.palabraBusqueda});
 
   late String puntoPartida;
   late String catProviene;
+  late String? palabraBusqueda;
 
   @override
   _searchedCoursesState createState() => _searchedCoursesState();
@@ -94,6 +98,10 @@ class _searchedCoursesState extends State<searchedCourses> {
   void initState() {
     //es necesario inicializar el sharedpreferences tema, para que la variable book darkTheme esté inicializada como la recepcion del valor del sharedpreferences
     getSharedThemePrefs();
+
+    if (widget.palabraBusqueda != null) {
+      searchCourse(widget.palabraBusqueda.toString());
+    }
   }
 
   Future<List<curso>> getListCoursesFound(query) async {
@@ -149,13 +157,19 @@ class _searchedCoursesState extends State<searchedCourses> {
           title: TextField(
             textInputAction: TextInputAction.search,
             onSubmitted: (value) {
-              searchCourse();
+              searchCourse('');
             },
             style: TextStyle(color: Colors.white),
             decoration: InputDecoration(
-                hintText: 'Ej: java, finanzas, inglés, excel, python',
-                hintStyle: TextStyle(
-                    color: Color.fromARGB(130, 255, 255, 255), fontSize: 12)),
+              hintText: widget.palabraBusqueda != null &&
+                      widget.palabraBusqueda.toString().isNotEmpty
+                  ? widget.palabraBusqueda.toString()
+                  : 'Ej: java, finanzas, inglés, excel, python',
+              hintStyle: TextStyle(
+                color: Color.fromARGB(130, 255, 255, 255),
+                fontSize: 12,
+              ),
+            ),
             controller: searchController,
           ),
           centerTitle: true,
@@ -163,7 +177,7 @@ class _searchedCoursesState extends State<searchedCourses> {
             IconButton(
                 icon: Icon(Icons.search),
                 onPressed: () {
-                  searchCourse();
+                  searchCourse('');
                 })
           ],
         ),
@@ -415,8 +429,12 @@ class _searchedCoursesState extends State<searchedCourses> {
     );
   }
 
-  void searchCourse() {
-    contenedorString = searchController.text;
+  void searchCourse(String title) {
+    if (title != '') {
+      contenedorString = title;
+    } else {
+      contenedorString = searchController.text;
+    }
 
     courseToSearch = contenedorString.replaceAll(" ", "");
 

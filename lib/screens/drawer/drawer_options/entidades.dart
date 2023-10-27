@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-
 import '../../../screens.dart';
 import '../../../utils/ads_ids/ads.dart';
 
@@ -140,7 +139,8 @@ class _EntidadesScreenState extends State<EntidadesScreen> {
       ),
       body: Stack(
         children: [
-          Expanded(
+          Container(
+            height: MediaQuery.of(context).size.height * 0.9,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(5, 30, 0, 0),
               child: GridView.builder(
@@ -195,7 +195,7 @@ class _EntidadesScreenState extends State<EntidadesScreen> {
               'Estas son las plataformas, empresas y entidades que ofrecen los cursos gratis con certificado que puedes encontrar dentro de Cursin App.\nCreditos a cada una de ellas.',
               style: TextStyle(
                 fontSize: 12.0,
-                color: widget.darkTheme1 == true ? Colors.white : Colors.black,
+                color: Colors.white,
               ),
             ),
           ),

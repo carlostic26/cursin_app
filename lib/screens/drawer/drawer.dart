@@ -1,7 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cursin/screens/drawer/drawer_options/entidades.dart';
 import 'package:cursin/screens/webview/courses_webview.dart';
-import 'package:cursin/screens/drawer/drawer_options/categorias_select.dart';
+import 'package:cursin/screens/drawer/drawer_options/menu_categoria.dart';
 import 'package:cursin/screens/drawer/drawer_options/certificados.dart';
 import 'package:cursin/screens/drawer/drawer_options/courses_favs.dart';
 import 'package:cursin/screens/drawer/drawer_options/delete_anun.dart';
@@ -23,14 +23,18 @@ import 'package:url_launcher/url_launcher.dart';
 
 class drawerCursin extends StatefulWidget {
   final BuildContext context;
+  final bool darkTheme1;
 
-  const drawerCursin({Key? key, required this.context}) : super(key: key);
+  const drawerCursin(
+      {Key? key, required this.context, required this.darkTheme1})
+      : super(key: key);
   @override
   State<drawerCursin> createState() => _drawerCursinState();
 }
 
 class _drawerCursinState extends State<drawerCursin> {
   bool? darkTheme1;
+/*   
 
   Future<Null> getSharedThemePrefs() async {
     SharedPreferences themePrefs = await SharedPreferences.getInstance();
@@ -38,12 +42,13 @@ class _drawerCursinState extends State<drawerCursin> {
       darkTheme1 = themePrefs.getBool('isDarkTheme');
     });
   }
-
+ */
   @override
   void initState() {
-    getSharedThemePrefs();
+    //getSharedThemePrefs();
     // TODO: implement initState
     super.initState();
+    darkTheme1 = widget.darkTheme1;
   }
 
   @override
@@ -144,11 +149,43 @@ class _drawerCursinState extends State<drawerCursin> {
             ),
 
             ListTile(
-                title: Text("Últimos cursos",
-                    style: TextStyle(
-                        color: darkTheme1 == true
-                            ? Colors.white
-                            : Colors.grey[850])),
+                title: Row(
+                  children: [
+                    Text("Últimos cursos",
+                        style: TextStyle(
+                            color: darkTheme1 == true
+                                ? Colors.white
+                                : Colors.grey[850])),
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
+                          child: AnimatedTextKit(
+                            animatedTexts: [
+                              ColorizeAnimatedText(
+                                'Nuevo',
+                                textStyle: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                colors: [
+                                  Colors.red,
+                                  Colors.yellow,
+                                  Colors.green,
+                                  Colors.blue,
+                                  Colors.purple,
+                                ],
+                                speed: Duration(milliseconds: 500),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
                 leading: Icon(
                   Icons.date_range,
                   color: darkTheme1 == true ? Colors.white : Colors.grey[850],
@@ -158,6 +195,7 @@ class _drawerCursinState extends State<drawerCursin> {
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (_) => UltimosCursosLista()));
                 }),
+
             ListTile(
               title: Text("Categorías",
                   style: TextStyle(
@@ -365,52 +403,6 @@ class _drawerCursinState extends State<drawerCursin> {
                         darkTheme1 == true ? Colors.white : Colors.grey[850])),
 
             ListTile(
-              //Nombre de la app, objetivo, parrafo de uso basico, creador, linkedin de creador, etc
-              title: Row(
-                children: [
-                  Text("Articulos y noticias",
-                      style: TextStyle(
-                          color: darkTheme1 == true
-                              ? Colors.white
-                              : Colors.grey[850])),
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
-                        child: AnimatedTextKit(
-                          animatedTexts: [
-                            ColorizeAnimatedText(
-                              'Nuevo',
-                              textStyle: TextStyle(
-                                color: Colors.red,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              colors: [
-                                Colors.red,
-                                Colors.yellow,
-                                Colors.green,
-                                Colors.blue,
-                                Colors.purple,
-                              ],
-                              speed: Duration(milliseconds: 500),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              leading: Icon(
-                Icons.newspaper,
-                color: darkTheme1 == true ? Colors.white : Colors.grey[850],
-              ),
-              //at press, run the method
-              onTap: () => {goNoticias(context)},
-            ),
-            ListTile(
                 title: Row(
                   children: [
                     Text("Tutoriales Cursin",
@@ -472,6 +464,24 @@ class _drawerCursinState extends State<drawerCursin> {
                         );
                       });
                 }),
+            ListTile(
+              //Nombre de la app, objetivo, parrafo de uso basico, creador, linkedin de creador, etc
+              title: Row(
+                children: [
+                  Text("Articulos y noticias",
+                      style: TextStyle(
+                          color: darkTheme1 == true
+                              ? Colors.white
+                              : Colors.grey[850])),
+                ],
+              ),
+              leading: Icon(
+                Icons.newspaper,
+                color: darkTheme1 == true ? Colors.white : Colors.grey[850],
+              ),
+              //at press, run the method
+              onTap: () => {goNoticias(context)},
+            ),
 
             ListTile(
               //Nombre de la app, objetivo, parrafo de uso basico, creador, linkedin de creador, etc
@@ -524,33 +534,33 @@ class _drawerCursinState extends State<drawerCursin> {
                               ? Colors.white
                               : Colors.grey[850])),
                   /*    Expanded(
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
-                        child: AnimatedTextKit(
-                          animatedTexts: [
-                            ColorizeAnimatedText(
-                              'Nuevo',
-                              textStyle: TextStyle(
-                                color: Colors.red,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
+                          child: AnimatedTextKit(
+                            animatedTexts: [
+                              ColorizeAnimatedText(
+                                'Nuevo',
+                                textStyle: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                colors: [
+                                  Colors.red,
+                                  Colors.yellow,
+                                  Colors.green,
+                                  Colors.blue,
+                                  Colors.purple,
+                                ],
+                                speed: Duration(milliseconds: 500),
                               ),
-                              colors: [
-                                Colors.red,
-                                Colors.yellow,
-                                Colors.green,
-                                Colors.blue,
-                                Colors.purple,
-                              ],
-                              speed: Duration(milliseconds: 500),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ) */
+                    ) */
                 ],
               ),
               leading: Icon(

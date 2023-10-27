@@ -4,7 +4,7 @@ import 'package:cursin/utils/ads_ids/ads.dart';
 import 'package:cursin/model/curso_lista_model.dart';
 import 'package:cursin/screens/detail_course.dart';
 import 'package:cursin/infrastructure/models/localdb/cursosdb_sqflite.dart';
-import 'package:cursin/screens/drawer/drawer_options/categorias_select.dart';
+import 'package:cursin/screens/drawer/drawer_options/menu_categoria.dart';
 import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';

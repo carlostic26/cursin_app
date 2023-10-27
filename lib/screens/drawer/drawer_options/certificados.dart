@@ -19,7 +19,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:mailto/mailto.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:cursin/screens/drawer/drawer_options/categorias_select.dart';
+import 'package:cursin/screens/drawer/drawer_options/menu_categoria.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class certificadosScreen extends StatefulWidget {
@@ -193,7 +193,10 @@ class _certificadosScreenState extends State<certificadosScreen> {
           ],
         ),
       ),
-      drawer: drawerCursin(context: context),
+      drawer: drawerCursin(
+        context: context,
+        darkTheme1: darkTheme1!,
+      ),
       //ad banner bottom screen
       bottomNavigationBar: _anchoredAdaptiveAd != null && _isLoaded
           ? Container(

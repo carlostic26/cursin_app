@@ -5,7 +5,7 @@ import 'package:cursin/infrastructure/models/localdb/cursosdb_sqflite.dart';
 import 'package:cursin/screens/drawer/drawer.dart';
 import 'package:cursin/screens/drawer/drawer_options/certificados.dart';
 import 'package:cursin/screens/webview/courses_webview.dart';
-import 'package:cursin/screens/drawer/drawer_options/categorias_select.dart';
+import 'package:cursin/screens/drawer/drawer_options/menu_categoria.dart';
 import 'package:cursin/screens/drawer/drawer_options/courses_favs.dart';
 import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
 import 'package:cursin/screens/infoScreens/agradecimientos.dart';
@@ -161,7 +161,7 @@ class _UltimosCursosListaState extends State<UltimosCursosLista> {
                     MaterialPageRoute(
                       builder: (context) => searchedCourses(
                         catProviene: 'sinCategoria',
-                        puntoPartida: 'home',
+                        puntoPartida: 'home', 
                       ),
                     ),
                   );
@@ -380,7 +380,10 @@ class _UltimosCursosListaState extends State<UltimosCursosLista> {
                 height: MediaQuery.of(context).size.height *
                     0.1, // 10% de la altura de la pantalla
               ),
-        drawer: drawerCursin(context: context),
+        drawer: drawerCursin(
+          context: context,
+          darkTheme1: darkTheme1!,
+        ),
       ),
     );
   }

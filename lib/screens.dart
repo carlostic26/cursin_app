@@ -1,7 +1,7 @@
 export 'package:animated_text_kit/animated_text_kit.dart';
 export 'package:cursin/controller/theme_preferences.dart';
 export 'package:cursin/provider/riverpod.dart';
-export 'package:cursin/screens/drawer/drawer_options/categorias_select.dart';
+export 'package:cursin/screens/drawer/drawer_options/menu_categoria.dart';
 export 'package:cursin/screens/drawer/drawer_options/certificados.dart';
 export 'package:cursin/screens/drawer/drawer_options/courses_favs.dart';
 export 'package:cursin/screens/drawer/drawer_options/delete_anun.dart';
@@ -31,3 +31,7 @@ export 'package:cursin/infrastructure/models/localdb/cursosdb_sqflite.dart';
 
 export 'package:fluttertoast/fluttertoast.dart';
 export 'dart:math';
+
+export 'package:cursin/screens/drawer/drawer.dart';
+export 'package:cursin/screens/drawer/drawer_options/listado_por_categoria.dart';
+export 'package:cursin/services/local_notifications/local_notifications.dart';
