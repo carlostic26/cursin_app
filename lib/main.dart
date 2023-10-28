@@ -52,10 +52,10 @@ Future<void> main() async {
   // Inicializar anuncio de apertura y cancelar después de 9 segundos
   await loadOpenAd();
 
-  Timer(Duration(seconds: 9), () async {
+  Timer(Duration(seconds: 15), () async {
     if (isAdLoaded == false) {
       openAd?.dispose();
-      print("Anuncio de apertura cancelado después de 9 segundos.");
+      print("Anuncio de apertura cancelado después de 15 segundos.");
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setBool('adCancelado', true);
     } else {

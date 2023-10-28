@@ -4,7 +4,7 @@ import 'package:cursin/screens/drawer/drawer_options/noticias_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';
-import 'package:cursin/screens/course_option.dart';
+import 'package:cursin/screens/option_course.dart';
 import 'package:flutter_webview_pro/webview_flutter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:share_plus/share_plus.dart';

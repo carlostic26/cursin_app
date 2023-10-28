@@ -5,24 +5,24 @@ import 'package:url_launcher/url_launcher.dart';
 
 class AgradecimientosScreen extends StatelessWidget {
   final BannerAd staticAd;
-  bool? darkTheme1;
+  bool? darkTheme;
 
   AgradecimientosScreen({
     required this.staticAd,
-    required this.darkTheme1,
+    required this.darkTheme,
   });
 
   static const AdRequest request = AdRequest();
 
   Future<void> getSharedThemePrefs() async {
     SharedPreferences themePrefs = await SharedPreferences.getInstance();
-    darkTheme1 = themePrefs.getBool('isDarkTheme');
+    darkTheme = themePrefs.getBool('isDarkTheme');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: darkTheme1 == true ? Colors.grey[850] : Colors.white,
+      backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
       appBar: AppBar(
         title: Text(
           "Agradecimientos",
@@ -56,7 +56,7 @@ class AgradecimientosScreen extends StatelessWidget {
                             height: 40,
                           ),
                           Card(
-                            color: darkTheme1 == true
+                            color: darkTheme == true
                                 ? Color.fromARGB(255, 94, 94, 94)
                                 : Color.fromARGB(255, 208, 208, 208),
                             child: Padding(
@@ -72,7 +72,7 @@ class AgradecimientosScreen extends StatelessWidget {
                                     "El equipo de Cursin agradece y reconoce la colaboración de las siguientes personas, quienes han aportado ajustes " +
                                         "y demás elementos dentro del desarrollo, marketing, experiencia de usuario e interfaz de usuario (UX/UI) para que Cursin pueda funcionar como aplicación móvil:\n\n",
                                     style: TextStyle(
-                                      color: darkTheme1 == true
+                                      color: darkTheme == true
                                           ? Colors.white
                                           : Color.fromARGB(255, 65, 65, 65),
                                     ),
@@ -89,7 +89,7 @@ class AgradecimientosScreen extends StatelessWidget {
                                         style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
-                                          color: darkTheme1 == true
+                                          color: darkTheme == true
                                               ? Colors.white
                                               : Color.fromARGB(
                                                   255,
@@ -121,7 +121,7 @@ class AgradecimientosScreen extends StatelessWidget {
                                         style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
-                                          color: darkTheme1 == true
+                                          color: darkTheme == true
                                               ? Colors.white
                                               : Color.fromARGB(
                                                   255,
@@ -153,7 +153,7 @@ class AgradecimientosScreen extends StatelessWidget {
                                         style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
-                                          color: darkTheme1 == true
+                                          color: darkTheme == true
                                               ? Colors.white
                                               : Color.fromARGB(
                                                   255,

@@ -58,12 +58,12 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
   // ignore: unused_field
   List<curso>? _cat;
 
-  bool? darkTheme1 = false;
+  bool? darkTheme = false;
 
   Future<Null> getSharedThemePrefs() async {
     SharedPreferences themePrefs = await SharedPreferences.getInstance();
     setState(() {
-      darkTheme1 = themePrefs.getBool('isDarkTheme');
+      darkTheme = themePrefs.getBool('isDarkTheme');
     });
   }
 
@@ -206,10 +206,10 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: darkTheme1 == true ? Colors.grey[850] : Colors.white,
+      backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: darkTheme1 == true ? Colors.grey[850] : Colors.white,
+        backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
 
         leading: Builder(
           builder: (BuildContext context) {
@@ -223,13 +223,13 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
           },
         ),
         iconTheme: IconThemeData(
-          color: darkTheme1 == false ? Colors.grey[850] : Colors.white,
+          color: darkTheme == false ? Colors.grey[850] : Colors.white,
         ), // Cambia el color del botón
 
         title: Text(
           "Categorias",
           style: TextStyle(
-            color: darkTheme1 == false ? Colors.grey[850] : Colors.white,
+            color: darkTheme == false ? Colors.grey[850] : Colors.white,
             fontSize: 16.0, /*fontWeight: FontWeight.bold*/
           ),
         ),
@@ -237,7 +237,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
           Padding(
             padding: EdgeInsets.all(10),
             child: IconButton(
-              color: darkTheme1 == false ? Colors.grey[850] : Colors.white,
+              color: darkTheme == false ? Colors.grey[850] : Colors.white,
               icon: Icon(Icons.share),
               onPressed: () {},
             ),
@@ -507,7 +507,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
       ),
       drawer: drawerCursin(
         context: context,
-        darkTheme1: darkTheme1!,
+        darkTheme: darkTheme!,
       ),
     );
   }
@@ -535,7 +535,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 30,
-              color: darkTheme1 == false ? Colors.grey[450] : Colors.white,
+              color: darkTheme == false ? Colors.grey[450] : Colors.white,
             ),
           ),
           SizedBox(
@@ -558,43 +558,43 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                       onChanged: (text) {
                         palabraBusqueda = text;
                       },
+                      style: TextStyle(
+                        color: darkTheme == false
+                            ? Colors.grey[450]
+                            : Color.fromARGB(150, 255, 255,
+                                255), // Cambia este color según tus preferencias
+                      ),
                       decoration: InputDecoration(
                         hintText: 'Buscar...',
                         hintStyle: TextStyle(
-                          color: darkTheme1 == false
+                          color: darkTheme == false
                               ? Colors.grey[450]
                               : Color.fromARGB(150, 255, 255, 255),
                         ),
                         suffixIcon: IconButton(
                           icon: Icon(
                             Icons.search,
-                            color: darkTheme1 == false
+                            color: darkTheme == false
                                 ? Colors.grey[450]
                                 : Color.fromARGB(150, 255, 255, 255),
                           ),
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => searchedCourses(
-                                  catProviene: "sinCategoria",
-                                  puntoPartida: 'categorias_select',
-                                  palabraBusqueda: palabraBusqueda,
+                            if (palabraBusqueda != '') {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => searchedCourses(
+                                    catProviene: "sinCategoria",
+                                    puntoPartida: 'categorias_select',
+                                    palabraBusqueda: palabraBusqueda,
+                                  ),
                                 ),
-                              ),
-                            );
+                              );
+                            }
                           },
                         ),
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.transparent),
-                        ),
-                        // Cambia el color del texto al escribir en el TextField
-                        // Puedes personalizar el color aquí
-                        labelStyle: TextStyle(
-                          color: darkTheme1 == false
-                              ? Colors.grey[450]
-                              : Color.fromARGB(150, 255, 255,
-                                  255), // Cambia este color según tus preferencias
                         ),
                       ),
                     ),
@@ -621,7 +621,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
         padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
         child: Container(
           decoration: BoxDecoration(
-            color: darkTheme1 == true ? Colors.grey[850] : Colors.white,
+            color: darkTheme == true ? Colors.grey[850] : Colors.white,
             borderRadius: BorderRadius.circular(10),
           ),
           //card
@@ -683,7 +683,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 17,
-                                      color: darkTheme1 == false
+                                      color: darkTheme == false
                                           ? Colors.grey[450]
                                           : Colors.white,
                                     ),
@@ -693,7 +693,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                     description,
                                     style: TextStyle(
                                       fontSize: 11,
-                                      color: darkTheme1 == true
+                                      color: darkTheme == true
                                           ? Colors.white
                                           : Colors.black,
                                     ),
@@ -725,7 +725,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                         50.0), // Hacemos que el borde sea circular
                                     child: Icon(
                                       Icons.navigate_next,
-                                      color: darkTheme1 == false
+                                      color: darkTheme == false
                                           ? Colors.grey[450]
                                           : Colors.white,
                                       size: 30,

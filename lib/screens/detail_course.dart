@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cursin/screens.dart';
+import 'package:cursin/screens/option_course.dart';
 import 'package:flutter/material.dart';
 
 class CourseDetail extends StatefulWidget {
@@ -106,7 +107,6 @@ class _CourseDetailState extends State<CourseDetail> {
         }));
   }
 
-  //showing interstitial
   void showInterstitialAd() {
     if (interstitialAd == null) {
       print('trying to show before loading');
@@ -207,9 +207,7 @@ class _CourseDetailState extends State<CourseDetail> {
     interstitialAd = null;
   }
 
-  //creating rewarded
-  //used for the moment
-  void createRewardedAd() {
+/*   void createRewardedAd() {
     RewardedAd.load(
         adUnitId: cursinAds.reward_adUnitId,
         request: request,
@@ -227,7 +225,6 @@ class _CourseDetailState extends State<CourseDetail> {
         }));
   }
 
-  //showing rewarded
   void showRewardedAd() {
     if (rewardedAd == null) {
       print('trying to show before loading');
@@ -343,7 +340,7 @@ class _CourseDetailState extends State<CourseDetail> {
     });
     rewardedAd = null;
   }
-
+ */
   String getCoursesStringShP = "";
   String validadorCursoGuardado = "Guardar curso";
   bool click = false;
@@ -365,12 +362,12 @@ class _CourseDetailState extends State<CourseDetail> {
 
   int enterAcces = 0;
 
-  bool? darkTheme1;
+  bool? darkTheme;
 
   Future<Null> getSharedThemePrefs() async {
     SharedPreferences themePrefs = await SharedPreferences.getInstance();
     setState(() {
-      darkTheme1 = themePrefs.getBool('isDarkTheme');
+      darkTheme = themePrefs.getBool('isDarkTheme');
     });
   }
 
@@ -379,23 +376,19 @@ class _CourseDetailState extends State<CourseDetail> {
     super.initState();
     //es necesario inicializar el sharedpreferences tema, para que la variable book darkTheme esté inicializada como la recepcion del valor del sharedpreferences
     getSharedThemePrefs();
-
     adForCourse = false;
     //load ads
     createInterstitialAd();
     //loadStaticBannerAd();
     //_loadAdaptativeAd();
-    createRewardedAd();
-
+    //createRewardedAd();
     getSharedPrefs();
-
     TimerLuzTablaInfo();
   }
 
   @override
   void dispose() {
-    _timer
-        .cancel(); // Asegurarse de cancelar el temporizador al salir del widget
+    _timer.cancel();
     super.dispose();
   }
 
@@ -411,8 +404,6 @@ class _CourseDetailState extends State<CourseDetail> {
 
     return WillPopScope(
       onWillPop: () async {
-        //Navigator.pop(context);
-
         Navigator.pop(context);
 
         if (widget.puntoPartida == 'fav') {
@@ -425,18 +416,30 @@ class _CourseDetailState extends State<CourseDetail> {
         return true;
       },
       child: Scaffold(
-        backgroundColor: darkTheme1 == true ? Colors.grey[850] : Colors.white,
+        backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
         appBar: AppBar(
+          elevation: 0,
+          backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
           title: Text(
             widget.td.title,
             style: TextStyle(
+              color: darkTheme == false ? Colors.grey[850] : Colors.white,
               fontSize: 16.0, /*fontWeight: FontWeight.bold*/
             ),
           ),
+          leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: darkTheme == false ? Colors.grey[850] : Colors.white,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              }),
           actions: [
             Padding(
               padding: EdgeInsets.all(10),
               child: IconButton(
+                color: darkTheme == false ? Colors.grey[850] : Colors.white,
                 icon: Icon(Icons.share_outlined),
                 onPressed: () {
                   shareCourse();
@@ -455,7 +458,7 @@ class _CourseDetailState extends State<CourseDetail> {
             child: Column(
               children: [
                 SizedBox(
-                  height: 30,
+                  height: 15,
                 ),
 
                 Stack(children: [
@@ -467,10 +470,12 @@ class _CourseDetailState extends State<CourseDetail> {
                         child: CachedNetworkImage(
                           imageUrl: widget.td.imgcourse,
                           width: 400.0,
-                          height: 200.0,
+                          height: 210.0,
                           fit: BoxFit.cover,
-                          placeholder: (context, url) =>
-                              Center(child: CircularProgressIndicator()),
+                          placeholder: (context, url) => Center(
+                              child: CircularProgressIndicator(
+                            color: Colors.green,
+                          )),
                           placeholderFadeInDuration:
                               Duration(milliseconds: 200),
                           errorWidget: (context, url, error) =>
@@ -479,8 +484,8 @@ class _CourseDetailState extends State<CourseDetail> {
                       )),
                   // ICONO EN LA ESQUINA SUPERIOR DERECHA
                   Positioned(
-                    top: 5,
-                    right: 2,
+                    top: 8,
+                    right: 3,
                     child: ClipRect(
                       child: Container(
                         color: Color.fromARGB(0, 0, 0, 0),
@@ -489,8 +494,8 @@ class _CourseDetailState extends State<CourseDetail> {
                                   'Con certificado gratis'
                               ? 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjRLFEHYVoLlL4hmFrf_qEamOxDChdKy-7qYGmeT_ca1X62LuytAVqc2gXWDemQpOe1Kf-2FUQElVYx8583Kk12sN7siuSabRY-iDCDfAqdW9mZEWQF-EAcsAhLM08leySmOYu6T-SgxuswHvxjcXgEdT8vWGcQgi1dQ_zcUhXoGhW4eg--sG1-tWyg/s1600/0623.png'
                               : 'https://blogger.googleusercontent.com/img/a/AVvXsEjHD0pCtfjYChXbmlmbbZ-xHsf0EH1Jfzx2j7utG-3_3Rz5UvftUT9SfxAJ8iw3R59mQtN6pwk7iY6M0OO9I3eMzLqzIQeCIbBWoA6U3GtuVh1UWsHYANbPPKQWHmd41p3lAmXGexXG62eEtmmbdsldbmRyemO2B1zp4SrCslPg8wvxd9PbHWaFbA',
-                          width: 50.0,
-                          height: 50.0,
+                          width: 40.0,
+                          height: 40.0,
                           fit: BoxFit.contain,
                           placeholder: (context, url) =>
                               Center(child: CircularProgressIndicator()),
@@ -509,15 +514,15 @@ class _CourseDetailState extends State<CourseDetail> {
                 Text(widget.td.title,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: darkTheme1 == true ? Colors.white : Colors.black,
+                        color: darkTheme == true ? Colors.white : Colors.black,
                         fontSize: 18,
                         fontWeight: FontWeight.bold)),
 
                 SizedBox(
-                  height: 30,
+                  height: 20,
                 ),
 
-                //WidgetTablaInfo(darkTheme1: darkTheme1, widget: widget),
+                //WidgetTablaInfo(darkTheme: darkTheme, widget: widget),
 
                 AnimatedContainer(
                   duration: Duration(milliseconds: 200), // Duración más larga
@@ -528,77 +533,70 @@ class _CourseDetailState extends State<CourseDetail> {
                     borderRadius: BorderRadius.circular(
                         10.0), // Ajusta el valor según lo desees
                   ),
-                  child:
-                      WidgetTablaInfo(darkTheme1: darkTheme1, widget: widget),
+                  child: WidgetTablaInfo(darkTheme: darkTheme, widget: widget),
                 ),
 
                 SizedBox(
-                  height: 20,
+                  height: 15,
                 ),
 
                 //BOTON COMPARTOR CURSP
-                Column(
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          child: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                click = !click;
-                              });
-                              sendSharedPreferences();
-                            },
-                            icon: Icon(
-                              getCoursesStringShP.contains(widget.td.title) ==
-                                          true ||
-                                      click == true
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              size: 30.0,
-                            ),
-                            color:
-                                getCoursesStringShP.contains(widget.td.title) ==
-                                            true ||
-                                        click == true
-                                    ? Colors.red
-                                    : Colors.grey,
-                          ),
+                    Container(
+                      child: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            click = !click;
+                          });
+                          sendSharedPreferences();
+                        },
+                        icon: Icon(
+                          getCoursesStringShP.contains(widget.td.title) ==
+                                      true ||
+                                  click == true
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          size: 30.0,
                         ),
-                        Container(
-                            alignment: Alignment.topCenter,
-                            padding: EdgeInsets.symmetric(horizontal: 2.0),
-                            child: IconButton(
-                              onPressed: () {
-                                shareCourse();
-                              },
-                              icon: Icon(
-                                Icons.share,
-                                size: 30.0,
-                              ),
-                              color: Colors.grey,
-                            )),
-                        Container(
-                            alignment: Alignment.topCenter,
-                            padding: EdgeInsets.symmetric(horizontal: 2.0),
-                            child: IconButton(
-                              onPressed: () {
-                                _showDialogToReportProblem(context);
-                              },
-                              icon: Icon(
-                                Icons.bug_report,
-                                size: 30,
-                              ),
-                              color: Colors.grey,
-                            )),
-                      ],
+                        color: getCoursesStringShP.contains(widget.td.title) ==
+                                    true ||
+                                click == true
+                            ? Colors.red
+                            : Colors.grey,
+                      ),
                     ),
-                    SizedBox(
-                      height: 5,
-                    ),
+                    Container(
+                        alignment: Alignment.topCenter,
+                        padding: EdgeInsets.symmetric(horizontal: 2.0),
+                        child: IconButton(
+                          onPressed: () {
+                            shareCourse();
+                          },
+                          icon: Icon(
+                            Icons.share,
+                            size: 30.0,
+                          ),
+                          color: Colors.grey,
+                        )),
+                    Container(
+                        alignment: Alignment.topCenter,
+                        padding: EdgeInsets.symmetric(horizontal: 2.0),
+                        child: IconButton(
+                          onPressed: () {
+                            _showDialogToReportProblem(context);
+                          },
+                          icon: Icon(
+                            Icons.bug_report,
+                            size: 30,
+                          ),
+                          color: Colors.grey,
+                        )),
                   ],
                 ),
+
                 SizedBox(
                   height: 30,
                 ),
@@ -606,6 +604,18 @@ class _CourseDetailState extends State<CourseDetail> {
                 // DESCRIPCION Y DETALLES
                 Column(
                   children: [
+                    RichText(
+                        text: TextSpan(
+                      text: "Detalles",
+                      style: new TextStyle(
+                        fontSize: 18.0,
+                        color: darkTheme == true ? Colors.white : Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )),
+                    SizedBox(
+                      height: 15,
+                    ),
                     Container(
                         alignment: Alignment.center,
                         padding:
@@ -616,26 +626,12 @@ class _CourseDetailState extends State<CourseDetail> {
                         ),
                         child: Column(children: [
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                            child: RichText(
-                                text: TextSpan(
-                              text: "Detalles\n",
-                              style: new TextStyle(
-                                fontSize: 18.0,
-                                color: darkTheme1 == true
-                                    ? Colors.white
-                                    : Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(3, 5, 1, 7),
+                            padding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
                             child: RichText(
                               text: TextSpan(
                                   text: descriptionFix(),
                                   style: TextStyle(
-                                      color: darkTheme1 == true
+                                      color: darkTheme == true
                                           ? Colors.white
                                           : Colors.black,
                                       fontWeight: FontWeight.normal)),
@@ -1226,9 +1222,9 @@ class _CourseDetailState extends State<CourseDetail> {
 
 class WidgetTablaInfo extends StatelessWidget {
   const WidgetTablaInfo(
-      {super.key, required this.darkTheme1, required this.widget});
+      {super.key, required this.darkTheme, required this.widget});
 
-  final bool? darkTheme1;
+  final bool? darkTheme;
   final CourseDetail widget;
 
   @override
@@ -1236,7 +1232,9 @@ class WidgetTablaInfo extends StatelessWidget {
     return Column(
       children: [
         //IDIOMA
-
+        SizedBox(
+          height: 15,
+        ),
         Row(
           children: [
             Expanded(
@@ -1246,7 +1244,7 @@ class WidgetTablaInfo extends StatelessWidget {
                   text: "🗣️ Idioma:",
                   style: new TextStyle(
                     fontSize: 15.0,
-                    color: darkTheme1 == true ? Colors.white : Colors.black,
+                    color: darkTheme == true ? Colors.white : Colors.black,
                     fontWeight: FontWeight.bold,
                   ),
                 )),
@@ -1256,14 +1254,14 @@ class WidgetTablaInfo extends StatelessWidget {
               child: Center(
                 child: Text(widget.td.idioma,
                     style: TextStyle(
-                        color: darkTheme1 == true ? Colors.white : Colors.black,
+                        color: darkTheme == true ? Colors.white : Colors.black,
                         fontWeight: FontWeight.normal)),
               ),
             ),
           ],
         ),
         Divider(
-          color: darkTheme1 == true ? Colors.grey : Colors.black,
+          color: darkTheme == true ? Colors.grey : Colors.black,
         ),
 
         //ENTIDAD
@@ -1277,7 +1275,7 @@ class WidgetTablaInfo extends StatelessWidget {
                   text: "🏢 Entidad:",
                   style: new TextStyle(
                     fontSize: 15.0,
-                    color: darkTheme1 == true ? Colors.white : Colors.black,
+                    color: darkTheme == true ? Colors.white : Colors.black,
                     fontWeight: FontWeight.bold,
                   ),
                 )),
@@ -1287,14 +1285,14 @@ class WidgetTablaInfo extends StatelessWidget {
               child: Center(
                 child: Text(widget.td.entidad,
                     style: TextStyle(
-                        color: darkTheme1 == true ? Colors.white : Colors.black,
+                        color: darkTheme == true ? Colors.white : Colors.black,
                         fontWeight: FontWeight.normal)),
               ),
             ),
           ],
         ),
         Divider(
-          color: darkTheme1 == true ? Colors.grey : Colors.black,
+          color: darkTheme == true ? Colors.grey : Colors.black,
         ),
 
         //CATEGORIA
@@ -1308,7 +1306,7 @@ class WidgetTablaInfo extends StatelessWidget {
                   text: "🗂️ Categoría:",
                   style: new TextStyle(
                     fontSize: 15.0,
-                    color: darkTheme1 == true ? Colors.white : Colors.black,
+                    color: darkTheme == true ? Colors.white : Colors.black,
                     fontWeight: FontWeight.bold,
                   ),
                 )),
@@ -1318,14 +1316,14 @@ class WidgetTablaInfo extends StatelessWidget {
               child: Center(
                 child: Text(widget.td.categoria,
                     style: TextStyle(
-                        color: darkTheme1 == true ? Colors.white : Colors.black,
+                        color: darkTheme == true ? Colors.white : Colors.black,
                         fontWeight: FontWeight.normal)),
               ),
             ),
           ],
         ),
         Divider(
-          color: darkTheme1 == true ? Colors.grey : Colors.black,
+          color: darkTheme == true ? Colors.grey : Colors.black,
         ),
 
         //DURACIÓN
@@ -1339,7 +1337,7 @@ class WidgetTablaInfo extends StatelessWidget {
                   text: "🕑 Duración:",
                   style: new TextStyle(
                     fontSize: 15.0,
-                    color: darkTheme1 == true ? Colors.white : Colors.black,
+                    color: darkTheme == true ? Colors.white : Colors.black,
                     fontWeight: FontWeight.bold,
                   ),
                 )),
@@ -1349,14 +1347,14 @@ class WidgetTablaInfo extends StatelessWidget {
               child: Center(
                 child: Text(widget.td.duracion,
                     style: TextStyle(
-                        color: darkTheme1 == true ? Colors.white : Colors.black,
+                        color: darkTheme == true ? Colors.white : Colors.black,
                         fontWeight: FontWeight.normal)),
               ),
             ),
           ],
         ),
         Divider(
-          color: darkTheme1 == true ? Colors.grey : Colors.black,
+          color: darkTheme == true ? Colors.grey : Colors.black,
         ),
 
         //TIPO DE EMISION
@@ -1370,7 +1368,7 @@ class WidgetTablaInfo extends StatelessWidget {
                 text: "🎖️ Tipo de emisión:",
                 style: new TextStyle(
                   fontSize: 15.0,
-                  color: darkTheme1 == true ? Colors.white : Colors.black,
+                  color: darkTheme == true ? Colors.white : Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
               ))),
@@ -1380,14 +1378,14 @@ class WidgetTablaInfo extends StatelessWidget {
                 child: Text(
                   widget.td.emision,
                   style: TextStyle(
-                      color: darkTheme1 == true &&
+                      color: darkTheme == true &&
                               widget.td.emision == 'Con certificado gratis'
                           ? Colors.green
-                          : darkTheme1 == false &&
+                          : darkTheme == false &&
                                   widget.td.emision == 'Con certificado gratis'
                               ? Colors.green
-                              : darkTheme1 == false ||
-                                      darkTheme1 == true &&
+                              : darkTheme == false ||
+                                      darkTheme == true &&
                                           widget.td.emision !=
                                               'Con certificado gratis'
                                   ? Colors.grey
@@ -1400,11 +1398,11 @@ class WidgetTablaInfo extends StatelessWidget {
         ),
 
         Divider(
-          color: darkTheme1 == true ? Colors.grey : Colors.black,
+          color: darkTheme == true ? Colors.grey : Colors.black,
         ),
 
         Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 40, 0),
+          padding: const EdgeInsets.fromLTRB(0, 0, 50, 0),
           child: Align(
             alignment: Alignment.centerRight,
             child: Padding(

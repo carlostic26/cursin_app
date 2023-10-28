@@ -1,15 +1,7 @@
-import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cursin/utils/ads_ids/ads.dart';
-import 'package:cursin/model/curso_lista_model.dart';
 import 'package:cursin/screens/detail_course.dart';
-import 'package:cursin/infrastructure/models/localdb/cursosdb_sqflite.dart';
-import 'package:cursin/screens/drawer/drawer_options/menu_categoria.dart';
-import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
+import '../../../screens.dart';
 
 class categorias extends StatefulWidget {
   // se requiere recibir: 1. Nombre de categoria. 2. Pantalla de donde se proviene
@@ -300,18 +292,14 @@ class _categoriaState extends State<categorias> {
       //nonPersonalizedAds: false
       );
 
-  // get email to check login sesion
-  String email = "";
   var children;
-
   late bool tapFav;
-
-  bool? darkTheme1;
+  bool? darkTheme;
 
   Future<Null> getSharedThemePrefs() async {
     SharedPreferences themePrefs = await SharedPreferences.getInstance();
     setState(() {
-      darkTheme1 = themePrefs.getBool('isDarkTheme');
+      darkTheme = themePrefs.getBool('isDarkTheme');
     });
   }
 
@@ -554,19 +542,24 @@ class _categoriaState extends State<categorias> {
     }
 
     return Scaffold(
-      backgroundColor: darkTheme1 == true ? Colors.grey[850] : Colors.white,
+      backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
       floatingActionButton: FloatingButtonCondition(context),
       appBar: AppBar(
+        elevation: 0,
+        backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
         leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
+            icon: Icon(
+              Icons.arrow_back,
+              color: darkTheme == false ? Colors.grey[850] : Colors.white,
+            ),
             onPressed: () {
               //Navigator.of(context).pop(); //SE COMENTAREA ESTA LINEA PORQUE PRODUCE ERROR AL HABER 2 RUTAS DE NAVIGATOR
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (_) => CategoriasSelectCards()));
+              Navigator.pop(context);
             }),
         title: Text(
           "" + widget.catProviene,
           style: TextStyle(
+            color: darkTheme == false ? Colors.grey[850] : Colors.white,
             fontSize: 16.0, /*fontWeight: FontWeight.bold*/
           ),
         ),
@@ -574,6 +567,7 @@ class _categoriaState extends State<categorias> {
           Padding(
             padding: EdgeInsets.all(10),
             child: IconButton(
+              color: darkTheme == false ? Colors.grey[850] : Colors.white,
               icon: Icon(Icons.search),
               onPressed: () {
                 //pass to search screen
@@ -592,7 +586,7 @@ class _categoriaState extends State<categorias> {
         ],
         centerTitle: true,
       ),
-      body: ShowCursos(curso: _curso, widget: widget, darkTheme1: darkTheme1),
+      body: ShowCursos(curso: _curso, widget: widget, darkTheme: darkTheme),
       bottomNavigationBar: _anchoredAdaptiveAd != null && _isLoaded
           ? Container(
               color: Color.fromARGB(0, 33, 149, 243),
@@ -720,12 +714,12 @@ class ShowCursos extends StatelessWidget {
     super.key,
     required Future<List<curso>>? curso,
     required this.widget,
-    required this.darkTheme1,
+    required this.darkTheme,
   }) : _curso = curso;
 
   final Future<List<curso>>? _curso;
   final categorias widget;
-  final bool? darkTheme1;
+  final bool? darkTheme;
 
   @override
   Widget build(BuildContext context) {
@@ -775,7 +769,7 @@ class ShowCursos extends StatelessWidget {
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                           child: Container(
                             decoration: BoxDecoration(
-                              color: darkTheme1 == true
+                              color: darkTheme == true
                                   ? Colors.grey[850]
                                   : Colors
                                       .white, // Your desired background color
@@ -850,11 +844,11 @@ class ShowCursos extends StatelessWidget {
                                             Text(
                                               items[index].title,
                                               style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16,
+                                                fontSize: 17,
                                                 //COLOR DEL TEXTO TITULO
-                                                color: Color.fromARGB(
-                                                    255, 53, 164, 255),
+                                                color: darkTheme == false
+                                                    ? Colors.grey[450]
+                                                    : Colors.white,
                                               ),
                                             ),
                                             //SizedBox(height: 2),
@@ -871,18 +865,12 @@ class ShowCursos extends StatelessWidget {
                                                         Text(
                                                           items[index].entidad,
                                                           style: TextStyle(
-                                                            fontSize: 12,
-                                                            color: darkTheme1 ==
-                                                                    true
-                                                                ? Color
-                                                                    .fromARGB(
-                                                                        255,
-                                                                        175,
-                                                                        175,
-                                                                        175)
-                                                                : Colors
-                                                                    .grey[850],
-                                                          ),
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 12,
+                                                              color:
+                                                                  Colors.blue),
                                                         ),
 
                                                         //emision
@@ -893,13 +881,13 @@ class ShowCursos extends StatelessWidget {
                                                                 TextAlign.left,
                                                             style: TextStyle(
                                                                 fontSize: 10,
-                                                                color: darkTheme1 ==
+                                                                color: darkTheme ==
                                                                             true &&
                                                                         items[index].emision ==
                                                                             'Con certificado gratis'
                                                                     ? Colors
                                                                         .greenAccent
-                                                                    : darkTheme1 ==
+                                                                    : darkTheme ==
                                                                                 false &&
                                                                             items[index].emision ==
                                                                                 'Con certificado gratis'
@@ -908,8 +896,8 @@ class ShowCursos extends StatelessWidget {
                                                                             1,
                                                                             77,
                                                                             40)
-                                                                        : darkTheme1 == false ||
-                                                                                darkTheme1 == true &&
+                                                                        : darkTheme == false ||
+                                                                                darkTheme == true &&
                                                                                     items[index].emision !=
                                                                                         'Con certificado gratis'
                                                                             ? Colors

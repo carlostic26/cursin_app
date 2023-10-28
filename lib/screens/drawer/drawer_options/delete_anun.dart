@@ -58,12 +58,12 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
 
   int enterAcces = 0;
 
-  bool? darkTheme1;
+  bool? darkTheme;
 
   Future<Null> getSharedThemePrefs() async {
     SharedPreferences themePrefs = await SharedPreferences.getInstance();
     setState(() {
-      darkTheme1 = themePrefs.getBool('isDarkTheme');
+      darkTheme = themePrefs.getBool('isDarkTheme');
     });
   }
 
@@ -149,7 +149,7 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         //no color backg cuz the backg is an image
-        backgroundColor: darkTheme1 == true ? Colors.grey[850] : Colors.white,
+        backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
         appBar: AppBar(
           title: Text(
             "Eliminar anuncios",
@@ -212,7 +212,7 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
-                            color: darkTheme1 == true
+                            color: darkTheme == true
                                 ? Colors.white
                                 : Colors.black)),
                     SizedBox(
@@ -233,7 +233,7 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
-                            color: darkTheme1 == true
+                            color: darkTheme == true
                                 ? Colors.white
                                 : Colors.black),
                       ),
@@ -252,14 +252,14 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
                           },
                           icon: Icon(Icons.volunteer_activism,
                               size: 10.0,
-                              color: darkTheme1 == true
+                              color: darkTheme == true
                                   ? Colors.black
                                   : Colors.white),
                           label: Text(
                             'Canjear',
                             style: TextStyle(
                                 fontSize: 10,
-                                color: darkTheme1 == true
+                                color: darkTheme == true
                                     ? Colors.black
                                     : Colors.white),
                           ), // <-- Text
@@ -303,14 +303,14 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
                       Text(
                         'Puedes eliminar para siempre el anuncio que se muestra antes de entrar a un curso dentro de la app Cursin cuando alcances 12 monedas.',
                         style: TextStyle(
-                            color: darkTheme1 == true
+                            color: darkTheme == true
                                 ? Colors.white
                                 : Colors.black),
                       ),
                       Text(
                         '\nPara conseguir monedas solo debes ver algunos videos.\n',
                         style: TextStyle(
-                            color: darkTheme1 == true
+                            color: darkTheme == true
                                 ? Colors.white
                                 : Colors.black),
                       ),
@@ -319,9 +319,8 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
                         '¿Para qué sirven las monedas?',
                         style: TextStyle(
                             fontSize: 22.0, // Esto sería similar a H1 en HTML
-                            color: darkTheme1 == true
-                                ? Colors.white
-                                : Colors.black,
+                            color:
+                                darkTheme == true ? Colors.white : Colors.black,
                             fontWeight: FontWeight.bold),
                       ),
                       Padding(
@@ -330,7 +329,7 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
                           'Para eliminar los comerciales que salen antes de entrar a un curso encontrado dentro de Cursin. Debes tener en cuenta que se requieren al menos 12 para ello.',
                           style: TextStyle(
                               fontSize: 16.0, // Esto sería similar a H2 en HTML
-                              color: darkTheme1 == true
+                              color: darkTheme == true
                                   ? Colors.white
                                   : Colors.black),
                         ),
@@ -340,9 +339,8 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
                         '¿Qué son los anuncios?',
                         style: TextStyle(
                             fontSize: 22.0, // Esto sería similar a H1 en HTML
-                            color: darkTheme1 == true
-                                ? Colors.white
-                                : Colors.black,
+                            color:
+                                darkTheme == true ? Colors.white : Colors.black,
                             fontWeight: FontWeight.bold),
                       ),
                       Padding(
@@ -351,7 +349,7 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
                           'Son pequeños comerciales de video que te salen justo antes de entrar a cualquier curso que decidas tomar gracias a Cursin App.',
                           style: TextStyle(
                               fontSize: 16.0, // Esto sería similar a H2 en HTML
-                              color: darkTheme1 == true
+                              color: darkTheme == true
                                   ? Colors.white
                                   : Colors.black),
                         ),
@@ -361,9 +359,8 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
                         '¿Por qué se muestran?',
                         style: TextStyle(
                             fontSize: 22.0, // Esto sería similar a H1 en HTML
-                            color: darkTheme1 == true
-                                ? Colors.white
-                                : Colors.black,
+                            color:
+                                darkTheme == true ? Colors.white : Colors.black,
                             fontWeight: FontWeight.bold),
                       ),
                       Padding(
@@ -372,7 +369,7 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
                           'Son necesarios para seguir manteniendo la app en el tiempo. Sirven para seguir indexando nuevos cursos cada semana, reparar bugs, mejorar las interfaces y facilitar el proceso de búsqueda de cualquier curso gratis que necesites.',
                           style: TextStyle(
                               fontSize: 16.0, // Esto sería similar a H2 en HTML
-                              color: darkTheme1 == true
+                              color: darkTheme == true
                                   ? Colors.white
                                   : Colors.black),
                         ),
@@ -382,9 +379,8 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
                         '¿Cómo conseguir monedas?',
                         style: TextStyle(
                             fontSize: 22.0, // Esto sería similar a H1 en HTML
-                            color: darkTheme1 == true
-                                ? Colors.white
-                                : Colors.black,
+                            color:
+                                darkTheme == true ? Colors.white : Colors.black,
                             fontWeight: FontWeight.bold),
                       ),
                       Padding(
@@ -393,7 +389,7 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
                           'Toca en el botón "Conseguir monedas" y espera a que se cargue un pequeño anuncio. Se entregan 2 monedas por cada uno que veas. De esta forma, reunirás la cantidad necesaria para eliminar los que se muestran antes de entrar a un curso.',
                           style: TextStyle(
                               fontSize: 16.0, // Esto sería similar a H2 en HTML
-                              color: darkTheme1 == true
+                              color: darkTheme == true
                                   ? Colors.white
                                   : Colors.black),
                         ),
@@ -403,9 +399,8 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
                         '¿Cómo canjear las monedas?',
                         style: TextStyle(
                             fontSize: 22.0, // Esto sería similar a H1 en HTML
-                            color: darkTheme1 == true
-                                ? Colors.white
-                                : Colors.black,
+                            color:
+                                darkTheme == true ? Colors.white : Colors.black,
                             fontWeight: FontWeight.bold),
                       ),
                       Padding(
@@ -414,7 +409,7 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
                           'Una vez hayas alcanzado 12 monedas, puedes canjearlas para la eliminación del anuncio que se muestra antes de entrar a un curso. Para ello debes tocar en el botón "Canjear".',
                           style: TextStyle(
                               fontSize: 16.0, // Esto sería similar a H2 en HTML
-                              color: darkTheme1 == true
+                              color: darkTheme == true
                                   ? Colors.white
                                   : Colors.black),
                         ),

@@ -4,8 +4,8 @@ import '../../../screens.dart';
 import '../../../utils/ads_ids/ads.dart';
 
 class EntidadesScreen extends StatefulWidget {
-  EntidadesScreen({required this.darkTheme1});
-  late bool? darkTheme1;
+  EntidadesScreen({required this.darkTheme});
+  late bool? darkTheme;
 
   @override
   State<EntidadesScreen> createState() => _EntidadesScreenState();
@@ -112,7 +112,7 @@ class _EntidadesScreenState extends State<EntidadesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: widget.darkTheme1 == true ? darkColor : Colors.white,
+      backgroundColor: widget.darkTheme == true ? darkColor : Colors.white,
       appBar: AppBar(
         title: Text('Entidades'),
         actions: [

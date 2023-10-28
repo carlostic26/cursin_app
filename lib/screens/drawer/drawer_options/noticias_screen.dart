@@ -42,12 +42,12 @@ class _noticiasScreenState extends State<noticiasScreen> {
     staticAd.load();
   }
 
-  bool? darkTheme1;
+  bool? darkTheme;
 
   Future<Null> getSharedThemePrefs() async {
     SharedPreferences themePrefs = await SharedPreferences.getInstance();
     setState(() {
-      darkTheme1 = themePrefs.getBool('isDarkTheme');
+      darkTheme = themePrefs.getBool('isDarkTheme');
     });
   }
 
@@ -63,7 +63,7 @@ class _noticiasScreenState extends State<noticiasScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       //no color backg cuz the backg is an image
-      backgroundColor: darkTheme1 == true ? Colors.grey[850] : Colors.white,
+      backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
       appBar: AppBar(
         title: Text(
           "Articulos, noticias y podcast sobre Cursin",
@@ -88,7 +88,7 @@ class _noticiasScreenState extends State<noticiasScreen> {
                     child: Text(
                       "Diario Angelopolitano",
                       style: TextStyle(
-                          color: darkTheme1 == true
+                          color: darkTheme == true
                               ? Colors.white
                               : Colors.grey[850],
                           fontSize: 20,
@@ -169,7 +169,7 @@ class _noticiasScreenState extends State<noticiasScreen> {
                     "‘Cursin’ la app que te permite tomar curso gratuitos con certificación.",
                     style: TextStyle(
                       color:
-                          darkTheme1 == true ? Colors.white : Colors.grey[850],
+                          darkTheme == true ? Colors.white : Colors.grey[850],
                     ),
                   ),
                 ],
@@ -197,7 +197,7 @@ class _noticiasScreenState extends State<noticiasScreen> {
                     child: Text(
                       "Diario La Opinión",
                       style: TextStyle(
-                          color: darkTheme1 == true
+                          color: darkTheme == true
                               ? Colors.white
                               : Colors.grey[850],
                           fontSize: 20,
@@ -278,7 +278,7 @@ class _noticiasScreenState extends State<noticiasScreen> {
                     "Cámara Junior reconoció a los Jóvenes Sobresalientes de Norte de Santander s",
                     style: TextStyle(
                       color:
-                          darkTheme1 == true ? Colors.white : Colors.grey[850],
+                          darkTheme == true ? Colors.white : Colors.grey[850],
                     ),
                   ),
                 ],
@@ -306,7 +306,7 @@ class _noticiasScreenState extends State<noticiasScreen> {
                     child: Text(
                       "Podcast de Jesús Barón",
                       style: TextStyle(
-                          color: darkTheme1 == true
+                          color: darkTheme == true
                               ? Colors.white
                               : Colors.grey[850],
                           fontSize: 20,
@@ -380,7 +380,7 @@ class _noticiasScreenState extends State<noticiasScreen> {
                     "#28 CARLOS PEÑARANDA - FUNDADOR CURSIN APP.",
                     style: TextStyle(
                       color:
-                          darkTheme1 == true ? Colors.white : Colors.grey[850],
+                          darkTheme == true ? Colors.white : Colors.grey[850],
                     ),
                   ),
                 ],
@@ -408,7 +408,7 @@ class _noticiasScreenState extends State<noticiasScreen> {
                     child: Text(
                       "Podcast de Try Catch",
                       style: TextStyle(
-                          color: darkTheme1 == true
+                          color: darkTheme == true
                               ? Colors.white
                               : Colors.grey[850],
                           fontSize: 20,
@@ -482,7 +482,7 @@ class _noticiasScreenState extends State<noticiasScreen> {
                     "Cursin La plataforma de cursos con certificados gratuita",
                     style: TextStyle(
                       color:
-                          darkTheme1 == true ? Colors.white : Colors.grey[850],
+                          darkTheme == true ? Colors.white : Colors.grey[850],
                     ),
                   ),
                 ],

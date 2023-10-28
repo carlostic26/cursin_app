@@ -1,16 +1,8 @@
-// ignore_for_file: camel_case_types
-
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cursin/utils/ads_ids/ads.dart';
-import 'package:cursin/model/curso_lista_model.dart';
 import 'package:cursin/screens/detail_course.dart';
-import 'package:cursin/infrastructure/models/localdb/cursosdb_sqflite.dart';
-import 'package:cursin/screens/drawer/drawer_options/menu_categoria.dart';
-import 'package:cursin/screens/drawer/drawer_options/listado_por_categoria.dart';
 import 'package:cursin/screens/drawer/drawer_options/ultimos_cursos.dart';
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import '../../../screens.dart';
 
 class searchedCourses extends StatefulWidget {
   searchedCourses(
@@ -85,12 +77,12 @@ class _searchedCoursesState extends State<searchedCourses> {
       //nonPersonalizedAds: false
       );
 
-  bool? darkTheme1;
+  bool? darkTheme;
 
   Future<Null> getSharedThemePrefs() async {
     SharedPreferences themePrefs = await SharedPreferences.getInstance();
     setState(() {
-      darkTheme1 = themePrefs.getBool('isDarkTheme');
+      darkTheme = themePrefs.getBool('isDarkTheme');
     });
   }
 
@@ -114,6 +106,7 @@ class _searchedCoursesState extends State<searchedCourses> {
   @override
   Widget build(BuildContext context) {
     _loadAdaptativeAd();
+    double sizeHeight = MediaQuery.of(context).size.height;
     return WillPopScope(
       onWillPop: () async {
         //home es ultimo cursos agregados
@@ -151,30 +144,54 @@ class _searchedCoursesState extends State<searchedCourses> {
       },
       child: Scaffold(
         //no color backg cuz the backg is an image
-        backgroundColor: darkTheme1 == true ? Colors.grey[850] : Colors.white,
+        backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
         appBar: AppBar(
           //automaticallyImplyLeading: false,
+          elevation: 0,
+          backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
+
+          leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: Icon(Icons.arrow_back), // Icono del botón de hamburguesa
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              );
+            },
+          ),
+
+          iconTheme: IconThemeData(
+            color: darkTheme == false ? Colors.grey[850] : Colors.white,
+          ), // Cambia el color del botón
+
           title: TextField(
             textInputAction: TextInputAction.search,
             onSubmitted: (value) {
-              searchCourse('');
+              searchCourse(value);
             },
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(
+              color: darkTheme == false
+                  ? Colors.grey[450]
+                  : Color.fromARGB(150, 255, 255, 255),
+            ),
             decoration: InputDecoration(
               hintText: widget.palabraBusqueda != null &&
                       widget.palabraBusqueda.toString().isNotEmpty
                   ? widget.palabraBusqueda.toString()
-                  : 'Ej: java, finanzas, inglés, excel, python',
+                  : 'Ej: sql, finanzas, inglés, excel, python',
               hintStyle: TextStyle(
-                color: Color.fromARGB(130, 255, 255, 255),
+                color: darkTheme == true ? Colors.grey : Colors.grey[850],
                 fontSize: 12,
               ),
             ),
             controller: searchController,
           ),
+
           centerTitle: true,
           actions: [
             IconButton(
+                color: darkTheme == false ? Colors.grey[850] : Colors.white,
                 icon: Icon(Icons.search),
                 onPressed: () {
                   searchCourse('');
@@ -188,7 +205,7 @@ class _searchedCoursesState extends State<searchedCourses> {
                   child: Text(
                     'Resultado...',
                     style: TextStyle(
-                        color: darkTheme1 == true ? Colors.white : Colors.black,
+                        color: darkTheme == true ? Colors.white : Colors.black,
                         fontSize: 15.0),
                   ),
                 ),
@@ -225,7 +242,7 @@ class _searchedCoursesState extends State<searchedCourses> {
               child: Text(
                 'Error. Vuelve a ingresar.',
                 style: TextStyle(
-                    color: darkTheme1 == true ? Colors.white : Colors.black,
+                    color: darkTheme == true ? Colors.white : Colors.black,
                     fontSize: 15.0),
               ),
             ),
@@ -242,7 +259,7 @@ class _searchedCoursesState extends State<searchedCourses> {
                     'No se encontró ningún curso. \n\nAsegúrate de buscar únicamente con palabra clave. Ejemplo: php, inglés, excel, java, música...',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: darkTheme1 == true ? Colors.white : Colors.black,
+                        color: darkTheme == true ? Colors.white : Colors.black,
                         fontSize: 15.0),
                   ),
                 ),
@@ -281,7 +298,7 @@ class _searchedCoursesState extends State<searchedCourses> {
                             padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                             child: Container(
                               decoration: BoxDecoration(
-                                color: darkTheme1 == true
+                                color: darkTheme == true
                                     ? Colors.grey[850]
                                     : Colors
                                         .white, // Your desired background color
@@ -369,7 +386,7 @@ class _searchedCoursesState extends State<searchedCourses> {
                                                 items[index].entidad,
                                                 style: TextStyle(
                                                   fontSize: 15,
-                                                  color: darkTheme1 == true
+                                                  color: darkTheme == true
                                                       ? Color.fromARGB(
                                                           255, 175, 175, 175)
                                                       : Colors.grey[850],
@@ -381,12 +398,13 @@ class _searchedCoursesState extends State<searchedCourses> {
                                                   textAlign: TextAlign.left,
                                                   style: TextStyle(
                                                       fontSize: 10,
-                                                      color: darkTheme1 == true &&
+                                                      color: darkTheme ==
+                                                                  true &&
                                                               items[index]
                                                                       .emision ==
                                                                   'Con certificado gratis'
                                                           ? Colors.greenAccent
-                                                          : darkTheme1 ==
+                                                          : darkTheme ==
                                                                       false &&
                                                                   items[index]
                                                                           .emision ==
@@ -396,9 +414,9 @@ class _searchedCoursesState extends State<searchedCourses> {
                                                                   1,
                                                                   77,
                                                                   40)
-                                                              : darkTheme1 ==
+                                                              : darkTheme ==
                                                                           false ||
-                                                                      darkTheme1 ==
+                                                                      darkTheme ==
                                                                               true &&
                                                                           items[index].emision !=
                                                                               'Con certificado gratis'

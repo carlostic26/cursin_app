@@ -66,12 +66,12 @@ class _infoAppState extends State<infoApp> {
       //nonPersonalizedAds: false
       );
 
-  bool? darkTheme1;
+  bool? darkTheme;
 
   Future<Null> getSharedThemePrefs() async {
     SharedPreferences themePrefs = await SharedPreferences.getInstance();
     setState(() {
-      darkTheme1 = themePrefs.getBool('isDarkTheme');
+      darkTheme = themePrefs.getBool('isDarkTheme');
     });
   }
 
@@ -89,7 +89,7 @@ class _infoAppState extends State<infoApp> {
     _loadAdaptativeAd();
     return Scaffold(
       //no color backg cuz the backg is an image
-      backgroundColor: darkTheme1 == true ? Colors.grey[850] : Colors.white,
+      backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
       appBar: AppBar(
         title: Text(
           "Información",
@@ -486,9 +486,8 @@ class _infoAppState extends State<infoApp> {
                               " y un comentario positivo en Play Store",
                           style: TextStyle(
                             //fontWeight: FontWeight.bold,
-                            color: darkTheme1 == true
-                                ? Colors.white
-                                : Colors.black,
+                            color:
+                                darkTheme == true ? Colors.white : Colors.black,
                           )),
                     ),
                     SizedBox(

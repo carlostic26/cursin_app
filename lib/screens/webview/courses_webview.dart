@@ -1,9 +1,9 @@
+import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:cursin/screens.dart';
-import 'package:flutter/material.dart';
+import 'package:cursin/screens/option_course.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_webview_pro/webview_flutter.dart';
-
 import 'package:device_info_plus/device_info_plus.dart';
 
 class webview extends StatefulWidget {
@@ -34,10 +34,20 @@ class webviewState extends State<webview> {
 
   String modelDevice = '';
 
+  bool? darkTheme;
+
   void initState() {
     super.initState();
+    getSharedThemePrefs();
     isloaded = true;
     if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+  }
+
+  Future<Null> getSharedThemePrefs() async {
+    SharedPreferences themePrefs = await SharedPreferences.getInstance();
+    setState(() {
+      darkTheme = themePrefs.getBool('isDarkTheme');
+    });
   }
 
   Future<void> userAgentOfChrome() async {
@@ -63,8 +73,12 @@ class webviewState extends State<webview> {
       onWillPop: () => _goBack(context),
       child: Scaffold(
         appBar: AppBar(
+            elevation: 0,
+            backgroundColor:
+                darkTheme == true ? Colors.grey[850] : Colors.white,
             leading: IconButton(
               icon: Icon(Icons.arrow_back),
+              color: darkTheme == false ? Colors.grey[850] : Colors.white,
               iconSize: 20,
               onPressed: () {
                 _goBack(context);
@@ -72,7 +86,9 @@ class webviewState extends State<webview> {
             ),
             title: Text(
               widget.nameCourse.toString(),
-              style: TextStyle(fontSize: 15),
+              style: TextStyle(
+                  color: darkTheme == false ? Colors.grey[850] : Colors.white,
+                  fontSize: 15),
             ),
             centerTitle: true,
             actions: <Widget>[
@@ -80,13 +96,17 @@ class webviewState extends State<webview> {
                 children: [
                   IconButton(
                       icon: Icon(
-                        Icons.close,
+                        color: darkTheme == false
+                            ? Colors.grey[850]
+                            : Colors.white,
+                        Icons.logout,
                         size: 20,
                       ),
                       onPressed: () {
                         showExitDialog(context);
                       }),
                   PopupMenuButton<String>(
+                    color: darkTheme == false ? Colors.grey[850] : Colors.white,
                     iconSize: 20,
                     onSelected: handleClick,
                     itemBuilder: (BuildContext context) {
@@ -99,6 +119,11 @@ class webviewState extends State<webview> {
                         'Reportar bug'
                       }.map((String choice) {
                         return PopupMenuItem<String>(
+                          textStyle: TextStyle(
+                            color: darkTheme == true
+                                ? Colors.grey[850]
+                                : Colors.white,
+                          ),
                           value: choice,
                           child: Text(choice),
                         );
@@ -253,7 +278,10 @@ class webviewState extends State<webview> {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text('No'),
+                  child: Text(
+                    'No',
+                    style: TextStyle(color: Colors.grey),
+                  ),
                 ),
                 TextButton(
                   onPressed: () {
@@ -274,7 +302,10 @@ class webviewState extends State<webview> {
                               )));
                     }
                   },
-                  child: Text('Sip'),
+                  child: Text(
+                    'Sip',
+                    style: TextStyle(color: Colors.grey),
+                  ),
                 ),
               ],
             ));

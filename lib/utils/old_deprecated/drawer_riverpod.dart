@@ -659,7 +659,7 @@ class drawerRiverpod extends ConsumerWidget {
             (_) => //aqui al tocar item de lista se pasa a su respectiva pantalla de editar
                 //que puede ser reemplazada por la de INFO CURSO en completos
                 AgradecimientosScreen(
-          darkTheme1: darkTheme,
+          darkTheme: darkTheme,
           staticAd: staticAd,
         ),
       ),

@@ -77,18 +77,18 @@ class _CoursesFavsState extends State<CoursesFavs> {
       //nonPersonalizedAds: false
       );
 
-  bool? darkTheme1;
+  bool? darkTheme;
 
   Future<Null> getSharedThemePrefs() async {
     SharedPreferences themePrefs = await SharedPreferences.getInstance();
     setState(() {
-      darkTheme1 = themePrefs.getBool('isDarkTheme');
+      darkTheme = themePrefs.getBool('isDarkTheme');
     });
   }
 
   void updateDarkTheme(bool value) {
     setState(() {
-      darkTheme1 = value;
+      darkTheme = value;
     });
   }
 
@@ -137,7 +137,7 @@ class _CoursesFavsState extends State<CoursesFavs> {
         return true;
       },
       child: Scaffold(
-        backgroundColor: darkTheme1 == true ? Colors.grey[850] : Colors.white,
+        backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
         appBar: AppBar(
           title: Text(
             "Cursos guardados",
@@ -212,7 +212,7 @@ class _CoursesFavsState extends State<CoursesFavs> {
                               padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: darkTheme1 == true
+                                  color: darkTheme == true
                                       ? Colors.grey[850]
                                       : Colors
                                           .white, // Your desired background color
@@ -308,7 +308,7 @@ class _CoursesFavsState extends State<CoursesFavs> {
                                                                   .entidad,
                                                               style: TextStyle(
                                                                 fontSize: 12,
-                                                                color: darkTheme1 ==
+                                                                color: darkTheme ==
                                                                         true
                                                                     ? Color
                                                                         .fromARGB(
@@ -330,11 +330,11 @@ class _CoursesFavsState extends State<CoursesFavs> {
                                                                         .left,
                                                                 style: TextStyle(
                                                                     fontSize: 10,
-                                                                    color: darkTheme1 == true && items[index].emision == 'Con certificado gratis'
+                                                                    color: darkTheme == true && items[index].emision == 'Con certificado gratis'
                                                                         ? Colors.greenAccent
-                                                                        : darkTheme1 == false && items[index].emision == 'Con certificado gratis'
+                                                                        : darkTheme == false && items[index].emision == 'Con certificado gratis'
                                                                             ? Color.fromARGB(255, 1, 77, 40)
-                                                                            : darkTheme1 == false || darkTheme1 == true && items[index].emision != 'Con certificado gratis'
+                                                                            : darkTheme == false || darkTheme == true && items[index].emision != 'Con certificado gratis'
                                                                                 ? Colors.grey
                                                                                 : null,
                                                                     fontWeight: FontWeight.normal)),
@@ -377,7 +377,7 @@ class _CoursesFavsState extends State<CoursesFavs> {
               ),
         drawer: drawerCursin(
           context: context,
-          darkTheme1: darkTheme1!,
+          darkTheme: darkTheme!,
         ),
       ),
     );

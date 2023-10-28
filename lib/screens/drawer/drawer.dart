@@ -23,23 +23,22 @@ import 'package:url_launcher/url_launcher.dart';
 
 class drawerCursin extends StatefulWidget {
   final BuildContext context;
-  final bool darkTheme1;
+  final bool darkTheme;
 
-  const drawerCursin(
-      {Key? key, required this.context, required this.darkTheme1})
+  const drawerCursin({Key? key, required this.context, required this.darkTheme})
       : super(key: key);
   @override
   State<drawerCursin> createState() => _drawerCursinState();
 }
 
 class _drawerCursinState extends State<drawerCursin> {
-  bool? darkTheme1;
+  bool? darkTheme;
 /*   
 
   Future<Null> getSharedThemePrefs() async {
     SharedPreferences themePrefs = await SharedPreferences.getInstance();
     setState(() {
-      darkTheme1 = themePrefs.getBool('isDarkTheme');
+      darkTheme = themePrefs.getBool('isDarkTheme');
     });
   }
  */
@@ -48,7 +47,7 @@ class _drawerCursinState extends State<drawerCursin> {
     //getSharedThemePrefs();
     // TODO: implement initState
     super.initState();
-    darkTheme1 = widget.darkTheme1;
+    darkTheme = widget.darkTheme;
   }
 
   @override
@@ -63,7 +62,7 @@ class _drawerCursinState extends State<drawerCursin> {
     return Drawer(
       elevation: 0,
       child: Container(
-        color: darkTheme1 == true ? Colors.grey[850] : Colors.white,
+        color: darkTheme == true ? Colors.grey[850] : Colors.white,
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
@@ -117,11 +116,11 @@ class _drawerCursinState extends State<drawerCursin> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(10, 1, 1, 1),
                     child: Text(
-                        darkTheme1 == true
+                        darkTheme == true
                             ? 'Activar modo claro'
                             : 'Activar modo oscuro',
                         style: TextStyle(
-                          color: darkTheme1 == true
+                          color: darkTheme == true
                               ? Colors.white
                               : Colors.grey[850],
                         )),
@@ -137,12 +136,11 @@ class _drawerCursinState extends State<drawerCursin> {
             ListTile(
               title: Text("Buscar un curso",
                   style: TextStyle(
-                      color: darkTheme1 == true
-                          ? Colors.white
-                          : Colors.grey[850])),
+                      color:
+                          darkTheme == true ? Colors.white : Colors.grey[850])),
               leading: Icon(
                 Icons.search,
-                color: darkTheme1 == true ? Colors.white : Colors.grey[850],
+                color: darkTheme == true ? Colors.white : Colors.grey[850],
               ),
               //at press, run the method
               onTap: () => {GoSearchCourses(context)},
@@ -153,7 +151,7 @@ class _drawerCursinState extends State<drawerCursin> {
                   children: [
                     Text("Últimos cursos",
                         style: TextStyle(
-                            color: darkTheme1 == true
+                            color: darkTheme == true
                                 ? Colors.white
                                 : Colors.grey[850])),
                     Expanded(
@@ -188,7 +186,7 @@ class _drawerCursinState extends State<drawerCursin> {
                 ),
                 leading: Icon(
                   Icons.date_range,
-                  color: darkTheme1 == true ? Colors.white : Colors.grey[850],
+                  color: darkTheme == true ? Colors.white : Colors.grey[850],
                 ),
                 onTap: () {
                   Navigator.pop(context);
@@ -199,12 +197,11 @@ class _drawerCursinState extends State<drawerCursin> {
             ListTile(
               title: Text("Categorías",
                   style: TextStyle(
-                      color: darkTheme1 == true
-                          ? Colors.white
-                          : Colors.grey[850])),
+                      color:
+                          darkTheme == true ? Colors.white : Colors.grey[850])),
               leading: Icon(
                 Icons.category,
-                color: darkTheme1 == true ? Colors.white : Colors.grey[850],
+                color: darkTheme == true ? Colors.white : Colors.grey[850],
               ),
               onTap: () => {
                 Navigator.pop(context),
@@ -218,7 +215,7 @@ class _drawerCursinState extends State<drawerCursin> {
                 children: [
                   Text("Entidades",
                       style: TextStyle(
-                          color: darkTheme1 == true
+                          color: darkTheme == true
                               ? Colors.white
                               : Colors.grey[850])),
                   Expanded(
@@ -253,7 +250,7 @@ class _drawerCursinState extends State<drawerCursin> {
               ),
               leading: Icon(
                 Icons.domain,
-                color: darkTheme1 == true ? Colors.white : Colors.grey[850],
+                color: darkTheme == true ? Colors.white : Colors.grey[850],
               ),
               onTap: () => {
                 //Navigator.pop(context),
@@ -261,7 +258,7 @@ class _drawerCursinState extends State<drawerCursin> {
                     context,
                     MaterialPageRoute(
                         builder: (_) => EntidadesScreen(
-                              darkTheme1: darkTheme1,
+                              darkTheme: darkTheme,
                             ))),
               },
             ),
@@ -269,12 +266,12 @@ class _drawerCursinState extends State<drawerCursin> {
             ListTile(
                 title: Text("Mis favoritos",
                     style: TextStyle(
-                        color: darkTheme1 == true
+                        color: darkTheme == true
                             ? Colors.white
                             : Colors.grey[850])),
                 leading: Icon(
                   Icons.favorite,
-                  color: darkTheme1 == true ? Colors.white : Colors.grey[850],
+                  color: darkTheme == true ? Colors.white : Colors.grey[850],
                 ),
                 onTap: () => {
                       Navigator.pop(context),
@@ -287,7 +284,7 @@ class _drawerCursinState extends State<drawerCursin> {
                 children: [
                   Text("Certificados",
                       style: TextStyle(
-                          color: darkTheme1 == true
+                          color: darkTheme == true
                               ? Colors.white
                               : Colors.grey[850])),
                   Expanded(
@@ -322,7 +319,7 @@ class _drawerCursinState extends State<drawerCursin> {
               ),
               leading: Icon(
                 Icons.workspace_premium,
-                color: darkTheme1 == true ? Colors.white : Colors.grey[850],
+                color: darkTheme == true ? Colors.white : Colors.grey[850],
               ),
               onTap: () => {
                 Navigator.pop(context),
@@ -342,14 +339,14 @@ class _drawerCursinState extends State<drawerCursin> {
                   children: [
                     Text("Eliminar anuncios",
                         style: TextStyle(
-                            color: darkTheme1 == true
+                            color: darkTheme == true
                                 ? Colors.white
                                 : Colors.grey[850])),
                   ],
                 ),
                 leading: Icon(
                   Icons.auto_delete,
-                  color: darkTheme1 == true ? Colors.white : Colors.grey[850],
+                  color: darkTheme == true ? Colors.white : Colors.grey[850],
                 ),
                 //at press, run the method
                 onTap: () {
@@ -368,12 +365,12 @@ class _drawerCursinState extends State<drawerCursin> {
             ListTile(
                 title: Text("¿Problemas para ingresar?",
                     style: TextStyle(
-                        color: darkTheme1 == true
+                        color: darkTheme == true
                             ? Colors.white
                             : Colors.grey[850])),
                 leading: Icon(
                   Icons.sentiment_very_dissatisfied_sharp,
-                  color: darkTheme1 == true ? Colors.white : Colors.grey[850],
+                  color: darkTheme == true ? Colors.white : Colors.grey[850],
                 ),
                 onTap: () {
                   _showDialogBugCursok(context);
@@ -382,12 +379,11 @@ class _drawerCursinState extends State<drawerCursin> {
             ListTile(
               title: Text("Reportar un problema",
                   style: TextStyle(
-                      color: darkTheme1 == true
-                          ? Colors.white
-                          : Colors.grey[850])),
+                      color:
+                          darkTheme == true ? Colors.white : Colors.grey[850])),
               leading: Icon(
                 Icons.mark_email_read,
-                color: darkTheme1 == true ? Colors.white : Colors.grey[850],
+                color: darkTheme == true ? Colors.white : Colors.grey[850],
               ),
               //at press, run the method
               onTap: () => _mailto(),
@@ -400,14 +396,14 @@ class _drawerCursinState extends State<drawerCursin> {
             Text("  Información",
                 style: TextStyle(
                     color:
-                        darkTheme1 == true ? Colors.white : Colors.grey[850])),
+                        darkTheme == true ? Colors.white : Colors.grey[850])),
 
             ListTile(
                 title: Row(
                   children: [
                     Text("Tutoriales Cursin",
                         style: TextStyle(
-                            color: darkTheme1 == true
+                            color: darkTheme == true
                                 ? Colors.white
                                 : Colors.grey[850])),
                     Expanded(
@@ -442,7 +438,7 @@ class _drawerCursinState extends State<drawerCursin> {
                 ),
                 leading: Icon(
                   Icons.important_devices,
-                  color: darkTheme1 == true ? Colors.white : Colors.grey[850],
+                  color: darkTheme == true ? Colors.white : Colors.grey[850],
                 ),
                 onTap: () {
                   //open webview and load list from youtube
@@ -470,14 +466,14 @@ class _drawerCursinState extends State<drawerCursin> {
                 children: [
                   Text("Articulos y noticias",
                       style: TextStyle(
-                          color: darkTheme1 == true
+                          color: darkTheme == true
                               ? Colors.white
                               : Colors.grey[850])),
                 ],
               ),
               leading: Icon(
                 Icons.newspaper,
-                color: darkTheme1 == true ? Colors.white : Colors.grey[850],
+                color: darkTheme == true ? Colors.white : Colors.grey[850],
               ),
               //at press, run the method
               onTap: () => {goNoticias(context)},
@@ -487,12 +483,11 @@ class _drawerCursinState extends State<drawerCursin> {
               //Nombre de la app, objetivo, parrafo de uso basico, creador, linkedin de creador, etc
               title: Text("Info de la app",
                   style: TextStyle(
-                      color: darkTheme1 == true
-                          ? Colors.white
-                          : Colors.grey[850])),
+                      color:
+                          darkTheme == true ? Colors.white : Colors.grey[850])),
               leading: Icon(
                 Icons.info,
-                color: darkTheme1 == true ? Colors.white : Colors.grey[850],
+                color: darkTheme == true ? Colors.white : Colors.grey[850],
               ),
               //at press, run the method
               onTap: () => {showinfo(context)},
@@ -500,12 +495,11 @@ class _drawerCursinState extends State<drawerCursin> {
             ListTile(
               title: Text("Politica de privacidad",
                   style: TextStyle(
-                      color: darkTheme1 == true
-                          ? Colors.white
-                          : Colors.grey[850])),
+                      color:
+                          darkTheme == true ? Colors.white : Colors.grey[850])),
               leading: Icon(
                 Icons.policy,
-                color: darkTheme1 == true ? Colors.white : Colors.grey[850],
+                color: darkTheme == true ? Colors.white : Colors.grey[850],
               ),
               //at press, run the method
               onTap: () => launch(
@@ -514,12 +508,11 @@ class _drawerCursinState extends State<drawerCursin> {
             ListTile(
               title: Text("Ayúdanos a mejorar",
                   style: TextStyle(
-                      color: darkTheme1 == true
-                          ? Colors.white
-                          : Colors.grey[850])),
+                      color:
+                          darkTheme == true ? Colors.white : Colors.grey[850])),
               leading: Icon(
                 Icons.feedback,
-                color: darkTheme1 == true ? Colors.white : Colors.grey[850],
+                color: darkTheme == true ? Colors.white : Colors.grey[850],
               ),
               //at press, run the method
               onTap: () => _mejorar(),
@@ -530,7 +523,7 @@ class _drawerCursinState extends State<drawerCursin> {
                 children: [
                   Text("Agradecimienos",
                       style: TextStyle(
-                          color: darkTheme1 == true
+                          color: darkTheme == true
                               ? Colors.white
                               : Colors.grey[850])),
                   /*    Expanded(
@@ -565,7 +558,7 @@ class _drawerCursinState extends State<drawerCursin> {
               ),
               leading: Icon(
                 Icons.military_tech,
-                color: darkTheme1 == true ? Colors.white : Colors.grey[850],
+                color: darkTheme == true ? Colors.white : Colors.grey[850],
               ),
               //at press, run the method
               onTap: () => {GoAgradecimientos(context)},
@@ -722,12 +715,12 @@ class _drawerCursinState extends State<drawerCursin> {
     if (darktheme2 == true) {
       setState(() {
         themePrefs.setBool('isDarkTheme', false);
-        darkTheme1 = false;
+        darkTheme = false;
       });
     } else {
       setState(() {
         themePrefs.setBool('isDarkTheme', true);
-        darkTheme1 = true;
+        darkTheme = true;
       });
     }
   }
@@ -742,7 +735,7 @@ class _drawerCursinState extends State<drawerCursin> {
             (_) => //aqui al tocar item de lista se pasa a su respectiva pantalla de editar
                 //que puede ser reemplazada por la de INFO CURSO en completos
                 AgradecimientosScreen(
-          darkTheme1: darkTheme1,
+          darkTheme: darkTheme,
           staticAd: staticAd,
         ),
       ),

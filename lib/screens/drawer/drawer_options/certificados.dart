@@ -77,12 +77,12 @@ class _certificadosScreenState extends State<certificadosScreen> {
     return _anchoredAdaptiveAd!.load();
   }
 
-  bool? darkTheme1, isNotifShowed;
+  bool? darkTheme, isNotifShowed;
 
   Future<Null> getSharedThemePrefs() async {
     SharedPreferences themePrefs = await SharedPreferences.getInstance();
     setState(() {
-      darkTheme1 = themePrefs.getBool('isDarkTheme');
+      darkTheme = themePrefs.getBool('isDarkTheme');
     });
   }
 
@@ -105,7 +105,7 @@ class _certificadosScreenState extends State<certificadosScreen> {
   Widget build(BuildContext context) {
     _loadAdaptativeAd();
     return Scaffold(
-      backgroundColor: darkTheme1 == true ? Colors.grey[850] : Colors.white,
+      backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
       appBar: AppBar(
         title: Text(
           "Certificados",
@@ -144,7 +144,7 @@ class _certificadosScreenState extends State<certificadosScreen> {
                 'Estos son algunos certificados que puedes obtener usando Cursin App como herramienta para encontrar cursos gratis online de toda internet.',
                 style: TextStyle(
                   fontSize: 12.0,
-                  color: darkTheme1 == true ? Colors.white : Colors.black,
+                  color: darkTheme == true ? Colors.white : Colors.black,
                 ),
               ),
             ),
@@ -168,7 +168,7 @@ class _certificadosScreenState extends State<certificadosScreen> {
                           Text('¿Cómo reclamo mi certificado?',
                               style: new TextStyle(
                                 fontSize: 18.0,
-                                color: darkTheme1 == true
+                                color: darkTheme == true
                                     ? Colors.white
                                     : Colors.black,
                                 fontWeight: FontWeight.bold,
@@ -178,7 +178,7 @@ class _certificadosScreenState extends State<certificadosScreen> {
                               'Si en la tabla de información del curso dentro de Cursin, la emisión del certificado se encuentra marcada como "con certificado gratis" significa que no tendrás que pagar absolutamente nada por dicho diploma.\n\nSi en la tabla de información del curso dentro de Cursin, la emisión del certificdo se encuentra marcada como "Sin certificado" significa que puede que no emitan ningún certificado, o que puede que cobren por ello.\n\nCada plataforma dueña de los cursos gratis es autónoma en la manera de emitir los certificados de finalización.\n\nLa mayoria de las plataformas libera los certificados una vez se alcanza el 100% de todas las clases o lecciones que conforman el curso.\n\nDependiendo de la plataforma que emite el curso, es posible que el certificado lo envíen directamente a tu correo electronico asociado\n\nDependiendo de la plataforma que emite el curso, es posible que el certificado pueda descargarse directamente. Por lo tanto, te recomendamos que abras el curso con el navegador si deseas descargar el certificado en tu dispositivo.',
                               style: new TextStyle(
                                 fontSize: 12.0,
-                                color: darkTheme1 == true
+                                color: darkTheme == true
                                     ? Colors.white
                                     : Colors.black,
                               )),
@@ -195,7 +195,7 @@ class _certificadosScreenState extends State<certificadosScreen> {
       ),
       drawer: drawerCursin(
         context: context,
-        darkTheme1: darkTheme1!,
+        darkTheme: darkTheme!,
       ),
       //ad banner bottom screen
       bottomNavigationBar: _anchoredAdaptiveAd != null && _isLoaded
