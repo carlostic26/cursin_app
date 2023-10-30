@@ -15,11 +15,13 @@ class _EntidadesScreenState extends State<EntidadesScreen> {
   BannerAd? _anchoredAdaptiveAd;
   bool _isLoaded = false;
   Color darkColor = Colors.grey[850]!;
+  bool? darkTheme;
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _loadAdaptativeAd();
+  Future<Null> getSharedThemePrefs() async {
+    SharedPreferences themePrefs = await SharedPreferences.getInstance();
+    setState(() {
+      darkTheme = themePrefs.getBool('isDarkTheme');
+    });
   }
 
   Future<void> _loadAdaptativeAd() async {
@@ -110,25 +112,45 @@ class _EntidadesScreenState extends State<EntidadesScreen> {
   ];
 
   @override
+  void initState() {
+    getSharedThemePrefs();
+    _loadAdaptativeAd();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: widget.darkTheme == true ? darkColor : Colors.white,
+      backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
       appBar: AppBar(
-        title: Text('Entidades'),
+        elevation: 0,
+        backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
+        leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: darkTheme == false ? Colors.grey[850] : Colors.white,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
+        title: Text(
+          'Entidades',
+          style: TextStyle(
+            color: darkTheme == false ? Colors.grey[850] : Colors.white,
+            fontSize: 16.0, /*fontWeight: FontWeight.bold*/
+          ),
+        ),
         actions: [
           Padding(
             padding: EdgeInsets.all(10),
             child: IconButton(
+              color: darkTheme == false ? Colors.grey[850] : Colors.white,
               icon: Icon(Icons.search),
               onPressed: () {
                 //pass to search screen
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => searchedCourses(
-                      catProviene: 'sinCategoria',
-                      puntoPartida: 'home',
-                    ),
+                    builder: (context) => searchedCourses(),
                   ),
                 );
               },
@@ -142,7 +164,7 @@ class _EntidadesScreenState extends State<EntidadesScreen> {
           Container(
             height: MediaQuery.of(context).size.height * 0.9,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(5, 30, 0, 0),
+              padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
               child: GridView.builder(
                 itemCount: imageList.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -158,7 +180,7 @@ class _EntidadesScreenState extends State<EntidadesScreen> {
                         color: Colors.grey[350],
                         borderRadius: BorderRadius.circular(25),
                       ),
-                      margin: EdgeInsets.all(4),
+                      margin: EdgeInsets.all(7),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(25),
                         child: CachedNetworkImage(
@@ -182,10 +204,15 @@ class _EntidadesScreenState extends State<EntidadesScreen> {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [
-                  darkColor, // Color oscuro en la parte superior
-                  Colors.transparent, // Transparente en la parte inferior
-                ],
+                colors: darkTheme == true
+                    ? [
+                        darkColor,
+                        Colors.transparent,
+                      ]
+                    : [
+                        Colors.white,
+                        Colors.transparent,
+                      ],
               ),
             ),
           ),
@@ -194,8 +221,9 @@ class _EntidadesScreenState extends State<EntidadesScreen> {
             child: Text(
               'Estas son las plataformas, empresas y entidades que ofrecen los cursos gratis con certificado que puedes encontrar dentro de Cursin App.\nCreditos a cada una de ellas.',
               style: TextStyle(
+                fontWeight: FontWeight.bold,
                 fontSize: 12.0,
-                color: Colors.white,
+                color: darkTheme == true ? Colors.white : Colors.grey[850],
               ),
             ),
           ),

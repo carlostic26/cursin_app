@@ -139,9 +139,20 @@ class _CoursesFavsState extends State<CoursesFavs> {
       child: Scaffold(
         backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
         appBar: AppBar(
+          elevation: 0,
+          backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
+          leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: darkTheme == false ? Colors.grey[850] : Colors.white,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              }),
           title: Text(
             "Cursos guardados",
             style: TextStyle(
+              color: darkTheme == false ? Colors.grey[850] : Colors.white,
               fontSize: 16.0, /*fontWeight: FontWeight.bold*/
             ),
           ),
@@ -149,16 +160,14 @@ class _CoursesFavsState extends State<CoursesFavs> {
             Padding(
               padding: EdgeInsets.all(10),
               child: IconButton(
+                color: darkTheme == false ? Colors.grey[850] : Colors.white,
                 icon: Icon(Icons.search),
                 onPressed: () {
                   //pass to search screen
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => searchedCourses(
-                        catProviene: 'sinCategoria',
-                        puntoPartida: 'home',
-                      ),
+                      builder: (context) => searchedCourses(),
                     ),
                   );
                 },
@@ -175,8 +184,7 @@ class _CoursesFavsState extends State<CoursesFavs> {
                 child: const CircularProgressIndicator(),
               );
             } else if (snapshot.hasError) {
-              print('error: ${snapshot.error}');
-              return Text('No tienes ningun curso guardado.');
+              return Text('Error: ${snapshot.error}');
             } else {
               var items = snapshot.data ?? <curso>[];
 
@@ -193,14 +201,13 @@ class _CoursesFavsState extends State<CoursesFavs> {
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
                       onTap: () {
+                        //set notification
+                        //...
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => CourseDetail(
-                              td: items[index],
-                              puntoPartida: 'fav',
-                              catProvino: 'sinCategoria',
-                            ),
+                            builder: (context) =>
+                                CourseDetail(td: items[index]),
                           ),
                         );
                       },
@@ -240,7 +247,15 @@ class _CoursesFavsState extends State<CoursesFavs> {
                                                   height: 100.0,
                                                   fit: BoxFit.cover,
                                                   placeholder: (context, url) =>
-                                                      const CircularProgressIndicator(),
+                                                      Container(
+                                                    width:
+                                                        50, // Ajusta este valor a tu necesidad
+                                                    height:
+                                                        50, // Ajusta este valor a tu necesidad
+                                                    alignment: Alignment.center,
+                                                    child:
+                                                        const CircularProgressIndicator(),
+                                                  ),
                                                   errorWidget: (context, url,
                                                           error) =>
                                                       const Icon(Icons.error),
@@ -277,19 +292,21 @@ class _CoursesFavsState extends State<CoursesFavs> {
                                           //para que no haya overflow
                                           child: Padding(
                                             padding: const EdgeInsets.fromLTRB(
-                                                8.0, 1.0, 1.0, 1.0),
+                                                8.0, 0, 1.0, 0),
                                             child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   items[index].title,
                                                   style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 16,
+                                                    fontSize: 18,
                                                     //COLOR DEL TEXTO TITULO
-                                                    color: Color.fromARGB(
-                                                        255, 53, 164, 255),
+                                                    color: darkTheme == false
+                                                        ? Colors.grey[450]
+                                                        : Colors.white,
                                                   ),
                                                 ),
                                                 //SizedBox(height: 2),
@@ -307,18 +324,12 @@ class _CoursesFavsState extends State<CoursesFavs> {
                                                               items[index]
                                                                   .entidad,
                                                               style: TextStyle(
-                                                                fontSize: 12,
-                                                                color: darkTheme ==
-                                                                        true
-                                                                    ? Color
-                                                                        .fromARGB(
-                                                                            255,
-                                                                            175,
-                                                                            175,
-                                                                            175)
-                                                                    : Colors.grey[
-                                                                        850],
-                                                              ),
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 12,
+                                                                  color: Colors
+                                                                      .blue),
                                                             ),
 
                                                             //emision

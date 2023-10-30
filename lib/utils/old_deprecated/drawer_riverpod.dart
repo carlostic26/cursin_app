@@ -695,9 +695,7 @@ class drawerRiverpod extends ConsumerWidget {
         builder:
             (_) => //aqui al tocar item de lista se pasa a su respectiva pantalla de editar
                 //que puede ser reemplazada por la de INFO CURSO en completos
-                searchedCourses(
-                    catProviene: "sinCategoria",
-                    puntoPartida: 'categorias_select'),
+                searchedCourses(),
       ),
     );
   }

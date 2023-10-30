@@ -123,9 +123,7 @@ class _certificadosScreenState extends State<certificadosScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => searchedCourses(
-                        catProviene: "sinCategoria",
-                        puntoPartida: 'categorias_select'),
+                    builder: (context) => searchedCourses(),
                   ),
                 );
               },

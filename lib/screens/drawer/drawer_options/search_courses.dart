@@ -5,13 +5,8 @@ import 'package:flutter/material.dart';
 import '../../../screens.dart';
 
 class searchedCourses extends StatefulWidget {
-  searchedCourses(
-      {required this.catProviene,
-      required this.puntoPartida,
-      this.palabraBusqueda});
+  searchedCourses({this.palabraBusqueda});
 
-  late String puntoPartida;
-  late String catProviene;
   late String? palabraBusqueda;
 
   @override
@@ -107,124 +102,85 @@ class _searchedCoursesState extends State<searchedCourses> {
   Widget build(BuildContext context) {
     _loadAdaptativeAd();
     double sizeHeight = MediaQuery.of(context).size.height;
-    return WillPopScope(
-      onWillPop: () async {
-        //home es ultimo cursos agregados
-        if (widget.puntoPartida == "home") {
-          Navigator.pop(context);
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (_) => UltimosCursosLista()),
-          );
-        }
-
-        if (widget.puntoPartida == "categorias_select") {
-          Navigator.pop(context);
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (_) =>
-                    CategoriasSelectCards()), // Categoria Select no necesita ningun argumento, ya que es la pantalla inicial
-          );
-        }
-
-        if (widget.puntoPartida == "categorias") {
-          Navigator.pop(context);
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (_) => categorias(
-                      catProviene: widget.catProviene,
-                      puntoPartida: 'search',
-                    )),
-          );
-        }
-
-        return true;
-      },
-      child: Scaffold(
-        //no color backg cuz the backg is an image
+    return Scaffold(
+      backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
+      appBar: AppBar(
+        elevation: 0,
         backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
-        appBar: AppBar(
-          //automaticallyImplyLeading: false,
-          elevation: 0,
-          backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
 
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: Icon(Icons.arrow_back), // Icono del botón de hamburguesa
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              );
-            },
-          ),
-
-          iconTheme: IconThemeData(
-            color: darkTheme == false ? Colors.grey[850] : Colors.white,
-          ), // Cambia el color del botón
-
-          title: TextField(
-            textInputAction: TextInputAction.search,
-            onSubmitted: (value) {
-              searchCourse(value);
-            },
-            style: TextStyle(
-              color: darkTheme == false
-                  ? Colors.grey[450]
-                  : Color.fromARGB(150, 255, 255, 255),
-            ),
-            decoration: InputDecoration(
-              hintText: widget.palabraBusqueda != null &&
-                      widget.palabraBusqueda.toString().isNotEmpty
-                  ? widget.palabraBusqueda.toString()
-                  : 'Ej: sql, finanzas, inglés, excel, python',
-              hintStyle: TextStyle(
-                color: darkTheme == true ? Colors.grey : Colors.grey[850],
-                fontSize: 12,
-              ),
-            ),
-            controller: searchController,
-          ),
-
-          centerTitle: true,
-          actions: [
-            IconButton(
-                color: darkTheme == false ? Colors.grey[850] : Colors.white,
-                icon: Icon(Icons.search),
-                onPressed: () {
-                  searchCourse('');
-                })
-          ],
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: Icon(Icons.arrow_back), // Icono del botón de hamburguesa
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            );
+          },
         ),
-        body: isExcecuted
-            ? searchedData()
-            : Container(
-                child: Center(
-                  child: Text(
-                    'Resultado...',
-                    style: TextStyle(
-                        color: darkTheme == true ? Colors.white : Colors.black,
-                        fontSize: 15.0),
-                  ),
+
+        iconTheme: IconThemeData(
+          color: darkTheme == false ? Colors.grey[850] : Colors.white,
+        ), // Cambia el color del botón
+
+        title: TextField(
+          textInputAction: TextInputAction.search,
+          onSubmitted: (value) {
+            searchCourse(value);
+          },
+          style: TextStyle(
+            color: darkTheme == false
+                ? Colors.grey[450]
+                : Color.fromARGB(150, 255, 255, 255),
+          ),
+          decoration: InputDecoration(
+            hintText: widget.palabraBusqueda != null &&
+                    widget.palabraBusqueda.toString().isNotEmpty
+                ? widget.palabraBusqueda.toString()
+                : 'Ej: sql, finanzas, inglés, excel, python',
+            hintStyle: TextStyle(
+              color: darkTheme == true ? Colors.grey : Colors.grey[850],
+              fontSize: 12,
+            ),
+          ),
+          controller: searchController,
+        ),
+
+        centerTitle: true,
+        actions: [
+          IconButton(
+              color: darkTheme == false ? Colors.grey[850] : Colors.white,
+              icon: Icon(Icons.search),
+              onPressed: () {
+                searchCourse('');
+              })
+        ],
+      ),
+      body: isExcecuted
+          ? searchedData()
+          : Container(
+              child: Center(
+                child: Text(
+                  'Resultado...',
+                  style: TextStyle(
+                      color: darkTheme == true ? Colors.white : Colors.black,
+                      fontSize: 15.0),
                 ),
               ),
-
-        bottomNavigationBar: _anchoredAdaptiveAd != null && _isLoaded
-            ? Container(
-                color: Color.fromARGB(0, 33, 149, 243),
-                width: _anchoredAdaptiveAd?.size.width.toDouble(),
-                height: _anchoredAdaptiveAd?.size.height.toDouble(),
-                child: AdWidget(ad: _anchoredAdaptiveAd!),
-              )
-            : Container(
-                color: Color.fromARGB(0, 33, 149, 243),
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height *
-                    0.1, // 10% de la altura de la pantalla
-              ),
-      ),
+            ),
+      bottomNavigationBar: _anchoredAdaptiveAd != null && _isLoaded
+          ? Container(
+              color: Color.fromARGB(0, 33, 149, 243),
+              width: _anchoredAdaptiveAd?.size.width.toDouble(),
+              height: _anchoredAdaptiveAd?.size.height.toDouble(),
+              child: AdWidget(ad: _anchoredAdaptiveAd!),
+            )
+          : Container(
+              color: Color.fromARGB(0, 33, 149, 243),
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height *
+                  0.1, // 10% de la altura de la pantalla
+            ),
     );
   }
 
@@ -284,8 +240,6 @@ class _searchedCoursesState extends State<searchedCourses> {
                         MaterialPageRoute(
                           builder: (context) => CourseDetail(
                             td: items[index],
-                            puntoPartida: 'search',
-                            catProvino: widget.catProviene,
                           ),
                         ),
                       );

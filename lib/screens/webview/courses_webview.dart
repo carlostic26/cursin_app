@@ -41,6 +41,25 @@ class webviewState extends State<webview> {
     getSharedThemePrefs();
     isloaded = true;
     if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+
+    Future.delayed(const Duration(seconds: 10), () {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content:
+              Text('Recuerda iniciar sesión o registrarte para ver el curso'),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+    });
+
+    Future.delayed(const Duration(seconds: 15), () {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Estaremos aquí para lo que necesites. <3'),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+    });
   }
 
   Future<Null> getSharedThemePrefs() async {
@@ -116,7 +135,7 @@ class webviewState extends State<webview> {
                         'Copiar Enlace',
                         'Descargar un archivo',
                         '¿No cargan los videos?',
-                        'Reportar bug'
+                        'Tengo un problema'
                       }.map((String choice) {
                         return PopupMenuItem<String>(
                           textStyle: TextStyle(
@@ -328,7 +347,7 @@ class webviewState extends State<webview> {
       case '¿No cargan los videos?':
         _dialogVideoNoCarga(context);
         break;
-      case 'Reportar bug':
+      case 'Tengo un problema':
         _showDialogToReportProblem(context);
         break;
     }

@@ -7,8 +7,7 @@ import 'package:flutter/material.dart';
 class CourseDetail extends StatefulWidget {
   curso td;
 
-  CourseDetail(
-      {required this.td, required this.catProvino, required this.puntoPartida});
+  CourseDetail({required this.td});
 
   late String puntoPartida;
   late String catProvino;
@@ -975,16 +974,22 @@ class _CourseDetailState extends State<CourseDetail> {
               ),
               description: Text(
                 'Puedes tomar este curso y reanudarlo cuando quieras. Aprovéchalo y disfrútalo. ' +
-                    'Verás un pequeño anuncio para seguir manteniendo la app Cursin 🕓',
-                style: TextStyle(color: Colors.black, fontSize: 10),
+                    '\n\nVerás un pequeño anuncio para seguir mejorando la app Cursin 🕓',
+                style: TextStyle(color: Colors.black, fontSize: 14),
+                maxLines: 6,
+                overflow: TextOverflow.ellipsis,
               ),
-              buttonCancelText: const Text(
-                'Eliminar anuncios',
-                style: TextStyle(color: Colors.white),
+              buttonCancelText: Text(
+                'Quitar anuncios',
+                style: TextStyle(color: Colors.white, fontSize: 12),
+                softWrap: true,
+                overflow: TextOverflow.ellipsis,
               ),
-              buttonOkText: const Text(
-                'De acuerdo',
-                style: TextStyle(color: Colors.white),
+              buttonOkText: Text(
+                'Continuar',
+                style: TextStyle(color: Colors.white, fontSize: 12),
+                softWrap: true,
+                overflow: TextOverflow.ellipsis,
               ),
               buttonOkColor: Colors.green,
               onOkButtonPressed: () async {
@@ -1004,7 +1009,7 @@ class _CourseDetailState extends State<CourseDetail> {
                   //toast no conection exist
                   Fluttertoast.showToast(
                     msg:
-                        "No estas conectado a internet.\nUsa Wi-Fi o datos moviles.", // message
+                        "No estas conectado a internet.\nConectate a Wi-Fi o datos moviles.", // message
                     toastLength: Toast.LENGTH_LONG, // length
                     gravity: ToastGravity.CENTER, // location
                   );
@@ -1183,7 +1188,13 @@ class _CourseDetailState extends State<CourseDetail> {
 
       //sending new script titles
       cursosFavString.setString('coursesFavorites', newValue.toString());
-      Fluttertoast.showToast(msg: 'Curso eliminado de Favoritos');
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Curso eliminado de Favoritos'),
+          duration: Duration(seconds: 2),
+        ),
+      );
 
       print("value de cadena sin el curso: $newValue");
     } else {
@@ -1191,7 +1202,12 @@ class _CourseDetailState extends State<CourseDetail> {
       if (getCoursesStringShP == null) {
         //se envia por primera vez el primer script de titulo
         cursosFavString.setString('coursesFavorites', newTitle);
-        Fluttertoast.showToast(msg: 'Curso guardado en Favoritos');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Curso guardado en Favoritos'),
+            duration: Duration(seconds: 2),
+          ),
+        );
       } else {
         //sino, quiere decir que ya tiene titulos y pasa a concatenar
         String? oldCoursesString = getCoursesStringShP;
@@ -1199,7 +1215,12 @@ class _CourseDetailState extends State<CourseDetail> {
 
         //sending new script titles
         cursosFavString.setString('coursesFavorites', newCoursesString);
-        Fluttertoast.showToast(msg: 'Curso guardado en Favoritos');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Curso guardado en Favoritos'),
+            duration: Duration(seconds: 2),
+          ),
+        );
       }
     }
   }

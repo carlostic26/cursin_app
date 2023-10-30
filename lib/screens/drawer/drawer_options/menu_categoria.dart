@@ -252,9 +252,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                //texto de saludo
                 //¡Hey! ¿Qué vamos a estudiar hoy?
-
                 saludoWidget(),
 
                 SizedBox(
@@ -584,8 +582,6 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => searchedCourses(
-                                    catProviene: "sinCategoria",
-                                    puntoPartida: 'categorias_select',
                                     palabraBusqueda: palabraBusqueda,
                                   ),
                                 ),
@@ -716,7 +712,6 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                         MaterialPageRoute(
                                           builder: (context) => categorias(
                                             catProviene: category,
-                                            puntoPartida: 'categorias_select',
                                           ),
                                         ),
                                       );
@@ -744,7 +739,6 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                             MaterialPageRoute(
                               builder: (context) => categorias(
                                 catProviene: category,
-                                puntoPartida: 'categorias_select',
                               ),
                             ),
                           );

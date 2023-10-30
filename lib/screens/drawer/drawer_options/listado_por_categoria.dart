@@ -5,9 +5,8 @@ import '../../../screens.dart';
 
 class categorias extends StatefulWidget {
   // se requiere recibir: 1. Nombre de categoria. 2. Pantalla de donde se proviene
-  categorias({required this.catProviene, required this.puntoPartida});
+  categorias({required this.catProviene});
   late String catProviene;
-  late String puntoPartida;
 
   @override
   _categoriaState createState() => _categoriaState();
@@ -277,9 +276,7 @@ class _categoriaState extends State<categorias> {
   @override
   void initState() {
     super.initState();
-    //es necesario inicializar el sharedpreferences tema, para que la variable book darkTheme esté inicializada como la recepcion del valor del sharedpreferences
     getSharedThemePrefs();
-
     //_loadAdaptativeAd();
     tapFav = false;
 
@@ -553,7 +550,6 @@ class _categoriaState extends State<categorias> {
               color: darkTheme == false ? Colors.grey[850] : Colors.white,
             ),
             onPressed: () {
-              //Navigator.of(context).pop(); //SE COMENTAREA ESTA LINEA PORQUE PRODUCE ERROR AL HABER 2 RUTAS DE NAVIGATOR
               Navigator.pop(context);
             }),
         title: Text(
@@ -574,10 +570,7 @@ class _categoriaState extends State<categorias> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => searchedCourses(
-                      catProviene: widget.catProviene,
-                      puntoPartida: 'categorias',
-                    ),
+                    builder: (context) => searchedCourses(),
                   ),
                 );
               },
@@ -755,8 +748,6 @@ class ShowCursos extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (context) => CourseDetail(
                           td: items[index],
-                          puntoPartida: "categorias",
-                          catProvino: widget.catProviene,
                         ),
                       ),
                     );
@@ -836,15 +827,17 @@ class ShowCursos extends StatelessWidget {
                                       //para que no haya overflow
                                       child: Padding(
                                         padding: const EdgeInsets.fromLTRB(
-                                            8.0, 1.0, 1.0, 1.0),
+                                            8.0, 0, 1.0, 0),
                                         child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               items[index].title,
                                               style: TextStyle(
-                                                fontSize: 17,
+                                                fontSize: 18,
                                                 //COLOR DEL TEXTO TITULO
                                                 color: darkTheme == false
                                                     ? Colors.grey[450]

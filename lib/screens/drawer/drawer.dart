@@ -185,12 +185,12 @@ class _drawerCursinState extends State<drawerCursin> {
                   ],
                 ),
                 leading: Icon(
-                  Icons.date_range,
+                  Icons.schedule,
                   color: darkTheme == true ? Colors.white : Colors.grey[850],
                 ),
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.pushReplacement(context,
+                  Navigator.push(context,
                       MaterialPageRoute(builder: (_) => UltimosCursosLista()));
                 }),
 
@@ -204,7 +204,6 @@ class _drawerCursinState extends State<drawerCursin> {
                 color: darkTheme == true ? Colors.white : Colors.grey[850],
               ),
               onTap: () => {
-                Navigator.pop(context),
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (_) => CategoriasSelectCards())),
               },
@@ -253,7 +252,6 @@ class _drawerCursinState extends State<drawerCursin> {
                 color: darkTheme == true ? Colors.white : Colors.grey[850],
               ),
               onTap: () => {
-                //Navigator.pop(context),
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -275,7 +273,7 @@ class _drawerCursinState extends State<drawerCursin> {
                 ),
                 onTap: () => {
                       Navigator.pop(context),
-                      Navigator.pushReplacement(context,
+                      Navigator.push(context,
                           MaterialPageRoute(builder: (_) => CoursesFavs()))
                     }),
 
@@ -326,10 +324,7 @@ class _drawerCursinState extends State<drawerCursin> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder:
-                        (_) => //aqui al tocar item de lista se pasa a su respectiva pantalla de editar
-                            //que puede ser reemplazada por la de INFO CURSO en completos
-                            certificadosScreen(),
+                    builder: (_) => certificadosScreen(),
                   ),
                 ),
               },
@@ -354,10 +349,7 @@ class _drawerCursinState extends State<drawerCursin> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder:
-                          (_) => //aqui al tocar item de lista se pasa a su respectiva pantalla de editar
-                              //que puede ser reemplazada por la de INFO CURSO en completos
-                              deleteAnunScreen(),
+                      builder: (_) => deleteAnunScreen(),
                     ),
                   );
                 }),
@@ -461,7 +453,6 @@ class _drawerCursinState extends State<drawerCursin> {
                       });
                 }),
             ListTile(
-              //Nombre de la app, objetivo, parrafo de uso basico, creador, linkedin de creador, etc
               title: Row(
                 children: [
                   Text("Articulos y noticias",
@@ -518,7 +509,6 @@ class _drawerCursinState extends State<drawerCursin> {
               onTap: () => _mejorar(),
             ),
             ListTile(
-              //Nombre de la app, objetivo, parrafo de uso basico, creador, linkedin de creador, etc
               title: Row(
                 children: [
                   Text("Agradecimienos",
@@ -526,34 +516,6 @@ class _drawerCursinState extends State<drawerCursin> {
                           color: darkTheme == true
                               ? Colors.white
                               : Colors.grey[850])),
-                  /*    Expanded(
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
-                          child: AnimatedTextKit(
-                            animatedTexts: [
-                              ColorizeAnimatedText(
-                                'Nuevo',
-                                textStyle: TextStyle(
-                                  color: Colors.red,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                colors: [
-                                  Colors.red,
-                                  Colors.yellow,
-                                  Colors.green,
-                                  Colors.blue,
-                                  Colors.purple,
-                                ],
-                                speed: Duration(milliseconds: 500),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ) */
                 ],
               ),
               leading: Icon(
@@ -632,10 +594,7 @@ class _drawerCursinState extends State<drawerCursin> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder:
-            (_) => //aqui al tocar item de lista se pasa a su respectiva pantalla de editar
-                //que puede ser reemplazada por la de INFO CURSO en completos
-                noticiasScreen(context),
+        builder: (_) => noticiasScreen(context),
       ),
     );
   }
@@ -645,10 +604,7 @@ class _drawerCursinState extends State<drawerCursin> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder:
-            (_) => //aqui al tocar item de lista se pasa a su respectiva pantalla de editar
-                //que puede ser reemplazada por la de INFO CURSO en completos
-                infoApp(context),
+        builder: (_) => infoApp(context),
       ),
     );
   }
@@ -684,16 +640,13 @@ class _drawerCursinState extends State<drawerCursin> {
       subject: 'Pueden que Cursin sea mejor',
       body: 'Hola. Considero que pueden mejorar la app si ',
     );
-    // Convert the Mailto instance into a string.
-    // Use either Dart's string interpolation
-    // or the toString() method.
     await launch('$mailtoLink');
   }
 
   void shareText() {
-    Share.share("Te comparto la App de Cursin, para que encuentres mas de 600 cursos totalmente gratis con certificado incluido🥳" +
+    Share.share("Te comparto la App de Cursin, una app para encontrar +1000 cursos gratuitos con certificado incluido🥳" +
         "\n👏🏻 Disfrutala y aprovechala lo mas que puedas. Está en la PlayStore" +
-        "\n\nLa App recopila y muestra semanalmente cursos gratis sobre:" +
+        "\n\Cursin recopila y muestra semanalmente cursos gratis sobre:" +
         "\n🖥️ Desarrollo Web, móvil, front, back" +
         "\n📚 Administración de base de datos" +
         "\n🧬 Salud y Bienestar" +
@@ -702,16 +655,13 @@ class _drawerCursinState extends State<drawerCursin> {
         "\n⚖️ Ciencias sociales y jurídicas" +
         "\n🎓 Ingenierías" +
         "\n🎉 Mucho más..." +
-        "\n\n\nBájala directamente desde la PlayStore: \nhttps://play.google.com/store/apps/details?id=com.appcursin.blogspot");
+        "\n\n\nBájala desde la PlayStore: \nhttps://play.google.com/store/apps/details?id=com.appcursin.blogspot");
   }
 
   updatingTheme() async {
-    //when user tap,  the values set reverse
-
     SharedPreferences themePrefs = await SharedPreferences.getInstance();
     bool? darktheme2 = themePrefs.getBool('isDarkTheme');
 
-    //if darktheme is dark, then darktheme will be light
     if (darktheme2 == true) {
       setState(() {
         themePrefs.setBool('isDarkTheme', false);
@@ -768,12 +718,7 @@ class _drawerCursinState extends State<drawerCursin> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder:
-            (_) => //aqui al tocar item de lista se pasa a su respectiva pantalla de editar
-                //que puede ser reemplazada por la de INFO CURSO en completos
-                searchedCourses(
-                    catProviene: "sinCategoria",
-                    puntoPartida: 'categorias_select'),
+        builder: (_) => searchedCourses(),
       ),
     );
   }

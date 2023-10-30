@@ -143,7 +143,6 @@ class _courseOptionState extends State<courseOption> {
                     ),
 
                     // Row para los botones
-                    // Row para los botones
                     Positioned(
                       bottom: 20,
                       left: 0,
@@ -177,7 +176,7 @@ class _courseOptionState extends State<courseOption> {
                                 child: Icon(
                                   Icons.play_arrow,
                                   color: Colors.white, // Color gris claro
-                                  size: 150, // Tamaño del icono
+                                  size: 100, // Tamaño del icono
                                 ),
                               ),
                               Padding(
@@ -198,7 +197,7 @@ class _courseOptionState extends State<courseOption> {
                                   child: Icon(
                                     Icons.public,
                                     color: Colors.white, // Color gris claro
-                                    size: 100, // Tamaño del icono
+                                    size: 70, // Tamaño del icono
                                   ),
                                 ),
                               ),
@@ -207,13 +206,13 @@ class _courseOptionState extends State<courseOption> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(width: 30),
+                              SizedBox(width: 15),
                               Text(
                                 'Abrir en Cursin     ',
                                 style: TextStyle(color: Colors.white),
                               ),
                               Text(
-                                '--  Ó  --',
+                                '-   Ó   -',
                                 style: TextStyle(color: Colors.white),
                               ),
                               Text(
@@ -223,7 +222,7 @@ class _courseOptionState extends State<courseOption> {
                             ],
                           ),
                           SizedBox(
-                            height: 5,
+                            height: 25,
                           ),
                           InkWell(
                             child: Text('¿Cuál es la diferencia?',
