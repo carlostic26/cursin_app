@@ -1,4 +1,4 @@
-import 'package:cursin/utils/old_deprecated/percent_indicator.dart';
+import 'package:cursin/screens/launch/counting_animation.dart';
 import 'package:cursin/screens/launch/tutorial_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
