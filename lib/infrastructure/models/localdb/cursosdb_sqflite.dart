@@ -1737,32 +1737,35 @@ class DatabaseHandler {
 
   //pROXIMAS CATEGORIAS
   //MULTIMEDIA, PEDAGOGIA, DISEÑO GRÁFICO,
-
   Future<List<curso>> misFavoritos() async {
     SharedPreferences cursosFavString = await SharedPreferences.getInstance();
     String? getCoursesStringShP = cursosFavString.getString('coursesFavorites');
 
     if (getCoursesStringShP == "") {
       Fluttertoast.showToast(msg: 'No has guardado cursos');
+      return []; // Retorna una lista vacía si no hay cursos guardados
     }
 
     List<String>? listTitles = getCoursesStringShP?.split(',');
-    print(
-        "lista de titulos--------------------------------------------------\n $listTitles");
 
     final db = await initializeDB();
 
-    final List<Map<String, dynamic>> queryFavorites = await db.query(
-      'cursos',
-      where: " title IN (${listTitles!.map((_) => '?').join(', ')})",
-      whereArgs: listTitles,
-    );
+    if (listTitles != null && listTitles.isNotEmpty) {
+      final List<Map<String, dynamic>> queryFavorites = await db.query(
+        'cursos',
+        where: " title IN (${listTitles.map((_) => '?').join(', ')})",
+        whereArgs: listTitles,
+      );
 
-    Map<String, dynamic> result = {};
-    for (var r in queryFavorites) {
-      result.addAll(r);
+      Map<String, dynamic> result = {};
+      for (var r in queryFavorites) {
+        result.addAll(r);
+      }
+      return queryFavorites.map((e) => curso.fromMap(e)).toList();
+    } else {
+      // Maneja el caso en que listTitles sea null o esté vacío
+      return []; // Retorna una lista vacía si listTitles es null o está vacío
     }
-    return queryFavorites.map((e) => curso.fromMap(e)).toList();
   }
 
   //este metodo retorna el numero total de cursos encontrados por categoria

@@ -1,26 +1,6 @@
-import 'dart:math';
-
-import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cursin/utils/ads_ids/ads.dart';
-import 'package:cursin/screens/webview/courses_webview.dart';
-import 'package:cursin/screens/drawer/drawer.dart';
 import 'package:cursin/screens/drawer/drawer_options/carruselCertifiedWidget.dart';
-import 'package:cursin/screens/drawer/drawer_options/courses_favs.dart';
-import 'package:cursin/screens/drawer/drawer_options/delete_anun.dart';
-import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
-import 'package:cursin/screens/drawer/drawer_options/ultimos_cursos.dart';
-import 'package:cursin/screens/infoScreens/agradecimientos.dart';
-import 'package:cursin/screens/infoScreens/info_app.dart';
-import 'package:cursin/utils/old_deprecated/info_cursin.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:mailto/mailto.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:cursin/screens/drawer/drawer_options/menu_categoria.dart';
-import 'package:url_launcher/url_launcher.dart';
+import '../../../screens.dart';
 
 class certificadosScreen extends StatefulWidget {
   const certificadosScreen({super.key});
@@ -77,7 +57,9 @@ class _certificadosScreenState extends State<certificadosScreen> {
     return _anchoredAdaptiveAd!.load();
   }
 
-  bool? darkTheme, isNotifShowed;
+  bool? isNotifShowed;
+  Color darkColor = Colors.grey[850]!;
+  bool? darkTheme;
 
   Future<Null> getSharedThemePrefs() async {
     SharedPreferences themePrefs = await SharedPreferences.getInstance();
@@ -96,8 +78,6 @@ class _certificadosScreenState extends State<certificadosScreen> {
   void initState() {
     super.initState();
 
-    //_loadAdaptativeAd();
-    //es necesario inicializar el sharedpreferences tema, para que la variable book darkTheme esté inicializada como la recepcion del valor del sharedpreferences
     getSharedThemePrefs();
   }
 
@@ -107,9 +87,24 @@ class _certificadosScreenState extends State<certificadosScreen> {
     return Scaffold(
       backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
       appBar: AppBar(
+        elevation: 0,
+        backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
+        leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: darkTheme == false ? Colors.grey[850] : Colors.white,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
+        iconTheme: IconThemeData(
+          color: darkTheme == false ? Colors.grey[850] : Colors.white,
+        ), // Cambia el color del botón
+
         title: Text(
           "Certificados",
           style: TextStyle(
+            color: darkTheme == false ? Colors.grey[850] : Colors.white,
             fontSize: 16.0, /*fontWeight: FontWeight.bold*/
           ),
         ),
@@ -137,29 +132,28 @@ class _certificadosScreenState extends State<certificadosScreen> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
               child: Text(
-                'Estos son algunos certificados que puedes obtener usando Cursin App como herramienta para encontrar cursos gratis online de toda internet.',
+                'Estos son algunos certificados o diplomas que puedes obtener usando Cursin App como herramienta para buscar cursos gratis online de toda internet.',
                 style: TextStyle(
+                  fontWeight: FontWeight.bold,
                   fontSize: 12.0,
-                  color: darkTheme == true ? Colors.white : Colors.black,
+                  color: darkTheme == true ? Colors.white : Colors.grey[850],
                 ),
               ),
             ),
             SizedBox(height: 10),
-
-            //carrusel
             carruselCertifiedScreen(),
             SizedBox(height: 40),
             Padding(
               padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
               child: Container(
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(25.0),
+                  borderRadius: BorderRadius.circular(30.0),
                   child: Card(
                     color: Color.fromARGB(19, 158, 158, 158),
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(15.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -173,7 +167,7 @@ class _certificadosScreenState extends State<certificadosScreen> {
                               )),
                           SizedBox(height: 10.0),
                           Text(
-                              'Si en la tabla de información del curso dentro de Cursin, la emisión del certificado se encuentra marcada como "con certificado gratis" significa que no tendrás que pagar absolutamente nada por dicho diploma.\n\nSi en la tabla de información del curso dentro de Cursin, la emisión del certificdo se encuentra marcada como "Sin certificado" significa que puede que no emitan ningún certificado, o que puede que cobren por ello.\n\nCada plataforma dueña de los cursos gratis es autónoma en la manera de emitir los certificados de finalización.\n\nLa mayoria de las plataformas libera los certificados una vez se alcanza el 100% de todas las clases o lecciones que conforman el curso.\n\nDependiendo de la plataforma que emite el curso, es posible que el certificado lo envíen directamente a tu correo electronico asociado\n\nDependiendo de la plataforma que emite el curso, es posible que el certificado pueda descargarse directamente. Por lo tanto, te recomendamos que abras el curso con el navegador si deseas descargar el certificado en tu dispositivo.',
+                              'Si en la tabla de información del curso dentro de Cursin, la emisión del certificado se encuentra marcada como "con certificado gratis" significa que no tendrás que pagar absolutamente nada por dicho diploma. En caso que sea "Sin certificado" significa que puede que no emitan ningún certificado, o que cobren por ello.\n\nCada plataforma dueña de los cursos gratis es autónoma en la manera de emitir los certificados de finalización.\n\nLa mayoria de las plataformas libera los certificados una vez se alcanza el 100% de todas las clases o lecciones que conforman el curso.\n\nDependiendo de la plataforma que emite el curso, es posible que el certificado lo envíen directamente a tu correo electronico asociado, o descargar dicho diploma directamente desde el mismo sitio. Por lo tanto, te recomendamos que abras el curso con el navegador si deseas descargar el certificado en tu dispositivo.',
                               style: new TextStyle(
                                 fontSize: 12.0,
                                 color: darkTheme == true
@@ -191,11 +185,6 @@ class _certificadosScreenState extends State<certificadosScreen> {
           ],
         ),
       ),
-      drawer: drawerCursin(
-        context: context,
-        darkTheme: darkTheme!,
-      ),
-      //ad banner bottom screen
       bottomNavigationBar: _anchoredAdaptiveAd != null && _isLoaded
           ? Container(
               color: Color.fromARGB(0, 33, 149, 243),

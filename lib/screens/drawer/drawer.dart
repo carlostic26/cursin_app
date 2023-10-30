@@ -1,25 +1,9 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cursin/screens/drawer/drawer_options/entidades.dart';
-import 'package:cursin/screens/webview/courses_webview.dart';
-import 'package:cursin/screens/drawer/drawer_options/menu_categoria.dart';
-import 'package:cursin/screens/drawer/drawer_options/certificados.dart';
-import 'package:cursin/screens/drawer/drawer_options/courses_favs.dart';
-import 'package:cursin/screens/drawer/drawer_options/delete_anun.dart';
-import 'package:cursin/screens/drawer/drawer_options/noticias_screen.dart';
-import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
 import 'package:cursin/screens/drawer/drawer_options/ultimos_cursos.dart';
-import 'package:cursin/screens/infoScreens/agradecimientos.dart';
-import 'package:cursin/screens/infoScreens/info_app.dart';
 import 'package:cursin/screens/webview/webviewTutoriales.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:mailto/mailto.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
+
+import '../../../screens.dart';
 
 class drawerCursin extends StatefulWidget {
   final BuildContext context;
@@ -33,19 +17,9 @@ class drawerCursin extends StatefulWidget {
 
 class _drawerCursinState extends State<drawerCursin> {
   bool? darkTheme;
-/*   
 
-  Future<Null> getSharedThemePrefs() async {
-    SharedPreferences themePrefs = await SharedPreferences.getInstance();
-    setState(() {
-      darkTheme = themePrefs.getBool('isDarkTheme');
-    });
-  }
- */
   @override
   void initState() {
-    //getSharedThemePrefs();
-    // TODO: implement initState
     super.initState();
     darkTheme = widget.darkTheme;
   }
@@ -365,7 +339,7 @@ class _drawerCursinState extends State<drawerCursin> {
                   color: darkTheme == true ? Colors.white : Colors.grey[850],
                 ),
                 onTap: () {
-                  _showDialogBugCursok(context);
+                  _showDialogProblemasAcceso(context);
                 }),
 
             ListTile(
@@ -533,7 +507,7 @@ class _drawerCursinState extends State<drawerCursin> {
 
   bool bugShowed = false;
 
-  void _showDialogBugCursok(BuildContext context) {
+  void _showDialogProblemasAcceso(BuildContext context) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -544,10 +518,13 @@ class _drawerCursinState extends State<drawerCursin> {
                   children: [
                     Text(
                       "¿Problemas para entrar a un curso?",
-                      style: TextStyle(color: Colors.blue, fontSize: 20.0),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey,
+                          fontSize: 20.0),
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 15,
                     ),
                     Text(
                       'En algunos teléfonos la carga de anuncios suele tardarse más que en otros, dependiendo del tipo de smartphone que tengas. \n' +
@@ -556,21 +533,23 @@ class _drawerCursinState extends State<drawerCursin> {
                           ' \n\n2. Verifica tu conexión a internet. Los cursos funcionan solo si tienes conexión a internet, cambiate a WiFi si no puedes entrar con datos móviles.' +
                           ' \n\n3. Corrige tu DNS de conexion para que no bloquee los anuncios, ya que estos son necesarios para que Cursin pueda seguir existiendo.' +
                           ' \n\n4. Intenta volver abrir el curso 2 o 3 veces. O vuelve en un par de minutos.',
-                      style: TextStyle(color: Colors.black, fontSize: 13.0),
+                      style: TextStyle(color: Colors.grey, fontSize: 13.0),
                     ),
                   ]),
               children: <Widget>[
                 Container(
-                  alignment: Alignment.topCenter,
-                  padding: EdgeInsets.symmetric(horizontal: 5.0),
-                  child: ElevatedButton(
+                    alignment: Alignment.topCenter,
+                    padding: EdgeInsets.symmetric(horizontal: 5.0),
+                    child: ElevatedButton(
                       style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            Colors.green), // Cambia el color del botón a verde
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18.0),
                             side: BorderSide(
-                              color: Colors.blueAccent,
+                              color: Colors.green,
                               width: 2.0,
                             ),
                           ),
@@ -580,11 +559,10 @@ class _drawerCursinState extends State<drawerCursin> {
                         'Entiendo',
                         style: TextStyle(fontSize: 15, color: Colors.white),
                       ),
-                      //when user press "De acuerdo", it wil continue to add course dialog to pass another screen
-                      onPressed: () => {
-                            Navigator.pop(context),
-                          }),
-                ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    )),
               ]);
         });
   }

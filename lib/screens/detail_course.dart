@@ -401,297 +401,278 @@ class _CourseDetailState extends State<CourseDetail> {
       _isAdLoaded = true;
     }
 
-    return WillPopScope(
-      onWillPop: () async {
-        Navigator.pop(context);
-
-        if (widget.puntoPartida == 'fav') {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (_) => CoursesFavs()),
-          );
-        }
-
-        return true;
-      },
-      child: Scaffold(
+    return Scaffold(
+      backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
+      appBar: AppBar(
+        elevation: 0,
         backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
-          title: Text(
-            widget.td.title,
-            style: TextStyle(
-              color: darkTheme == false ? Colors.grey[850] : Colors.white,
-              fontSize: 16.0, /*fontWeight: FontWeight.bold*/
-            ),
+        title: Text(
+          widget.td.title,
+          style: TextStyle(
+            color: darkTheme == false ? Colors.grey[850] : Colors.white,
+            fontSize: 16.0, /*fontWeight: FontWeight.bold*/
           ),
-          leading: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                color: darkTheme == false ? Colors.grey[850] : Colors.white,
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              }),
-          actions: [
-            Padding(
-              padding: EdgeInsets.all(10),
-              child: IconButton(
-                color: darkTheme == false ? Colors.grey[850] : Colors.white,
-                icon: Icon(Icons.share_outlined),
-                onPressed: () {
-                  shareCourse();
-                },
-              ),
-            ),
-          ],
-          centerTitle: true,
         ),
-        body: Container(
-          padding: EdgeInsets.symmetric(
-            //vertical: 10,
-            horizontal: 8,
+        leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: darkTheme == false ? Colors.grey[850] : Colors.white,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
+        actions: [
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: IconButton(
+              color: darkTheme == false ? Colors.grey[850] : Colors.white,
+              icon: Icon(Icons.share_outlined),
+              onPressed: () {
+                shareCourse();
+              },
+            ),
           ),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 15,
-                ),
+        ],
+        centerTitle: true,
+      ),
+      body: Container(
+        padding: EdgeInsets.symmetric(
+          //vertical: 10,
+          horizontal: 8,
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 15,
+              ),
 
-                Stack(children: [
-                  Padding(
-                      padding: const EdgeInsets.fromLTRB(
-                          1.0, 1.0, 0.0, 1.0), //borde de la imagen
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20.0),
-                        child: CachedNetworkImage(
-                          imageUrl: widget.td.imgcourse,
-                          width: 400.0,
-                          height: 210.0,
-                          fit: BoxFit.cover,
-                          placeholder: (context, url) => Center(
-                              child: CircularProgressIndicator(
-                            color: Colors.green,
-                          )),
-                          placeholderFadeInDuration:
-                              Duration(milliseconds: 200),
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
-                        ),
-                      )),
-                  // ICONO EN LA ESQUINA SUPERIOR DERECHA
-                  Positioned(
-                    top: 8,
-                    right: 3,
-                    child: ClipRect(
-                      child: Container(
-                        color: Color.fromARGB(0, 0, 0, 0),
-                        child: CachedNetworkImage(
-                          imageUrl: widget.td.emision ==
-                                  'Con certificado gratis'
-                              ? 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjRLFEHYVoLlL4hmFrf_qEamOxDChdKy-7qYGmeT_ca1X62LuytAVqc2gXWDemQpOe1Kf-2FUQElVYx8583Kk12sN7siuSabRY-iDCDfAqdW9mZEWQF-EAcsAhLM08leySmOYu6T-SgxuswHvxjcXgEdT8vWGcQgi1dQ_zcUhXoGhW4eg--sG1-tWyg/s1600/0623.png'
-                              : 'https://blogger.googleusercontent.com/img/a/AVvXsEjHD0pCtfjYChXbmlmbbZ-xHsf0EH1Jfzx2j7utG-3_3Rz5UvftUT9SfxAJ8iw3R59mQtN6pwk7iY6M0OO9I3eMzLqzIQeCIbBWoA6U3GtuVh1UWsHYANbPPKQWHmd41p3lAmXGexXG62eEtmmbdsldbmRyemO2B1zp4SrCslPg8wvxd9PbHWaFbA',
-                          width: 40.0,
-                          height: 40.0,
-                          fit: BoxFit.contain,
-                          placeholder: (context, url) =>
-                              Center(child: CircularProgressIndicator()),
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
-                        ),
-                      ),
-                    ),
-                  ),
-                ]),
-                SizedBox(
-                  height: 30,
-                ),
-
-                //NOMBRE CURSO
-                Text(widget.td.title,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: darkTheme == true ? Colors.white : Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold)),
-
-                SizedBox(
-                  height: 20,
-                ),
-
-                //WidgetTablaInfo(darkTheme: darkTheme, widget: widget),
-
-                AnimatedContainer(
-                  duration: Duration(milliseconds: 200), // Duración más larga
-                  decoration: BoxDecoration(
-                    color: _isVisible
-                        ? Color.fromARGB(90, 117, 117, 117)
-                        : Colors.transparent, // Cambiar a transparente
-                    borderRadius: BorderRadius.circular(
-                        10.0), // Ajusta el valor según lo desees
-                  ),
-                  child: WidgetTablaInfo(darkTheme: darkTheme, widget: widget),
-                ),
-
-                SizedBox(
-                  height: 15,
-                ),
-
-                //BOTON COMPARTOR CURSP
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      child: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            click = !click;
-                          });
-                          sendSharedPreferences();
-                        },
-                        icon: Icon(
-                          getCoursesStringShP.contains(widget.td.title) ==
-                                      true ||
-                                  click == true
-                              ? Icons.favorite
-                              : Icons.favorite_border,
-                          size: 30.0,
-                        ),
-                        color: getCoursesStringShP.contains(widget.td.title) ==
-                                    true ||
-                                click == true
-                            ? Colors.red
-                            : Colors.grey,
-                      ),
-                    ),
-                    Container(
-                        alignment: Alignment.topCenter,
-                        padding: EdgeInsets.symmetric(horizontal: 2.0),
-                        child: IconButton(
-                          onPressed: () {
-                            shareCourse();
-                          },
-                          icon: Icon(
-                            Icons.share,
-                            size: 30.0,
-                          ),
-                          color: Colors.grey,
+              Stack(children: [
+                Padding(
+                    padding: const EdgeInsets.fromLTRB(
+                        1.0, 1.0, 0.0, 1.0), //borde de la imagen
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20.0),
+                      child: CachedNetworkImage(
+                        imageUrl: widget.td.imgcourse,
+                        width: 400.0,
+                        height: 210.0,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) => Center(
+                            child: CircularProgressIndicator(
+                          color: Colors.green,
                         )),
-                    Container(
-                        alignment: Alignment.topCenter,
-                        padding: EdgeInsets.symmetric(horizontal: 2.0),
-                        child: IconButton(
-                          onPressed: () {
-                            _showDialogToReportProblem(context);
-                          },
-                          icon: Icon(
-                            Icons.bug_report,
-                            size: 30,
-                          ),
-                          color: Colors.grey,
-                        )),
-                  ],
-                ),
-
-                SizedBox(
-                  height: 30,
-                ),
-
-                // DESCRIPCION Y DETALLES
-                Column(
-                  children: [
-                    RichText(
-                        text: TextSpan(
-                      text: "Detalles",
-                      style: new TextStyle(
-                        fontSize: 18.0,
-                        color: darkTheme == true ? Colors.white : Colors.black,
-                        fontWeight: FontWeight.bold,
+                        placeholderFadeInDuration: Duration(milliseconds: 200),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
                       ),
                     )),
-                    SizedBox(
-                      height: 15,
+                // ICONO EN LA ESQUINA SUPERIOR DERECHA
+                Positioned(
+                  top: 8,
+                  right: 3,
+                  child: ClipRect(
+                    child: Container(
+                      color: Color.fromARGB(0, 0, 0, 0),
+                      child: CachedNetworkImage(
+                        imageUrl: widget.td.emision == 'Con certificado gratis'
+                            ? 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjRLFEHYVoLlL4hmFrf_qEamOxDChdKy-7qYGmeT_ca1X62LuytAVqc2gXWDemQpOe1Kf-2FUQElVYx8583Kk12sN7siuSabRY-iDCDfAqdW9mZEWQF-EAcsAhLM08leySmOYu6T-SgxuswHvxjcXgEdT8vWGcQgi1dQ_zcUhXoGhW4eg--sG1-tWyg/s1600/0623.png'
+                            : 'https://blogger.googleusercontent.com/img/a/AVvXsEjHD0pCtfjYChXbmlmbbZ-xHsf0EH1Jfzx2j7utG-3_3Rz5UvftUT9SfxAJ8iw3R59mQtN6pwk7iY6M0OO9I3eMzLqzIQeCIbBWoA6U3GtuVh1UWsHYANbPPKQWHmd41p3lAmXGexXG62eEtmmbdsldbmRyemO2B1zp4SrCslPg8wvxd9PbHWaFbA',
+                        width: 40.0,
+                        height: 40.0,
+                        fit: BoxFit.contain,
+                        placeholder: (context, url) =>
+                            Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      ),
                     ),
-                    Container(
-                        alignment: Alignment.center,
-                        padding:
-                            EdgeInsets.symmetric(vertical: 3, horizontal: 3),
-                        decoration: const BoxDecoration(
-                          color: Color.fromARGB(50, 138, 138, 138),
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                ),
+              ]),
+              SizedBox(
+                height: 30,
+              ),
+
+              //NOMBRE CURSO
+              Text(widget.td.title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: darkTheme == true ? Colors.white : Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold)),
+
+              SizedBox(
+                height: 20,
+              ),
+
+              //WidgetTablaInfo(darkTheme: darkTheme, widget: widget),
+
+              AnimatedContainer(
+                duration: Duration(milliseconds: 200), // Duración más larga
+                decoration: BoxDecoration(
+                  color: _isVisible
+                      ? Color.fromARGB(90, 117, 117, 117)
+                      : Colors.transparent, // Cambiar a transparente
+                  borderRadius: BorderRadius.circular(
+                      10.0), // Ajusta el valor según lo desees
+                ),
+                child: WidgetTablaInfo(darkTheme: darkTheme, widget: widget),
+              ),
+
+              SizedBox(
+                height: 15,
+              ),
+
+              //BOTON COMPARTOR CURSP
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    child: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          click = !click;
+                        });
+                        sendSharedPreferences();
+                      },
+                      icon: Icon(
+                        getCoursesStringShP.contains(widget.td.title) == true ||
+                                click == true
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        size: 30.0,
+                      ),
+                      color: getCoursesStringShP.contains(widget.td.title) ==
+                                  true ||
+                              click == true
+                          ? Colors.red
+                          : Colors.grey,
+                    ),
+                  ),
+                  Container(
+                      alignment: Alignment.topCenter,
+                      padding: EdgeInsets.symmetric(horizontal: 2.0),
+                      child: IconButton(
+                        onPressed: () {
+                          shareCourse();
+                        },
+                        icon: Icon(
+                          Icons.share,
+                          size: 30.0,
                         ),
-                        child: Column(children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
-                            child: RichText(
-                              text: TextSpan(
-                                  text: descriptionFix(),
-                                  style: TextStyle(
-                                      color: darkTheme == true
-                                          ? Colors.white
-                                          : Colors.black,
-                                      fontWeight: FontWeight.normal)),
-                            ),
+                        color: Colors.grey,
+                      )),
+                  Container(
+                      alignment: Alignment.topCenter,
+                      padding: EdgeInsets.symmetric(horizontal: 2.0),
+                      child: IconButton(
+                        onPressed: () {
+                          _showDialogToReportProblem(context);
+                        },
+                        icon: Icon(
+                          Icons.bug_report,
+                          size: 30,
+                        ),
+                        color: Colors.grey,
+                      )),
+                ],
+              ),
+
+              SizedBox(
+                height: 30,
+              ),
+
+              // DESCRIPCION Y DETALLES
+              Column(
+                children: [
+                  RichText(
+                      text: TextSpan(
+                    text: "Detalles",
+                    style: new TextStyle(
+                      fontSize: 18.0,
+                      color: darkTheme == true ? Colors.white : Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 3),
+                      decoration: const BoxDecoration(
+                        color: Color.fromARGB(50, 138, 138, 138),
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
+                      child: Column(children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
+                          child: RichText(
+                            text: TextSpan(
+                                text: descriptionFix(),
+                                style: TextStyle(
+                                    color: darkTheme == true
+                                        ? Colors.white
+                                        : Colors.black,
+                                    fontWeight: FontWeight.normal)),
                           ),
-                        ])),
-                  ],
-                ),
+                        ),
+                      ])),
+                ],
+              ),
 
-                SizedBox(
-                  height: 20,
-                ),
+              SizedBox(
+                height: 20,
+              ),
 
-                Container(
+              Container(
+                alignment: Alignment.topCenter,
+                padding: EdgeInsets.symmetric(horizontal: 5.0),
+                child: Container(
                   alignment: Alignment.topCenter,
                   padding: EdgeInsets.symmetric(horizontal: 5.0),
-                  child: Container(
-                    alignment: Alignment.topCenter,
-                    padding: EdgeInsets.symmetric(horizontal: 5.0),
-                    child: ElevatedButton.icon(
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.green),
-                      ),
-                      onPressed: () async {
-                        //Read all coins saved
-                        SharedPreferences coinsPrefs =
-                            await SharedPreferences.getInstance();
+                  child: ElevatedButton.icon(
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.green),
+                    ),
+                    onPressed: () async {
+                      //Read all coins saved
+                      SharedPreferences coinsPrefs =
+                          await SharedPreferences.getInstance();
 
-                        int actualCoins =
-                            coinsPrefs.getInt('cursinCoinsSHP') ?? 2;
+                      int actualCoins =
+                          coinsPrefs.getInt('cursinCoinsSHP') ?? 2;
 
-                        //data that ask if the last acces to course is the same course in the moment:
-                        SharedPreferences lastCourse =
-                            await SharedPreferences.getInstance();
-                        lastCourse.getString('lastCourse');
+                      //data that ask if the last acces to course is the same course in the moment:
+                      SharedPreferences lastCourse =
+                          await SharedPreferences.getInstance();
+                      lastCourse.getString('lastCourse');
 
-                        if (actualCoins >= 12 ||
-                            widget.td.title ==
-                                lastCourse.getString('lastCourse')) {
-                          //Navigator.pop(context); //close dialog
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => courseOption(
-                                      nameCourse: widget.td.title,
-                                      urlCourse: widget.td.urlcourse,
-                                      imgCourse: widget.td.imgcourse,
-                                      nombreEntidad: widget.td.entidad,
-                                    )),
-                          );
-                        } else {
-                          //show dialog saying that ads keep service of the app
-                          showDialogCourse(
-                              context,
-                              widget.td.imgcourse,
-                              widget.td.title,
-                              widget.td.entidad,
-                              widget.td.urlcourse);
+                      if (actualCoins >= 12 ||
+                          widget.td.title ==
+                              lastCourse.getString('lastCourse')) {
+                        //Navigator.pop(context); //close dialog
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => courseOption(
+                                    nameCourse: widget.td.title,
+                                    urlCourse: widget.td.urlcourse,
+                                    imgCourse: widget.td.imgcourse,
+                                    nombreEntidad: widget.td.entidad,
+                                  )),
+                        );
+                      } else {
+                        //show dialog saying that ads keep service of the app
+                        showDialogCourse(
+                            context,
+                            widget.td.imgcourse,
+                            widget.td.title,
+                            widget.td.entidad,
+                            widget.td.urlcourse);
 
-                          //PARA LIVES DE TIKTOK
-                          /*Navigator.pop(context); //close dialog
+                        //PARA LIVES DE TIKTOK
+                        /*Navigator.pop(context); //close dialog
                         Navigator.of(context).push(
                           MaterialPageRoute(
                               builder: (context) => courseOption(
@@ -702,38 +683,37 @@ class _CourseDetailState extends State<CourseDetail> {
                                   )),
                         );
                         */
-                        }
-                      },
-                      icon: Icon(
-                        Icons.play_arrow,
-                        size: 20.0,
-                      ),
-                      label: Text('Ir al curso'), // <-- Text
+                      }
+                    },
+                    icon: Icon(
+                      Icons.play_arrow,
+                      size: 20.0,
                     ),
+                    label: Text('Ir al curso'), // <-- Text
                   ),
                 ),
+              ),
 
-                SizedBox(
-                  height: 50,
-                ),
-              ],
-            ),
+              SizedBox(
+                height: 50,
+              ),
+            ],
           ),
         ),
-        bottomNavigationBar: _anchoredAdaptiveAd != null && _isLoaded
-            ? Container(
-                color: Color.fromARGB(0, 33, 149, 243),
-                width: _anchoredAdaptiveAd?.size.width.toDouble(),
-                height: _anchoredAdaptiveAd?.size.height.toDouble(),
-                child: AdWidget(ad: _anchoredAdaptiveAd!),
-              )
-            : Container(
-                color: Color.fromARGB(0, 33, 149, 243),
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height *
-                    0.1, // 10% de la altura de la pantalla
-              ),
       ),
+      bottomNavigationBar: _anchoredAdaptiveAd != null && _isLoaded
+          ? Container(
+              color: Color.fromARGB(0, 33, 149, 243),
+              width: _anchoredAdaptiveAd?.size.width.toDouble(),
+              height: _anchoredAdaptiveAd?.size.height.toDouble(),
+              child: AdWidget(ad: _anchoredAdaptiveAd!),
+            )
+          : Container(
+              color: Color.fromARGB(0, 33, 149, 243),
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height *
+                  0.1, // 10% de la altura de la pantalla
+            ),
     );
   }
 
@@ -935,7 +915,6 @@ class _CourseDetailState extends State<CourseDetail> {
                     ),
                     onPressed: () {
                       if (errorNoAds) {
-                        //Muestra dialogo de problemas para entrar a un curso
                         Navigator.pop(context);
                         _showDialogProblemAds(context);
                       } else if (errorNoPlayVideo) {

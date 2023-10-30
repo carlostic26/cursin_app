@@ -65,10 +65,21 @@ class _noticiasScreenState extends State<noticiasScreen> {
       //no color backg cuz the backg is an image
       backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
       appBar: AppBar(
+        elevation: 0,
+        backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
+        leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: darkTheme == false ? Colors.grey[850] : Colors.white,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
         title: Text(
           "Articulos, noticias y podcast sobre Cursin",
           style: TextStyle(
-            fontSize: 14.0, /*fontWeight: FontWeight.bold*/
+            color: darkTheme == false ? Colors.grey[850] : Colors.white,
+            fontSize: 16.0, /*fontWeight: FontWeight.bold*/
           ),
         ),
         centerTitle: true,

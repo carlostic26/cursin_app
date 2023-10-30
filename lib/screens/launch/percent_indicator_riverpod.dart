@@ -1,16 +1,11 @@
-import 'package:cursin/controller/theme_preferences.dart';
-import 'package:cursin/provider/riverpod.dart';
-import 'package:cursin/screens/drawer/drawer_options/menu_categoria.dart';
-import 'package:cursin/screens/launch/dialog_slider_primera_vez.dart';
 import 'package:cursin/utils/old_deprecated/percent_indicator.dart';
 import 'package:cursin/screens/launch/tutorial_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import '../../../screens.dart';
 
 class PercentIndicatorRiverpod extends ConsumerWidget {
-  const PercentIndicatorRiverpod({super.key});
+  bool _isMounted = true;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -20,13 +15,20 @@ class PercentIndicatorRiverpod extends ConsumerWidget {
     final isButtonVisible = ref.watch(isButtonVisible_rp);
     final buttonEnabled = ref.watch(buttonEnabled_rp);
 
-    // Activa el botón después de 10 segundos
+/*     // Activa el botón después de 10 segundos
     Future.delayed(Duration(seconds: 10), () {
       activarBoton(ref);
-    });
+    }); */
+
+    if (_isMounted) {
+      // Activa el botón después de 10 segundos
+      Future.delayed(Duration(seconds: 10), () {
+        activarBoton(ref);
+      });
+    }
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 3, 36, 53),
+      backgroundColor: Colors.grey[850],
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -128,8 +130,14 @@ class PercentIndicatorRiverpod extends ConsumerWidget {
     );
   }
 
-  void activarBoton(ref) {
-    ref.read(buttonEnabled_rp.notifier).state = true;
+  void activarBoton(WidgetRef ref) {
+    if (_isMounted) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (_isMounted) {
+          ref.read(buttonEnabled_rp.notifier).state = true;
+        }
+      });
+    }
   }
 
   void initTheme(ref) async {

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../screens.dart';
 
 class CategoriasSelectCards extends StatefulWidget {
@@ -58,12 +59,17 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
   // ignore: unused_field
   List<curso>? _cat;
 
-  bool? darkTheme = false;
+  bool? darkTheme;
 
   Future<Null> getSharedThemePrefs() async {
     SharedPreferences themePrefs = await SharedPreferences.getInstance();
     setState(() {
-      darkTheme = themePrefs.getBool('isDarkTheme');
+      bool? isDarkTheme = themePrefs.getBool('isDarkTheme');
+      if (isDarkTheme != null) {
+        darkTheme = isDarkTheme;
+      } else {
+        darkTheme = false;
+      }
     });
   }
 

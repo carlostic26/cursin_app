@@ -1,16 +1,10 @@
 import 'dart:async';
-import 'package:cursin/screens/drawer/drawer_options/menu_categoria.dart';
-import 'package:cursin/screens/drawer/drawer_options/noticias_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'dart:io';
-import 'package:cursin/screens/option_course.dart';
 import 'package:flutter_webview_pro/webview_flutter.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import 'package:device_info_plus/device_info_plus.dart';
+
+import '../../../screens.dart';
 
 class webviewTutoScreen extends StatefulWidget {
   @override
@@ -33,8 +27,18 @@ class webviewTutoScreenState extends State<webviewTutoScreen> {
 
   void initState() {
     super.initState();
+    getSharedThemePrefs();
     isloaded = true;
     if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+  }
+
+  bool? darkTheme;
+
+  Future<Null> getSharedThemePrefs() async {
+    SharedPreferences themePrefs = await SharedPreferences.getInstance();
+    setState(() {
+      darkTheme = themePrefs.getBool('isDarkTheme');
+    });
   }
 
   Future<void> userAgentOfChrome() async {
@@ -60,16 +64,23 @@ class webviewTutoScreenState extends State<webviewTutoScreen> {
       onWillPop: () => _goBack(),
       child: Scaffold(
         appBar: AppBar(
+            elevation: 0,
+            backgroundColor:
+                darkTheme == true ? Colors.grey[850] : Colors.white,
             leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              iconSize: 20,
-              onPressed: () {
-                _goBack();
-              },
-            ),
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: darkTheme == false ? Colors.grey[850] : Colors.white,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                }),
             title: Text(
               'Tutoriales Cursin',
-              style: TextStyle(fontSize: 15),
+              style: TextStyle(
+                color: darkTheme == false ? Colors.grey[850] : Colors.white,
+                fontSize: 16.0, /*fontWeight: FontWeight.bold*/
+              ),
             ),
             centerTitle: true,
             actions: <Widget>[
@@ -84,6 +95,7 @@ class webviewTutoScreenState extends State<webviewTutoScreen> {
                         Navigator.pop(context);
                       }),
                   PopupMenuButton<String>(
+                    color: darkTheme == false ? Colors.grey[850] : Colors.white,
                     iconSize: 20,
                     onSelected: handleClick,
                     itemBuilder: (BuildContext context) {
