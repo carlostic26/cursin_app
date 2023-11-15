@@ -212,11 +212,11 @@ class _searchedCoursesState extends State<searchedCourses> {
                 padding: const EdgeInsets.all(8.0),
                 child: Center(
                   child: Text(
-                    'No se encontró ningún curso. \n\nAsegúrate de buscar únicamente con palabra clave. Ejemplo: php, inglés, excel, java, música...',
+                    'No se encontró ningún curso. \n\nAsegúrate de buscar únicamente con palabra clave. \nEjemplo: redes, sql, php, inglés, excel, java, música...',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: darkTheme == true ? Colors.white : Colors.black,
-                        fontSize: 15.0),
+                        fontSize: 12.0),
                   ),
                 ),
               ),

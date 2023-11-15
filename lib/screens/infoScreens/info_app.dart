@@ -91,9 +91,22 @@ class _infoAppState extends State<infoApp> {
       //no color backg cuz the backg is an image
       backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
       appBar: AppBar(
+        elevation: 0,
+        backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: Icon(Icons.arrow_back), // Icono del botón de hamburguesa
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            );
+          },
+        ),
         title: Text(
           "Información",
           style: TextStyle(
+            color: darkTheme == false ? Colors.grey[850] : Colors.white,
             fontSize: 16.0, /*fontWeight: FontWeight.bold*/
           ),
         ),
@@ -105,11 +118,11 @@ class _infoAppState extends State<infoApp> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(10, 1, 10, 1),
+                padding: const EdgeInsets.fromLTRB(0, 1, 0, 1),
                 child: Column(
                   children: [
                     Container(
-                        height: 200,
+                        height: 180,
                         padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
                         child: Image.asset("assets/logo.png")),
                     //que es cursin

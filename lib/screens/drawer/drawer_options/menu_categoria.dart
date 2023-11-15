@@ -68,7 +68,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
       if (isDarkTheme != null) {
         darkTheme = isDarkTheme;
       } else {
-        darkTheme = false;
+        darkTheme = true;
       }
     });
   }
@@ -583,7 +583,14 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                 : Color.fromARGB(150, 255, 255, 255),
                           ),
                           onPressed: () {
-                            if (palabraBusqueda != '') {
+                            if (palabraBusqueda.isEmpty) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => searchedCourses(),
+                                ),
+                              );
+                            } else {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

@@ -50,9 +50,10 @@ Future<void> main() async {
 
   await MobileAds.instance.initialize();
   // Inicializar anuncio de apertura y cancelar después de 9 segundos
+
   await loadOpenAd();
 
-  Timer(Duration(seconds: 15), () async {
+  Timer(Duration(seconds: 10), () async {
     if (isAdLoaded == false) {
       openAd?.dispose();
       print("Anuncio de apertura cancelado después de 15 segundos.");

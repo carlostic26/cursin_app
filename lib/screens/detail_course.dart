@@ -39,38 +39,6 @@ class _CourseDetailState extends State<CourseDetail> {
   }
 
   CursinAdsIds cursinAds = CursinAdsIds();
-/*   Future<void> _loadAdaptativeAd() async {
-    CursinAdsIds Cursin_ads = CursinAdsIds();
-    final adSize =
-        await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
-            MediaQuery.of(context).size.width.truncate());
-
-    if (adSize == null) {
-      print('Unable to get height of anchored banner.');
-      return;
-    }
-
-    _anchoredAdaptiveAd = BannerAd(
-      adUnitId: Cursin_ads.banner_adUnitId,
-      size: adSize,
-      request: AdRequest(),
-      listener: BannerAdListener(
-        onAdLoaded: (Ad ad) {
-          print('$ad loaded: ${ad.responseInfo}');
-          setState(() {
-            _anchoredAdaptiveAd = ad as BannerAd;
-            _isLoaded = true;
-          });
-        },
-        onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          print('Anchored adaptive banner failedToLoad: $error');
-          ad.dispose();
-        },
-      ),
-    );
-    await _anchoredAdaptiveAd!.load();
-  }
- */
   static const AdRequest request = AdRequest(
       //keywords: ['',''],
       //contentUrl: '',
@@ -111,23 +79,25 @@ class _CourseDetailState extends State<CourseDetail> {
       print('trying to show before loading');
       enterAcces++;
 
-      if (enterAcces == 1 || enterAcces == 2) {
+      if (enterAcces < 3) {
         Fluttertoast.showToast(
-          msg: "Reintentando...", // message
+          msg: "Intentalo de nuevo", // message
           toastLength: Toast.LENGTH_SHORT, // length
           gravity: ToastGravity.CENTER, // location
         );
+        Navigator.pop(context); //close dialog
       } else if (enterAcces == 3) {
         Fluttertoast.showToast(
           msg: "Tu telefono no cargó el anuncio.", // message
-          toastLength: Toast.LENGTH_LONG, // length
+          toastLength: Toast.LENGTH_SHORT, // length
           gravity: ToastGravity.CENTER, // location
         );
-      } else if (enterAcces == 4 || enterAcces == 5) {
+        Navigator.pop(context); //close dialog
+      } else if (enterAcces > 3 && enterAcces < 6) {
         Fluttertoast.showToast(
           msg:
               "Necesitas buena conexión. Cambiate a un Wi-Fi más cercano\nReintentando...", // message
-          toastLength: Toast.LENGTH_LONG, // length
+          toastLength: Toast.LENGTH_SHORT, // length
           gravity: ToastGravity.CENTER, // location
         );
 
@@ -136,7 +106,7 @@ class _CourseDetailState extends State<CourseDetail> {
         Fluttertoast.showToast(
           msg:
               "No cuentas con buena conexión o estás usando algun bloqueador DNS. Es necesario que tu teléfono cargue los anuncios completamente.", // message
-          toastLength: Toast.LENGTH_LONG, // length
+          toastLength: Toast.LENGTH_SHORT, // length
           gravity: ToastGravity.CENTER, // location
         );
 
@@ -378,7 +348,6 @@ class _CourseDetailState extends State<CourseDetail> {
     adForCourse = false;
     //load ads
     createInterstitialAd();
-    //loadStaticBannerAd();
     //_loadAdaptativeAd();
     //createRewardedAd();
     getSharedPrefs();

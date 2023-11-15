@@ -2,7 +2,7 @@ import 'package:cursin/controller/theme_preferences.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final darkTheme_rp = StateProvider((ref) => false);
-final maxCourses_rp = StateProvider((ref) => 856);
+final maxCourses_rp = StateProvider((ref) => 879);
 final isFirstBuild_rp = StateProvider((ref) => true);
 final contadorFinalizado_rp = StateProvider((ref) => false);
 final isButtonVisible_rp = StateProvider((ref) => false);

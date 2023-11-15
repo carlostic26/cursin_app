@@ -1,9 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cursin/screens/drawer/drawer_options/menu_categoria.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:animate_do/animate_do.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SlideInfo {
@@ -64,6 +61,13 @@ class _TutorialScreenState extends State<TutorialScreen> {
         });
       }
     });
+
+    initTheme();
+  }
+
+  Future<void> initTheme() async {
+    SharedPreferences themePrefs = await SharedPreferences.getInstance();
+    themePrefs.setBool('isDarkTheme', true);
   }
 
   @override
@@ -75,7 +79,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[850],
       body: Stack(
         children: [
           PageView(
@@ -163,10 +167,17 @@ class _Slide extends StatelessWidget {
               const SizedBox(height: 10),
               Text(
                 title,
-                style: titleStyle,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
-              Text(caption, style: captionStyle),
+              Text(caption,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                  )),
               const SizedBox(height: 20),
             ],
           ),

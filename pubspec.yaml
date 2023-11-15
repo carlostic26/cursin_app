@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 2.0.8+108
+version: 2.0.10+110
 
 environment:
   sdk: ">=2.18.0-0 <3.0.0"
@@ -44,7 +44,7 @@ dependencies:
   percent_indicator: ^4.2.0
   mccounting_text: ^1.0.0
   giff_dialog: ^1.0.1
-  cached_network_image: ^3.2.3
+  cached_network_image: ^3.3.0
   device_info_plus: ^4.0.0
   cron: ^0.5.1
   page_view_indicators: ^2.0.0
