@@ -47,6 +47,7 @@ Future<void> main() async {
 
   //init db sqlite
   await DatabaseHandler().initializeDB();
+  await DatabaseTICHandler().initializeDB();
 
   await MobileAds.instance.initialize();
   // Inicializar anuncio de apertura y cancelar después de 9 segundos

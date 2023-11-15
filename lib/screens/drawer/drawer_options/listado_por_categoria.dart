@@ -14,6 +14,7 @@ class categorias extends StatefulWidget {
 
 class _categoriaState extends State<categorias> {
   late DatabaseHandler handler;
+  late DatabaseTICHandler handlerTIC;
   Future<List<curso>>? _curso;
 
   BannerAd? _anchoredAdaptiveAd;
@@ -174,8 +175,8 @@ class _categoriaState extends State<categorias> {
 
       case "TIC":
         {
-          handler = DatabaseHandler();
-          handler.initializeDB().whenComplete(() async {
+          handlerTIC = DatabaseTICHandler();
+          handlerTIC.initializeDB().whenComplete(() async {
             setState(() {
               _curso = getListIT();
             });
@@ -355,7 +356,7 @@ class _categoriaState extends State<categorias> {
   }
 
   Future<List<curso>> getListIT() async {
-    return await handler.categoriaTIC();
+    return await handlerTIC.categoriaTIC();
   }
 
   Future<List<curso>> getListProfesionales() async {
