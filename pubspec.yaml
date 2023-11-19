@@ -1,9 +1,9 @@
 name: cursin
 description: A new Flutter project.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: 'none' 
 
-version: 2.0.10+110
+version: 2.0.11+111
 
 environment:
   sdk: ">=2.18.0-0 <3.0.0"

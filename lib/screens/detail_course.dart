@@ -35,6 +35,7 @@ class _CourseDetailState extends State<CourseDetail> {
     super.didChangeDependencies();
     if (!_isLoaded) {
       _loadAdaptativeAd();
+      createInterstitialAd();
     }
   }
 
@@ -66,7 +67,8 @@ class _CourseDetailState extends State<CourseDetail> {
         }, onAdFailedToLoad: (error) {
           interstitialAttempts++;
           interstitialAd = null;
-          print('failed to load ${error.message}');
+          print(
+              '--------------------------------------\n\n\n - failed to load interstitial:\n ${error.message}');
 
           if (interstitialAttempts <= maxAttempts) {
             createInterstitialAd();
@@ -79,37 +81,40 @@ class _CourseDetailState extends State<CourseDetail> {
       print('trying to show before loading');
       enterAcces++;
 
-      if (enterAcces < 3) {
+      if (enterAcces < 2) {
         Fluttertoast.showToast(
           msg: "Intentalo de nuevo", // message
           toastLength: Toast.LENGTH_SHORT, // length
           gravity: ToastGravity.CENTER, // location
         );
+        createInterstitialAd();
         Navigator.pop(context); //close dialog
-      } else if (enterAcces == 3) {
-        Fluttertoast.showToast(
-          msg: "Tu telefono no cargó el anuncio.", // message
-          toastLength: Toast.LENGTH_SHORT, // length
-          gravity: ToastGravity.CENTER, // location
-        );
-        Navigator.pop(context); //close dialog
-      } else if (enterAcces > 3 && enterAcces < 6) {
+      } else if (enterAcces >= 2 && enterAcces < 4) {
         Fluttertoast.showToast(
           msg:
-              "Necesitas buena conexión. Cambiate a un Wi-Fi más cercano\nReintentando...", // message
+              "Tu telefono no cargó el anuncio.\nVuelve a intentarlo.", // message
           toastLength: Toast.LENGTH_SHORT, // length
           gravity: ToastGravity.CENTER, // location
         );
-
+        createInterstitialAd();
+        //Navigator.pop(context); //close dialog
+      } else if (enterAcces == 4) {
+        Fluttertoast.showToast(
+          msg:
+              "Necesitas buena conexión. Cambiate a un Wi-Fi más cercano\nIntenta de nuevo.", // message
+          toastLength: Toast.LENGTH_SHORT, // length
+          gravity: ToastGravity.CENTER, // location
+        );
+        createInterstitialAd();
         Navigator.pop(context);
-      } else if (enterAcces >= 6) {
+      } else if (enterAcces == 5) {
         Fluttertoast.showToast(
           msg:
-              "No cuentas con buena conexión o estás usando algun bloqueador DNS. Es necesario que tu teléfono cargue los anuncios completamente.", // message
-          toastLength: Toast.LENGTH_SHORT, // length
+              "No cuentas con buena conexión o estás usando algun bloqueador. Es necesario que tu teléfono cargue los anuncios.", // message
+          toastLength: Toast.LENGTH_LONG, // length
           gravity: ToastGravity.CENTER, // location
         );
-
+      } else if (enterAcces > 5) {
         //si definitivamente no ha cargado despues de 5 intentos, se genera un random al 50% para ingresar
 
         int number = 0;
@@ -138,6 +143,13 @@ class _CourseDetailState extends State<CourseDetail> {
               },
             ),
           );
+        } else {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => CourseDetail(
+                        td: widget.td,
+                      )));
         }
         enterAcces = 0;
       }
@@ -657,8 +669,12 @@ class _CourseDetailState extends State<CourseDetail> {
                     icon: Icon(
                       Icons.play_arrow,
                       size: 20.0,
+                      color: Colors.white,
                     ),
-                    label: Text('Ir al curso'), // <-- Text
+                    label: Text(
+                      'Ir al curso',
+                      style: TextStyle(color: Colors.white),
+                    ), // <-- Text
                   ),
                 ),
               ),

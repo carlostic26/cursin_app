@@ -106,7 +106,10 @@ class _TutorialScreenState extends State<TutorialScreen> {
                           builder: (context) => CategoriasSelectCards()),
                     );
                   },
-                  child: const Text('Comenzar'),
+                  child: const Text(
+                    'Comenzar',
+                    style: TextStyle(color: Colors.white),
+                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor:
                         Colors.green, // Cambia el color de fondo a verde

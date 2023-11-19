@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cursin/screens/detail_course.dart';
-import 'package:cursin/screens/drawer/drawer_options/ultimos_cursos.dart';
 import 'package:flutter/material.dart';
 import '../../../screens.dart';
 
+// ignore: must_be_immutable
 class searchedCourses extends StatefulWidget {
   searchedCourses({this.palabraBusqueda});
 
@@ -83,6 +83,7 @@ class _searchedCoursesState extends State<searchedCourses> {
 
   @override
   void initState() {
+    super.initState();
     //es necesario inicializar el sharedpreferences tema, para que la variable book darkTheme esté inicializada como la recepcion del valor del sharedpreferences
     getSharedThemePrefs();
 
@@ -101,7 +102,6 @@ class _searchedCoursesState extends State<searchedCourses> {
   @override
   Widget build(BuildContext context) {
     _loadAdaptativeAd();
-    double sizeHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
       appBar: AppBar(

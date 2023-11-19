@@ -274,13 +274,39 @@ class _categoriaState extends State<categorias> {
     }
   }
 
+  int maxAttempts = 3;
+
+  //initializing intersticial ad
+  InterstitialAd? interstitialAd;
+  int interstitialAttempts = 0;
+  CursinAdsIds cursinAds = CursinAdsIds();
+
+  void createInterstitialAd() {
+    InterstitialAd.load(
+        // ignore: deprecated_member_use
+        adUnitId: cursinAds.interstitial_adUnitId,
+        request: request,
+        adLoadCallback: InterstitialAdLoadCallback(onAdLoaded: (ad) {
+          interstitialAd = ad;
+          interstitialAttempts = 0;
+        }, onAdFailedToLoad: (error) {
+          interstitialAttempts++;
+          interstitialAd = null;
+          print('failed to load ${error.message}');
+
+          if (interstitialAttempts <= maxAttempts) {
+            createInterstitialAd();
+          }
+        }));
+  }
+
   @override
   void initState() {
     super.initState();
     getSharedThemePrefs();
     //_loadAdaptativeAd();
     tapFav = false;
-
+    createInterstitialAd();
     setCategory();
   }
 

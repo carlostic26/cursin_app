@@ -9,7 +9,7 @@ class DatabaseHandler {
   Future<Database> initializeDB() async {
     String path = await getDatabasesPath();
     return openDatabase(
-      join(path, 'courses_global001.db'),
+      join(path, 'courses_global002.db'),
       onCreate: (database, version) async {
         final String sql = ''
             'CREATE TABLE cursos ('
@@ -1873,7 +1873,7 @@ class DatabaseTICHandler {
   Future<Database> initializeDB() async {
     String path = await getDatabasesPath();
     return openDatabase(
-      join(path, 'cursos_tic001.db'),
+      join(path, 'cursos_tic002.db'),
       onCreate: (database, version) async {
         final String sql = ''
             'CREATE TABLE cursos_tic ('

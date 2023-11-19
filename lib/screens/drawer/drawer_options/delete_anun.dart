@@ -425,7 +425,10 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
                         Icons.volunteer_activism,
                         size: 20.0,
                       ),
-                      label: Text('Conseguir monedas'),
+                      label: Text(
+                        'Conseguir monedas',
+                        style: TextStyle(color: Colors.white),
+                      ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor:
                             Colors.green, // Cambia el color del botón a verde

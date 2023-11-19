@@ -1,4 +1,5 @@
 import 'package:cursin/screens/drawer/drawer_options/carruselCertifiedWidget.dart';
+import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
 import 'package:flutter/material.dart';
 import '../../../screens.dart';
 

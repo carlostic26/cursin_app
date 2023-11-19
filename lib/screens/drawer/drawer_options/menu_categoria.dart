@@ -559,6 +559,9 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                     child: TextField(
+                      onSubmitted: (value) {
+                        searchCourse(value);
+                      },
                       onChanged: (text) {
                         palabraBusqueda = text;
                       },
@@ -583,23 +586,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                                 : Color.fromARGB(150, 255, 255, 255),
                           ),
                           onPressed: () {
-                            if (palabraBusqueda.isEmpty) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => searchedCourses(),
-                                ),
-                              );
-                            } else {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => searchedCourses(
-                                    palabraBusqueda: palabraBusqueda,
-                                  ),
-                                ),
-                              );
-                            }
+                            searchCourse(palabraBusqueda);
                           },
                         ),
                         focusedBorder: UnderlineInputBorder(
@@ -835,6 +822,26 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
         title: title,
         body: body,
         data: '',
+      );
+    }
+  }
+
+  void searchCourse(palabraBusqueda) {
+    if (palabraBusqueda.isEmpty) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => searchedCourses(),
+        ),
+      );
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => searchedCourses(
+            palabraBusqueda: palabraBusqueda,
+          ),
+        ),
       );
     }
   }

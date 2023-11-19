@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cursin/screens/detail_course.dart';
+import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
 import 'package:flutter/material.dart';
 import '../../../screens.dart';
 
@@ -135,8 +136,7 @@ class _UltimosCursosListaState extends State<UltimosCursosLista> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => searchedCourses(
-                    ),
+                    builder: (context) => searchedCourses(),
                   ),
                 );
               },

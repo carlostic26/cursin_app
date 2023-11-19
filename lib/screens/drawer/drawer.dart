@@ -1,4 +1,5 @@
 import 'package:cursin/screens/drawer/drawer_options/entidades.dart';
+import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
 import 'package:cursin/screens/drawer/drawer_options/ultimos_cursos.dart';
 import 'package:cursin/screens/webview/webviewTutoriales.dart';
 import 'package:flutter/material.dart';
