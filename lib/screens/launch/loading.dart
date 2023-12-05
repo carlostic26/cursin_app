@@ -1,31 +1,50 @@
-import 'package:cursin/screens/launch/tutorial_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:cursin/screens/launch/tutorial_screen.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import '../../../screens.dart';
 
-class PercentIndicatorRiverpod extends ConsumerWidget {
-  bool _isMounted = true;
+class LoadingScreen extends StatefulWidget {
+  const LoadingScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final maxCourses = ref.watch(maxCourses_rp);
-    final isFirstBuild = ref.watch(isFirstBuild_rp);
-    final contadorFinalizado = ref.watch(contadorFinalizado_rp);
-    final isButtonVisible = ref.watch(isButtonVisible_rp);
-    final buttonEnabled = ref.watch(buttonEnabled_rp);
+  State<LoadingScreen> createState() => _LoadingScreenState();
+}
 
-/*     // Activa el botón después de 10 segundos
+class _LoadingScreenState extends State<LoadingScreen> {
+  int maxCourses = 967;
+  bool buttonEnabled = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Activa el botón después de 10 segundos
     Future.delayed(Duration(seconds: 10), () {
-      activarBoton(ref);
-    }); */
-
-    if (_isMounted) {
-      // Activa el botón después de 10 segundos
-      Future.delayed(Duration(seconds: 10), () {
-        activarBoton(ref);
+      setState(() {
+        buttonEnabled = true;
       });
-    }
+    });
+  }
 
+  isLoaded(context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool? primerAcceso = prefs.getBool('primerAcceso');
+
+    print('primer acceso bool:$primerAcceso');
+
+    if (primerAcceso == true || primerAcceso == null) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (_) => TutorialScreen()));
+    } else {
+      if (primerAcceso == false) {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (_) => CategoriasSelectCards()));
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[850],
       body: Center(
@@ -127,40 +146,6 @@ class PercentIndicatorRiverpod extends ConsumerWidget {
         ),
       ),
     );
-  }
-
-  void activarBoton(WidgetRef ref) {
-    if (_isMounted) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (_isMounted) {
-          ref.read(buttonEnabled_rp.notifier).state = true;
-        }
-      });
-    }
-  }
-
-  void initTheme(ref) async {
-    // init theme
-    ThemePreference theme = ThemePreference();
-
-    ref.read(darkTheme_rp.notifier).state = await theme.getTheme();
-  }
-
-  isLoaded(context) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool? primerAcceso = prefs.getBool('primerAcceso');
-
-    print('primer acceso bool:$primerAcceso');
-
-    if (primerAcceso == true || primerAcceso == null) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) => TutorialScreen()));
-    } else {
-      if (primerAcceso == false) {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (_) => CategoriasSelectCards()));
-      }
-    }
   }
 }
 

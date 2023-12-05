@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 publish_to: 'none' 
 
-version: 2.0.11+111
+version: 2.0.12+112
 
 environment:
   sdk: ">=2.18.0-0 <3.0.0"
@@ -53,6 +53,7 @@ dependencies:
   riverpod: ^2.3.6
   flutter_riverpod: ^2.3.6
   animate_do: ^3.0.2
+  gdpr_dialog: ^2.1.1
 
 dev_dependencies:
   flutter_test:

@@ -1,14 +1,9 @@
 import 'dart:async';
-import 'package:cursin/utils/ads_ids/ads.dart';
-import 'package:cursin/controller/theme_preferences.dart';
-import 'package:cursin/screens/launch/percent_indicator_riverpod.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:cursin/infrastructure/models/localdb/cursosdb_sqflite.dart';
+import 'package:cursin/screens.dart';
+import 'package:cursin/screens/launch/dialog_gdpr.dart';
+import 'package:cursin/screens/launch/loading_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import 'services/local_notifications/local_notifications.dart';
+import 'package:gdpr_dialog/gdpr_dialog.dart';
 
 AppOpenAd? openAd;
 bool isAdLoaded = false;
@@ -74,7 +69,7 @@ Future<void> main() async {
   runApp(ProviderScope(
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: PercentIndicatorRiverpod(),
+      home: LoadingScreen(),
     ),
   ));
 }
