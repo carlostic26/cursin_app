@@ -43,12 +43,14 @@ class _UltimosCursosListaState extends State<UltimosCursosLista> {
       listener: BannerAdListener(
         onAdLoaded: (Ad ad) {
           print('$ad loaded: ${ad.responseInfo}');
-          setState(() {
-            // When the ad is loaded, get the ad size and use it to set
-            // the height of the ad container.
-            _anchoredAdaptiveAd = ad as BannerAd;
-            _isLoaded = true;
-          });
+          if (this.mounted) {
+            setState(() {
+              // When the ad is loaded, get the ad size and use it to set
+              // the height of the ad container.
+              _anchoredAdaptiveAd = ad as BannerAd;
+              _isLoaded = true;
+            });
+          }
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
           print('Anchored adaptive banner failedToLoad: $error');
@@ -56,6 +58,7 @@ class _UltimosCursosListaState extends State<UltimosCursosLista> {
         },
       ),
     );
+
     return _anchoredAdaptiveAd!.load();
   }
 
@@ -65,7 +68,7 @@ class _UltimosCursosListaState extends State<UltimosCursosLista> {
       //nonPersonalizedAds: false
       );
 
-  bool? darkTheme;
+  bool? darkTheme = true;
 
   Future<Null> getSharedThemePrefs() async {
     SharedPreferences themePrefs = await SharedPreferences.getInstance();

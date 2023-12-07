@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cursin/infrastructure/models/localdb/cursos_TIC_db.dart';
 import 'package:cursin/screens/detail_course.dart';
 import 'package:flutter/material.dart';
 import '../../../screens.dart';
@@ -640,16 +641,20 @@ class _categoriaState extends State<categorias> {
     CursinAdsIds Cursin_ads = CursinAdsIds();
 
     _anchoredAdaptiveAd = BannerAd(
-      adUnitId: Cursin_ads.banner_adUnitId,
+      adUnitId: cursinAds.banner_adUnitId,
       size: size,
       request: AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (Ad ad) {
           print('$ad loaded: ${ad.responseInfo}');
-          setState(() {
-            _anchoredAdaptiveAd = ad as BannerAd;
-            _isLoaded = true;
-          });
+          if (this.mounted) {
+            setState(() {
+              // When the ad is loaded, get the ad size and use it to set
+              // the height of the ad container.
+              _anchoredAdaptiveAd = ad as BannerAd;
+              _isLoaded = true;
+            });
+          }
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
           print('Anchored adaptive banner failedToLoad: $error');

@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cursin/utils/ads_ids/ads.dart';
-import 'package:cursin/infrastructure/models/localdb/cursosdb_sqflite.dart';
+import 'package:cursin/infrastructure/models/localdb/cursos_db.dart';
 import 'package:cursin/screens/drawer/drawer.dart';
 import 'package:cursin/screens/drawer/drawer_options/menu_categoria.dart';
 import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
@@ -48,19 +48,20 @@ class _CoursesFavsState extends State<CoursesFavs> {
     }
 
     _anchoredAdaptiveAd = BannerAd(
-      // TODO: replace these test ad units with your own ad unit.
       adUnitId: cursinAds.banner_adUnitId,
       size: size,
       request: AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (Ad ad) {
           print('$ad loaded: ${ad.responseInfo}');
-          setState(() {
-            // When the ad is loaded, get the ad size and use it to set
-            // the height of the ad container.
-            _anchoredAdaptiveAd = ad as BannerAd;
-            _isLoaded = true;
-          });
+          if (this.mounted) {
+            setState(() {
+              // When the ad is loaded, get the ad size and use it to set
+              // the height of the ad container.
+              _anchoredAdaptiveAd = ad as BannerAd;
+              _isLoaded = true;
+            });
+          }
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
           print('Anchored adaptive banner failedToLoad: $error');

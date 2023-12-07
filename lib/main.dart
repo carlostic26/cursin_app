@@ -4,6 +4,7 @@ import 'package:cursin/screens/launch/dialog_gdpr.dart';
 import 'package:cursin/screens/launch/loading_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:gdpr_dialog/gdpr_dialog.dart';
+import 'package:cursin/infrastructure/models/localdb/cursos_TIC_db.dart';
 
 AppOpenAd? openAd;
 bool isAdLoaded = false;

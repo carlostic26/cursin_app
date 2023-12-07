@@ -39,19 +39,20 @@ class _searchedCoursesState extends State<searchedCourses> {
     }
 
     _anchoredAdaptiveAd = BannerAd(
-      // TODO: replace these test ad units with your own ad unit.
       adUnitId: cursinAds.banner_adUnitId,
       size: size,
       request: AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (Ad ad) {
           print('$ad loaded: ${ad.responseInfo}');
-          setState(() {
-            // When the ad is loaded, get the ad size and use it to set
-            // the height of the ad container.
-            _anchoredAdaptiveAd = ad as BannerAd;
-            _isLoaded = true;
-          });
+          if (this.mounted) {
+            setState(() {
+              // When the ad is loaded, get the ad size and use it to set
+              // the height of the ad container.
+              _anchoredAdaptiveAd = ad as BannerAd;
+              _isLoaded = true;
+            });
+          }
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
           print('Anchored adaptive banner failedToLoad: $error');

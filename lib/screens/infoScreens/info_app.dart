@@ -37,19 +37,20 @@ class _infoAppState extends State<infoApp> {
     }
 
     _anchoredAdaptiveAd = BannerAd(
-      // TODO: replace these test ad units with your own ad unit.
       adUnitId: cursinAds.banner_adUnitId,
       size: size,
       request: AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (Ad ad) {
           print('$ad loaded: ${ad.responseInfo}');
-          setState(() {
-            // When the ad is loaded, get the ad size and use it to set
-            // the height of the ad container.
-            _anchoredAdaptiveAd = ad as BannerAd;
-            _isLoaded = true;
-          });
+          if (this.mounted) {
+            setState(() {
+              // Wen the ad is loaded, get the ad size and use it to set
+              // the height of the ad container.
+              _anchoredAdaptiveAd = ad as BannerAd;
+              _isLoaded = true;
+            });
+          }
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
           print('Anchored adaptive banner failedToLoad: $error');
@@ -470,25 +471,5 @@ class _infoAppState extends State<infoApp> {
                   0.1, // 10% de la altura de la pantalla
             ),
     );
-
-/*       //ad banner bottom screen
-      bottomNavigationBar: Container(
-        height: 60,
-        child: Center(
-          child: Column(
-            children: [
-              Container(
-                //load de ad and give size
-                child: AdWidget(
-                  ad: staticAd,
-                ),
-                width: staticAd.size.width.toDouble(),
-                height: staticAd.size.height.toDouble(),
-                alignment: Alignment.bottomCenter,
-              )
-            ],
-          ),
-        ),
-      ), */
   }
 }

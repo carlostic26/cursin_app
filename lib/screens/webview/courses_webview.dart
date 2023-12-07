@@ -53,12 +53,14 @@ class webviewState extends State<webview> {
     });
 
     Future.delayed(const Duration(seconds: 15), () {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Estaremos aquí para lo que necesites. <3'),
-          duration: const Duration(seconds: 3),
-        ),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Estaremos aquí para lo que necesites. <3'),
+            duration: const Duration(seconds: 3),
+          ),
+        );
+      }
     });
   }
 

@@ -65,32 +65,20 @@ class _LoadingScreenState extends State<LoadingScreen> {
               height: 10,
             ),
             Container(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.all(10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   LinearPercentIndicator(
-                    width: 250.0,
-                    lineHeight: 15,
+                    width: 270.0,
+                    lineHeight: 8,
                     percent: 100 / 100,
                     animation: true,
                     animationDuration: 10000, // 8.5 sec para cargar la barra
-                    leading: new Text(
-                      "",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    trailing: new Text(
-                      "",
-                      style: TextStyle(
-                          fontSize: 20, color: Colors.deepOrangeAccent),
-                    ),
                     progressColor: Colors.green,
                   ),
                 ],
               ),
-            ),
-            SizedBox(
-              height: 2,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -113,7 +101,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
               ],
             ),
             SizedBox(
-              height: 30,
+              height: 80,
             ),
             Align(
               alignment: Alignment.bottomCenter,
@@ -136,7 +124,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                   child: Text(
                     'Continuar',
                     style: TextStyle(
-                        fontSize: 12,
+                        fontSize: 10,
                         color: buttonEnabled ? Colors.white : Colors.blueGrey),
                   ),
                 ),
