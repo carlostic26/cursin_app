@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cursin/screens.dart';
 import 'package:cursin/screens/option_course.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dialogs/flutter_dialogs.dart';
 
 class CourseDetail extends StatefulWidget {
   curso td;
@@ -918,82 +919,79 @@ class _CourseDetailState extends State<CourseDetail> {
 
   void showDialogCourse(
       BuildContext context, String img, title, entidad, urlcourse) {
-    showGeneralDialog(
-      barrierColor: Colors.black.withOpacity(0.5),
-      transitionBuilder: (context, a1, a2, widget) {
-        return Transform.scale(
-          scale: a1.value,
-          child: Opacity(
-            opacity: a1.value,
-            child: NetworkGiffDialog(
-              image: CachedNetworkImage(
-                imageUrl: img,
-                fit: BoxFit.cover,
-              ),
-              title: Text(
+    showPlatformDialog(
+      context: context,
+      androidBarrierDismissible: true,
+      builder: (_) => BasicDialogAlert(
+        content: SizedBox(
+          width: double.infinity,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
                 '👀 Antes de ir...',
                 textAlign: TextAlign.center,
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              description: Text(
-                'Puedes tomar este curso y reanudarlo cuando quieras. Aprovéchalo y disfrútalo. ' +
+              SizedBox(height: 10),
+              CachedNetworkImage(
+                imageUrl: img,
+                fit: BoxFit.cover,
+                height: 200,
+                width: MediaQuery.of(context).size.width,
+              ),
+              SizedBox(height: 10),
+              Text(
+                'Puedes tomar este curso dentro o fuera de la app y reanudarlo cuando quieras. Aprovéchalo y disfrútalo. ' +
                     '\n\nVerás un pequeño anuncio para seguir mejorando la app Cursin 🕓',
-                style: TextStyle(color: Colors.black, fontSize: 14),
-                maxLines: 6,
-                overflow: TextOverflow.ellipsis,
+                style: TextStyle(color: Colors.black, fontSize: 13),
               ),
-              buttonCancelText: Text(
-                'Quitar anuncios',
-                style: TextStyle(color: Colors.white, fontSize: 12),
-                softWrap: true,
-                overflow: TextOverflow.ellipsis,
-              ),
-              buttonOkText: Text(
-                'Continuar',
-                style: TextStyle(color: Colors.white, fontSize: 12),
-                softWrap: true,
-                overflow: TextOverflow.ellipsis,
-              ),
-              buttonOkColor: Colors.green,
-              onOkButtonPressed: () async {
-                //validate if networf conection exist
-                try {
-                  //validating internet conection
-                  final result = await InternetAddress.lookup('google.com');
-                  if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-                    print('connected');
-
-                    showInterstitialAd();
-                    //showRewardedAd(); //show ad
-                    Navigator.pop(context); //close dialog
-                  }
-                  //if doesnt exist conection, then show toast to advert
-                } on SocketException catch (_) {
-                  //toast no conection exist
-                  Fluttertoast.showToast(
-                    msg:
-                        "No estas conectado a internet.\nConectate a Wi-Fi o datos moviles.", // message
-                    toastLength: Toast.LENGTH_LONG, // length
-                    gravity: ToastGravity.CENTER, // location
-                  );
-                }
-              },
-              onCancelButtonPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => deleteAnunScreen()),
-                );
-              },
-            ),
+            ],
           ),
-        );
-      },
-      transitionDuration: const Duration(milliseconds: 200),
-      barrierDismissible: true,
-      barrierLabel: '',
-      context: context,
-      pageBuilder: (context, animation1, animation2) => Container(),
+        ),
+        actions: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                child: const Text('Quitar anuncios',
+                    style: TextStyle(color: Colors.white, fontSize: 12)),
+                style: TextButton.styleFrom(backgroundColor: Colors.grey),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => deleteAnunScreen()),
+                  );
+                },
+              ),
+              SizedBox(width: 20),
+              TextButton(
+                child: const Text('Continuar',
+                    style: TextStyle(color: Colors.white, fontSize: 12)),
+                style: TextButton.styleFrom(backgroundColor: Colors.green),
+                onPressed: () async {
+                  try {
+                    final result = await InternetAddress.lookup('google.com');
+                    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+                      print('connected');
+                      showInterstitialAd();
+                      Navigator.pop(context);
+                    }
+                  } on SocketException catch (_) {
+                    Fluttertoast.showToast(
+                      msg:
+                          "No estás conectado a internet.\nConéctate a Wi-Fi o datos móviles.",
+                      toastLength: Toast.LENGTH_LONG,
+                      gravity: ToastGravity.CENTER,
+                    );
+                  }
+                },
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 

@@ -54,6 +54,7 @@ dependencies:
   flutter_riverpod: ^2.3.6
   animate_do: ^3.0.2
   gdpr_dialog: ^2.1.1
+  flutter_dialogs: ^3.0.0
 
 dev_dependencies:
   flutter_test:
