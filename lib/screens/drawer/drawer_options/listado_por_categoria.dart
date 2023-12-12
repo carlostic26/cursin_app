@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cursin/infrastructure/models/localdb/cursos_PROG_db.dart';
 import 'package:cursin/infrastructure/models/localdb/cursos_TIC_db.dart';
 import 'package:cursin/screens/detail_course.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class categorias extends StatefulWidget {
 class _categoriaState extends State<categorias> {
   late DatabaseHandler handler;
   late DatabaseTICHandler handlerTIC;
+  late DatabaseProgHandler handlerProg;
   Future<List<curso>>? _curso;
 
   BannerAd? _anchoredAdaptiveAd;
@@ -163,13 +165,11 @@ class _categoriaState extends State<categorias> {
 
       case "Programacion":
         {
-          handler = DatabaseHandler();
-          handler.initializeDB().whenComplete(() async {
+          handlerProg = DatabaseProgHandler();
+          handlerProg.initializeDB().whenComplete(() async {
             setState(() {
               _curso = getListProgramacion();
             });
-
-            SharedPreferences prefs = await SharedPreferences.getInstance();
           });
         }
         break;
@@ -379,7 +379,7 @@ class _categoriaState extends State<categorias> {
   }
 
   Future<List<curso>> getListProgramacion() async {
-    return await handler.categoriaProgramacion();
+    return await handlerProg.categoriaProgramacion();
   }
 
   Future<List<curso>> getListIT() async {

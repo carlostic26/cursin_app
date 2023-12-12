@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cursin/infrastructure/models/localdb/cursos_PROG_db.dart';
+import 'package:cursin/infrastructure/models/localdb/cursos_TIC_db.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../screens.dart';
@@ -109,14 +111,16 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
       countFin = resultFin;
     });
 
-    final resultTIC = await searchCountCoursesByCategory("TIC");
+    final resultTICGlob = await searchCountCoursesByCategory("TIC");
+    final resultTIC = await searchCountCoursesByTIC();
     setState(() {
-      countTIC = resultTIC;
+      countTIC = resultTIC + resultTICGlob;
     });
 
-    final resultProg = await searchCountCoursesByCategory("Programación");
+    final resultProgGlob = await searchCountCoursesByCategory("Programación");
+    final resultProg = await searchCountCoursesByProg();
     setState(() {
-      countProg = resultProg;
+      countProg = resultProg + resultProgGlob;
     });
 
     final resultIdio = await searchCountCoursesByCategory("Idiomas");
@@ -221,10 +225,9 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
-              icon: Icon(Icons.menu), // Icono del botón de hamburguesa
+              icon: Icon(Icons.menu),
               onPressed: () {
-                Scaffold.of(context)
-                    .openDrawer(); // Abre el cajón de navegación
+                Scaffold.of(context).openDrawer();
               },
             );
           },
@@ -712,6 +715,22 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
         await databaseHandler.getTotalCoursesInCategory(category);
 
     return totalCoursesInCategory;
+  }
+
+  Future<int> searchCountCoursesByProg() async {
+    final databaseHandler = DatabaseProgHandler();
+
+    final totalCoursesProg = await databaseHandler.getTotalCoursesProg();
+
+    return totalCoursesProg;
+  }
+
+  Future<int> searchCountCoursesByTIC() async {
+    final databaseHandler = DatabaseTICHandler();
+
+    final totalCoursesProg = await databaseHandler.getTotalCoursesTIC();
+
+    return totalCoursesProg;
   }
 
   void setLocalNotification(String category) async {

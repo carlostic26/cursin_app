@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cursin/infrastructure/models/localdb/cursos_PROG_db.dart';
 import 'package:cursin/screens.dart';
 import 'package:cursin/screens/launch/dialog_gdpr.dart';
 import 'package:cursin/screens/launch/loading_screen.dart';
@@ -44,6 +45,7 @@ Future<void> main() async {
   //init db sqlite
   await DatabaseHandler().initializeDB();
   await DatabaseTICHandler().initializeDB();
+  await DatabaseProgHandler().initializeDB();
 
   await MobileAds.instance.initialize();
   // Inicializar anuncio de apertura y cancelar después de 9 segundos

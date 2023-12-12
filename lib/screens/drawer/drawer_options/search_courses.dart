@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cursin/infrastructure/models/localdb/cursos_PROG_db.dart';
+import 'package:cursin/infrastructure/models/localdb/cursos_TIC_db.dart';
 import 'package:cursin/screens/detail_course.dart';
 import 'package:flutter/material.dart';
 import '../../../screens.dart';
@@ -15,6 +17,10 @@ class searchedCourses extends StatefulWidget {
 
 class _searchedCoursesState extends State<searchedCourses> {
   late DatabaseHandler handler;
+  late DatabaseTICHandler handlerTIC;
+  late DatabaseProgHandler handlerProg;
+
+  // otras bd como DatabaseTICHandler()
   Future<List<curso>>? _todo;
 
   BannerAd? _anchoredAdaptiveAd;
@@ -85,7 +91,6 @@ class _searchedCoursesState extends State<searchedCourses> {
   @override
   void initState() {
     super.initState();
-    //es necesario inicializar el sharedpreferences tema, para que la variable book darkTheme esté inicializada como la recepcion del valor del sharedpreferences
     getSharedThemePrefs();
 
     if (widget.palabraBusqueda != null) {
@@ -94,7 +99,48 @@ class _searchedCoursesState extends State<searchedCourses> {
   }
 
   Future<List<curso>> getListCoursesFound(query) async {
-    return await handler.coursesResultQuery(query);
+    return await handler.coursesResultQueryGeneric(query);
+  }
+
+  Future<List<curso>> getAllListCoursesFound(query) async {
+    List<curso> courses = [];
+
+    // Buscar en la base de datos genérica
+    DatabaseHandler handler = DatabaseHandler();
+    courses.addAll(await handler.coursesResultQueryGeneric(query));
+
+    // Buscar en la base de datos de Programación
+    DatabaseProgHandler handlerProg = DatabaseProgHandler();
+    courses.addAll(await handlerProg.coursesResultQueryProg(query));
+
+    DatabaseTICHandler handlerTIC = DatabaseTICHandler();
+    courses.addAll(await handlerTIC.coursesResultQueryTIC(query));
+
+    // ...
+
+    // Eliminar duplicados
+    courses = uniqueCourseList(courses);
+
+    return courses;
+  }
+
+  /*
+    TODO: Del search de unir la lista, hacer lo mismo para la busqueda en lista categoria
+
+  */
+
+  List<curso> uniqueCourseList(List<curso> courses) {
+    var uniqueCourses = <curso>[];
+
+    for (var course in courses) {
+      if (!uniqueCourses.any((element) =>
+          element.title == course.title &&
+          element.entidad == course.entidad /* y otros campos relevantes */)) {
+        uniqueCourses.add(course);
+      }
+    }
+
+    return uniqueCourses;
   }
 
   String courseToSearch = '';
@@ -194,6 +240,7 @@ class _searchedCoursesState extends State<searchedCourses> {
             child: const CircularProgressIndicator(),
           );
         } else if (snapshot.hasError) {
+          print('Error en FutureBuilder de bd: ${snapshot.error}');
           return Container(
             child: Center(
               child: Text(
@@ -417,7 +464,7 @@ class _searchedCoursesState extends State<searchedCourses> {
       handler.initializeDB().whenComplete(() async {
         setState(() {
           //_todo contains the result of courses query
-          _todo = getListCoursesFound(courseToSearch);
+          _todo = getAllListCoursesFound(courseToSearch);
           isExcecuted = true;
         });
       });

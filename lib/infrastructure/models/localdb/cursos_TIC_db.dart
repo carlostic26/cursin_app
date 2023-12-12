@@ -6,12 +6,10 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class DatabaseTICHandler {
-  //Nombre de bd: cursos_tic001.db
-
   Future<Database> initializeDB() async {
     String path = await getDatabasesPath();
     return openDatabase(
-      join(path, 'cursos_tic002.db'),
+      join(path, 'cursos_tic010.db'),
       onCreate: (database, version) async {
         final String sql = ''
             'CREATE TABLE cursos_tic ('
@@ -214,19 +212,6 @@ class DatabaseTICHandler {
             //
             '("Curso gratis de protoboard", "Edutin Academy", "TIC", "Sin certificado", "https://blogger.googleusercontent.com/img/a/AVvXsEi--z2RHKR5_jyJ7uGcRCSyrRJ4eHQwKKBZX_9Ej1THRF0s-h3EJmXafPEtDzjtjRQqt4cOnCQQix97aWzCdhZEf_OhsJztSRDoR_5HA6E62NvVP33HqXVFOcbQeFw0R4pmCN9T7qqw6coiUCKGZxAQt5VqgMgLYzctye8_wuCI40vjCYL3Jaa7og", "https://www.youtube.com/watch?v=0CdcFggo84g&list=PLNipMBg3MF-bXdxviA4OY8zsz4nVlRQu_", "Español", "04 horas","¡Aprende a diseñar circuitos electrónicos con nuestro curso gratuito de protoboard! En este curso, te enseñaremos todo lo que necesitas saber para crear circuitos utilizando una placa de pruebas o protoboard. Aprenderás a identificar los componentes electrónicos básicos, a cómo conectarlos correctamente en la protoboard y a cómo leer diagramas de circuitos electrónicos. Nuestros instructores experimentados te guiarán a través de una serie de proyectos prácticos, incluyendo la creación de circuitos de iluminación, sensores y controladores. Además, nuestro equipo de soporte técnico estará disponible para responder cualquier pregunta que puedas tener y brindarte asistencia en caso de cualquier problema. Regístrate ahora en nuestro curso gratuito de protoboard y comienza a explorar el mundo de la electrónica. ¡No te pierdas esta oportunidad de mejorar tus habilidades en electrónica y circuitos!++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Aunque este curso NO CONTIENE un certificado de finalización gratuito, puedes tomarlo y finalizarlo en el momen que lo requieras. Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
             //
-            // --- '("Curso gratis de inglés C1 avanzado", "GCF GLOBAL", "Idiomas", "Sin certificado", "img", "https://idiomas.gcfglobal.org/es/curso/ingles/c1/", "Inglés", "10 horas", "Desarrolla habilidades avanzadas para comunicarte con fluidez y precisión en situaciones sociales, académicas y profesionales en inglés.++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
-            //
-            // --- '("Curso gratis de PowerPoint 365", "GCF GLOBAL", "TIC", "Sin certificado", "img", "https://edu.gcfglobal.org/es/powerpoint-365/", "Español", "10 horas", "Conoce las nuevas herramientas de PowerPoint 365 para organizar y personalizar tus presentaciones, mientras trabajas desde la nube.++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
-            //
-            // --- '("Curso gratis de PowerPoint 2019", "GCF GLOBAL", "TIC", "Sin certificado", "img", "https://edu.gcfglobal.org/es/powerpoint-2019/", "Español", "10 horas", "Utiliza las herramientas de PowerPoint 2019 para crear presentaciones llamativas y prácticas. Iniciar el cursoIr a los videos de YouTube++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
-            //
-            // --- '("Curso gratis de Word 2013", "GCF GLOBAL", "TIC", "Sin certificado", "img", "https://edu.gcfglobal.org/es/word-2013", "Español", "10 horas", "Aprovecha todas las herramientas de Microsoft Word 2013 como trabajar con una nube de información, insertar tablas, gráficos y mucho más.++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
-            //
-            // --- '("Curso gratis de Word 2016", "GCF GLOBAL", "TIC", "Sin certificado", "img", "https://edu.gcfglobal.org/es/word-2016", "Español", "10 horas", "Word 2016 te ofrece diferentes herramientas que te ayudarán a crear desde documentos simples, hasta otros más complejos con tablas y gráficos.++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
-            //
-            // --- '("Curso gratis de Word 365", "GCF GLOBAL", "TIC", "Sin certificado", "img", "https://edu.gcfglobal.org/es/word-365/", "Español", "10 horas", "Crea documentos desde la nube utilizando las herramientas de Microsoft Word que has usado toda la vida, así tendrás tus archivos a la mano.++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
-            //
-            //
             '("Curso gratis de Excel" , "Edutin Academy", "TIC", "Sin certificado", "https://static2.abc.es/media/tecnologia/2020/02/25/excel-kbVE--1024x512@abc.jpg", "https://edutin.com/curso-de-excel-4410", "Español", "10 horas", "++En este curso de Excel profesional, aprenderás a utilizar este programa para llevar a cabo la creación de operaciones númericas, de una forma organizada y estructurada. Es fácil de aprender y solo se requiere tener conocimientos elementales.++Asimismo, en este curso de Excel aprenderás a utilizar sus herramientas para aplicarlas en el contexto administrativo o financiero.++Por lo tanto, en este curso de Excel, aprenderás a: Conocer las nociones básicas del programa Microsoft Excel. Examinar las funcionalidades de Microsoft Excel. Aprender a utilizar las funciones matemáticas de Excel. Diseñar y manipular tablas y gráficos dinámicos. Entender el funcionamiento de los operadores lógicos y/o condicionales. Analizar las funciones de búsqueda y referencias en Excel. Interpretar la información mediante gráficas de líneas, circulares, barras, entre otras. Agilizar el trabajo repetitivo a través de las macros en Excel. ++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Aunque este curso NO CONTIENE un certificado de finalización gratuito, puedes tomarlo y finalizarlo en el momen que lo requieras. Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
             //
             '("Curso gratis de CCNA Desde Cero", "CCNA de cero", "TIC", "Sin certificado", "https://blogger.googleusercontent.com/img/a/AVvXsEgIyyFyim0zic4KD_pY2IXasT7IlzI8k1m6AwH4zCa25LvrK1aEMpKvU0ojMRvrjfhS_Tn3VMoCcrsr3M1KiktySB5yVJTcdEmgNg6fQpWQ0IqfCj2EPfwHKQzzLS28K4id26SDLBpT0DAEziOy-rTpTWqTREC7excIAGpYfcs9OzkCAgsvAX0fLw", "https://ccnadesdecero.com/", "Español", "05 horas", "Aprende redes Cisco con esta guía de estudio en español, te enseño todos los capítulos del CCNA paso a paso, desde el fundamento de redes hasta los conceptos más avanzados. Te aseguro que no se me escapara nada de lo que necesitarás para aprobar el exámen final.++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
@@ -236,10 +221,17 @@ class DatabaseTICHandler {
         await database.execute(insertTIC);
         //await database.execute(addCourse concat addCourse2);
 
-        //deleteOldDatabases();
+        deleteOldDatabases();
       },
       version: 1,
     );
+  }
+
+  Future<void> deleteOldDatabases() async {
+    for (int i = 1; i < 8; i++) {
+      String dbName = 'courses_tic00$i.db';
+      await deleteDatabase(dbName);
+    }
   }
 
   Future<void> deletecurso(int id) async {
@@ -282,12 +274,11 @@ class DatabaseTICHandler {
     }
   }
 
-  //este metodo retorna el numero total de cursos encontrados por categoria
-  Future<int> getTotalCoursesInCategory(String category) async {
+  Future<int> getTotalCoursesTIC() async {
     final db = await initializeDB();
     final List<Map<String, dynamic>> queryResult = await db.rawQuery(
         'SELECT COUNT(*) as count FROM cursos_tic WHERE categoria like ?',
-        ['%$category%']);
+        ['%TIC%']);
 
     return queryResult[0]['count'] ?? 0;
   }
@@ -310,6 +301,18 @@ class DatabaseTICHandler {
     final db = await initializeDB();
     final List<Map<String, dynamic>> queryResult = await db
         .rawQuery('SELECT * FROM cursos_tic WHERE categoria like ?', ['%TIC%']);
+    Map<String, dynamic> result = {};
+    for (var r in queryResult) {
+      result.addAll(r);
+    }
+    return queryResult.map((e) => curso.fromMap(e)).toList();
+  }
+
+  Future<List<curso>> coursesResultQueryTIC(String queryCourse) async {
+    final db = await initializeDB();
+    final List<Map<String, dynamic>> queryResult = await db.rawQuery(
+        'SELECT * FROM cursos_tic WHERE title LIKE ? OR categoria LIKE ?',
+        ['%' + queryCourse + '%', '%' + queryCourse + '%']);
     Map<String, dynamic> result = {};
     for (var r in queryResult) {
       result.addAll(r);
