@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cursin/screens/detail_course.dart';
 import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
 import 'package:flutter/material.dart';
+import '../../../infrastructure/models/localdb/cursos_PROG_db.dart';
+import '../../../infrastructure/models/localdb/cursos_TIC_db.dart';
 import '../../../screens.dart';
 
 class UltimosCursosLista extends StatefulWidget {
@@ -84,7 +86,8 @@ class _UltimosCursosListaState extends State<UltimosCursosLista> {
     handler = DatabaseHandler();
     handler.initializeDB().whenComplete(() async {
       setState(() {
-        _curso = getList();
+        //_curso = getList();
+        _curso = getAllListCourses();
       });
     });
     super.initState();
@@ -96,6 +99,42 @@ class _UltimosCursosListaState extends State<UltimosCursosLista> {
 
   Future<List<curso>> getList() async {
     return await handler.todos();
+  }
+
+  Future<List<curso>> getAllListCourses() async {
+    List<curso> courses = [];
+
+    // Buscar en la base de datos de Programación
+    DatabaseProgHandler handlerProg = DatabaseProgHandler();
+    courses.addAll(await handlerProg.todos());
+
+    // Buscar en la base de datos genérica
+    DatabaseHandler handler = DatabaseHandler();
+    courses.addAll(await handler.todos());
+
+    DatabaseTICHandler handlerTIC = DatabaseTICHandler();
+    courses.addAll(await handlerTIC.todos());
+
+    // ...
+
+    // Eliminar duplicados
+    courses = uniqueCourseList(courses);
+
+    return courses;
+  }
+
+  List<curso> uniqueCourseList(List<curso> courses) {
+    var uniqueCourses = <curso>[];
+
+    for (var course in courses) {
+      if (!uniqueCourses.any((element) =>
+          element.title == course.title &&
+          element.entidad == course.entidad /* y otros campos relevantes */)) {
+        uniqueCourses.add(course);
+      }
+    }
+
+    return uniqueCourses;
   }
 
   Future<void> _onRefresh() async {

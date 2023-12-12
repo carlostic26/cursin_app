@@ -18,6 +18,7 @@ class _categoriaState extends State<categorias> {
   late DatabaseHandler handler;
   late DatabaseTICHandler handlerTIC;
   late DatabaseProgHandler handlerProg;
+
   Future<List<curso>>? _curso;
 
   BannerAd? _anchoredAdaptiveAd;

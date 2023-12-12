@@ -283,6 +283,12 @@ class DatabaseTICHandler {
     return queryResult[0]['count'] ?? 0;
   }
 
+  Future<List<curso>> todos() async {
+    final db = await initializeDB();
+    final List<Map<String, dynamic>> queryResult = await db.query('cursos_tic');
+    return queryResult.map((e) => curso.fromMap(e)).toList();
+  }
+
   //este metodo retorna un curso de forma aleatoria respecto a la categoria en cuestión
   Future<curso?> getRandomCourse(String category) async {
     final db = await initializeDB();

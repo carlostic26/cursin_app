@@ -246,7 +246,8 @@ class DatabaseProgHandler {
   //id INTEGER PRIMARY KEY, namec TEXT, entidadc TEXT, categoriac TEXT, tipoc TEXT, urlcursos TEXT, urlimgc TEXT, descripcionc TEXT
   Future<List<curso>> todos() async {
     final db = await initializeDB();
-    final List<Map<String, dynamic>> queryResult = await db.query('cursos');
+    final List<Map<String, dynamic>> queryResult =
+        await db.query('cursos_prog');
     return queryResult.map((e) => curso.fromMap(e)).toList();
   }
 
