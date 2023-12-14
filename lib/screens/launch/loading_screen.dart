@@ -160,7 +160,7 @@ class PercentIndicatorRiverpod extends ConsumerWidget {
     } else {
       if (primerAcceso == false) {
         Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (_) => CategoriasSelectCards()));
+            MaterialPageRoute(builder: (_) => HomeCategoriasSelectCards()));
       }
     }
   }

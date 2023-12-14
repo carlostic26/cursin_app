@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:cursin/screens/drawer/drawer_options/menu_categoria.dart';
+import 'package:cursin/screens/drawer/drawer_options/home_menu_categoria.dart';
 import 'package:cursin/screens/drawer/drawer_options/noticias_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

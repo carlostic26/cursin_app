@@ -1,7 +1,7 @@
 export 'package:animated_text_kit/animated_text_kit.dart';
 export 'package:cursin/controller/theme_preferences.dart';
 export 'package:cursin/provider/riverpod.dart';
-export 'package:cursin/screens/drawer/drawer_options/menu_categoria.dart';
+export 'package:cursin/screens/drawer/drawer_options/home_menu_categoria.dart';
 export 'package:cursin/screens/drawer/drawer_options/certificados.dart';
 export 'package:cursin/screens/drawer/drawer_options/courses_favs.dart';
 export 'package:cursin/screens/drawer/drawer_options/delete_anun.dart';

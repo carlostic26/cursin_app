@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cursin/screens/drawer/drawer_options/menu_categoria.dart';
+import 'package:cursin/screens/drawer/drawer_options/home_menu_categoria.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -103,7 +103,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
                     guardarPrimerAcceso();
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
-                          builder: (context) => CategoriasSelectCards()),
+                          builder: (context) => HomeCategoriasSelectCards()),
                     );
                   },
                   child: const Text(

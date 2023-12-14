@@ -349,7 +349,12 @@ class _CourseDetailState extends State<CourseDetail> {
   Future<Null> getSharedThemePrefs() async {
     SharedPreferences themePrefs = await SharedPreferences.getInstance();
     setState(() {
-      darkTheme = themePrefs.getBool('isDarkTheme');
+      bool? isDarkTheme = themePrefs.getBool('isDarkTheme');
+      if (isDarkTheme != null) {
+        darkTheme = isDarkTheme;
+      } else {
+        darkTheme = true;
+      }
     });
   }
 
@@ -1153,7 +1158,28 @@ class _CourseDetailState extends State<CourseDetail> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Curso eliminado de Favoritos'),
+          content: Row(
+            children: [
+              Text('Curso eliminado de Favoritos'),
+              SizedBox(width: 8),
+              GestureDetector(
+                child: Text(
+                  'Ver cursos',
+                  style: TextStyle(
+                    color: Colors.blue,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+                onTap: () {
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => CoursesFavs()),
+                  );
+                },
+              ),
+            ],
+          ),
           duration: Duration(seconds: 2),
         ),
       );
@@ -1164,10 +1190,33 @@ class _CourseDetailState extends State<CourseDetail> {
       if (getCoursesStringShP == null) {
         //se envia por primera vez el primer script de titulo
         cursosFavString.setString('coursesFavorites', newTitle);
+
+        //muestra mensaje
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Curso guardado en Favoritos'),
-            duration: Duration(seconds: 2),
+            content: Row(
+              children: [
+                Text('Curso guardado en Favoritos'),
+                SizedBox(width: 8),
+                GestureDetector(
+                  child: Text(
+                    'Ver cursos',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                  onTap: () {
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => CoursesFavs()),
+                    );
+                  },
+                ),
+              ],
+            ),
+            duration: Duration(seconds: 4),
           ),
         );
       } else {
@@ -1179,8 +1228,29 @@ class _CourseDetailState extends State<CourseDetail> {
         cursosFavString.setString('coursesFavorites', newCoursesString);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Curso guardado en Favoritos'),
-            duration: Duration(seconds: 2),
+            content: Row(
+              children: [
+                Text('Curso guardado en Favoritos'),
+                SizedBox(width: 8),
+                GestureDetector(
+                  child: Text(
+                    'Ver cursos',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                  onTap: () {
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => CoursesFavs()),
+                    );
+                  },
+                ),
+              ],
+            ),
+            duration: Duration(seconds: 4),
           ),
         );
       }

@@ -37,7 +37,12 @@ class webviewTutoScreenState extends State<webviewTutoScreen> {
   Future<Null> getSharedThemePrefs() async {
     SharedPreferences themePrefs = await SharedPreferences.getInstance();
     setState(() {
-      darkTheme = themePrefs.getBool('isDarkTheme');
+      bool? isDarkTheme = themePrefs.getBool('isDarkTheme');
+      if (isDarkTheme != null) {
+        darkTheme = isDarkTheme;
+      } else {
+        darkTheme = true;
+      }
     });
   }
 
@@ -161,7 +166,7 @@ class webviewTutoScreenState extends State<webviewTutoScreen> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (_) => CategoriasSelectCards(),
+        builder: (_) => HomeCategoriasSelectCards(),
       ),
     );
   }

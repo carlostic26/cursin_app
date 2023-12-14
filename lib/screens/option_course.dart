@@ -28,7 +28,12 @@ class _courseOptionState extends State<courseOption> {
   Future<Null> getSharedThemePrefs() async {
     SharedPreferences themePrefs = await SharedPreferences.getInstance();
     setState(() {
-      darkTheme = themePrefs.getBool('isDarkTheme');
+      bool? isDarkTheme = themePrefs.getBool('isDarkTheme');
+      if (isDarkTheme != null) {
+        darkTheme = isDarkTheme;
+      } else {
+        darkTheme = true;
+      }
     });
   }
 

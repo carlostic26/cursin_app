@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cursin/infrastructure/models/localdb/cursos_PROG_db.dart';
+import 'package:cursin/infrastructure/models/localdb/cursos_TIC_db.dart';
 import 'package:cursin/utils/ads_ids/ads.dart';
 import 'package:cursin/infrastructure/models/localdb/cursos_db.dart';
 import 'package:cursin/screens/drawer/drawer.dart';
-import 'package:cursin/screens/drawer/drawer_options/menu_categoria.dart';
+import 'package:cursin/screens/drawer/drawer_options/home_menu_categoria.dart';
 import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
 import 'package:cursin/model/curso_lista_model.dart';
 import 'package:cursin/screens/detail_course.dart';
@@ -20,6 +22,9 @@ class CoursesFavs extends StatefulWidget {
 
 class _CoursesFavsState extends State<CoursesFavs> {
   late DatabaseHandler handler;
+  late DatabaseProgHandler progHandler;
+  late DatabaseTICHandler ticHandler;
+
   Future<List<curso>>? _curso;
 
   //ads variables
@@ -83,7 +88,12 @@ class _CoursesFavsState extends State<CoursesFavs> {
   Future<Null> getSharedThemePrefs() async {
     SharedPreferences themePrefs = await SharedPreferences.getInstance();
     setState(() {
-      darkTheme = themePrefs.getBool('isDarkTheme');
+      bool? isDarkTheme = themePrefs.getBool('isDarkTheme');
+      if (isDarkTheme != null) {
+        darkTheme = isDarkTheme;
+      } else {
+        darkTheme = true;
+      }
     });
   }
 
@@ -100,6 +110,9 @@ class _CoursesFavsState extends State<CoursesFavs> {
     //_loadAdaptativeAd();
 
     handler = DatabaseHandler();
+    ticHandler = DatabaseTICHandler();
+    progHandler = DatabaseProgHandler();
+
     handler.initializeDB().whenComplete(() async {
       setState(() {
         _curso = getListFav();
@@ -113,8 +126,37 @@ class _CoursesFavsState extends State<CoursesFavs> {
     Restart.restartApp();
   }
 
-  Future<List<curso>> getListFav() async {
+/*   Future<List<curso>> getListFav() async {
     return await handler.misFavoritos();
+  } */
+
+/*   Future<List<curso>> getListFav() async {
+    List<curso> cursos = await handler.misFavoritos();
+
+    // Buscar en las otras bases de datos si el curso no se encuentra en la primera
+    if (cursos.isEmpty) {
+      cursos = await progHandler.misFavoritos();
+    }
+    if (cursos.isEmpty) {
+      cursos = await ticHandler.misFavoritos();
+    }
+
+    return cursos;
+  } */
+
+  Future<List<curso>> getListFav() async {
+    List<curso> cursosHandler = await handler.misFavoritos();
+    List<curso> cursosProgHandler = await progHandler.misFavoritos();
+    List<curso> cursosTicHandler = await ticHandler.misFavoritos();
+
+    // Combina los resultados en una sola lista
+    List<curso> cursosGuardados = [
+      ...cursosHandler,
+      ...cursosProgHandler,
+      ...cursosTicHandler,
+    ];
+
+    return cursosGuardados;
   }
 
   Future<void> _onRefresh() async {
@@ -154,7 +196,7 @@ class _CoursesFavsState extends State<CoursesFavs> {
               icon: Icon(Icons.search),
               onPressed: () {
                 //pass to search screen
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) => searchedCourses(),
@@ -191,7 +233,7 @@ class _CoursesFavsState extends State<CoursesFavs> {
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     onTap: () {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) => CourseDetail(td: items[index]),

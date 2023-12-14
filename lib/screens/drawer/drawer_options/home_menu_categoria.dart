@@ -5,12 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../screens.dart';
 
-class CategoriasSelectCards extends StatefulWidget {
+class HomeCategoriasSelectCards extends StatefulWidget {
   @override
-  _CategoriasSelectCardsState createState() => _CategoriasSelectCardsState();
+  _HomeCategoriasSelectCardsState createState() =>
+      _HomeCategoriasSelectCardsState();
 }
 
-class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
+class _HomeCategoriasSelectCardsState extends State<HomeCategoriasSelectCards> {
   // img from net to icons category
 
   String iconTIC =
@@ -611,7 +612,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
     required String category,
   }) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10.0),
+      margin: EdgeInsets.symmetric(vertical: 6.0),
       decoration: BoxDecoration(
         color: darkTheme == true ? Colors.grey[850] : Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -682,7 +683,7 @@ class _CategoriasSelectCardsState extends State<CategoriasSelectCards> {
                         fontSize: 17,
                         color: darkTheme == false
                             ? Colors.grey[450]
-                            : Colors.white,
+                            : Color.fromARGB(255, 79, 150, 249),
                       ),
                     ),
                     SizedBox(height: 5),

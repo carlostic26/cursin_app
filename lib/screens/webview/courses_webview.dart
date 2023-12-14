@@ -67,7 +67,12 @@ class webviewState extends State<webview> {
   Future<Null> getSharedThemePrefs() async {
     SharedPreferences themePrefs = await SharedPreferences.getInstance();
     setState(() {
-      darkTheme = themePrefs.getBool('isDarkTheme');
+      bool? isDarkTheme = themePrefs.getBool('isDarkTheme');
+      if (isDarkTheme != null) {
+        darkTheme = isDarkTheme;
+      } else {
+        darkTheme = true;
+      }
     });
   }
 
@@ -312,7 +317,7 @@ class webviewState extends State<webview> {
 
                     if (widget.nombreEntidad == 'TICnoticos') {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => CategoriasSelectCards()));
+                          builder: (context) => HomeCategoriasSelectCards()));
                     } else {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => courseOption(

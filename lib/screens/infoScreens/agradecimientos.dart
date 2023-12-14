@@ -17,6 +17,11 @@ class AgradecimientosScreen extends StatelessWidget {
   Future<void> getSharedThemePrefs() async {
     SharedPreferences themePrefs = await SharedPreferences.getInstance();
     darkTheme = themePrefs.getBool('isDarkTheme');
+    if (darkTheme != null) {
+      darkTheme = darkTheme;
+    } else {
+      darkTheme = true;
+    }
   }
 
   @override

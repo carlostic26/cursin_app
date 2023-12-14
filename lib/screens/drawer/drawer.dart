@@ -80,7 +80,7 @@ class _drawerCursinState extends State<drawerCursin> {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (_) => CategoriasSelectCards()),
+                                builder: (_) => HomeCategoriasSelectCards()),
                           );
                         });
                       },
@@ -179,8 +179,7 @@ class _drawerCursinState extends State<drawerCursin> {
                 color: darkTheme == true ? Colors.white : Colors.grey[850],
               ),
               onTap: () => {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (_) => CategoriasSelectCards())),
+                Navigator.pop(context),
               },
             ),
 

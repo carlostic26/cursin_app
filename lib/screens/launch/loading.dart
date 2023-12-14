@@ -11,7 +11,7 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  int maxCourses = 967;
+  int maxCourses = 984;
   bool buttonEnabled = false;
 
   @override
@@ -38,7 +38,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     } else {
       if (primerAcceso == false) {
         Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (_) => CategoriasSelectCards()));
+            MaterialPageRoute(builder: (_) => HomeCategoriasSelectCards()));
       }
     }
   }
@@ -84,7 +84,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Encontrando ",
+                  "Recopilando ",
                   style: TextStyle(
                     fontSize: 10,
                     color: Colors.white,
