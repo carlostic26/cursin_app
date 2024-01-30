@@ -36,7 +36,7 @@ class _noticiasScreenState extends State<noticiasScreen> {
           });
         }, onAdFailedToLoad: (ad, error) {
           ad.dispose();
-          print('ad failed to load ${error.message}');
+          // print('ad failed to load ${error.message}');
         }));
 
     staticAd.load();

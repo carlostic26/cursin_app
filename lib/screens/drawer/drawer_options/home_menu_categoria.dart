@@ -759,7 +759,7 @@ class _HomeCategoriasSelectCardsState extends State<HomeCategoriasSelectCards> {
     // Genera un número aleatorio entre 1 y 3 (ambos inclusive).
     final random = Random();
     final randomNumber = random.nextInt(3) + 1; // Genera números entre 1 y 3.
-    print('randomNumber: $randomNumber');
+    //print('randomNumber: $randomNumber');
 
     String title = '$name por $entidad';
     String body =

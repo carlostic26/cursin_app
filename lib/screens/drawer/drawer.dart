@@ -681,7 +681,7 @@ class _drawerCursinState extends State<drawerCursin> {
         // Realizar alguna acción cuando se cargue el anuncio
       }, onAdFailedToLoad: (ad, error) {
         ad.dispose();
-        print('ad failed to load ${error.message}');
+        //print('ad failed to load ${error.message}');
       }),
     );
 

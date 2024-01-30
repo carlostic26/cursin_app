@@ -32,4 +32,6 @@ export 'package:cursin/screens/drawer/drawer.dart';
 export 'package:cursin/screens/drawer/drawer_options/listado_por_categoria.dart';
 export 'package:cursin/services/local_notifications/local_notifications.dart';
 export 'package:restart_app/restart_app.dart';
-export 'package:cursin/screens/launch/loading.dart';
+export 'package:cursin/screens/launch/loading_screen.dart';
+
+export 'package:cursin/screens/widgets/animated_background.dart';

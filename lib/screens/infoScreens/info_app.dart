@@ -32,7 +32,7 @@ class _infoAppState extends State<infoApp> {
             MediaQuery.of(context).size.width.truncate());
 
     if (size == null) {
-      print('Unable to get height of anchored banner.');
+      // print('Unable to get height of anchored banner.');
       return;
     }
 
@@ -42,7 +42,7 @@ class _infoAppState extends State<infoApp> {
       request: AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (Ad ad) {
-          print('$ad loaded: ${ad.responseInfo}');
+          // print('$ad loaded: ${ad.responseInfo}');
           if (this.mounted) {
             setState(() {
               // Wen the ad is loaded, get the ad size and use it to set
@@ -53,7 +53,7 @@ class _infoAppState extends State<infoApp> {
           }
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          print('Anchored adaptive banner failedToLoad: $error');
+          // print('Anchored adaptive banner failedToLoad: $error');
           ad.dispose();
         },
       ),

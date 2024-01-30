@@ -1,37 +1,50 @@
-import 'package:cursin/screens/launch/tutorial_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:cursin/screens/launch/tutorial_screen.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import '../../../screens.dart';
 
-class PercentIndicatorRiverpod extends ConsumerWidget {
-  //bool _isMounted = true;
-  String status = 'none';
+class LoadingScreen extends StatefulWidget {
+  const LoadingScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final maxCourses = ref.watch(maxCourses_rp);
-    final isFirstBuild = ref.watch(isFirstBuild_rp);
-    final contadorFinalizado = ref.watch(contadorFinalizado_rp);
-    final isButtonVisible = ref.watch(isButtonVisible_rp);
-    final buttonEnabled = ref.watch(buttonEnabled_rp);
+  State<LoadingScreen> createState() => _LoadingScreenState();
+}
 
-/*     // Activa el botón después de 10 segundos
-    Future.delayed(Duration(seconds: 10), () {
-      activarBoton(ref);
-    }); */
+class _LoadingScreenState extends State<LoadingScreen> {
+  int maxCourses = 984;
+  bool buttonEnabled = false;
 
-/*     if (_isMounted) {
-      // Activa el botón después de 10 segundos
-      Future.delayed(Duration(seconds: 10), () {
-        activarBoton(ref);
-      });
-    } */
+  @override
+  void initState() {
+    super.initState();
 
     // Activa el botón después de 10 segundos
     Future.delayed(Duration(seconds: 10), () {
-      activarBoton(ref);
+      setState(() {
+        buttonEnabled = true;
+      });
     });
+  }
 
+  isLoaded(context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool? primerAcceso = prefs.getBool('primerAcceso');
+
+    //print('primer acceso bool:$primerAcceso');
+
+    if (primerAcceso == true || primerAcceso == null) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (_) => TutorialScreen()));
+    } else {
+      if (primerAcceso == false) {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (_) => HomeCategoriasSelectCards()));
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[850],
       body: Center(
@@ -52,38 +65,26 @@ class PercentIndicatorRiverpod extends ConsumerWidget {
               height: 10,
             ),
             Container(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.all(10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   LinearPercentIndicator(
-                    width: 250.0,
-                    lineHeight: 15,
+                    width: 270.0,
+                    lineHeight: 8,
                     percent: 100 / 100,
                     animation: true,
                     animationDuration: 10000, // 8.5 sec para cargar la barra
-                    leading: new Text(
-                      "",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    trailing: new Text(
-                      "",
-                      style: TextStyle(
-                          fontSize: 20, color: Colors.deepOrangeAccent),
-                    ),
-                    progressColor: Colors.green,
+                    progressColor: Colors.blueAccent,
                   ),
                 ],
               ),
-            ),
-            SizedBox(
-              height: 2,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Encontrando ",
+                  "Recopilando ",
                   style: TextStyle(
                     fontSize: 10,
                     color: Colors.white,
@@ -100,7 +101,7 @@ class PercentIndicatorRiverpod extends ConsumerWidget {
               ],
             ),
             SizedBox(
-              height: 30,
+              height: 80,
             ),
             Align(
               alignment: Alignment.bottomCenter,
@@ -114,8 +115,9 @@ class PercentIndicatorRiverpod extends ConsumerWidget {
                       : null, // Desactiva el botón si no está habilitado
                   style: ButtonStyle(
                     backgroundColor: buttonEnabled
-                        ? MaterialStateProperty.all<Color>(Colors
-                            .green) // Color de fondo cuando está habilitado
+                        ? MaterialStateProperty.all<Color>(
+                            Colors.blueAccent,
+                          ) // Color de fondo cuando está habilitado
                         : MaterialStateProperty.all<Color>(Colors
                             .grey), // Color de fondo cuando está deshabilitado
                   ),
@@ -123,7 +125,7 @@ class PercentIndicatorRiverpod extends ConsumerWidget {
                   child: Text(
                     'Continuar',
                     style: TextStyle(
-                        fontSize: 12,
+                        fontSize: 10,
                         color: buttonEnabled ? Colors.white : Colors.blueGrey),
                   ),
                 ),
@@ -134,34 +136,53 @@ class PercentIndicatorRiverpod extends ConsumerWidget {
       ),
     );
   }
+}
 
-  void activarBoton(WidgetRef ref) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(buttonEnabled_rp.notifier).state = true;
-    });
+class CountingAnimation extends StatefulWidget {
+  final int endCount;
+
+  CountingAnimation({required this.endCount});
+
+  @override
+  _CountingAnimationState createState() => _CountingAnimationState();
+}
+
+class _CountingAnimationState extends State<CountingAnimation>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: Duration(seconds: 9),
+      vsync: this,
+    );
+    _animation = Tween<double>(begin: 0, end: widget.endCount.toDouble())
+        .animate(_controller);
+    _controller.forward();
   }
 
-  void initTheme(ref) async {
-    // init theme
-    ThemePreference theme = ThemePreference();
-
-    ref.read(darkTheme_rp.notifier).state = await theme.getTheme();
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
-  isLoaded(context) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool? primerAcceso = prefs.getBool('primerAcceso');
-
-    print('primer acceso bool:$primerAcceso');
-
-    if (primerAcceso == true || primerAcceso == null) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) => TutorialScreen()));
-    } else {
-      if (primerAcceso == false) {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (_) => HomeCategoriasSelectCards()));
-      }
-    }
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (BuildContext context, Widget? child) {
+        return Text(
+          _animation.value.toInt().toString(),
+          style: TextStyle(
+            fontSize: 10,
+            color: Colors.white,
+          ),
+        );
+      },
+    );
   }
 }

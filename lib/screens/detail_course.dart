@@ -68,8 +68,7 @@ class _CourseDetailState extends State<CourseDetail> {
         }, onAdFailedToLoad: (error) {
           interstitialAttempts++;
           interstitialAd = null;
-          print(
-              '--------------------------------------\n\n\n - failed to load interstitial:\n ${error.message}');
+          // print( '-------------------\n\n\n - failed to load interstitial:\n ${error.message}');
 
           if (interstitialAttempts <= maxAttempts) {
             createInterstitialAd();
@@ -79,7 +78,7 @@ class _CourseDetailState extends State<CourseDetail> {
 
   void showInterstitialAd() {
     if (interstitialAd == null) {
-      print('trying to show before loading');
+      //print('trying to show before loading');
       enterAcces++;
 
       if (enterAcces < 2) {
@@ -121,7 +120,7 @@ class _CourseDetailState extends State<CourseDetail> {
         int number = 0;
         var rng = Random();
         number = rng.nextInt(2); // 50%
-        print("numero aleatorio es: " + number.toString());
+        //print("numero aleatorio es: " + number.toString());
 
         if (number == 1) {
           Navigator.of(context).push(
@@ -161,168 +160,33 @@ class _CourseDetailState extends State<CourseDetail> {
     }
 
     interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
-        onAdShowedFullScreenContent: (ad) => print('ad showed $ad'),
+        //onAdShowedFullScreenContent: (ad) => print('ad showed $ad'),
 
         //when ad went closes
         onAdDismissedFullScreenContent: (ad) async {
-          //set recent course acces, load actual last course
-          SharedPreferences lastCourse = await SharedPreferences.getInstance();
-          lastCourse.setString('lastCourse', widget.td.title);
+      //set recent course acces, load actual last course
+      SharedPreferences lastCourse = await SharedPreferences.getInstance();
+      lastCourse.setString('lastCourse', widget.td.title);
 
-          //open screen to select option how to see course
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => courseOption(
-                    nameCourse: widget.td.title,
-                    urlCourse: widget.td.urlcourse,
-                    imgCourse: widget.td.imgcourse,
-                    nombreEntidad: widget.td.entidad,
-                  )));
+      //open screen to select option how to see course
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => courseOption(
+                nameCourse: widget.td.title,
+                urlCourse: widget.td.urlcourse,
+                imgCourse: widget.td.imgcourse,
+                nombreEntidad: widget.td.entidad,
+              )));
 
-          ad.dispose();
-        },
-        onAdFailedToShowFullScreenContent: (ad, error) {
-          ad.dispose();
-          print('failed to show the ad $ad');
-        });
+      ad.dispose();
+    }, onAdFailedToShowFullScreenContent: (ad, error) {
+      ad.dispose();
+      //print('failed to show the ad $ad');
+    });
 
     interstitialAd!.show();
     interstitialAd = null;
   }
 
-/*   void createRewardedAd() {
-    RewardedAd.load(
-        adUnitId: cursinAds.reward_adUnitId,
-        request: request,
-        rewardedAdLoadCallback: RewardedAdLoadCallback(onAdLoaded: (ad) {
-          rewardedAd = ad;
-          rewardedAdAttempts = 0;
-        }, onAdFailedToLoad: (error) {
-          rewardedAdAttempts++;
-          rewardedAd = null;
-          print('failed to load ${error.message}');
-
-          if (rewardedAdAttempts <= maxAttempts) {
-            createRewardedAd();
-          }
-        }));
-  }
-
-  void showRewardedAd() {
-    if (rewardedAd == null) {
-      print('trying to show before loading');
-      enterAcces++;
-
-      if (enterAcces == 1 || enterAcces == 2) {
-        Fluttertoast.showToast(
-          msg: "Intentalo de nuevo...", // message
-          toastLength: Toast.LENGTH_SHORT, // length
-          gravity: ToastGravity.CENTER, // location
-        );
-      } else if (enterAcces == 3) {
-        Fluttertoast.showToast(
-          msg: "Tu telefono no cargó el anuncio.", // message
-          toastLength: Toast.LENGTH_LONG, // length
-          gravity: ToastGravity.CENTER, // location
-        );
-      } else if (enterAcces == 4 || enterAcces == 5) {
-        Fluttertoast.showToast(
-          msg:
-              "Cambiate a un Wi-Fi más cercano\nIntentalo de nuevo.", // message
-          toastLength: Toast.LENGTH_LONG, // length
-          gravity: ToastGravity.CENTER, // location
-        );
-
-        Navigator.pop(context);
-      } else if (enterAcces >= 6) {
-        Fluttertoast.showToast(
-          msg:
-              "Es necesario que tu teléfono cargue los anuncios completamente. Acceso limitado", // message
-          toastLength: Toast.LENGTH_LONG, // length
-          gravity: ToastGravity.CENTER, // location
-        );
-
-        //si definitivamente no ha cargado despues de 5 intentos, se genera un random al 50% para ingresar
-
-        int number = 0;
-        var rng = Random();
-        number = rng.nextInt(2); // 50%
-        print("numero aleatorio es: " + number.toString());
-
-        if (number == 1) {
-          Navigator.of(context).push(
-            PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) =>
-                  courseOption(
-                nameCourse: widget.td.title,
-                urlCourse: widget.td.urlcourse,
-                imgCourse: widget.td.imgcourse,
-                nombreEntidad: widget.td.entidad,
-              ),
-              transitionDuration:
-                  Duration(milliseconds: 500), // Duración de la transición
-              transitionsBuilder:
-                  (context, animation, secondaryAnimation, child) {
-                return FadeTransition(
-                  opacity: animation,
-                  child: child,
-                );
-              },
-            ),
-          );
-        }
-        enterAcces = 0;
-      }
-
-      _showDialogProblemAds(context);
-
-      return;
-    }
-
-    rewardedAd!.fullScreenContentCallback = FullScreenContentCallback(
-        onAdShowedFullScreenContent: (ad) => print('ad showed $ad'),
-
-        //when ad went closes
-        onAdDismissedFullScreenContent: (ad) async {
-          //open course on the webapp
-          //launch(urlCourse.text);
-
-          //set recent course acces, load actual last course
-          SharedPreferences lastCourse = await SharedPreferences.getInstance();
-          lastCourse.setString('lastCourse', widget.td.title);
-
-          //open screen to select option how to see course
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => courseOption(
-                    nameCourse: widget.td.title,
-                    urlCourse: widget.td.urlcourse,
-                    imgCourse: widget.td.imgcourse,
-                    nombreEntidad: widget.td.entidad,
-                  )));
-
-          ad.dispose();
-          createRewardedAd();
-        },
-        onAdFailedToShowFullScreenContent: (ad, error) {
-          ad.dispose();
-          print('failed to show the ad $ad');
-
-          //Toast diciendo: no se han podido cargar los anuncios.\n Asegurate de tener una buena conexión a internet, volver a abrir la App o intentar abrir el curso mas tarde, cuando los anuncios estén cargados en tu telefono.
-          Fluttertoast.showToast(
-            msg:
-                "No se han podido cargar los anuncios.\nIntentalo de nuevo en 5 segundos", // message
-            toastLength: Toast.LENGTH_LONG, // length
-            gravity: ToastGravity.BOTTOM, // location
-          );
-
-          createRewardedAd();
-        });
-
-    rewardedAd!.show(onUserEarnedReward: (ad, reward) {
-      print('reward video ${reward.amount} ${reward.type}');
-    });
-    rewardedAd = null;
-  }
- */
   String getCoursesStringShP = "";
   String validadorCursoGuardado = "Guardar curso";
   bool click = false;
@@ -718,7 +582,7 @@ class _CourseDetailState extends State<CourseDetail> {
             MediaQuery.of(context).size.width.truncate());
 
     if (size == null) {
-      print('Unable to get height of anchored banner.');
+      //print('Unable to get height of anchored banner.');
       return;
     }
 
@@ -728,7 +592,7 @@ class _CourseDetailState extends State<CourseDetail> {
       request: AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (Ad ad) {
-          print('$ad loaded: ${ad.responseInfo}');
+          // print('$ad loaded: ${ad.responseInfo}');
           setState(() {
             _anchoredAdaptiveAd = ad as BannerAd;
             _isLoaded =
@@ -736,7 +600,7 @@ class _CourseDetailState extends State<CourseDetail> {
           });
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          print('Anchored adaptive banner failedToLoad: $error');
+          // print('Anchored adaptive banner failedToLoad: $error');
           ad.dispose();
         },
       ),
@@ -745,7 +609,7 @@ class _CourseDetailState extends State<CourseDetail> {
     try {
       await loadedAd.load();
     } catch (e) {
-      print('Error loading anchored adaptive banner: $e');
+      //print('Error loading anchored adaptive banner: $e');
       loadedAd.dispose();
     }
   }
@@ -979,7 +843,6 @@ class _CourseDetailState extends State<CourseDetail> {
                   try {
                     final result = await InternetAddress.lookup('google.com');
                     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-                      print('connected');
                       showInterstitialAd();
                       Navigator.pop(context);
                     }
@@ -1184,7 +1047,7 @@ class _CourseDetailState extends State<CourseDetail> {
         ),
       );
 
-      print("value de cadena sin el curso: $newValue");
+      //print("value de cadena sin el curso: $newValue");
     } else {
       //si el shP está vacio, agrega entonces el primer curso titulo
       if (getCoursesStringShP == null) {

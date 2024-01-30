@@ -38,7 +38,7 @@ class _EntidadesScreenState extends State<EntidadesScreen> {
             MediaQuery.of(context).size.width.truncate());
 
     if (size == null) {
-      print('Unable to get height of anchored banner.');
+      // print('Unable to get height of anchored banner.');
       return;
     }
 
@@ -48,7 +48,7 @@ class _EntidadesScreenState extends State<EntidadesScreen> {
       request: AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (Ad ad) {
-          print('$ad loaded: ${ad.responseInfo}');
+          // print('$ad loaded: ${ad.responseInfo}');
           if (this.mounted) {
             setState(() {
               // When the ad is loaded, get the ad size and use it to set
@@ -59,7 +59,7 @@ class _EntidadesScreenState extends State<EntidadesScreen> {
           }
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          print('Anchored adaptive banner failedToLoad: $error');
+          // print('Anchored adaptive banner failedToLoad: $error');
           ad.dispose();
         },
       ),
@@ -180,7 +180,7 @@ class _EntidadesScreenState extends State<EntidadesScreen> {
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     onTap: () {
-                      print('Tocaste la imagen ${index + 1}');
+                      // print('Tocaste la imagen ${index + 1}');
                     },
                     child: Container(
                       decoration: BoxDecoration(

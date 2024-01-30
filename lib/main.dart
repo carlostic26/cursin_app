@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:cursin/infrastructure/models/localdb/cursos_PROG_db.dart';
 import 'package:cursin/screens.dart';
 import 'package:cursin/screens/launch/dialog_gdpr.dart';
-import 'package:cursin/screens/launch/loading_screen.dart';
+import 'package:cursin/deprecated/loading_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:gdpr_dialog/gdpr_dialog.dart';
 import 'package:cursin/infrastructure/models/localdb/cursos_TIC_db.dart';
@@ -20,12 +20,11 @@ Future<void> loadOpenAd() async {
       onAdLoaded: (ad) {
         openAd = ad;
         openAd!.show();
-        print("**Anuncio cargado correctamente");
+        //print("**Anuncio cargado correctamente");
         isAdLoaded = true; // El anuncio se cargó y mostró correctamente
       },
       onAdFailedToLoad: (error) {
-        print("Error al cargar el anuncio: $error");
-
+        //print("Error al cargar el anuncio: $error");
         isAdLoaded = false; // El anuncio no se cargó o mostró correctamente
       },
     ),
@@ -55,11 +54,11 @@ Future<void> main() async {
   Timer(Duration(seconds: 10), () async {
     if (isAdLoaded == false) {
       openAd?.dispose();
-      print("Anuncio de apertura cancelado después de 15 segundos.");
+      //print("Anuncio de apertura cancelado después de 15 segundos.");
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setBool('adCancelado', true);
     } else {
-      print("Anuncio de apertura mostrado correctamente.");
+      //print("Anuncio de apertura mostrado correctamente.");
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setBool('adCancelado', false);
     }

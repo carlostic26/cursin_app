@@ -36,7 +36,7 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
         }, onAdFailedToLoad: (error) {
           rewardedAdAttempts++;
           rewardedAd = null;
-          print('failed to load ${error.message}');
+          // print('failed to load ${error.message}');
 
           if (rewardedAdAttempts <= maxAttempts) {
             createRewardedAd();
@@ -94,39 +94,38 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
     }
 
     rewardedAd!.fullScreenContentCallback = FullScreenContentCallback(
-        onAdShowedFullScreenContent: (ad) => print('ad showed $ad'),
+        // onAdShowedFullScreenContent: (ad) => print('ad showed $ad'),
 
         //when ad closes
         onAdDismissedFullScreenContent: (ad) async {
-          //earn 2 coins and save total coins
-          SharedPreferences coinsPrefs = await SharedPreferences.getInstance();
-          int newCoins = actualCursinCoins + 2;
+      //earn 2 coins and save total coins
+      SharedPreferences coinsPrefs = await SharedPreferences.getInstance();
+      int newCoins = actualCursinCoins + 2;
 
-          setState(() {
-            coinsPrefs.setInt('cursinCoinsSHP', newCoins);
-            actualCursinCoins = newCoins;
-          });
+      setState(() {
+        coinsPrefs.setInt('cursinCoinsSHP', newCoins);
+        actualCursinCoins = newCoins;
+      });
 
-          //open new coins dialog
-          showDialogMonedasObtenidas();
-        },
-        onAdFailedToShowFullScreenContent: (ad, error) {
-          ad.dispose();
-          print('failed to show the adv $ad');
+      //open new coins dialog
+      showDialogMonedasObtenidas();
+    }, onAdFailedToShowFullScreenContent: (ad, error) {
+      ad.dispose();
+      // print('failed to show the adv $ad');
 
-          //Toast diciendo: no se han podido cargar los anuncios.\n Asegurate de tener una buena conexión a internet, volver a abrir la App o intentar abrir el curso mas tarde, cuando los anuncios estén cargados en tu telefono.
-          Fluttertoast.showToast(
-            msg:
-                "No se han podido cargar los anuncios.\nIntentalo de nuevo en 5 segundos", // message
-            toastLength: Toast.LENGTH_LONG, // length
-            gravity: ToastGravity.BOTTOM, // location
-          );
+      //Toast diciendo: no se han podido cargar los anuncios.\n Asegurate de tener una buena conexión a internet, volver a abrir la App o intentar abrir el curso mas tarde, cuando los anuncios estén cargados en tu telefono.
+      Fluttertoast.showToast(
+        msg:
+            "No se han podido cargar los anuncios.\nIntentalo de nuevo en 5 segundos", // message
+        toastLength: Toast.LENGTH_LONG, // length
+        gravity: ToastGravity.BOTTOM, // location
+      );
 
-          createRewardedAd();
-        });
+      createRewardedAd();
+    });
 
     rewardedAd!.show(onUserEarnedReward: (ad, reward) {
-      print('reward video ${reward.amount} ${reward.type}');
+      // print('reward video ${reward.amount} ${reward.type}');
     });
     rewardedAd = null;
   }
@@ -513,7 +512,7 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
                   //validating internet conection
                   final result = await InternetAddress.lookup('google.com');
                   if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-                    print('connected');
+                    //  print('connected');
 
                     showRewardedAd(); //show ad
                     //Navigator.pop(context); //close dialog

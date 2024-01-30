@@ -34,7 +34,7 @@ class _UltimosCursosListaState extends State<UltimosCursosLista> {
             MediaQuery.of(context).size.width.truncate());
 
     if (size == null) {
-      print('Unable to get height of anchored banner.');
+      //print('Unable to get height of anchored banner.');
       return;
     }
 
@@ -44,7 +44,7 @@ class _UltimosCursosListaState extends State<UltimosCursosLista> {
       request: AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (Ad ad) {
-          print('$ad loaded: ${ad.responseInfo}');
+          // print('$ad loaded: ${ad.responseInfo}');
           if (this.mounted) {
             setState(() {
               // When the ad is loaded, get the ad size and use it to set
@@ -55,7 +55,7 @@ class _UltimosCursosListaState extends State<UltimosCursosLista> {
           }
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          print('Anchored adaptive banner failedToLoad: $error');
+          //print('Anchored adaptive banner failedToLoad: $error');
           ad.dispose();
         },
       ),
