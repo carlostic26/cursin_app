@@ -15,7 +15,7 @@ class _AnimatedBackgroundState extends State<AnimatedBackground>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 5),
+      duration: const Duration(seconds: 2),
     );
 
     _animation = ColorTween(begin: Colors.grey[850], end: Colors.blueGrey)

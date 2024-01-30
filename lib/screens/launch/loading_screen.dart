@@ -11,7 +11,7 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  int maxCourses = 984;
+  int maxCourses = 1004;
   bool buttonEnabled = false;
 
   @override
@@ -47,93 +47,97 @@ class _LoadingScreenState extends State<LoadingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[850],
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 100,
-            ),
-            Container(
-              height: 200,
-              padding: EdgeInsets.symmetric(
-                horizontal: 5,
+      body: Stack(children: [
+        AnimatedBackground(),
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 100,
               ),
-              child: Image.asset("assets/logo.png"),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              padding: EdgeInsets.all(10),
-              child: Row(
+              Container(
+                height: 200,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 5,
+                ),
+                child: Image.asset("assets/logo.png"),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                padding: EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    LinearPercentIndicator(
+                      width: 270.0,
+                      lineHeight: 8,
+                      percent: 100 / 100,
+                      animation: true,
+                      animationDuration: 10000, // 8.5 sec para cargar la barra
+                      progressColor: Colors.blueAccent,
+                    ),
+                  ],
+                ),
+              ),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  LinearPercentIndicator(
-                    width: 270.0,
-                    lineHeight: 8,
-                    percent: 100 / 100,
-                    animation: true,
-                    animationDuration: 10000, // 8.5 sec para cargar la barra
-                    progressColor: Colors.blueAccent,
+                  Text(
+                    "Recopilando ",
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.white,
+                    ),
+                  ),
+                  CountingAnimation(endCount: maxCourses),
+                  Text(
+                    " cursos gratuitos de 22 categorias...",
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.white,
+                    ),
                   ),
                 ],
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Recopilando ",
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: Colors.white,
-                  ),
-                ),
-                CountingAnimation(endCount: maxCourses),
-                Text(
-                  " cursos gratuitos de 22 categorias...",
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 80,
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 50, 0, 50),
-                child: TextButton(
-                  onPressed: buttonEnabled
-                      ? () async {
-                          isLoaded(context);
-                        }
-                      : null, // Desactiva el botón si no está habilitado
-                  style: ButtonStyle(
-                    backgroundColor: buttonEnabled
-                        ? MaterialStateProperty.all<Color>(
-                            Colors.blueAccent,
-                          ) // Color de fondo cuando está habilitado
-                        : MaterialStateProperty.all<Color>(Colors
-                            .grey), // Color de fondo cuando está deshabilitado
-                  ),
+              SizedBox(
+                height: 80,
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 50, 0, 50),
+                  child: TextButton(
+                    onPressed: buttonEnabled
+                        ? () async {
+                            isLoaded(context);
+                          }
+                        : null, // Desactiva el botón si no está habilitado
+                    style: ButtonStyle(
+                      backgroundColor: buttonEnabled
+                          ? MaterialStateProperty.all<Color>(
+                              Colors.blueAccent,
+                            ) // Color de fondo cuando está habilitado
+                          : MaterialStateProperty.all<Color>(Colors
+                              .grey), // Color de fondo cuando está deshabilitado
+                    ),
 
-                  child: Text(
-                    'Continuar',
-                    style: TextStyle(
-                        fontSize: 10,
-                        color: buttonEnabled ? Colors.white : Colors.blueGrey),
+                    child: Text(
+                      'Continuar',
+                      style: TextStyle(
+                          fontSize: 10,
+                          color:
+                              buttonEnabled ? Colors.white : Colors.blueGrey),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
+      ]),
     );
   }
 }

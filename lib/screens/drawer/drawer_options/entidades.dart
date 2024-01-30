@@ -168,6 +168,7 @@ class _EntidadesScreenState extends State<EntidadesScreen> {
       ),
       body: Stack(
         children: [
+          AnimatedBackground(),
           Container(
             height: MediaQuery.of(context).size.height * 0.9,
             child: Padding(
@@ -226,7 +227,7 @@ class _EntidadesScreenState extends State<EntidadesScreen> {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Text(
-              'Estas son las plataformas, empresas y entidades que ofrecen los cursos gratis con certificado que puedes encontrar dentro de Cursin App.\nCreditos a cada una de ellas.',
+              'Estas son las plataformas, empresas y entidades que ofrecen los cursos gratis con certificado que puedes encontrar dentro de Cursin App.C reditos a cada una de ellas.',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 12.0,

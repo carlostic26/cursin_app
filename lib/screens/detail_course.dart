@@ -485,7 +485,7 @@ class _CourseDetailState extends State<CourseDetail> {
                   child: ElevatedButton.icon(
                     style: ButtonStyle(
                       backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.green),
+                          MaterialStateProperty.all<Color>(Colors.blueGrey),
                     ),
                     onPressed: () async {
                       //Read all coins saved
@@ -826,7 +826,7 @@ class _CourseDetailState extends State<CourseDetail> {
               TextButton(
                 child: const Text('Quitar anuncios',
                     style: TextStyle(color: Colors.white, fontSize: 12)),
-                style: TextButton.styleFrom(backgroundColor: Colors.grey),
+                style: TextButton.styleFrom(backgroundColor: Colors.green),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -838,7 +838,7 @@ class _CourseDetailState extends State<CourseDetail> {
               TextButton(
                 child: const Text('Continuar',
                     style: TextStyle(color: Colors.white, fontSize: 12)),
-                style: TextButton.styleFrom(backgroundColor: Colors.green),
+                style: TextButton.styleFrom(backgroundColor: Colors.blueGrey),
                 onPressed: () async {
                   try {
                     final result = await InternetAddress.lookup('google.com');
