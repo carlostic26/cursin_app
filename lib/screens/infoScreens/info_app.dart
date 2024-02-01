@@ -96,28 +96,7 @@ class _infoAppState extends State<infoApp> {
     return Scaffold(
       //no color backg cuz the backg is an image
       backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: Icon(Icons.arrow_back), // Icono del botón de hamburguesa
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            );
-          },
-        ),
-        title: Text(
-          "Información",
-          style: TextStyle(
-            color: darkTheme == false ? Colors.grey[850] : Colors.white,
-            fontSize: 16.0, /*fontWeight: FontWeight.bold*/
-          ),
-        ),
-        centerTitle: true,
-      ),
+      appBar: AppBarWidget(),
       body: Container(
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
@@ -433,16 +412,8 @@ class _infoAppState extends State<infoApp> {
                       padding: EdgeInsets.fromLTRB(10, 2, 10, 10),
                       child: ElevatedButton(
                         style: ButtonStyle(
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                              side: BorderSide(
-                                color: Colors.blueAccent,
-                                width: 2.0,
-                              ),
-                            ),
-                          ),
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Colors.blueGrey), // Color del botón blueGrey
                         ),
                         child: Text(
                           'Dar 5 ⭐ en PlayStore',
@@ -453,7 +424,7 @@ class _infoAppState extends State<infoApp> {
                               'https://play.google.com/store/apps/details?id=com.appcursin.blogspot');
                         },
                       ),
-                    ),
+                    )
                   ],
                 ),
               ),
@@ -475,6 +446,31 @@ class _infoAppState extends State<infoApp> {
               height: MediaQuery.of(context).size.height *
                   0.1, // 10% de la altura de la pantalla
             ),
+    );
+  }
+
+  PreferredSizeWidget AppBarWidget() {
+    return AppBar(
+      elevation: 0,
+      backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
+      leading: Builder(
+        builder: (BuildContext context) {
+          return IconButton(
+            icon: Icon(Icons.arrow_back), // Icono del botón de hamburguesa
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          );
+        },
+      ),
+      title: Text(
+        "Información",
+        style: TextStyle(
+          color: darkTheme == false ? Colors.grey[850] : Colors.white,
+          fontSize: 16.0, /*fontWeight: FontWeight.bold*/
+        ),
+      ),
+      centerTitle: true,
     );
   }
 }
