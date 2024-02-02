@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cursin/screens/detail_course.dart';
 import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
 import 'package:flutter/material.dart';
-import '../../../infrastructure/models/localdb/cursos_PROG_db.dart';
-import '../../../infrastructure/models/localdb/cursos_TIC_db.dart';
+import '../../../infrastructure/localdb/cursos_PROG_db.dart';
+import '../../../infrastructure/localdb/cursos_TIC_db.dart';
 import '../../../screens.dart';
 
 class UltimosCursosLista extends StatefulWidget {
@@ -124,6 +124,9 @@ class _UltimosCursosListaState extends State<UltimosCursosLista> {
 
     // Eliminar duplicados
     courses = uniqueCourseList(courses);
+
+    // Desordenar la lista de cursos
+    courses.shuffle();
 
     return courses;
   }

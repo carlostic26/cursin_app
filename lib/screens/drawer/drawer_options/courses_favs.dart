@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cursin/infrastructure/models/localdb/cursos_PROG_db.dart';
-import 'package:cursin/infrastructure/models/localdb/cursos_TIC_db.dart';
+import 'package:cursin/infrastructure/localdb/cursos_PROG_db.dart';
+import 'package:cursin/infrastructure/localdb/cursos_TIC_db.dart';
 import 'package:cursin/utils/ads_ids/ads.dart';
-import 'package:cursin/infrastructure/models/localdb/cursos_db.dart';
+import 'package:cursin/infrastructure/localdb/cursos_db.dart';
 import 'package:cursin/screens/drawer/drawer.dart';
 import 'package:cursin/screens/drawer/drawer_options/home_menu_categoria.dart';
 import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
-import 'package:cursin/model/curso_lista_model.dart';
+import 'package:cursin/infrastructure/model/curso_lista_model.dart';
 import 'package:cursin/screens/detail_course.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';

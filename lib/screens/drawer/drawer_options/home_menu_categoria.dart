@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cursin/infrastructure/models/localdb/cursos_PROG_db.dart';
-import 'package:cursin/infrastructure/models/localdb/cursos_TIC_db.dart';
+import 'package:cursin/infrastructure/localdb/cursos_PROG_db.dart';
+import 'package:cursin/infrastructure/localdb/cursos_TIC_db.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../screens.dart';
@@ -58,9 +58,10 @@ class _HomeCategoriasSelectCardsState extends State<HomeCategoriasSelectCards> {
       "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi_k3L-nZj9NBZqI9n7IIoiuKl9W8UUltqTwKXaJBQ6A4JU-BYIo6PixXbyIy6ZJfvs4qtI1YCDwmRxPjrORTrmbgLwEJTKEK1cM3FwIl8KgQ1IHtaVXqs5NBWtYZbYAKkJ8_SiRsYNVmHRK-NlwwMF4KgwhJ6Y4v68e0UA3zs7oynbeoE1JzaZcA/w200-h200/icon_ingenieria.png";
   String iconTransp =
       'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjqlpJ4Wua6zioNq5ZvUVfbcmO5iGoTh7L1oxiffB8Ac-nu7n4iGZwybu98k7Rh7kTODwc73ZHmziW1KC_GjaGoAlnQIlLQZ43cPpFe1HK50pXdwnl4w8FU5aEneMwnnOJp6L1bsCThxP2wOWy2tDfwXeFBQ4sd8bUOkgnhEvXADyVWHwH2cDWQ1w/s320/ic_transp.png';
-  late DatabaseHandler handler;
+
+  //late DatabaseHandler handler;
   // ignore: unused_field
-  List<curso>? _cat;
+  //List<curso>? _cat;
 
   bool darkTheme = true;
 
@@ -267,6 +268,17 @@ class _HomeCategoriasSelectCardsState extends State<HomeCategoriasSelectCards> {
               height: 30,
             ),
 
+            // Programación
+            SizedBox(height: 3),
+            buildCategoryWidget(
+              title: 'DESARROLLO Y PROGRAMACIÓN',
+              imageUrl: iconDesarrollo,
+              count: '$countProg',
+              description:
+                  'Cursos gratis sobre desarrollo de software, programación, lenguajes, entre otros.',
+              category: 'Programacion',
+            ),
+
             // Finanzas
             buildCategoryWidget(
               title: 'FINANZAS Y NEGOCIOS',
@@ -288,17 +300,6 @@ class _HomeCategoriasSelectCardsState extends State<HomeCategoriasSelectCards> {
               category: 'TIC',
             ),
 
-            // Programación
-            SizedBox(height: 3),
-            buildCategoryWidget(
-              title: 'DESARROLLO Y PROGRAMACIÓN',
-              imageUrl: iconDesarrollo,
-              count: '$countProg',
-              description:
-                  'Cursos gratis sobre desarrollo de software, programación, lenguajes, entre otros.',
-              category: 'Programacion',
-            ),
-
             // Idiomas
             SizedBox(height: 3),
             buildCategoryWidget(
@@ -308,6 +309,17 @@ class _HomeCategoriasSelectCardsState extends State<HomeCategoriasSelectCards> {
               description:
                   'Cursos gratis sobre Inglés, Japonés, Koreano, Ortografía y demás idiomas',
               category: 'Idiomas',
+            ),
+
+            //IA
+            SizedBox(height: 3),
+            buildCategoryWidget(
+              title: 'INTELIGENCIA ARTIFICIAL',
+              imageUrl: iconIA,
+              count: '$countIA',
+              description:
+                  'Cursos gratis relacionados al mundo de la inteligencia artificial, redes neuronales, deep learning, machine learning, etc...',
+              category: 'IA',
             ),
 
             // Profesionales
@@ -396,16 +408,6 @@ class _HomeCategoriasSelectCardsState extends State<HomeCategoriasSelectCards> {
               description:
                   'Cursos gratis desde básico a avanzado sobre tecnologias, modelos, lenguajes y librerías.',
               category: 'Ciencia y Análisis de Datos',
-            ),
-
-            SizedBox(height: 3),
-            buildCategoryWidget(
-              title: 'INTELIGENCIA ARTIFICIAL',
-              imageUrl: iconIA,
-              count: '$countIA',
-              description:
-                  'Cursos gratis relacionados al mundo de la inteligencia artificial, redes neuronales, deep learning, machine learning, etc...',
-              category: 'IA',
             ),
 
             // Música

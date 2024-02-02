@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:cursin/model/curso_lista_model.dart';
+import 'package:cursin/infrastructure/model/curso_lista_model.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
@@ -9,7 +9,7 @@ class DatabaseTICHandler {
   Future<Database> initializeDB() async {
     String path = await getDatabasesPath();
     return openDatabase(
-      join(path, 'cursos_tic010.db'),
+      join(path, 'cursos_tic011.db'),
       onCreate: (database, version) async {
         final String sql = ''
             'CREATE TABLE cursos_tic ('
@@ -32,6 +32,9 @@ class DatabaseTICHandler {
         final String insertTIC = ''
             'INSERT INTO cursos_tic(title, entidad, categoria, emision, imgcourse, urlcourse, idioma, duracion, description) VALUES '
             //
+            '("Curso gratis de Introducción a la nube", "IBM Cognitive Class", "TIC", "Con certificado gratis", "https://blogger.googleusercontent.com/img/a/AVvXsEiM3hZC_NU6JthRbW8Y4uB2mSt6dzfVT10B8YixN0USDSIkAd-jhbKlkBtzoYTKBKzzcIe78rRBmtk48awbPIEY6clyEqblQiiU7UBVwraXYKwFECtnfxXWf6llpR1RGCzQuSGOy17RNb7-sfvlWYSxKwjM5_Y5cRUGuBYuIk5LsDNDYZj-MtOLmpXR", "https://cognitiveclass.ai/courses/introduction-to-cloud", "Inglés", "6 horas", "Aprenderá sobre la definición y las características esenciales de la computación en la nube, su historia, las tendencias emergentes y el caso de negocio de la computación en la nube. También aprenderá sobre los diversos modelos de servicios en la nube (IaaS, PaaS, SaaS) y modelos de implementación (nube pública, nube privada, nube híbrida), los componentes clave de una arquitectura de nube (virtualización, máquinas virtuales, almacenamiento, redes, contenedores) y las tendencias emergentes de la nube (multinube híbrida, sin servidor, microservicios, nube nativa, modernización de aplicaciones).++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
+            //
+
             '("Curso gratis de Simulink", "MatLab", "TIC", "Con certificado gratis", "https://blogger.googleusercontent.com/img/a/AVvXsEg2BoYqFU6cZklqioqmZwdEZOOL34bqQ1sn1CyjkXTMm3IZfVQ-XA8y7wU4FKUYfDTEQyJgrWKo7WRgsYlvsgEQ5V7bCcV_YldHa8M_8byF5UzzDdEWmXGxrW25xZ_JhNbs4CovVhnmr6UrKd30XaZM4MDS3uVEXUA9-fljUrPngOUOydAL4gEjjMW4", "https://matlabacademy.mathworks.com/es/details/simulink-onramp/simulink", "Inglés", "2 horas", "Este curso es una introducción rápida a los conceptos básicos de Simulink, un entorno de diagramas de bloque que se utiliza para diseñar sistemas con modelos multidominio, simular antes de implementar en hardware y desplegar sin necesidad de escribir código. ++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
             //
             '("Curso gratis de Wordpress" , "WebEmpresa University", "TIC", "Con certificado gratis", "https://blog.underc0de.org/wp-content/uploads/2021/03/wpe.jpg", "https://www.webempresa.com/university/curso-wordpress-gratis/?utm_source=WE&utm_medium=FBAds&utm_campaign=LeadsUniversity&fbclid=IwAR3WYPJuosPXcHMDtkIRFt5N1Um6aXGsF4444BuS_KTU_W3b64S14f63Kv4", "Español", "05 horas", "+En este curso de 12 lecciones empezamos con la instalación de WordPress en un Hosting de forma manual y también de forma automática, aplicamos las configuraciones básicas “recomendadas” en la web e instalamos un Tema (theme).++Vemos cómo crear Páginas y Entradas y la importancia de las taxonomías. ++Creamos menús y añadimos widgets a la “barra lateral derecha” (sidebar) y realizamos la instalación de plugins.++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'

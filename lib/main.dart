@@ -1,11 +1,11 @@
 import 'dart:async';
-import 'package:cursin/infrastructure/models/localdb/cursos_PROG_db.dart';
+import 'package:cursin/infrastructure/localdb/cursos_PROG_db.dart';
 import 'package:cursin/screens.dart';
 import 'package:cursin/screens/launch/dialog_gdpr.dart';
 import 'package:cursin/deprecated/loading_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:gdpr_dialog/gdpr_dialog.dart';
-import 'package:cursin/infrastructure/models/localdb/cursos_TIC_db.dart';
+import 'package:cursin/infrastructure/localdb/cursos_TIC_db.dart';
 
 AppOpenAd? openAd;
 bool isAdLoaded = false;

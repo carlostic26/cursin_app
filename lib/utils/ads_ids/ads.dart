@@ -33,4 +33,5 @@ class CursinAdsIds {
   //rewarded real:real: ca-app-pub-4336409771912215/7921940595
   String reward_adUnitId = 'ca-app-pub-4336409771912215/7921940595';
 }
+ 
  */

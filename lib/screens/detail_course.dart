@@ -21,7 +21,7 @@ const int maxAttempts = 3;
 
 //clase que muestra una pantalla con toda la informacion y detalles del curso que el usuario desea ver
 class _CourseDetailState extends State<CourseDetail> {
-  late DatabaseHandler handler;
+  //late DatabaseHandler handler;
 
   //is a bool that contains when user enter in a course to show ad, if user back, then ad will not showed again by the same course.
   late bool adForCourse;

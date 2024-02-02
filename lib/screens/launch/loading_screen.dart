@@ -134,6 +134,14 @@ class _LoadingScreenState extends State<LoadingScreen> {
                   ),
                 ),
               ),
+/*               Text(
+                "Somos el Google de los cursos gratisen internet",
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ), */
             ],
           ),
         ),
