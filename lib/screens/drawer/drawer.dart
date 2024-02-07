@@ -3,6 +3,7 @@ import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
 import 'package:cursin/screens/drawer/drawer_options/ultimos_cursos.dart';
 import 'package:cursin/screens/webview/webviewTutoriales.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../screens.dart';
 
@@ -140,7 +141,7 @@ class _drawerCursinState extends State<drawerCursin> {
                                 'Nuevo',
                                 textStyle: TextStyle(
                                   color: Colors.red,
-                                  fontSize: 12,
+                                  fontSize: 10,
                                   fontWeight: FontWeight.bold,
                                 ),
                                 colors: [
@@ -202,7 +203,7 @@ class _drawerCursinState extends State<drawerCursin> {
                               'Nuevo',
                               textStyle: TextStyle(
                                 color: Colors.red,
-                                fontSize: 12,
+                                fontSize: 10,
                                 fontWeight: FontWeight.bold,
                               ),
                               colors: [
@@ -270,7 +271,7 @@ class _drawerCursinState extends State<drawerCursin> {
                               'Nuevo',
                               textStyle: TextStyle(
                                 color: Colors.red,
-                                fontSize: 12,
+                                fontSize: 10,
                                 fontWeight: FontWeight.bold,
                               ),
                               colors: [
@@ -329,6 +330,53 @@ class _drawerCursinState extends State<drawerCursin> {
                 }),
 
             ListTile(
+                title: Row(
+                  children: [
+                    Text("Solicitar un curso",
+                        style: TextStyle(
+                            color: darkTheme == true
+                                ? Colors.white
+                                : Colors.grey[850])),
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
+                          child: AnimatedTextKit(
+                            animatedTexts: [
+                              ColorizeAnimatedText(
+                                'Nuevo',
+                                textStyle: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                colors: [
+                                  Colors.red,
+                                  Colors.yellow,
+                                  Colors.green,
+                                  Colors.blue,
+                                  Colors.purple,
+                                ],
+                                speed: Duration(milliseconds: 500),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                leading: Icon(
+                  Icons.send,
+                  color: darkTheme == true ? Colors.white : Colors.grey[850],
+                ),
+                //at press, run the method
+                onTap: () {
+                  solicitarCursoDialog(context);
+                }),
+
+            ListTile(
                 title: Text("¿Problemas para ingresar?",
                     style: TextStyle(
                         color: darkTheme == true
@@ -383,7 +431,7 @@ class _drawerCursinState extends State<drawerCursin> {
                                 'Nuevo',
                                 textStyle: TextStyle(
                                   color: Colors.red,
-                                  fontSize: 12,
+                                  fontSize: 10,
                                   fontWeight: FontWeight.bold,
                                 ),
                                 colors: [
@@ -520,7 +568,7 @@ class _drawerCursinState extends State<drawerCursin> {
                       "¿Problemas para entrar a un curso?",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Colors.grey,
+                          color: Colors.black,
                           fontSize: 20.0),
                     ),
                     SizedBox(
@@ -533,7 +581,9 @@ class _drawerCursinState extends State<drawerCursin> {
                           ' \n\n2. Verifica tu conexión a internet. Los cursos funcionan solo si tienes conexión a internet, cambiate a WiFi si no puedes entrar con datos móviles.' +
                           ' \n\n3. Corrige tu DNS de conexion para que no bloquee los anuncios, ya que estos son necesarios para que Cursin pueda seguir existiendo.' +
                           ' \n\n4. Intenta volver abrir el curso 2 o 3 veces. O vuelve en un par de minutos.',
-                      style: TextStyle(color: Colors.grey, fontSize: 13.0),
+                      style: TextStyle(
+                          color: const Color.fromARGB(255, 50, 50, 50),
+                          fontSize: 13.0),
                     ),
                   ]),
               children: <Widget>[
@@ -543,13 +593,13 @@ class _drawerCursinState extends State<drawerCursin> {
                     child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(
-                            Colors.green), // Cambia el color del botón a verde
+                            Colors.blue), // Cambia el color del botón a verde
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18.0),
                             side: BorderSide(
-                              color: Colors.green,
+                              color: Colors.blue,
                               width: 2.0,
                             ),
                           ),
@@ -698,6 +748,55 @@ class _drawerCursinState extends State<drawerCursin> {
       MaterialPageRoute(
         builder: (_) => searchedCourses(),
       ),
+    );
+  }
+
+  void solicitarCursoDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Solicitar un curso nuevo',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 16),
+                Text(
+                  'Puedes solicitar un curso nuevo ÚNICAMENTE si NO lo has encontrado dentro de Cursin. '
+                  '\n\nCada semana indexamos cursos nuevos, y avisamos a traves de Telegram.',
+                ),
+                SizedBox(height: 24),
+                ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        Colors.blue), // Color de fondo azul
+                    foregroundColor: MaterialStateProperty.all<Color>(
+                        Colors.white), // Color del texto blanco
+                  ),
+                  onPressed: () async {
+                    Navigator.pop(context);
+                    const url = 'https://t.me/cursosgratisconcertificado';
+                    if (await canLaunch(url)) {
+                      await launch(url);
+                    } else {
+                      throw 'No se pudo abrir el enlace $url';
+                    }
+                  },
+                  child: Text('Solicitar en Telegram'),
+                )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
