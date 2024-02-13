@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cursin/infrastructure/localdb/cursos_PROG_db.dart';
 import 'package:cursin/infrastructure/localdb/cursos_TIC_db.dart';
-import 'package:cursin/utils/ads_ids/ads.dart';
 import 'package:cursin/infrastructure/localdb/cursos_db.dart';
+import 'package:cursin/utils/ads_ids/ads.dart';
+
 import 'package:cursin/screens/drawer/drawer.dart';
-import 'package:cursin/screens/drawer/drawer_options/home_menu_categoria.dart';
 import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
 import 'package:cursin/infrastructure/model/curso_lista_model.dart';
 import 'package:cursin/screens/detail_course.dart';
@@ -21,7 +21,7 @@ class CoursesFavs extends StatefulWidget {
 }
 
 class _CoursesFavsState extends State<CoursesFavs> {
-  late DatabaseHandler handler;
+  late DatabaseHandlerGen handler;
   late DatabaseProgHandler progHandler;
   late DatabaseTICHandler ticHandler;
 
@@ -105,11 +105,12 @@ class _CoursesFavsState extends State<CoursesFavs> {
 
   @override
   void initState() {
+    super.initState();
     //es necesario inicializar el sharedpreferences tema, para que la variable book darkTheme esté inicializada como la recepcion del valor del sharedpreferences
     getSharedThemePrefs();
     //_loadAdaptativeAd();
 
-    handler = DatabaseHandler();
+    handler = DatabaseHandlerGen();
     ticHandler = DatabaseTICHandler();
     progHandler = DatabaseProgHandler();
 
@@ -118,8 +119,6 @@ class _CoursesFavsState extends State<CoursesFavs> {
         _curso = getListFav();
       });
     });
-
-    super.initState();
   }
 
   void onClickedNotifications(String? payload) {

@@ -558,6 +558,7 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
         ),
       ),
     ];
+
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 3, 36, 53),
       body: AlertDialog(

@@ -25,7 +25,7 @@ export 'dart:io';
 export 'package:cursin/utils/ads_ids/ads.dart';
 export 'package:giff_dialog/giff_dialog.dart';
 export 'package:cursin/infrastructure/model/curso_lista_model.dart';
-export 'package:cursin/infrastructure/localdb/cursos_db.dart';
+
 export 'package:fluttertoast/fluttertoast.dart';
 export 'dart:math';
 export 'package:cursin/screens/drawer/drawer.dart';

@@ -1,5 +1,70 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:cursin/screens.dart';
+
+AppOpenAd? openAd;
+bool isAdLoaded = false;
+
+Future<void> loadOpenAd() async {
+  CursinAdsIds cursinAds = CursinAdsIds();
+  try {
+    await AppOpenAd.load(
+      adUnitId: cursinAds.openApp_adUnitId,
+      request: const AdRequest(),
+      adLoadCallback: AppOpenAdLoadCallback(
+        onAdLoaded: (ad) {
+          openAd = ad;
+          openAd!.show();
+          isAdLoaded = true;
+        },
+        onAdFailedToLoad: (error) {
+          isAdLoaded = false;
+        },
+      ),
+      orientation: AppOpenAd.orientationPortrait,
+    );
+  } catch (e) {
+    print('Error loading open ad: $e');
+    isAdLoaded = false;
+  }
+}
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await MobileAds.instance.initialize();
+  final themePreference = ThemePreference();
+  await themePreference.initialize();
+
+  await loadOpenAd();
+
+  Timer(Duration(seconds: 10), () async {
+    if (!isAdLoaded) {
+      openAd?.dispose();
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('adCancelado', true);
+    } else {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('adCancelado', false);
+    }
+  });
+
+  await LocalNotifications.initializeLocalNotificatios();
+  await LocalNotifications.requestPermissionLocalNotification();
+
+  runApp(ProviderScope(
+    child: MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: LoadingScreen(),
+    ),
+  ));
+}
+
+
+
+
+/* import 'dart:async';
 import 'package:cursin/infrastructure/localdb/cursos_PROG_db.dart';
+import 'package:cursin/infrastructure/localdb/cursos_db.dart';
 import 'package:cursin/screens.dart';
 import 'package:cursin/screens/launch/dialog_gdpr.dart';
 import 'package:cursin/deprecated/loading_screen.dart';
@@ -41,10 +106,11 @@ Future<void> main() async {
   final themePreference = ThemePreference();
   await themePreference.initialize();
 
-  //init db sqlite
-  await DatabaseHandler().initializeDB();
-  await DatabaseTICHandler().initializeDB();
-  await DatabaseProgHandler().initializeDB();
+/*   try {
+    await DatabaseHandlerGen().initializeDB();
+  } catch (e) {
+    print('Error durante la inicialización de bases de datos de main: $e');
+  } */
 
   await MobileAds.instance.initialize();
   // Inicializar anuncio de apertura y cancelar después de 9 segundos
@@ -75,3 +141,4 @@ Future<void> main() async {
     ),
   ));
 }
+ */

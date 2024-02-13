@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cursin/infrastructure/localdb/cursos_PROG_db.dart';
 import 'package:cursin/infrastructure/localdb/cursos_TIC_db.dart';
+import 'package:cursin/infrastructure/localdb/cursos_db.dart';
 import 'package:cursin/screens/detail_course.dart';
 import 'package:flutter/material.dart';
 import '../../../screens.dart';
@@ -16,7 +17,7 @@ class searchedCourses extends StatefulWidget {
 }
 
 class _searchedCoursesState extends State<searchedCourses> {
-  late DatabaseHandler handler;
+  late DatabaseHandlerGen handler;
   late DatabaseTICHandler handlerTIC;
   late DatabaseProgHandler handlerProg;
 
@@ -111,7 +112,7 @@ class _searchedCoursesState extends State<searchedCourses> {
     List<curso> courses = [];
 
     // Buscar en la base de datos genérica
-    DatabaseHandler handler = DatabaseHandler();
+    DatabaseHandlerGen handler = DatabaseHandlerGen();
     courses.addAll(await handler.coursesResultQueryGeneric(query));
 
     // Buscar en la base de datos de Programación
@@ -465,7 +466,7 @@ class _searchedCoursesState extends State<searchedCourses> {
 
     if (courseToSearch != '') {
       //recibe en un objeto _todo los cursos que encontró
-      handler = DatabaseHandler();
+      handler = DatabaseHandlerGen();
       handler.initializeDB().whenComplete(() async {
         setState(() {
           //_todo contains the result of courses query

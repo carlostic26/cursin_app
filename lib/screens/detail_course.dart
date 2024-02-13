@@ -10,23 +10,16 @@ class CourseDetail extends StatefulWidget {
 
   CourseDetail({required this.td});
 
-  late String puntoPartida;
-  late String catProvino;
-
   @override
   State<CourseDetail> createState() => _CourseDetailState();
 }
 
 const int maxAttempts = 3;
 
-//clase que muestra una pantalla con toda la informacion y detalles del curso que el usuario desea ver
 class _CourseDetailState extends State<CourseDetail> {
-  //late DatabaseHandler handler;
-
-  //is a bool that contains when user enter in a course to show ad, if user back, then ad will not showed again by the same course.
   late bool adForCourse;
   bool _isVisible = true;
-  late Timer _timer; // Declarar la variable timer aquí
+  late Timer _timer;
 
   BannerAd? _anchoredAdaptiveAd;
   bool _isLoaded = false;
@@ -56,7 +49,6 @@ class _CourseDetailState extends State<CourseDetail> {
   int rewardedAdAttempts = 0;
 
 //Creating interstitial
-  //not used for the moment
   void createInterstitialAd() {
     InterstitialAd.load(
         // ignore: deprecated_member_use

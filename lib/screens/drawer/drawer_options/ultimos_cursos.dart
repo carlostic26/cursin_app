@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cursin/infrastructure/localdb/cursos_db.dart';
 import 'package:cursin/screens/detail_course.dart';
 import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class UltimosCursosLista extends StatefulWidget {
 const int maxAttempts = 3;
 
 class _UltimosCursosListaState extends State<UltimosCursosLista> {
-  late DatabaseHandler handler;
+  late DatabaseHandlerGen handler;
   Future<List<curso>>? _curso;
 
   BannerAd? _anchoredAdaptiveAd;
@@ -88,7 +89,7 @@ class _UltimosCursosListaState extends State<UltimosCursosLista> {
   void initState() {
     getSharedThemePrefs();
     //_loadAdaptativeAd();
-    handler = DatabaseHandler();
+    handler = DatabaseHandlerGen();
     handler.initializeDB().whenComplete(() async {
       setState(() {
         //_curso = getList();
@@ -114,7 +115,7 @@ class _UltimosCursosListaState extends State<UltimosCursosLista> {
     courses.addAll(await handlerProg.todos());
 
     // Buscar en la base de datos genérica
-    DatabaseHandler handler = DatabaseHandler();
+    DatabaseHandlerGen handler = DatabaseHandlerGen();
     courses.addAll(await handler.todos());
 
     DatabaseTICHandler handlerTIC = DatabaseTICHandler();

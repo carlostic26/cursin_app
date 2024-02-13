@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cursin/infrastructure/localdb/cursos_PROG_db.dart';
 import 'package:cursin/infrastructure/localdb/cursos_TIC_db.dart';
+import 'package:cursin/infrastructure/localdb/cursos_db.dart';
 import 'package:cursin/screens/detail_course.dart';
 import 'package:flutter/material.dart';
 import '../../../screens.dart';
@@ -15,7 +16,7 @@ class categorias extends StatefulWidget {
 }
 
 class _categoriaState extends State<categorias> {
-  late DatabaseHandler handler;
+  late DatabaseHandlerGen handler;
   late DatabaseTICHandler handlerTIC;
   late DatabaseProgHandler handlerProg;
 
@@ -32,162 +33,14 @@ class _categoriaState extends State<categorias> {
     }
   }
 
-  void setCategory() {
+  Future<void> setCategory() async {
+    handler = DatabaseHandlerGen();
+    handlerProg = DatabaseProgHandler();
+    handlerTIC = DatabaseTICHandler();
+
     switch (widget.catProviene) {
-      case "Transporte":
-        {
-          handler = DatabaseHandler();
-          handler.initializeDB().whenComplete(() async {
-            List<curso> list = await getListTransporte();
-            list.shuffle();
-            setState(() {
-              _curso = Future.value(list);
-            });
-          });
-        }
-        break;
-      case "Ingenieria":
-        {
-          handler = DatabaseHandler();
-          handler.initializeDB().whenComplete(() async {
-            List<curso> list = await getListIngenieria();
-            list.shuffle();
-            setState(() {
-              _curso = Future.value(list);
-            });
-          });
-        }
-        break;
-      case "Trabajos Varios":
-        {
-          handler = DatabaseHandler();
-          handler.initializeDB().whenComplete(() async {
-            List<curso> list = await getListTrabajosVarios();
-            list.shuffle();
-            setState(() {
-              _curso = Future.value(list);
-            });
-          });
-        }
-        break;
-      case "Cocina y alimentos":
-        {
-          handler = DatabaseHandler();
-          handler.initializeDB().whenComplete(() async {
-            List<curso> list = await getListCocina();
-            list.shuffle();
-            setState(() {
-              _curso = Future.value(list);
-            });
-          });
-        }
-        break;
-      case "Agropecuario":
-        {
-          handler = DatabaseHandler();
-          handler.initializeDB().whenComplete(() async {
-            List<curso> list = await getListAgropecuario();
-            list.shuffle();
-            setState(() {
-              _curso = Future.value(list);
-            });
-          });
-        }
-        break;
-      case "Marketing":
-        {
-          handler = DatabaseHandler();
-          handler.initializeDB().whenComplete(() async {
-            List<curso> list = await getListMarketing();
-            list.shuffle();
-            setState(() {
-              _curso = Future.value(list);
-            });
-          });
-        }
-        break;
-
-      case "Razonamiento":
-        {
-          handler = DatabaseHandler();
-          handler.initializeDB().whenComplete(() async {
-            List<curso> list = await getListRazonamiento();
-            list.shuffle();
-            setState(() {
-              _curso = Future.value(list);
-            });
-          });
-        }
-        break;
-
-      case "Belleza":
-        {
-          handler = DatabaseHandler();
-          handler.initializeDB().whenComplete(() async {
-            List<curso> list = await getListBelleza();
-            list.shuffle();
-            setState(() {
-              _curso = Future.value(list);
-            });
-          });
-        }
-        break;
-
-      case "Artes":
-        {
-          handler = DatabaseHandler();
-          handler.initializeDB().whenComplete(() async {
-            List<curso> list = await getListArtes();
-            list.shuffle();
-            setState(() {
-              _curso = Future.value(list);
-            });
-          });
-        }
-        break;
-
-      case "Finanzas":
-        {
-          handler = DatabaseHandler();
-          handler.initializeDB().whenComplete(() async {
-            List<curso> list = await getListFinanzas();
-            list.shuffle();
-            setState(() {
-              _curso = Future.value(list);
-            });
-          });
-        }
-        break;
-
-      case "Salud":
-        {
-          handler = DatabaseHandler();
-          handler.initializeDB().whenComplete(() async {
-            List<curso> list = await getListSalud();
-            list.shuffle();
-            setState(() {
-              _curso = Future.value(list);
-            });
-          });
-        }
-        break;
-
-      case "Idiomas":
-        {
-          handler = DatabaseHandler();
-          handler.initializeDB().whenComplete(() async {
-            List<curso> list = await getListIdiomas();
-            list.shuffle();
-            setState(() {
-              _curso = Future.value(list);
-            });
-          });
-        }
-        break;
-
       case "Programacion":
         {
-          handlerProg = DatabaseProgHandler();
           handlerProg.initializeDB().whenComplete(() async {
             List<curso> list = await getListProgramacion();
             list.shuffle();
@@ -200,9 +53,146 @@ class _categoriaState extends State<categorias> {
 
       case "TIC":
         {
-          handlerTIC = DatabaseTICHandler();
           handlerTIC.initializeDB().whenComplete(() async {
             List<curso> list = await getListIT();
+            list.shuffle();
+            setState(() {
+              _curso = Future.value(list);
+            });
+          });
+        }
+        break;
+      case "Transporte":
+        {
+          handler.initializeDB().whenComplete(() async {
+            List<curso> list = await getListTransporte();
+            list.shuffle();
+            setState(() {
+              _curso = Future.value(list);
+            });
+          });
+        }
+        break;
+      case "Ingenieria":
+        {
+          handler.initializeDB().whenComplete(() async {
+            List<curso> list = await getListIngenieria();
+            list.shuffle();
+            setState(() {
+              _curso = Future.value(list);
+            });
+          });
+        }
+        break;
+      case "Trabajos Varios":
+        {
+          handler.initializeDB().whenComplete(() async {
+            List<curso> list = await getListTrabajosVarios();
+            list.shuffle();
+            setState(() {
+              _curso = Future.value(list);
+            });
+          });
+        }
+        break;
+      case "Cocina y alimentos":
+        {
+          handler.initializeDB().whenComplete(() async {
+            List<curso> list = await getListCocina();
+            list.shuffle();
+            setState(() {
+              _curso = Future.value(list);
+            });
+          });
+        }
+        break;
+      case "Agropecuario":
+        {
+          handler.initializeDB().whenComplete(() async {
+            List<curso> list = await getListAgropecuario();
+            list.shuffle();
+            setState(() {
+              _curso = Future.value(list);
+            });
+          });
+        }
+        break;
+      case "Marketing":
+        {
+          handler.initializeDB().whenComplete(() async {
+            List<curso> list = await getListMarketing();
+            list.shuffle();
+            setState(() {
+              _curso = Future.value(list);
+            });
+          });
+        }
+        break;
+
+      case "Razonamiento":
+        {
+          handler.initializeDB().whenComplete(() async {
+            List<curso> list = await getListRazonamiento();
+            list.shuffle();
+            setState(() {
+              _curso = Future.value(list);
+            });
+          });
+        }
+        break;
+
+      case "Belleza":
+        {
+          handler.initializeDB().whenComplete(() async {
+            List<curso> list = await getListBelleza();
+            list.shuffle();
+            setState(() {
+              _curso = Future.value(list);
+            });
+          });
+        }
+        break;
+
+      case "Artes":
+        {
+          handler.initializeDB().whenComplete(() async {
+            List<curso> list = await getListArtes();
+            list.shuffle();
+            setState(() {
+              _curso = Future.value(list);
+            });
+          });
+        }
+        break;
+
+      case "Finanzas":
+        {
+          handler.initializeDB().whenComplete(() async {
+            List<curso> list = await getListFinanzas();
+            list.shuffle();
+            setState(() {
+              _curso = Future.value(list);
+            });
+          });
+        }
+        break;
+
+      case "Salud":
+        {
+          handler.initializeDB().whenComplete(() async {
+            List<curso> list = await getListSalud();
+            list.shuffle();
+            setState(() {
+              _curso = Future.value(list);
+            });
+          });
+        }
+        break;
+
+      case "Idiomas":
+        {
+          handler.initializeDB().whenComplete(() async {
+            List<curso> list = await getListIdiomas();
             list.shuffle();
             setState(() {
               _curso = Future.value(list);
@@ -213,7 +203,6 @@ class _categoriaState extends State<categorias> {
 
       case "Profesionales":
         {
-          handler = DatabaseHandler();
           handler.initializeDB().whenComplete(() async {
             List<curso> list = await getListProfesionales();
             list.shuffle();
@@ -226,7 +215,6 @@ class _categoriaState extends State<categorias> {
 
       case "Ciberseguridad":
         {
-          handler = DatabaseHandler();
           handler.initializeDB().whenComplete(() async {
             List<curso> list = await getListSeguridadInformatica();
             list.shuffle();
@@ -239,7 +227,6 @@ class _categoriaState extends State<categorias> {
 
       case "Sociales":
         {
-          handler = DatabaseHandler();
           handler.initializeDB().whenComplete(() async {
             List<curso> list = await getListSociales();
             list.shuffle();
@@ -252,7 +239,6 @@ class _categoriaState extends State<categorias> {
 
       case "Crypto":
         {
-          handler = DatabaseHandler();
           handler.initializeDB().whenComplete(() async {
             List<curso> list = await getListCrypto();
             list.shuffle();
@@ -265,7 +251,6 @@ class _categoriaState extends State<categorias> {
 
       case "IA":
         {
-          handler = DatabaseHandler();
           handler.initializeDB().whenComplete(() async {
             List<curso> list = await getListIA();
             list.shuffle();
@@ -278,7 +263,6 @@ class _categoriaState extends State<categorias> {
 
       case "musica":
         {
-          handler = DatabaseHandler();
           handler.initializeDB().whenComplete(() async {
             List<curso> list = await getListMusica();
             list.shuffle();
@@ -291,7 +275,6 @@ class _categoriaState extends State<categorias> {
 
       case "Ciencia y Análisis de Datos":
         {
-          handler = DatabaseHandler();
           handler.initializeDB().whenComplete(() async {
             List<curso> list = await getListDatos();
             list.shuffle();
@@ -304,7 +287,6 @@ class _categoriaState extends State<categorias> {
 
       case "Otros":
         {
-          handler = DatabaseHandler();
           handler.initializeDB().whenComplete(() async {
             List<curso> list = await getListOtros();
             list.shuffle();
