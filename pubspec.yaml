@@ -55,6 +55,8 @@ dependencies:
   animate_do: ^3.0.2
   gdpr_dialog: ^2.1.1
   flutter_dialogs: ^3.0.0
+  youtube_player_flutter: ^8.1.2
+  
 
 dev_dependencies:
   flutter_test:

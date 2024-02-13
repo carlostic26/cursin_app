@@ -35,3 +35,4 @@ export 'package:restart_app/restart_app.dart';
 export 'package:cursin/screens/launch/loading_screen.dart';
 
 export 'package:cursin/screens/widgets/animated_background.dart';
+export 'package:youtube_player_flutter/youtube_player_flutter.dart';

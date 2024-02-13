@@ -2,7 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cursin/infrastructure/localdb/cursos_PROG_db.dart';
 import 'package:cursin/infrastructure/localdb/cursos_TIC_db.dart';
 import 'package:cursin/infrastructure/localdb/cursos_db.dart';
+import 'package:cursin/screens/drawer/drawer_options/tutoriales.dart';
+import 'package:cursin/screens/launch/tutorial_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import '../../../screens.dart';
 
 class HomeCategoriasSelectCards extends StatefulWidget {
@@ -295,255 +298,7 @@ class _HomeCategoriasSelectCardsState extends State<HomeCategoriasSelectCards> {
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(8, 8, 8, 1),
-        child: ListView(
-          children: [
-            //¡Hey! ¿Qué vamos a estudiar hoy?
-            saludoWidget(),
-
-            SizedBox(
-              height: 30,
-            ),
-
-            // Programación
-            buildCategoryWidget(
-              title: 'DESARROLLO Y PROGRAMACIÓN',
-              imageUrl: categoryIcons['iconDesarrollo'],
-              count: '${categoryCounts['Programación']}',
-              description:
-                  'Cursos gratis sobre desarrollo de software, programación, lenguajes, entre otros.',
-              category: 'Programacion',
-            ),
-
-// Finanzas
-            buildCategoryWidget(
-              title: 'FINANZAS Y NEGOCIOS',
-              imageUrl: categoryIcons['iconFinanzas'],
-              count: '${categoryCounts['Finanzas']}',
-              description:
-                  'Cursos gratis relacionados al mundo de las finanzas, la contabilidad, los negocios y la administración',
-              category: 'Finanzas',
-            ),
-
-// TIC
-            SizedBox(height: 3),
-            buildCategoryWidget(
-              title: 'INFORMÁTICA Y TIC',
-              imageUrl: categoryIcons['iconTIC'],
-              count: '${categoryCounts['TIC']}',
-              description:
-                  'Cursos gratis relacionados a las TIC, electrónica, redes, telecomunicaciones ofimática e informática en general.',
-              category: 'TIC',
-            ),
-
-// Idiomas
-            SizedBox(height: 3),
-            buildCategoryWidget(
-              title: 'IDIOMAS Y LENGUAJES',
-              imageUrl: categoryIcons['iconIdiomas'],
-              count: '${categoryCounts['Idiomas']}',
-              description:
-                  'Cursos gratis sobre Inglés, Japonés, Koreano, Ortografía y demás idiomas',
-              category: 'Idiomas',
-            ),
-
-//IA
-            SizedBox(height: 3),
-            buildCategoryWidget(
-              title: 'INTELIGENCIA ARTIFICIAL',
-              imageUrl: categoryIcons['iconIA'],
-              count: '${categoryCounts['IA']}',
-              description:
-                  'Cursos gratis relacionados al mundo de la inteligencia artificial, redes neuronales, deep learning, machine learning, etc...',
-              category: 'IA',
-            ),
-
-// Profesionales
-            SizedBox(height: 3),
-            buildCategoryWidget(
-              title: 'FORMACIÓN PROFESIONAL',
-              imageUrl: categoryIcons['iconProfesionales'],
-              count: '${categoryCounts['Profesionales']}',
-              description:
-                  'Cursos gratis relacionados con el mejoramiento y crecimiento del perfil profesional',
-              category: 'Profesionales',
-            ),
-
-// Marketing Digital
-            SizedBox(height: 3),
-            buildCategoryWidget(
-              title: 'MARKETING DIGITAL',
-              imageUrl: categoryIcons['iconMarketing'],
-              count: '${categoryCounts['Marketing']}',
-              description:
-                  'Cursos gratis relacionados con la promoción, publicidad, ventas en línea y marketing en general',
-              category: 'Marketing',
-            ),
-
-// Razonamiento Cuantitativo
-            SizedBox(height: 3),
-            buildCategoryWidget(
-              title: 'RAZONAMIENTO CUANTITATIVO',
-              imageUrl: categoryIcons['iconRazonamiento'],
-              count: '${categoryCounts['Razonamiento']}',
-              description:
-                  'Cursos gratis sobre números, cálculo, análisis numéricos, estadística, entre otros',
-              category: 'Razonamiento',
-            ),
-
-// Salud
-            SizedBox(height: 3),
-            buildCategoryWidget(
-              title: 'SALUD Y BIENESTAR',
-              imageUrl: categoryIcons['iconSalud'],
-              count: '${categoryCounts['Salud']}',
-              description:
-                  'Cursos gratis sobre el área del bienestar y la salud como medicina, psicología, nutrición, cuidados, entre otros',
-              category: 'Salud',
-            ),
-
-// Seguridad Informática
-            SizedBox(height: 3),
-            buildCategoryWidget(
-              title: 'SEGURIDAD INFORMÁTICA',
-              imageUrl: categoryIcons['iconSeguridad'],
-              count: '${categoryCounts['Ciberseguridad']}',
-              description:
-                  'Cursos gratis relacionados con el hacking ético, seguridad en redes, seguridad informática en general',
-              category: 'Ciberseguridad',
-            ),
-
-// Trabajos Varios
-            SizedBox(height: 3),
-            buildCategoryWidget(
-              title: 'TRABAJOS VARIOS',
-              imageUrl: categoryIcons['iconTrabajos'],
-              count: '${categoryCounts['Trabajos Varios']}',
-              description:
-                  'Cursos gratis relacionados con trabajos que no requieren una educación formal como limpiador, bodeguero, auxiliar, panadero, voluntario, paseador y más.',
-              category: 'Trabajos Varios',
-            ),
-// Ingeniería
-            SizedBox(height: 3),
-            buildCategoryWidget(
-              title: 'INGENIERIA',
-              imageUrl: categoryIcons['iconIng'],
-              count: '${categoryCounts['Ingenieria']}',
-              description:
-                  'Cursos gratis relacionados con la ingeniería civil, ingeniería mecánica, ingeniería industrial, ingeniería mecatrónica y afines.',
-              category: 'Ingenieria',
-            ),
-
-// Ciencia y Análisis de Datos
-            SizedBox(height: 3),
-            buildCategoryWidget(
-              title: 'CIENCIA Y ANÁLISIS DE DATOS',
-              imageUrl: categoryIcons['iconDatos'],
-              count: '${categoryCounts['Ciencia y Análisis de Datos']}',
-              description:
-                  'Cursos gratis desde básico a avanzado sobre tecnologías, modelos, lenguajes y librerías.',
-              category: 'Ciencia y Análisis de Datos',
-            ),
-
-// Música
-            SizedBox(height: 3),
-            buildCategoryWidget(
-              title: 'MÚSICA',
-              imageUrl: categoryIcons['iconMusica'],
-              count: '${categoryCounts['Musica']}',
-              description:
-                  'Cursos gratis sobre instrumentos musicales, géneros, canto, teoría musical, técnica de instrumentos, interpretación, composición, entre otros...',
-              category: 'musica',
-            ),
-
-// Cocina y Alimentos
-            SizedBox(height: 3),
-            buildCategoryWidget(
-              title: 'COCINA Y ALIMENTOS',
-              imageUrl: categoryIcons['iconCocina'],
-              count: '${categoryCounts['Cocina y alimentos']}',
-              description:
-                  'Cursos gratis sobre nutrición, alimentos y gastronomía, incluyendo técnicas de cocina, repostería, panadería, cocina internacional, entre otros...',
-              category: 'Cocina y alimentos',
-            ),
-
-// Transporte
-            SizedBox(height: 3),
-            buildCategoryWidget(
-              title: 'TRANSPORTE',
-              imageUrl: categoryIcons['iconTransp'],
-              count: '${categoryCounts['Transporte']}',
-              description:
-                  'Cursos gratuitos relacionados con la conducción de vehículos: moto, carro, transporte de carga, transporte en general y más.',
-              category: 'Transporte',
-            ),
-
-// Agropecuario
-            SizedBox(height: 3),
-            buildCategoryWidget(
-              title: 'AGROPECUARIO',
-              imageUrl: categoryIcons['iconAgro'],
-              count: '${categoryCounts['Agropecuario']}',
-              description:
-                  'Cursos gratuitos relacionados con el sector agrícola y pecuario, incluyendo agricultura, ganadería, horticultura, piscicultura, apicultura, jardinería, entre otros...',
-              category: 'Agropecuario',
-            ),
-
-// Artes
-            SizedBox(height: 3),
-            buildCategoryWidget(
-              title: 'ARTES',
-              imageUrl: categoryIcons['iconArtes'],
-              count: '${categoryCounts['Artes']}',
-              description:
-                  'Cursos gratuitos relacionados con el diseño gráfico, dibujo, literatura, actuación y arte en general, incluyendo pintura, escultura, fotografía, historia del arte, entre otros...',
-              category: 'Artes',
-            ),
-
-// Crypto y Trading
-            SizedBox(height: 3),
-            buildCategoryWidget(
-              title: 'CRYPTO Y TRADING',
-              imageUrl: categoryIcons['iconCrypto'],
-              count: '${categoryCounts['Crypto']}',
-              description:
-                  'Cursos gratis relacionados al mundo de las Criptomonedas, el blockchain y demás tecnologías de la web3',
-              category: 'Crypto',
-            ),
-
-// Sociales, Sociedades y Jurídicas
-            SizedBox(height: 3),
-            buildCategoryWidget(
-              title: 'SOCIALES, SOCIEDADES Y JURÍDICAS',
-              imageUrl: categoryIcons['iconSociales'],
-              count: '${categoryCounts['Sociales']}',
-              description:
-                  'Cursos gratis sobre derecho, sociedad, leyes, trabajo social, sociología, política, entre otros...',
-              category: 'Sociales',
-            ),
-
-// Moda y Belleza
-            SizedBox(height: 3),
-            buildCategoryWidget(
-              title: 'MODA Y BELLEZA',
-              imageUrl: categoryIcons['iconCosmeticos'],
-              count: '${categoryCounts['Belleza']}',
-              description:
-                  'Cursos gratis relacionados con el cuidado de la piel, tatuajes, peluquería, manicura, barbería, pedicura, dermatología, entre otros...',
-              category: 'Belleza',
-            ),
-
-// Otros
-            SizedBox(height: 3),
-            buildCategoryWidget(
-              title: 'OTROS CURSOS ...',
-              imageUrl: categoryIcons['iconOtros'],
-              count: '+800',
-              description:
-                  'Aquí podrás encontrar los cursos que aún no tienen categoría debido al bajo número registrados',
-              category: 'Otros',
-            ),
-          ],
-        ),
+        child: _listViewCategoryWidget(),
       ),
       drawer: drawerCursin(
         context: context,
@@ -560,30 +315,77 @@ class _HomeCategoriasSelectCardsState extends State<HomeCategoriasSelectCards> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(5, 15, 0, 0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        //crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            '¡Hey! ¿Qué vamos a estudiar hoy?',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 15,
-              color: Colors.grey,
-            ),
-          ),
-          Text(
-            'Explorar cursos',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 30,
-              color: darkTheme == false ? Colors.grey[450] : Colors.white,
-            ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '¡Hey! ¿Qué vamos a estudiar hoy?',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Text(
+                    'Explorar cursos',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color:
+                          darkTheme == false ? Colors.grey[450] : Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+              Spacer(),
+              Column(
+                //mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => (TutorialesScreen())));
+                    },
+                    icon: Icon(
+                      Icons.ondemand_video,
+                      size: 35.0,
+                      color: Colors.grey,
+                    ),
+                    label: Text(''),
+                    style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      backgroundColor: Colors.transparent,
+                      shadowColor: Colors.transparent,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                    child: Text(
+                      'Tutorial',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
           SizedBox(
             height: 10,
           ),
           Container(
             height: 50,
-            width: sizeWidth * 0.9,
+            width: sizeWidth * 0.95,
             child: Row(
               children: [
                 Container(
@@ -637,6 +439,258 @@ class _HomeCategoriasSelectCardsState extends State<HomeCategoriasSelectCards> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _listViewCategoryWidget() {
+    return ListView(
+      children: [
+        //¡Hey! ¿Qué vamos a estudiar hoy?
+        saludoWidget(),
+
+        SizedBox(
+          height: 30,
+        ),
+
+        // Programación
+        buildCategoryWidget(
+          title: 'DESARROLLO Y PROGRAMACIÓN',
+          imageUrl: categoryIcons['iconDesarrollo'],
+          count: '${categoryCounts['Programación']}',
+          description:
+              'Cursos gratis sobre desarrollo de software, programación, lenguajes, entre otros.',
+          category: 'Programacion',
+        ),
+
+        // Finanzas
+        buildCategoryWidget(
+          title: 'FINANZAS Y NEGOCIOS',
+          imageUrl: categoryIcons['iconFinanzas'],
+          count: '${categoryCounts['Finanzas']}',
+          description:
+              'Cursos gratis relacionados al mundo de las finanzas, la contabilidad, los negocios y la administración',
+          category: 'Finanzas',
+        ),
+
+        // TIC
+        SizedBox(height: 3),
+        buildCategoryWidget(
+          title: 'INFORMÁTICA Y TIC',
+          imageUrl: categoryIcons['iconTIC'],
+          count: '${categoryCounts['TIC']}',
+          description:
+              'Cursos gratis relacionados a las TIC, electrónica, redes, telecomunicaciones ofimática e informática en general.',
+          category: 'TIC',
+        ),
+
+        // Idiomas
+        SizedBox(height: 3),
+        buildCategoryWidget(
+          title: 'IDIOMAS Y LENGUAJES',
+          imageUrl: categoryIcons['iconIdiomas'],
+          count: '${categoryCounts['Idiomas']}',
+          description:
+              'Cursos gratis sobre Inglés, Japonés, Koreano, Ortografía y demás idiomas',
+          category: 'Idiomas',
+        ),
+
+        //IA
+        SizedBox(height: 3),
+        buildCategoryWidget(
+          title: 'INTELIGENCIA ARTIFICIAL',
+          imageUrl: categoryIcons['iconIA'],
+          count: '${categoryCounts['IA']}',
+          description:
+              'Cursos gratis relacionados al mundo de la inteligencia artificial, redes neuronales, deep learning, machine learning, etc...',
+          category: 'IA',
+        ),
+
+        // Profesionales
+        SizedBox(height: 3),
+        buildCategoryWidget(
+          title: 'FORMACIÓN PROFESIONAL',
+          imageUrl: categoryIcons['iconProfesionales'],
+          count: '${categoryCounts['Profesionales']}',
+          description:
+              'Cursos gratis relacionados con el mejoramiento y crecimiento del perfil profesional',
+          category: 'Profesionales',
+        ),
+
+        // Marketing Digital
+        SizedBox(height: 3),
+        buildCategoryWidget(
+          title: 'MARKETING DIGITAL',
+          imageUrl: categoryIcons['iconMarketing'],
+          count: '${categoryCounts['Marketing']}',
+          description:
+              'Cursos gratis relacionados con la promoción, publicidad, ventas en línea y marketing en general',
+          category: 'Marketing',
+        ),
+
+        // Razonamiento Cuantitativo
+        SizedBox(height: 3),
+        buildCategoryWidget(
+          title: 'RAZONAMIENTO CUANTITATIVO',
+          imageUrl: categoryIcons['iconRazonamiento'],
+          count: '${categoryCounts['Razonamiento']}',
+          description:
+              'Cursos gratis sobre números, cálculo, análisis numéricos, estadística, entre otros',
+          category: 'Razonamiento',
+        ),
+
+        // Salud
+        SizedBox(height: 3),
+        buildCategoryWidget(
+          title: 'SALUD Y BIENESTAR',
+          imageUrl: categoryIcons['iconSalud'],
+          count: '${categoryCounts['Salud']}',
+          description:
+              'Cursos gratis sobre el área del bienestar y la salud como medicina, psicología, nutrición, cuidados, entre otros',
+          category: 'Salud',
+        ),
+
+        // Seguridad Informática
+        SizedBox(height: 3),
+        buildCategoryWidget(
+          title: 'SEGURIDAD INFORMÁTICA',
+          imageUrl: categoryIcons['iconSeguridad'],
+          count: '${categoryCounts['Ciberseguridad']}',
+          description:
+              'Cursos gratis relacionados con el hacking ético, seguridad en redes, seguridad informática en general',
+          category: 'Ciberseguridad',
+        ),
+
+        // Trabajos Varios
+        SizedBox(height: 3),
+        buildCategoryWidget(
+          title: 'TRABAJOS VARIOS',
+          imageUrl: categoryIcons['iconTrabajos'],
+          count: '${categoryCounts['Trabajos Varios']}',
+          description:
+              'Cursos gratis relacionados con trabajos que no requieren una educación formal como limpiador, bodeguero, auxiliar, panadero, voluntario, paseador y más.',
+          category: 'Trabajos Varios',
+        ),
+        // Ingeniería
+        SizedBox(height: 3),
+        buildCategoryWidget(
+          title: 'INGENIERIA',
+          imageUrl: categoryIcons['iconIng'],
+          count: '${categoryCounts['Ingenieria']}',
+          description:
+              'Cursos gratis relacionados con la ingeniería civil, ingeniería mecánica, ingeniería industrial, ingeniería mecatrónica y afines.',
+          category: 'Ingenieria',
+        ),
+
+        // Ciencia y Análisis de Datos
+        SizedBox(height: 3),
+        buildCategoryWidget(
+          title: 'CIENCIA Y ANÁLISIS DE DATOS',
+          imageUrl: categoryIcons['iconDatos'],
+          count: '${categoryCounts['Ciencia y Análisis de Datos']}',
+          description:
+              'Cursos gratis desde básico a avanzado sobre tecnologías, modelos, lenguajes y librerías.',
+          category: 'Ciencia y Análisis de Datos',
+        ),
+
+        // Música
+        SizedBox(height: 3),
+        buildCategoryWidget(
+          title: 'MÚSICA',
+          imageUrl: categoryIcons['iconMusica'],
+          count: '${categoryCounts['Musica']}',
+          description:
+              'Cursos gratis sobre instrumentos musicales, géneros, canto, teoría musical, técnica de instrumentos, interpretación, composición, entre otros...',
+          category: 'musica',
+        ),
+
+        // Cocina y Alimentos
+        SizedBox(height: 3),
+        buildCategoryWidget(
+          title: 'COCINA Y ALIMENTOS',
+          imageUrl: categoryIcons['iconCocina'],
+          count: '${categoryCounts['Cocina y alimentos']}',
+          description:
+              'Cursos gratis sobre nutrición, alimentos y gastronomía, incluyendo técnicas de cocina, repostería, panadería, cocina internacional, entre otros...',
+          category: 'Cocina y alimentos',
+        ),
+
+        // Transporte
+        SizedBox(height: 3),
+        buildCategoryWidget(
+          title: 'TRANSPORTE',
+          imageUrl: categoryIcons['iconTransp'],
+          count: '${categoryCounts['Transporte']}',
+          description:
+              'Cursos gratuitos relacionados con la conducción de vehículos: moto, carro, transporte de carga, transporte en general y más.',
+          category: 'Transporte',
+        ),
+
+        // Agropecuario
+        SizedBox(height: 3),
+        buildCategoryWidget(
+          title: 'AGROPECUARIO',
+          imageUrl: categoryIcons['iconAgro'],
+          count: '${categoryCounts['Agropecuario']}',
+          description:
+              'Cursos gratuitos relacionados con el sector agrícola y pecuario, incluyendo agricultura, ganadería, horticultura, piscicultura, apicultura, jardinería, entre otros...',
+          category: 'Agropecuario',
+        ),
+
+        // Artes
+        SizedBox(height: 3),
+        buildCategoryWidget(
+          title: 'ARTES',
+          imageUrl: categoryIcons['iconArtes'],
+          count: '${categoryCounts['Artes']}',
+          description:
+              'Cursos gratuitos relacionados con el diseño gráfico, dibujo, literatura, actuación y arte en general, incluyendo pintura, escultura, fotografía, historia del arte, entre otros...',
+          category: 'Artes',
+        ),
+
+        // Crypto y Trading
+        SizedBox(height: 3),
+        buildCategoryWidget(
+          title: 'CRYPTO Y TRADING',
+          imageUrl: categoryIcons['iconCrypto'],
+          count: '${categoryCounts['Crypto']}',
+          description:
+              'Cursos gratis relacionados al mundo de las Criptomonedas, el blockchain y demás tecnologías de la web3',
+          category: 'Crypto',
+        ),
+
+        // Sociales, Sociedades y Jurídicas
+        SizedBox(height: 3),
+        buildCategoryWidget(
+          title: 'SOCIALES, SOCIEDADES Y JURÍDICAS',
+          imageUrl: categoryIcons['iconSociales'],
+          count: '${categoryCounts['Sociales']}',
+          description:
+              'Cursos gratis sobre derecho, sociedad, leyes, trabajo social, sociología, política, entre otros...',
+          category: 'Sociales',
+        ),
+
+        // Moda y Belleza
+        SizedBox(height: 3),
+        buildCategoryWidget(
+          title: 'MODA Y BELLEZA',
+          imageUrl: categoryIcons['iconCosmeticos'],
+          count: '${categoryCounts['Belleza']}',
+          description:
+              'Cursos gratis relacionados con el cuidado de la piel, tatuajes, peluquería, manicura, barbería, pedicura, dermatología, entre otros...',
+          category: 'Belleza',
+        ),
+
+        // Otros
+        SizedBox(height: 3),
+        buildCategoryWidget(
+          title: 'OTROS CURSOS ...',
+          imageUrl: categoryIcons['iconOtros'],
+          count: '+800',
+          description:
+              'Aquí podrás encontrar los cursos que aún no tienen categoría debido al bajo número registrados',
+          category: 'Otros',
+        ),
+      ],
     );
   }
 
