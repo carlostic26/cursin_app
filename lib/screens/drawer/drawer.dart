@@ -1,10 +1,10 @@
 import 'package:cursin/screens/drawer/drawer_options/entidades.dart';
 import 'package:cursin/screens/drawer/drawer_options/ultimos_cursos.dart';
-import 'package:cursin/screens/webview/webviewTutoriales.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-import '../../../screens.dart';
+import '../screens.dart';
 
 class drawerCursin extends StatefulWidget {
   final BuildContext context;
@@ -37,7 +37,7 @@ class _drawerCursinState extends State<drawerCursin> {
     return Drawer(
       elevation: 0,
       child: Container(
-        color: darkTheme == true ? Colors.grey[850] : Colors.white,
+        color: darkTheme == true ? Colors.black87 : Colors.white,
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
@@ -120,6 +120,19 @@ class _drawerCursinState extends State<drawerCursin> {
               //at press, run the method
               onTap: () => {GoSearchCourses(context)},
             ),
+            ListTile(
+              title: Text("Categorías",
+                  style: TextStyle(
+                      color:
+                          darkTheme == true ? Colors.white : Colors.grey[850])),
+              leading: Icon(
+                Icons.category,
+                color: darkTheme == true ? Colors.white : Colors.grey[850],
+              ),
+              onTap: () => {
+                Navigator.pop(context),
+              },
+            ),
 
             ListTile(
                 title: Row(
@@ -168,21 +181,21 @@ class _drawerCursinState extends State<drawerCursin> {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (_) => UltimosCursosLista()));
                 }),
-
             ListTile(
-              title: Text("Categorías",
-                  style: TextStyle(
-                      color:
-                          darkTheme == true ? Colors.white : Colors.grey[850])),
-              leading: Icon(
-                Icons.category,
-                color: darkTheme == true ? Colors.white : Colors.grey[850],
-              ),
-              onTap: () => {
-                Navigator.pop(context),
-              },
-            ),
-
+                title: Text("Mis favoritos",
+                    style: TextStyle(
+                        color: darkTheme == true
+                            ? Colors.white
+                            : Colors.grey[850])),
+                leading: Icon(
+                  Icons.favorite,
+                  color: darkTheme == true ? Colors.white : Colors.grey[850],
+                ),
+                onTap: () => {
+                      Navigator.pop(context),
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => CoursesFavs()))
+                    }),
             ListTile(
               title: Row(
                 children: [
@@ -236,22 +249,6 @@ class _drawerCursinState extends State<drawerCursin> {
             ),
 
             ListTile(
-                title: Text("Mis favoritos",
-                    style: TextStyle(
-                        color: darkTheme == true
-                            ? Colors.white
-                            : Colors.grey[850])),
-                leading: Icon(
-                  Icons.favorite,
-                  color: darkTheme == true ? Colors.white : Colors.grey[850],
-                ),
-                onTap: () => {
-                      Navigator.pop(context),
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (_) => CoursesFavs()))
-                    }),
-
-            ListTile(
               title: Row(
                 children: [
                   Text("Certificados",
@@ -259,34 +256,6 @@ class _drawerCursinState extends State<drawerCursin> {
                           color: darkTheme == true
                               ? Colors.white
                               : Colors.grey[850])),
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
-                        child: AnimatedTextKit(
-                          animatedTexts: [
-                            ColorizeAnimatedText(
-                              'Nuevo',
-                              textStyle: TextStyle(
-                                color: Colors.red,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              colors: [
-                                Colors.red,
-                                Colors.yellow,
-                                Colors.green,
-                                Colors.blue,
-                                Colors.purple,
-                              ],
-                              speed: Duration(milliseconds: 500),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  )
                 ],
               ),
               leading: Icon(
@@ -328,6 +297,132 @@ class _drawerCursinState extends State<drawerCursin> {
                   );
                 }),
 
+            ListTile(
+                title: Row(
+                  children: [
+                    Text("Tutoriales",
+                        style: TextStyle(
+                            color: darkTheme == true
+                                ? Colors.white
+                                : Colors.grey[850])),
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
+                          child: AnimatedTextKit(
+                            animatedTexts: [
+                              ColorizeAnimatedText(
+                                'Nuevo',
+                                textStyle: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                colors: [
+                                  Colors.red,
+                                  Colors.yellow,
+                                  Colors.green,
+                                  Colors.blue,
+                                  Colors.purple,
+                                ],
+                                speed: Duration(milliseconds: 500),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                leading: Icon(
+                  Icons.ondemand_video,
+                  color: darkTheme == true ? Colors.white : Colors.grey[850],
+                ),
+                //at press, run the method
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => TutorialesScreen(),
+                    ),
+                  );
+                }),
+
+            ListTile(
+                title: Text("¿Problemas para ingresar?",
+                    style: TextStyle(
+                        color: darkTheme == true
+                            ? Colors.white
+                            : Colors.grey[850])),
+                leading: Icon(
+                  Icons.sentiment_very_dissatisfied_sharp,
+                  color: darkTheme == true ? Colors.white : Colors.grey[850],
+                ),
+                onTap: () {
+                  _showDialogProblemasAcceso(context);
+                }),
+            ListTile(
+              title: Text("Reportar un problema",
+                  style: TextStyle(
+                      color:
+                          darkTheme == true ? Colors.white : Colors.grey[850])),
+              leading: Icon(
+                Icons.mark_email_read,
+                color: darkTheme == true ? Colors.white : Colors.grey[850],
+              ),
+              //at press, run the method
+              onTap: () => _mailto(),
+            ),
+            ListTile(
+              title: Text("Ayúdanos a mejorar",
+                  style: TextStyle(
+                      color:
+                          darkTheme == true ? Colors.white : Colors.grey[850])),
+              leading: Icon(
+                Icons.feedback,
+                color: darkTheme == true ? Colors.white : Colors.grey[850],
+              ),
+              //at press, run the method
+              onTap: () => _mejorar(),
+            ),
+
+            SizedBox(height: 20),
+
+            Divider(
+              color: Colors.grey,
+            ),
+            Text("  Información",
+                style: TextStyle(
+                    color:
+                        darkTheme == true ? Colors.white : Colors.grey[850])),
+            ListTile(
+              //Nombre de la app, objetivo, parrafo de uso basico, creador, linkedin de creador, etc
+              title: Text("Nuestras redes",
+                  style: TextStyle(
+                      color:
+                          darkTheme == true ? Colors.white : Colors.grey[850])),
+              leading: Icon(
+                Icons.supervised_user_circle,
+                color: darkTheme == true ? Colors.white : Colors.grey[850],
+              ),
+              //at press, run the method
+              onTap: () => {showRedes(context)},
+            ),
+
+            ListTile(
+              //Nombre de la app, objetivo, parrafo de uso basico, creador, linkedin de creador, etc
+              title: Text("Info de la app",
+                  style: TextStyle(
+                      color:
+                          darkTheme == true ? Colors.white : Colors.grey[850])),
+              leading: Icon(
+                Icons.info,
+                color: darkTheme == true ? Colors.white : Colors.grey[850],
+              ),
+              //at press, run the method
+              onTap: () => {showinfo(context)},
+            ),
             ListTile(
                 title: Row(
                   children: [
@@ -374,105 +469,6 @@ class _drawerCursinState extends State<drawerCursin> {
                 onTap: () {
                   solicitarCursoDialog(context);
                 }),
-
-            ListTile(
-                title: Text("¿Problemas para ingresar?",
-                    style: TextStyle(
-                        color: darkTheme == true
-                            ? Colors.white
-                            : Colors.grey[850])),
-                leading: Icon(
-                  Icons.sentiment_very_dissatisfied_sharp,
-                  color: darkTheme == true ? Colors.white : Colors.grey[850],
-                ),
-                onTap: () {
-                  _showDialogProblemasAcceso(context);
-                }),
-
-            ListTile(
-              title: Text("Reportar un problema",
-                  style: TextStyle(
-                      color:
-                          darkTheme == true ? Colors.white : Colors.grey[850])),
-              leading: Icon(
-                Icons.mark_email_read,
-                color: darkTheme == true ? Colors.white : Colors.grey[850],
-              ),
-              //at press, run the method
-              onTap: () => _mailto(),
-            ),
-            SizedBox(height: 20),
-
-            Divider(
-              color: Colors.grey,
-            ),
-            Text("  Información",
-                style: TextStyle(
-                    color:
-                        darkTheme == true ? Colors.white : Colors.grey[850])),
-
-            ListTile(
-                title: Row(
-                  children: [
-                    Text("Tutoriales Cursin",
-                        style: TextStyle(
-                            color: darkTheme == true
-                                ? Colors.white
-                                : Colors.grey[850])),
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
-                          child: AnimatedTextKit(
-                            animatedTexts: [
-                              ColorizeAnimatedText(
-                                'Nuevo',
-                                textStyle: TextStyle(
-                                  color: Colors.red,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                colors: [
-                                  Colors.red,
-                                  Colors.yellow,
-                                  Colors.green,
-                                  Colors.blue,
-                                  Colors.purple,
-                                ],
-                                speed: Duration(milliseconds: 500),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-                leading: Icon(
-                  Icons.important_devices,
-                  color: darkTheme == true ? Colors.white : Colors.grey[850],
-                ),
-                onTap: () {
-                  //open webview and load list from youtube
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => webviewTutoScreen(),
-                    ),
-                  );
-
-                  //muestra por 3 seg dialogo de carga || a los 3 segundos se cierra el dialogo
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        Future.delayed(Duration(seconds: 3), () {
-                          Navigator.of(context).pop(true);
-                        });
-                        return const Center(
-                          child: const CircularProgressIndicator(),
-                        );
-                      });
-                }),
             ListTile(
               title: Row(
                 children: [
@@ -490,20 +486,6 @@ class _drawerCursinState extends State<drawerCursin> {
               //at press, run the method
               onTap: () => {goNoticias(context)},
             ),
-
-            ListTile(
-              //Nombre de la app, objetivo, parrafo de uso basico, creador, linkedin de creador, etc
-              title: Text("Info de la app",
-                  style: TextStyle(
-                      color:
-                          darkTheme == true ? Colors.white : Colors.grey[850])),
-              leading: Icon(
-                Icons.info,
-                color: darkTheme == true ? Colors.white : Colors.grey[850],
-              ),
-              //at press, run the method
-              onTap: () => {showinfo(context)},
-            ),
             ListTile(
               title: Text("Politica de privacidad",
                   style: TextStyle(
@@ -516,18 +498,6 @@ class _drawerCursinState extends State<drawerCursin> {
               //at press, run the method
               onTap: () => launch(
                   'https://ticnoticos.blogspot.com/2023/07/privacy-policy-cursin-encuentra-cursos.html'),
-            ),
-            ListTile(
-              title: Text("Ayúdanos a mejorar",
-                  style: TextStyle(
-                      color:
-                          darkTheme == true ? Colors.white : Colors.grey[850])),
-              leading: Icon(
-                Icons.feedback,
-                color: darkTheme == true ? Colors.white : Colors.grey[850],
-              ),
-              //at press, run the method
-              onTap: () => _mejorar(),
             ),
             ListTile(
               title: Row(
@@ -791,6 +761,191 @@ class _drawerCursinState extends State<drawerCursin> {
                   },
                   child: Text('Solicitar en Telegram'),
                 )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void showRedes(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          //backgroundColor: Colors.white60,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Redes oficiales de cursin',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 16),
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // Facebook
+                          Column(
+                            children: [
+                              IconButton(
+                                color: Colors.blue,
+                                icon: Icon(FontAwesomeIcons.facebook),
+                                onPressed: () async {
+                                  const url =
+                                      'https://www.facebook.com/CursinApp/';
+                                  if (await canLaunch(url)) {
+                                    await launch(url);
+                                  } else {
+                                    throw 'No se pudo abrir el enlace $url';
+                                  }
+                                },
+                              ),
+                              Text(
+                                'Facebook',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ],
+                          ),
+
+                          SizedBox(width: 15),
+
+                          SizedBox(width: 15), // TikTok
+                          Column(
+                            children: [
+                              IconButton(
+                                icon: Icon(FontAwesomeIcons.tiktok),
+                                onPressed: () async {
+                                  const url =
+                                      'https://www.tiktok.com/@cursin_app';
+                                  if (await canLaunch(url)) {
+                                    await launch(url);
+                                  } else {
+                                    throw 'No se pudo abrir el enlace $url';
+                                  }
+                                },
+                              ),
+                              Text(
+                                'TikTok',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ],
+                          ),
+
+                          SizedBox(width: 15),
+
+                          // Instagram
+                          Column(
+                            children: [
+                              IconButton(
+                                icon: Icon(FontAwesomeIcons.instagram),
+                                onPressed: () async {
+                                  const url =
+                                      'https://www.instagram.com/cursinapp/';
+                                  if (await canLaunch(url)) {
+                                    await launch(url);
+                                  } else {
+                                    throw 'No se pudo abrir el enlace $url';
+                                  }
+                                },
+                              ),
+                              Text(
+                                'Instagram',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 15), // Espacio de 15 entre las filas
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // Twitter
+                          Column(
+                            children: [
+                              IconButton(
+                                color: Colors.blue,
+                                icon: Icon(FontAwesomeIcons.twitter),
+                                onPressed: () async {
+                                  const url =
+                                      'https://twitter.com/cursinapp?lang=es';
+                                  if (await canLaunch(url)) {
+                                    await launch(url);
+                                  } else {
+                                    throw 'No se pudo abrir el enlace $url';
+                                  }
+                                },
+                              ),
+                              Text(
+                                'Twitter',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ],
+                          ),
+                          SizedBox(width: 15),
+
+                          // Web oficial (blog)
+                          Column(
+                            children: [
+                              IconButton(
+                                icon: Icon(Icons.web),
+                                onPressed: () async {
+                                  const url = 'https://www.cursin.app/';
+                                  if (await canLaunch(url)) {
+                                    await launch(url);
+                                  } else {
+                                    throw 'No se pudo abrir el enlace $url';
+                                  }
+                                },
+                              ),
+                              Text(
+                                'cursin.app (blog)',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ],
+                          ),
+
+                          SizedBox(width: 15),
+
+                          // LinkedIn
+                          Column(
+                            children: [
+                              IconButton(
+                                color: Colors.blue,
+                                icon: Icon(FontAwesomeIcons.linkedin),
+                                onPressed: () async {
+                                  const url =
+                                      'https://www.linkedin.com/company/cursin';
+                                  if (await canLaunch(url)) {
+                                    await launch(url);
+                                  } else {
+                                    throw 'No se pudo abrir el enlace $url';
+                                  }
+                                },
+                              ),
+                              Text(
+                                'LinkedIn',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

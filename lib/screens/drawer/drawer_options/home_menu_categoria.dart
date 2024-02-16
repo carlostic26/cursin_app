@@ -6,7 +6,7 @@ import 'package:cursin/screens/drawer/drawer_options/tutoriales.dart';
 import 'package:cursin/screens/launch/tutorial_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import '../../../screens.dart';
+import '../../screens.dart';
 
 class HomeCategoriasSelectCards extends StatefulWidget {
   @override
@@ -696,7 +696,7 @@ class _HomeCategoriasSelectCardsState extends State<HomeCategoriasSelectCards> {
 
   Widget buildCategoryWidget({
     required String title,
-    required dynamic imageUrl,
+    required String? imageUrl,
     required String count,
     required String description,
     required String category,
@@ -730,7 +730,7 @@ class _HomeCategoriasSelectCardsState extends State<HomeCategoriasSelectCards> {
                   children: [
                     ClipOval(
                       child: CachedNetworkImage(
-                        imageUrl: imageUrl,
+                        imageUrl: imageUrl.toString(),
                         width: 90.0,
                         height: 90.0,
                         fit: BoxFit.cover,
@@ -746,7 +746,7 @@ class _HomeCategoriasSelectCardsState extends State<HomeCategoriasSelectCards> {
                         padding: EdgeInsets.all(5.0),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.green,
+                          color: Colors.blueGrey,
                         ),
                         child: Text(
                           count,
@@ -773,7 +773,7 @@ class _HomeCategoriasSelectCardsState extends State<HomeCategoriasSelectCards> {
                         fontSize: 17,
                         color: darkTheme == false
                             ? Colors.grey[450]
-                            : Color.fromARGB(255, 79, 150, 249),
+                            : Colors.white,
                       ),
                     ),
                     SizedBox(height: 5),
@@ -781,7 +781,9 @@ class _HomeCategoriasSelectCardsState extends State<HomeCategoriasSelectCards> {
                       description,
                       style: TextStyle(
                         fontSize: 11,
-                        color: darkTheme == true ? Colors.white : Colors.black,
+                        color: darkTheme == true
+                            ? const Color.fromARGB(255, 191, 191, 191)
+                            : Colors.black,
                       ),
                     ),
                   ],

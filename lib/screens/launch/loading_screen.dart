@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cursin/screens/launch/tutorial_screen.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import '../../../screens.dart';
+import '../screens.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});

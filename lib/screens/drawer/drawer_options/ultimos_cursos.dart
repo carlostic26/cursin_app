@@ -5,7 +5,7 @@ import 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
 import 'package:flutter/material.dart';
 import '../../../infrastructure/localdb/cursos_PROG_db.dart';
 import '../../../infrastructure/localdb/cursos_TIC_db.dart';
-import '../../../screens.dart';
+import '../../screens.dart';
 
 class UltimosCursosLista extends StatefulWidget {
   @override

@@ -1,4 +1,4 @@
-import 'package:cursin/screens.dart';
+import 'package:cursin/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_pro/webview_flutter.dart';
 
@@ -139,7 +139,7 @@ class VideoItem extends StatelessWidget {
           height: 200, // Ajusta la altura según tus necesidades
           child: WebView(
             initialUrl:
-                'https://www.youtube.com/embed/$videoId?rel=0&autoplay=1&showinfo=0&controls=0&modestbranding=0',
+                'https://www.youtube.com/embed/$videoId?rel=0&autoplay=1&showinfo=0&controls=0&modestbranding=1',
             javascriptMode: JavascriptMode.unrestricted,
             userAgent:
                 'Mozilla/5.0 (Linux; Android 10; Tablet; rv:68.0) Gecko/68.0 Firefox/68.0',

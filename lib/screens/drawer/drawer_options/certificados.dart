@@ -1,6 +1,6 @@
 import 'package:cursin/screens/widgets/carruselCertifiedWidget.dart';
 import 'package:flutter/material.dart';
-import '../../../screens.dart';
+import '../../screens.dart';
 
 class certificadosScreen extends StatefulWidget {
   const certificadosScreen({super.key});

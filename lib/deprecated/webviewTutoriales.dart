@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_webview_pro/webview_flutter.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 
-import '../../../screens.dart';
+import '../screens/screens.dart';
 
 class webviewTutoScreen extends StatefulWidget {
   @override

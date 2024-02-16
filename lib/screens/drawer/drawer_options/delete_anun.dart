@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../../screens.dart';
+import '../../screens.dart';
 
 class deleteAnunScreen extends StatefulWidget {
   const deleteAnunScreen({super.key});

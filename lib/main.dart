@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:cursin/screens.dart';
+import 'package:cursin/screens/screens.dart';
 
 AppOpenAd? openAd;
 bool isAdLoaded = false;

@@ -11,10 +11,10 @@ class SlideInfo {
   SlideInfo(this.title, this.caption, this.imageUrl);
 }
 
-final slidesTutorial = <SlideInfo>[
+final slides = <SlideInfo>[
   SlideInfo(
       '¿Qué es Cursin?',
-      'Es un buscador que sirve para encontrar cientos de cursos online gratuitos de diferentes sitios de internet y/o plataformas educativas ' +
+      'Es una app tipo buscador, que sirve para encontrar cientos de cursos online gratuitos de diferentes sitios de internet y/o plataformas educativas ' +
           'como Google, IBM, Microsoft, Cisco, ONU, hp, Unicef, Meta, Kaggle, intel entre otras.\n\nDichas plataformas pueden emitir certificados de finalización sin costo, después de completar el curso.',
       'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiY6afS3X7LodjovbD14vTA3uGM-1cwgvofGWJ1VjPMhifTXV0ALdosXkvrzw5m1BxsyjqFe2QIs2Y8EsFDyeGx7qKYHBOXBNBNWR-IZwOSNmuGQjhbeVYl-CL-pJcIbhiIg1GUsyn__OEjAXN_0hySv-WjOYcK65EbU2M4q2vvKWyxE2S141NiGiql/s320/img_1.png'),
   SlideInfo(
@@ -48,8 +48,6 @@ class TutorialScreen extends StatefulWidget {
 class _TutorialScreenState extends State<TutorialScreen> {
   final PageController pageviewController = PageController();
   bool endReached = false;
-  bool showImage = false;
-
 
   @override
   void initState() {
@@ -57,7 +55,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
     pageviewController.addListener(() {
       final page = pageviewController.page ?? 0;
 
-      if (!endReached && page >= (slidesTutorial.length - 1.5)) {
+      if (!endReached && page >= (slides.length - 1.5)) {
         setState(() {
           endReached = true;
         });
@@ -65,22 +63,6 @@ class _TutorialScreenState extends State<TutorialScreen> {
     });
 
     initTheme();
-
-    Future.delayed(Duration(seconds: 2), () {
-      setState(() {
-        showImage = true;
-      });
-
-
-
-      Future.delayed(Duration(seconds: 5), () {
-        setState(() {
-          showImage = false;
-        });
-      });
-    }
-    
-    );
   }
 
   Future<void> initTheme() async {
@@ -101,9 +83,9 @@ class _TutorialScreenState extends State<TutorialScreen> {
       body: Stack(
         children: [
           PageView(
-            controller: pageviewController, 
+            controller: pageviewController, // Agregamos el controlador
             physics: const BouncingScrollPhysics(),
-            children: slidesTutorial
+            children: slides
                 .map((slideData) => _Slide(
                       title: slideData.title,
                       caption: slideData.caption,
@@ -111,46 +93,28 @@ class _TutorialScreenState extends State<TutorialScreen> {
                     ))
                 .toList(),
           ),
+          // Aquí agregamos la condición if para mostrar el botón de comenzar
           if (endReached)
-          Positioned(
-            bottom: 30,
-            right: 30,
-            child: ElevatedButton(
-              onPressed: () {
-                guardarPrimerAcceso();
-                   Navigator.of(context).pushReplacement(
+            Positioned(
+                bottom: 30,
+                right: 30,
+                child: ElevatedButton(
+                  onPressed: () {
+                    guardarPrimerAcceso();
+                    Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
                           builder: (context) => HomeCategoriasSelectCards()),
                     );
-              },
-              child: const Text(
-                'Comenzar',
-                style: TextStyle(color: Colors.white),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueGrey,
-              ),
-            ),
-          )
-        else
-              Positioned(
-          bottom: 30,
-          right: 30,
-          child: AnimatedOpacity(
-            duration: Duration(seconds: 2),
-            opacity: showImage ? 1.0 : 0.0, // Opacidad inicial (visible o invisible)
-            child: SizedBox(
-              height: 70,
-              width: 70,
-              child: Image.network(
-                'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjKXWs4G03tCuF-aV3kGFZ26BroRXsGhqY80d8r8VKPT2WaQkunZMxd-l_95-B-dhNY_U2vj5RNmB-6aMkym3Us2sTwcL6ehdBTp4AP_5wTq8CcF_X-IvpHJk6TSqTFQodEFEbi9fnKfYnRPjSBeKsVPjeGlNMhHbOsAIQArzJy5UfwyfdhgyN6h7Tm/s218/swip.gif',
-                // Añade más propiedades a la imagen según tus necesidades
-              ),
-            ),
-          ),
-        ),
-          
-
+                  },
+                  child: const Text(
+                    'Comenzar',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor:
+                        Colors.green, // Cambia el color de fondo a verde
+                  ),
+                ))
         ],
       ),
     );

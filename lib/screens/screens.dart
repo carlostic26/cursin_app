@@ -36,3 +36,5 @@ export 'package:cursin/screens/launch/loading_screen.dart';
 
 export 'package:cursin/screens/widgets/animated_background.dart';
 export 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
+export 'package:cursin/screens/drawer/drawer_options/tutoriales.dart';

@@ -24,13 +24,14 @@ class _CourseDetailState extends State<CourseDetail> {
   BannerAd? _anchoredAdaptiveAd;
   bool _isLoaded = false;
 
-  //initializing intersticial ad
-  InterstitialAd? interstitialAd;
-  int interstitialAttempts = 0;
-
-  //initializing reward ad
-  RewardedAd? rewardedAd;
-  int rewardedAdAttempts = 0;
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_isLoaded) {
+      _loadAdaptativeAd();
+      createInterstitialAd();
+    }
+  }
 
   CursinAdsIds cursinAds = CursinAdsIds();
   static const AdRequest request = AdRequest(
@@ -38,6 +39,14 @@ class _CourseDetailState extends State<CourseDetail> {
       //contentUrl: '',
       //nonPersonalizedAds: false
       );
+
+  //initializing intersticial ad
+  InterstitialAd? interstitialAd;
+  int interstitialAttempts = 0;
+
+  //initializing reward ad
+  RewardedAd? rewardedAd;
+  int rewardedAdAttempts = 0;
 
 //Creating interstitial
   void createInterstitialAd() {
@@ -170,81 +179,6 @@ class _CourseDetailState extends State<CourseDetail> {
     interstitialAd = null;
   }
 
-  void createRewardedAd() {
-    RewardedAd.load(
-        adUnitId: cursinAds.reward_adUnitId,
-        request: request,
-        rewardedAdLoadCallback: RewardedAdLoadCallback(onAdLoaded: (ad) {
-          rewardedAd = ad;
-          rewardedAdAttempts = 0;
-        }, onAdFailedToLoad: (error) {
-          rewardedAdAttempts++;
-          rewardedAd = null;
-          if (rewardedAdAttempts <= maxAttempts) {
-            createRewardedAd();
-          }
-        }));
-  }
-
-  //showing rewarded
-  void showRewardedAd() {
-    if (rewardedAd == null) {
-      if (enterAcces <= 2) {
-        Fluttertoast.showToast(
-          msg: "Intentalo de nuevo.", // message
-          toastLength: Toast.LENGTH_LONG, // length
-          gravity: ToastGravity.BOTTOM, // location
-        );
-
-        enterAcces++;
-      } else {
-        if (enterAcces >= 3) {
-          Fluttertoast.showToast(
-            msg: "Desactiva el bloqueador de anuncios", // message
-            toastLength: Toast.LENGTH_SHORT, // length
-            gravity: ToastGravity.BOTTOM, // location
-          );
-        }
-        enterAcces++;
-      }
-
-      return;
-    }
-
-    rewardedAd!.fullScreenContentCallback = FullScreenContentCallback(
-        // onAdShowedFullScreenContent: (ad) => print('ad showed $ad'),
-
-        //when ad closes
-        onAdDismissedFullScreenContent: (ad) async {
-      Navigator.of(context).push(
-        PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => courseOption(
-            nameCourse: widget.td.title,
-            urlCourse: widget.td.urlcourse,
-            imgCourse: widget.td.imgcourse,
-            nombreEntidad: widget.td.entidad,
-          ),
-          transitionDuration:
-              Duration(milliseconds: 500), // Duración de la transición
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return FadeTransition(
-              opacity: animation,
-              child: child,
-            );
-          },
-        ),
-      );
-    }, onAdFailedToShowFullScreenContent: (ad, error) {
-      ad.dispose();
-      createRewardedAd();
-    });
-
-    rewardedAd!.show(onUserEarnedReward: (ad, reward) {
-      // print('reward video ${reward.amount} ${reward.type}');
-    });
-    rewardedAd = null;
-  }
-
   String getCoursesStringShP = "";
   String validadorCursoGuardado = "Guardar curso";
   bool click = false;
@@ -289,7 +223,7 @@ class _CourseDetailState extends State<CourseDetail> {
     //load ads
     createInterstitialAd();
     //_loadAdaptativeAd();
-    createRewardedAd();
+    //createRewardedAd();
     getSharedPrefs();
     TimerLuzTablaInfo();
   }
@@ -302,16 +236,6 @@ class _CourseDetailState extends State<CourseDetail> {
 
   int randNum = 0;
   bool _isAdLoaded = false;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (!_isLoaded) {
-      _loadAdaptativeAd();
-      createInterstitialAd();
-      createRewardedAd();
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -442,10 +366,10 @@ class _CourseDetailState extends State<CourseDetail> {
               ),
 
               //BOTON COMPARTOR CURSP
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  //like button
                   Container(
                     child: IconButton(
                       onPressed: () {
@@ -468,43 +392,6 @@ class _CourseDetailState extends State<CourseDetail> {
                           : Colors.grey,
                     ),
                   ),
-
-                  //tutorial button
-                  Container(
-                      alignment: Alignment.topCenter,
-                      padding: EdgeInsets.symmetric(horizontal: 2.0),
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => TutorialesScreen(),
-                            ),
-                          );
-                        },
-                        icon: Icon(
-                          Icons.ondemand_video,
-                          size: 30,
-                        ),
-                        color: Colors.grey,
-                      )),
-
-                  //report button
-                  Container(
-                      alignment: Alignment.topCenter,
-                      padding: EdgeInsets.symmetric(horizontal: 2.0),
-                      child: IconButton(
-                        onPressed: () {
-                          _showDialogToReportProblem(context);
-                        },
-                        icon: Icon(
-                          Icons.bug_report,
-                          size: 30,
-                        ),
-                        color: Colors.grey,
-                      )),
-
-                  //share button
                   Container(
                       alignment: Alignment.topCenter,
                       padding: EdgeInsets.symmetric(horizontal: 2.0),
@@ -515,6 +402,19 @@ class _CourseDetailState extends State<CourseDetail> {
                         icon: Icon(
                           Icons.share,
                           size: 30.0,
+                        ),
+                        color: Colors.grey,
+                      )),
+                  Container(
+                      alignment: Alignment.topCenter,
+                      padding: EdgeInsets.symmetric(horizontal: 2.0),
+                      child: IconButton(
+                        onPressed: () {
+                          _showDialogToReportProblem(context);
+                        },
+                        icon: Icon(
+                          Icons.bug_report,
+                          size: 30,
                         ),
                         color: Colors.grey,
                       )),
@@ -935,15 +835,7 @@ class _CourseDetailState extends State<CourseDetail> {
                   try {
                     final result = await InternetAddress.lookup('google.com');
                     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-                      int randomNumber = Random().nextInt(10) +
-                          1; // Genera un número entre 1 y 10
-                      if (randomNumber <= 6) {
-                        print('\n\n\n\nINTERTITIALI ATTEMP\n\n\n\n');
-                        showInterstitialAd();
-                      } else {
-                        print('\n\n\n\nREWARDED ATTEMP\n\n\n\n');
-                        showRewardedAd();
-                      }
+                      showInterstitialAd();
                       Navigator.pop(context);
                     }
                   } on SocketException catch (_) {

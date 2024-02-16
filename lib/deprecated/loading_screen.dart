@@ -1,7 +1,7 @@
 import 'package:cursin/screens/launch/tutorial_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import '../../screens.dart';
+import '../screens/screens.dart';
 
 class PercentIndicatorRiverpod extends ConsumerWidget {
   //bool _isMounted = true;

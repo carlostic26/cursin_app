@@ -7,6 +7,8 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../screens.dart';
+
 class noticiasScreen extends StatefulWidget {
   const noticiasScreen(BuildContext context, {Key? key}) : super(key: key);
 
@@ -17,6 +19,7 @@ class noticiasScreen extends StatefulWidget {
 class _noticiasScreenState extends State<noticiasScreen> {
   late BannerAd staticAd;
   bool staticAdLoaded = false;
+  CursinAdsIds cursinAds = CursinAdsIds();
 
   static const AdRequest request = AdRequest(
       //keywords: ['',''],
@@ -26,8 +29,7 @@ class _noticiasScreenState extends State<noticiasScreen> {
 
   void loadStaticBannerAd() {
     staticAd = BannerAd(
-        adUnitId: //test: ca-app-pub-4336409771912215/8304641094  ||  real: ca-app-pub-4336409771912215/1019860019
-            'ca-app-pub-4336409771912215/1019860019',
+        adUnitId: cursinAds.banner_adUnitId,
         size: AdSize.banner,
         request: request,
         listener: BannerAdListener(onAdLoaded: (ad) {
@@ -58,16 +60,14 @@ class _noticiasScreenState extends State<noticiasScreen> {
 
   @override
   void initState() {
-    //load ads
+    super.initState();
     loadStaticBannerAd();
-
     getSharedThemePrefs();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //no color backg cuz the backg is an image
       backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
       appBar: AppBar(
         elevation: 0,
@@ -81,7 +81,7 @@ class _noticiasScreenState extends State<noticiasScreen> {
               Navigator.pop(context);
             }),
         title: Text(
-          "Articulos, noticias y podcast sobre Cursin",
+          "Noticias y contenidos",
           style: TextStyle(
             color: darkTheme == false ? Colors.grey[850] : Colors.white,
             fontSize: 16.0, /*fontWeight: FontWeight.bold*/
@@ -291,7 +291,7 @@ class _noticiasScreenState extends State<noticiasScreen> {
                     height: 5,
                   ),
                   Text(
-                    "Cámara Junior reconoció a los Jóvenes Sobresalientes de Norte de Santander s",
+                    "Cámara Junior reconoció a los Jóvenes Sobresalientes de Norte de Santander",
                     style: TextStyle(
                       color:
                           darkTheme == true ? Colors.white : Colors.grey[850],

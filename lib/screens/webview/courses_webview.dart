@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:cursin/screens.dart';
+import 'package:cursin/screens/screens.dart';
 import 'package:cursin/screens/option_course.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_webview_pro/webview_flutter.dart';

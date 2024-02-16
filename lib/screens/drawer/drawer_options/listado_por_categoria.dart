@@ -4,7 +4,7 @@ import 'package:cursin/infrastructure/localdb/cursos_TIC_db.dart';
 import 'package:cursin/infrastructure/localdb/cursos_db.dart';
 import 'package:cursin/screens/detail_course.dart';
 import 'package:flutter/material.dart';
-import '../../../screens.dart';
+import '../../screens.dart';
 
 class categorias extends StatefulWidget {
   // se requiere recibir: 1. Nombre de categoria. 2. Pantalla de donde se proviene

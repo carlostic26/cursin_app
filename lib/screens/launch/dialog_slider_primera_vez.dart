@@ -75,7 +75,6 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
           placeholderFadeInDuration: Duration(milliseconds: 200),
           errorWidget: (context, url, error) => Icon(Icons.error),
         ),
-        // Agrega aquí otros widgets que quieras mostrar en el primer aviso      ],
       ),
       Container(
         child: CachedNetworkImage(
@@ -87,7 +86,6 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
           placeholderFadeInDuration: Duration(milliseconds: 200),
           errorWidget: (context, url, error) => Icon(Icons.error),
         ),
-        // Agrega aquí otros widgets que quieras mostrar en el primer aviso      ],
       ),
       Container(
         child: CachedNetworkImage(
@@ -99,7 +97,6 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
           placeholderFadeInDuration: Duration(milliseconds: 200),
           errorWidget: (context, url, error) => Icon(Icons.error),
         ),
-        // Agrega aquí otros widgets que quieras mostrar en el primer aviso      ],
       ),
       Container(
         child: CachedNetworkImage(
@@ -111,7 +108,6 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
           placeholderFadeInDuration: Duration(milliseconds: 200),
           errorWidget: (context, url, error) => Icon(Icons.error),
         ),
-        // Agrega aquí otros widgets que quieras mostrar en el primer aviso      ],
       ),
       Container(
         child: CachedNetworkImage(
@@ -123,7 +119,6 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
           placeholderFadeInDuration: Duration(milliseconds: 200),
           errorWidget: (context, url, error) => Icon(Icons.error),
         ),
-        // Agrega aquí otros widgets que quieras mostrar en el primer aviso      ],
       ),
       Container(
         child: CachedNetworkImage(
@@ -135,7 +130,6 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
           placeholderFadeInDuration: Duration(milliseconds: 200),
           errorWidget: (context, url, error) => Icon(Icons.error),
         ),
-        // Agrega aquí otros widgets que quieras mostrar en el primer aviso      ],
       ),
       Container(
         child: CachedNetworkImage(
@@ -147,7 +141,6 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
           placeholderFadeInDuration: Duration(milliseconds: 200),
           errorWidget: (context, url, error) => Icon(Icons.error),
         ),
-        // Agrega aquí otros widgets que quieras mostrar en el primer aviso      ],
       ),
       Container(
         child: CachedNetworkImage(
@@ -159,7 +152,6 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
           placeholderFadeInDuration: Duration(milliseconds: 200),
           errorWidget: (context, url, error) => Icon(Icons.error),
         ),
-        // Agrega aquí otros widgets que quieras mostrar en el primer aviso      ],
       ),
       Container(
         child: CachedNetworkImage(
@@ -171,7 +163,6 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
           placeholderFadeInDuration: Duration(milliseconds: 200),
           errorWidget: (context, url, error) => Icon(Icons.error),
         ),
-        // Agrega aquí otros widgets que quieras mostrar en el primer aviso      ],
       ),
       Container(
         child: CachedNetworkImage(
@@ -183,7 +174,6 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
           placeholderFadeInDuration: Duration(milliseconds: 200),
           errorWidget: (context, url, error) => Icon(Icons.error),
         ),
-        // Agrega aquí otros widgets que quieras mostrar en el primer aviso      ],
       ),
       Container(
         child: CachedNetworkImage(
@@ -195,7 +185,6 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
           placeholderFadeInDuration: Duration(milliseconds: 200),
           errorWidget: (context, url, error) => Icon(Icons.error),
         ),
-        // Agrega aquí otros widgets que quieras mostrar en el primer aviso      ],
       ),
       Container(
         child: CachedNetworkImage(
@@ -207,7 +196,6 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
           placeholderFadeInDuration: Duration(milliseconds: 200),
           errorWidget: (context, url, error) => Icon(Icons.error),
         ),
-        // Agrega aquí otros widgets que quieras mostrar en el primer aviso      ],
       ),
       Container(
         child: CachedNetworkImage(
@@ -219,7 +207,6 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
           placeholderFadeInDuration: Duration(milliseconds: 200),
           errorWidget: (context, url, error) => Icon(Icons.error),
         ),
-        // Agrega aquí otros widgets que quieras mostrar en el primer aviso      ],
       ),
       Container(
         child: CachedNetworkImage(
@@ -231,7 +218,6 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
           placeholderFadeInDuration: Duration(milliseconds: 200),
           errorWidget: (context, url, error) => Icon(Icons.error),
         ),
-        // Agrega aquí otros widgets que quieras mostrar en el primer aviso      ],
       ),
     ];
 

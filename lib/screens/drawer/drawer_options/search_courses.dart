@@ -4,7 +4,7 @@ import 'package:cursin/infrastructure/localdb/cursos_TIC_db.dart';
 import 'package:cursin/infrastructure/localdb/cursos_db.dart';
 import 'package:cursin/screens/detail_course.dart';
 import 'package:flutter/material.dart';
-import '../../../screens.dart';
+import '../../screens.dart';
 
 // ignore: must_be_immutable
 class searchedCourses extends StatefulWidget {
