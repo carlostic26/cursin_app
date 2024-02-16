@@ -32,6 +32,7 @@ Future<void> loadOpenAd() async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await MobileAds.instance.initialize();
+
   final themePreference = ThemePreference();
   await themePreference.initialize();
 

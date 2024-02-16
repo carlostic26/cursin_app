@@ -1288,7 +1288,7 @@ class WidgetTablaInfo extends StatelessWidget {
               child: Center(
                 child: RichText(
                     text: TextSpan(
-                  text: "🏢 Entidad:",
+                  text: "🏢 Emitido por:",
                   style: new TextStyle(
                     fontSize: 15.0,
                     color: darkTheme == true ? Colors.white : Colors.black,

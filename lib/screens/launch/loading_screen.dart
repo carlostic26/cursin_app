@@ -114,7 +114,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                         ? () async {
                             isLoaded(context);
                           }
-                        : null, // Desactiva el botón si no está habilitado
+                        : null,
                     style: ButtonStyle(
                       backgroundColor: buttonEnabled
                           ? MaterialStateProperty.all<Color>(
@@ -123,7 +123,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
                           : MaterialStateProperty.all<Color>(Colors
                               .grey), // Color de fondo cuando está deshabilitado
                     ),
-
                     child: Text(
                       'Continuar',
                       style: TextStyle(

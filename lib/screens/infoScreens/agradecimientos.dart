@@ -115,7 +115,7 @@ class AgradecimientosScreen extends StatelessWidget {
                                         ),
                                         onTap: () {
                                           launch(
-                                              'https://www.linkedin.com/in/carlos-andres-pe%C3%B1aranda-tic/');
+                                              'https://www.linkedin.com/in/carlos-andres-penaranda/');
                                         },
                                       ),
 

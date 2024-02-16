@@ -742,25 +742,16 @@ class _CourseDetailState extends State<CourseDetail> {
                         this.valPagCaida5 = val!;
                       })),
               Container(
-                alignment: Alignment.topCenter,
-                padding: EdgeInsets.symmetric(horizontal: 5.0),
-                child: ElevatedButton(
+                  alignment: Alignment.topCenter,
+                  padding: EdgeInsets.symmetric(horizontal: 5.0),
+                  child: ElevatedButton(
                     style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                          side: BorderSide(
-                            color: Colors.blueAccent,
-                            width: 2.0,
-                          ),
-                        ),
-                      ),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          Colors.blue), // Color de fondo azul
+                      foregroundColor: MaterialStateProperty.all<Color>(
+                          Colors.white), // Color del texto blanco
                     ),
-                    child: Text(
-                      'Reportar',
-                      style: TextStyle(fontSize: 15, color: Colors.white),
-                    ),
-                    onPressed: () {
+                    onPressed: () async {
                       if (errorNoAds) {
                         Navigator.pop(context);
                         _showDialogProblemAds(context);
@@ -771,8 +762,9 @@ class _CourseDetailState extends State<CourseDetail> {
                       } else {
                         _mailto();
                       }
-                    }),
-              ),
+                    },
+                    child: Text('Reportar'),
+                  )),
             ]);
           });
         });
