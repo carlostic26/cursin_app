@@ -21,6 +21,7 @@ class _CourseDetailState extends State<CourseDetail> {
   bool _isVisible = true;
   late Timer _timer;
 
+  //initializing banner ad
   BannerAd? _anchoredAdaptiveAd;
   bool _isLoaded = false;
 
@@ -39,7 +40,7 @@ class _CourseDetailState extends State<CourseDetail> {
       //nonPersonalizedAds: false
       );
 
-//Creating interstitial
+  //Creating interstitial
   void createInterstitialAd() {
     InterstitialAd.load(
         // ignore: deprecated_member_use
@@ -288,7 +289,7 @@ class _CourseDetailState extends State<CourseDetail> {
     adForCourse = false;
     //load ads
     createInterstitialAd();
-    //_loadAdaptativeAd();
+    _loadAdaptativeAd();
     createRewardedAd();
     getSharedPrefs();
     TimerLuzTablaInfo();
@@ -688,7 +689,7 @@ class _CourseDetailState extends State<CourseDetail> {
           setState(() {
             _anchoredAdaptiveAd = ad as BannerAd;
             _isLoaded =
-                true; // Set _isLoaded to true only when ad is loaded successfully.
+                true; 
           });
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {

@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:cursin/infrastructure/model/curso_lista_model.dart';
+import 'package:cursin/infrastructure/model/curso_model.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
@@ -9,7 +9,7 @@ class DatabaseHandlerGen {
   Future<Database> initializeDB() async {
     String path = await getDatabasesPath();
     return openDatabase(
-      join(path, 'courses_global013.db'),
+      join(path, 'courses_global014.db'),
       onCreate: (database, version) async {
         final String sql = ''
             'CREATE TABLE cursos ('
@@ -821,8 +821,6 @@ class DatabaseHandlerGen {
             //
             '("Curso gratis de Cultura Económica (Inflación)" , "Fundación Carlos Slim", "Administración Negocios y Finanzas", "Con certificado gratis", "https://cerosetenta.uniandes.edu.co/wp-content/uploads/2020/05/3.Nahum-Montt-y-FCE-3_Cre%CC%81dito-@camilovargas.designer.jpg", "https://capacitateparaelempleo.org/cursos/view/318", "Español", "05 horas", "Con este curso de cultira economica comprenderás a detalle qué es la inflación, sus causas e influencia en tu vida cotidiana, asi como la relación que tiene con otros indicadores econóicos, como el índice de precios al consumidor y las estrategias utilizadas para controlarla.++Te deseamos Éxitos!!++Recuerda compartir este curso a tus amigos que mas lo necesiten++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
             //
-            '("Curso gratis básico de Linux " , "Cisco", "TIC, Seguridad Informática", "Con certificado gratis", "https://www.netacad.com/portal/sites/default/files/linux_16.png", "https://www.netacad.com/portal/web/self-enroll/m/course-855616", "Inglés", "700 horas", "++*Este curso se encuentre en idioma inglés, pero puedes usar el traductor del navegador Chrome (Abrir con el navegador)*.++Aproveche sus conocimientos de Linux y acérquese a las habilidades listas para el trabajo+Como una de las colaboraciones de código abierto más exitosas, Linux se ha convertido en el sistema operativo más confiable del planeta. Se utiliza para sistemas integrados en prácticamente todas las supercomputadoras por una buena razón. Casi todos los trabajos de TI requieren algunos conocimientos de Linux. NDG Linux Essentials desarrolla rápidamente su conocimiento de Linux y lo prepara para el Certificado de desarrollo profesional de LPI Linux Essentials (PDC), ¡su prueba a los empleadores de que conoce Linux! Muchos conceptos en este curso se cubren a un ritmo más exigente en NDG Linux I. No se requieren requisitos previos para este curso.++¡Disfruta del contenido del curso que es muy fácil de usar e interactivo con muchas ilustraciones!      ++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
-            //
             '("Curso gratis de Seguridad de la Información" , "FreeCodeCamp", "TIC, Seguridad Informática", "Con certificado gratis", "https://blogger.googleusercontent.com/img/a/AVvXsEjL8otWG-u8F2yn-yfhp-qfHcaAMLd0O2lNgGP65X1C9rRcLt9m_bXQBBRG0DVqPQAzSBjil19iMiAwvg6pUSH3Aw8dHO7AErhmPR13iZ_3z3zCHTl3axFTIQIblmyrAYuve7ezM6r_qw2piQ7_uuJQ_ABFlmPE2o9-GQitbkKIbNubIwJpQErNfA", "https://www.freecodecamp.org/learn/information-security/", "Inglés", "300 horas", "++*Este curso se encuentre en idioma inglés, pero puedes usar el traductor del navegador Chrome (Abrir con el navegador)*.++Con todo lo que hacemos en línea, hay una gran cantidad de información confidencial en riesgo: direcciones de correo electrónico, contraseñas, números de teléfono y mucho más.++Con la Certificación de Seguridad de la Información, creará una aplicación web segura con HelmetJS para aprender los fundamentos de la protección de la información de las personas en línea.++También creará un cliente TCP y un escáner de Nmap y puertos en Python. Esto le ayudará a aprender los conceptos básicos de las pruebas de penetración, un componente importante de una buena seguridad de la información.      ++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
             //
             '("Curso gratis de Viruela del mono: Introducción para contextos de brotes africanos" , "World Health Organization", "Salud", "Con certificado gratis", "https://blogger.googleusercontent.com/img/a/AVvXsEiAN0QQINCsaiof6tFc80gVEbLyfzs2PvJThzyXGM9JP50FwI4Fez49E9znqh5-9EiaV1BzPP0vEiT85U38bU1TGusCfJp896_9kgu0mnpng-APTnmmd-e4ur_sae0dDFOTJQOY6X4Cde2JCymtWQDl5CiaCXu5P2iu0iYOg2pJWQPQNT7ccBmtdg", "https://openwho.org/courses/viruela-del-mono-introduccion", "Inglés", "01 horas", "++La viruela del mono es una enrermedad transmisible emergente causada por un Virus que Se transmite a los seres humanos a partir de animales infectados, generalmente roedores. Puede contagiarse a otras personas, pero la transmIsión de persona a persona por si sola no es capaz de mantener un brote. La presentación clínica es similar a la observada en el pasado con la viruela, pero menos grave. La viruela fue erradicada en el mundo en 1980; sin embargo, la viruela del mono sigue produciéndose esporádicamente en partes de Africa Central y Occidental, cerca de las selvas tropicales. Normalmente, la letalidad en los brotes de viruela del mono ha sido del 1 al 10%, pero con los cuidados adecuados, la mayoria de los pacientes se recupera. Este curso ofrece una introducción general a la viruela del mono y está dirigido al personal sanitario responsable de la prevención y el control de la viruela del mono. ++¡Éxitos en tu capacitación!++El acceso a este curso es gracias a la plataforma que lo emite y a la aplicación de Cursin, la cual indexó y puso a disposición de sus usuarios el acceso a la plataforma web de dicho curso. \n\nEs probable que una vez accedas se te pida inscribirte o registrarte.++Esperamos que le saques el máximo aprovecho a este curso y que mejores tu perfil académico y profesional."),'
@@ -1385,13 +1383,13 @@ class DatabaseHandlerGen {
   }
 
   Future<void> deleteOldDatabases() async {
-    for (int i = 1; i < 8; i++) {
+    for (int i = 1; i < 9; i++) {
       String dbName = 'courses_global00$i.db';
       await deleteDatabase(dbName);
     }
   }
 
-  Future<void> inserttodo(curso course) async {
+  Future<void> insertCourseObject(curso course) async {
     final db = await initializeDB();
 
     await db.insert(
@@ -1402,13 +1400,13 @@ class DatabaseHandlerGen {
   }
 
   //id INTEGER PRIMARY KEY, namec TEXT, entidadc TEXT, categoriac TEXT, tipoc TEXT, urlcursos TEXT, urlimgc TEXT, descripcionc TEXT
-  Future<List<curso>> todos() async {
+  Future<List<curso>> course() async {
     final db = await initializeDB();
     final List<Map<String, dynamic>> queryResult = await db.query('cursos');
     return queryResult.map((e) => curso.fromMap(e)).toList();
   }
 
-  Future<void> deletecurso(int id) async {
+  Future<void> deletecourse(int id) async {
     final db = await initializeDB();
     await db.delete(
       'cursos',
@@ -1417,8 +1415,6 @@ class DatabaseHandlerGen {
     );
   }
 
-  //pROXIMAS CATEGORIAS
-  //MULTIMEDIA, PEDAGOGIA, DISEÑO GRÁFICO,
   Future<List<curso>> misFavoritos() async {
     SharedPreferences cursosFavString = await SharedPreferences.getInstance();
     String? getCoursesStringShP = cursosFavString.getString('coursesFavorites');
@@ -1450,7 +1446,6 @@ class DatabaseHandlerGen {
     }
   }
 
-  //este metodo retorna el numero total de cursos encontrados por categoria
   Future<int> getTotalCoursesInCategory(String category) async {
     final db = await initializeDB();
     final List<Map<String, dynamic>> queryResult = await db.rawQuery(
@@ -1460,14 +1455,13 @@ class DatabaseHandlerGen {
     return queryResult[0]['count'] ?? 0;
   }
 
-  //este metodo retorna un curso de forma aleatoria respecto a la categoria en cuestión
   Future<curso?> getRandomCourse(String category) async {
     final db = await initializeDB();
     final List<Map<String, dynamic>> queryResult = await db.rawQuery(
         'SELECT * FROM cursos WHERE categoria like ?', ['%$category%']);
 
     if (queryResult.isEmpty) {
-      return null; // No courses in the specified category.
+      return null;
     }
 
     final int randomIndex = Random().nextInt(queryResult.length);

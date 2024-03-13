@@ -815,8 +815,6 @@ class ShowCursos extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
                   onTap: () {
-                    //set notification
-                    //...
                     Navigator.push(
                       context,
                       MaterialPageRoute(

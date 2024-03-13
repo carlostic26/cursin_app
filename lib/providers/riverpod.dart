@@ -1,4 +1,4 @@
-import 'package:cursin/controller/theme_preferences.dart';
+import 'package:cursin/services/theme/theme_preferences.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final darkTheme_rp = StateProvider((ref) => false);

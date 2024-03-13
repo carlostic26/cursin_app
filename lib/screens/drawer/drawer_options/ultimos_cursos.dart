@@ -104,7 +104,7 @@ class _UltimosCursosListaState extends State<UltimosCursosLista> {
   }
 
   Future<List<curso>> getList() async {
-    return await handler.todos();
+    return await handler.course();
   }
 
   Future<List<curso>> getAllListCourses() async {
@@ -116,7 +116,7 @@ class _UltimosCursosListaState extends State<UltimosCursosLista> {
 
     // Buscar en la base de datos genérica
     DatabaseHandlerGen handler = DatabaseHandlerGen();
-    courses.addAll(await handler.todos());
+    courses.addAll(await handler.course());
 
     DatabaseTICHandler handlerTIC = DatabaseTICHandler();
     courses.addAll(await handlerTIC.todos());

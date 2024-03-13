@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:cursin/infrastructure/model/curso_lista_model.dart';
+import 'package:cursin/infrastructure/model/curso_model.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
@@ -23,7 +23,7 @@ class DatabaseTICHandler {
             ' idioma TEXT,'
             ' duracion TEXT,'
             ' description TEXT'
-            ');'; //
+            ');'; 
 
         await database.execute(sql);
 

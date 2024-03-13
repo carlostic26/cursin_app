@@ -1,6 +1,6 @@
 export 'package:animated_text_kit/animated_text_kit.dart';
-export 'package:cursin/controller/theme_preferences.dart';
-export 'package:cursin/provider/riverpod.dart';
+export 'package:cursin/services/theme/theme_preferences.dart';
+export 'package:cursin/providers/riverpod.dart';
 export 'package:cursin/screens/drawer/drawer_options/home_menu_categoria.dart';
 export 'package:cursin/screens/drawer/drawer_options/certificados.dart';
 export 'package:cursin/screens/drawer/drawer_options/courses_favs.dart';
@@ -22,9 +22,9 @@ export 'package:share_plus/share_plus.dart';
 export 'package:shared_preferences/shared_preferences.dart';
 export 'package:url_launcher/url_launcher.dart';
 export 'dart:io';
-export 'package:cursin/utils/ads_ids/ads.dart';
+export 'package:cursin/services/ads_ids/ads.dart';
 export 'package:giff_dialog/giff_dialog.dart';
-export 'package:cursin/infrastructure/model/curso_lista_model.dart';
+export 'package:cursin/infrastructure/model/curso_model.dart';
 
 export 'package:fluttertoast/fluttertoast.dart';
 export 'dart:math';
@@ -36,5 +36,4 @@ export 'package:cursin/screens/launch/loading_screen.dart';
 
 export 'package:cursin/screens/widgets/animated_background.dart';
 export 'package:youtube_player_flutter/youtube_player_flutter.dart';
-
 export 'package:cursin/screens/drawer/drawer_options/tutoriales.dart';

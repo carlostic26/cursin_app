@@ -41,12 +41,7 @@ void main() async {
   Timer(Duration(seconds: 10), () async {
     if (!isAdLoaded) {
       openAd?.dispose();
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('adCancelado', true);
-    } else {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('adCancelado', false);
-    }
+    } 
   });
 
   await LocalNotifications.initializeLocalNotificatios();

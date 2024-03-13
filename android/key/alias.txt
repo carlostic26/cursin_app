@@ -3,6 +3,7 @@ ABAJO SE TIENE LOS APUNTES DE ALIAS Y PASS PARA EVITAR PERDER DICHAS CREDENCIALE
 
 keytool -genkey -v -keystore C:\flutter_project\cursin2\cursin-main\android\app\upload-keystore.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias sd
 
+esta funciono bien marzo 2024
 keytool -genkey -v -keystore C:/flutter_project/cursin2/cursin-main/android/app/keystore.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias sd -storetype JKS
 
 alias: sd
