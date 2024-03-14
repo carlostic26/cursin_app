@@ -554,18 +554,21 @@ class _CustomDialogSliderState extends State<CustomDialogSlider> {
           child: Column(
             children: [
               Expanded(
-                child: CarouselSlider(
-                  items: _avisos,
-                  options: CarouselOptions(
-                    height: MediaQuery.of(context).size.height * 0.60,
-                    enableInfiniteScroll: false,
-                    autoPlay: false,
-                    enlargeCenterPage: true,
-                    onPageChanged: (index, reason) {
-                      setState(() {
-                        _currentAviso = index;
-                      });
-                    },
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: CarouselSlider(
+                    items: _avisos,
+                    options: CarouselOptions(
+                      height: MediaQuery.of(context).size.height * 0.60,
+                      enableInfiniteScroll: false,
+                      autoPlay: false,
+                      enlargeCenterPage: true,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          _currentAviso = index;
+                        });
+                      },
+                    ),
                   ),
                 ),
               ),

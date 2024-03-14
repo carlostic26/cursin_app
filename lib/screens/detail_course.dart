@@ -34,13 +34,13 @@ class _CourseDetailState extends State<CourseDetail> {
   int rewardedAdAttempts = 0;
 
   CursinAdsIds cursinAds = CursinAdsIds();
+
   static const AdRequest request = AdRequest(
       //keywords: ['',''],
       //contentUrl: '',
       //nonPersonalizedAds: false
       );
 
-  //Creating interstitial
   void createInterstitialAd() {
     InterstitialAd.load(
         // ignore: deprecated_member_use
@@ -52,7 +52,6 @@ class _CourseDetailState extends State<CourseDetail> {
         }, onAdFailedToLoad: (error) {
           interstitialAttempts++;
           interstitialAd = null;
-          // print( '-------------------\n\n\n - failed to load interstitial:\n ${error.message}');
 
           if (interstitialAttempts <= maxAttempts) {
             createInterstitialAd();
@@ -62,10 +61,9 @@ class _CourseDetailState extends State<CourseDetail> {
 
   void showInterstitialAd() {
     if (interstitialAd == null) {
-      //print('trying to show before loading');
       enterAcces++;
 
-      if (enterAcces < 2) {
+      if (enterAcces <= 2) {
         Fluttertoast.showToast(
           msg: "Intentalo de nuevo", // message
           toastLength: Toast.LENGTH_SHORT, // length
@@ -73,7 +71,7 @@ class _CourseDetailState extends State<CourseDetail> {
         );
         createInterstitialAd();
         Navigator.pop(context); //close dialog
-      } else if (enterAcces >= 2 && enterAcces < 4) {
+      } else if (enterAcces > 2 && enterAcces < 4) {
         Fluttertoast.showToast(
           msg:
               "Tu telefono no cargó el anuncio.\nVuelve a intentarlo.", // message
@@ -84,58 +82,36 @@ class _CourseDetailState extends State<CourseDetail> {
         //Navigator.pop(context); //close dialog
       } else if (enterAcces == 4) {
         Fluttertoast.showToast(
-          msg:
-              "Necesitas buena conexión. Cambiate a un Wi-Fi más cercano\nIntenta de nuevo.", // message
-          toastLength: Toast.LENGTH_SHORT, // length
-          gravity: ToastGravity.CENTER, // location
+          msg: "No tienes buena conexión. \nIntenta de nuevo.",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
         );
         createInterstitialAd();
         Navigator.pop(context);
-      } else if (enterAcces == 5) {
-        Fluttertoast.showToast(
-          msg:
-              "No cuentas con buena conexión o estás usando algun bloqueador. Es necesario que tu teléfono cargue los anuncios.", // message
-          toastLength: Toast.LENGTH_LONG, // length
-          gravity: ToastGravity.CENTER, // location
-        );
-      } else if (enterAcces > 5) {
-        //si definitivamente no ha cargado despues de 5 intentos, se genera un random al 50% para ingresar
+      } else if (enterAcces > 4) {
+        //5to intento
 
-        int number = 0;
-        var rng = Random();
-        number = rng.nextInt(2); // 50%
-        //print("numero aleatorio es: " + number.toString());
-
-        if (number == 1) {
-          Navigator.of(context).push(
-            PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) =>
-                  courseOption(
-                nameCourse: widget.td.title,
-                urlCourse: widget.td.urlcourse,
-                imgCourse: widget.td.imgcourse,
-                nombreEntidad: widget.td.entidad,
-              ),
-              transitionDuration:
-                  Duration(milliseconds: 500), // Duración de la transición
-              transitionsBuilder:
-                  (context, animation, secondaryAnimation, child) {
-                return FadeTransition(
-                  opacity: animation,
-                  child: child,
-                );
-              },
+        //si definitivamente no ha cargado despues de 5 intentos, se deja pasar
+        Navigator.of(context).push(
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                courseOption(
+              nameCourse: widget.td.title,
+              urlCourse: widget.td.urlcourse,
+              imgCourse: widget.td.imgcourse,
+              nombreEntidad: widget.td.entidad,
             ),
-          );
-        } else {
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (_) => CourseDetail(
-                        td: widget.td,
-                      )));
-        }
-        enterAcces = 0;
+            transitionDuration:
+                Duration(milliseconds: 500), // Duración de la transición
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            },
+          ),
+        );
       }
 
       _showDialogProblemAds(context);
@@ -187,7 +163,6 @@ class _CourseDetailState extends State<CourseDetail> {
         }));
   }
 
-  //showing rewarded
   void showRewardedAd() {
     if (rewardedAd == null) {
       if (enterAcces <= 2) {
@@ -259,9 +234,6 @@ class _CourseDetailState extends State<CourseDetail> {
       setState(() {
         getCoursesStringShP = coursesFavorites;
       });
-    } else {
-      // Aquí puedes manejar el caso en que no se obtenga un valor válido
-      // Puedes mostrar un aviso, asignar un valor por defecto, o realizar cualquier otra acción necesaria.
     }
   }
 
@@ -284,7 +256,6 @@ class _CourseDetailState extends State<CourseDetail> {
   @override
   void initState() {
     super.initState();
-    //es necesario inicializar el sharedpreferences tema, para que la variable book darkTheme esté inicializada como la recepcion del valor del sharedpreferences
     getSharedThemePrefs();
     adForCourse = false;
     //load ads
@@ -688,8 +659,7 @@ class _CourseDetailState extends State<CourseDetail> {
           // print('$ad loaded: ${ad.responseInfo}');
           setState(() {
             _anchoredAdaptiveAd = ad as BannerAd;
-            _isLoaded =
-                true; 
+            _isLoaded = true;
           });
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
@@ -881,11 +851,40 @@ class _CourseDetailState extends State<CourseDetail> {
 
   void showDialogCourse(
       BuildContext context, String img, title, entidad, urlcourse) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+
+    // Calcula la diagonal de la pantalla
+    double screenDiagonal = sqrt(height * height + width * width);
+
+    // Determina si el dispositivo es probablemente una tablet
+    bool isTablet = screenDiagonal >
+        900.0; // Este valor en puntos puede ajustarse según tus necesidades
+
+    // Determina la orientación de la pantalla
+    bool isLandscape = width > height;
+
+    double dialogHeight;
+    double imageHeight;
+    double textSize;
+
+    if (isLandscape || isTablet) {
+      dialogHeight =
+          height * 0.85; // Ocupa más altura en modo paisaje o en tablets
+      imageHeight = height * 0.28;
+      textSize = 10;
+    } else {
+      dialogHeight = height * 0.37; // Altura estándar en modo retrato
+      imageHeight = height * 0.15;
+      textSize = 12;
+    }
+
     showPlatformDialog(
       context: context,
       androidBarrierDismissible: true,
       builder: (_) => BasicDialogAlert(
         content: SizedBox(
+          height: dialogHeight,
           width: double.infinity,
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -894,31 +893,31 @@ class _CourseDetailState extends State<CourseDetail> {
               Text(
                 '👀 Antes de ir...',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: height * 0.01),
               CachedNetworkImage(
                 imageUrl: img,
                 fit: BoxFit.cover,
-                height: 200,
-                width: MediaQuery.of(context).size.width,
+                height: imageHeight,
+                width: width,
               ),
-              SizedBox(height: 10),
+              SizedBox(height: height * 0.03),
               Text(
                 'Puedes tomar este curso dentro o fuera de la app y reanudarlo cuando quieras. Aprovéchalo y disfrútalo. ' +
                     '\n\nVerás un pequeño anuncio para seguir mejorando la app Cursin 🕓',
-                style: TextStyle(color: Colors.black, fontSize: 13),
+                style: TextStyle(color: Colors.black, fontSize: textSize),
               ),
             ],
           ),
         ),
         actions: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               TextButton(
                 child: const Text('Quitar anuncios',
-                    style: TextStyle(color: Colors.white, fontSize: 12)),
+                    style: TextStyle(color: Colors.white, fontSize: 10)),
                 style: TextButton.styleFrom(backgroundColor: Colors.green),
                 onPressed: () {
                   Navigator.push(
@@ -927,10 +926,9 @@ class _CourseDetailState extends State<CourseDetail> {
                   );
                 },
               ),
-              SizedBox(width: 20),
               TextButton(
                 child: const Text('Continuar',
-                    style: TextStyle(color: Colors.white, fontSize: 12)),
+                    style: TextStyle(color: Colors.white, fontSize: 10)),
                 style: TextButton.styleFrom(backgroundColor: Colors.blueGrey),
                 onPressed: () async {
                   try {

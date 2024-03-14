@@ -160,12 +160,8 @@ class webviewState extends State<webview> {
             ]),
         body: WebView(
           userAgent:
-              'Mozilla/5.0 (Linux; Android 9.0; $modelDevice Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Mobile Safari/537.3',
-          //'Mozilla/5.0 (Linux; Android 9.0; Build/N2G48H; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/68.0.3440.70 Mobile Safari/537.36',
-          //'Mozilla/5.0 (Linux; Android 9.0; $modelDevice Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Mobile Safari/537.3',
-//Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36
-
-          //    Web userAgent: $_webUserAgent
+              //'Mozilla/5.0 (Linux; Android 9.0; $modelDevice Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Mobile Safari/537.3',
+              'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36',
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (WebViewController webViewController) {
             _controllerCompleter.future.then((value) => _controller = value);
@@ -305,7 +301,7 @@ class webviewState extends State<webview> {
                   },
                   child: Text(
                     'No',
-                    style: TextStyle(color: Colors.grey),
+                    style: TextStyle(color: Colors.black),
                   ),
                 ),
                 TextButton(
@@ -329,7 +325,7 @@ class webviewState extends State<webview> {
                   },
                   child: Text(
                     'Sip',
-                    style: TextStyle(color: Colors.grey),
+                    style: TextStyle(color: Colors.black),
                   ),
                 ),
               ],

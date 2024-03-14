@@ -456,7 +456,10 @@ class _infoAppState extends State<infoApp> {
       leading: Builder(
         builder: (BuildContext context) {
           return IconButton(
-            icon: Icon(Icons.arrow_back), // Icono del botón de hamburguesa
+            icon: Icon(
+              Icons.arrow_back,
+              color: darkTheme == true ? Colors.white : Colors.grey[850],
+            ), // Icono del botón de hamburguesa
             onPressed: () {
               Navigator.pop(context);
             },

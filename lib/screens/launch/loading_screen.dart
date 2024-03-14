@@ -45,6 +45,30 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+
+    // Calcula la diagonal de la pantalla
+    double screenDiagonal = sqrt(height * height + width * width);
+
+    // Determina si el dispositivo es probablemente una tablet
+    bool isTablet = screenDiagonal >
+        900.0; // Este valor en puntos puede ajustarse según tus necesidades
+
+    // Determina la orientación de la pantalla
+    bool isLandscape = width > height;
+
+    double imageHeight;
+    double textSize;
+
+    if (isLandscape || isTablet) {
+      imageHeight = height * 0.20;
+      textSize = 10;
+    } else {
+      imageHeight = height * 0.17;
+      textSize = 12;
+    }
+
     return Scaffold(
       backgroundColor: Colors.grey[850],
       body: Stack(children: [
@@ -54,31 +78,31 @@ class _LoadingScreenState extends State<LoadingScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 100,
+                height: height * 0.18,
               ),
               Container(
-                height: 200,
+                height: imageHeight,
                 padding: EdgeInsets.symmetric(
                   horizontal: 5,
                 ),
                 child: Image.asset("assets/logo.png"),
               ),
               SizedBox(
-                height: 10,
+                height: height * 0.01,
               ),
               Container(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     LinearPercentIndicator(
-                      width: 270.0,
-                      lineHeight: 8,
-                      percent: 100 / 100,
-                      animation: true,
-                      animationDuration: 10000, // 8.5 sec para cargar la barra
-                      progressColor: Colors.blueAccent,
-                    ),
+                        width: width * 0.55,
+                        lineHeight: 5,
+                        percent: 100 / 100,
+                        animation: true,
+                        animationDuration:
+                            10000, // 8.5 sec para cargar la barra
+                        progressColor: Colors.blueGrey),
                   ],
                 ),
               ),
@@ -88,7 +112,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                   Text(
                     "Recopilando ",
                     style: TextStyle(
-                      fontSize: 10,
+                      fontSize: 8,
                       color: Colors.white,
                     ),
                   ),
@@ -96,14 +120,14 @@ class _LoadingScreenState extends State<LoadingScreen> {
                   Text(
                     " cursos gratuitos de 22 categorias...",
                     style: TextStyle(
-                      fontSize: 10,
+                      fontSize: 8,
                       color: Colors.white,
                     ),
                   ),
                 ],
               ),
               SizedBox(
-                height: 80,
+                height: height * 0.05,
               ),
               Align(
                 alignment: Alignment.bottomCenter,
@@ -118,7 +142,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                     style: ButtonStyle(
                       backgroundColor: buttonEnabled
                           ? MaterialStateProperty.all<Color>(
-                              Colors.blueAccent,
+                              Colors.blueGrey,
                             ) // Color de fondo cuando está habilitado
                           : MaterialStateProperty.all<Color>(Colors
                               .grey), // Color de fondo cuando está deshabilitado
@@ -189,7 +213,7 @@ class _CountingAnimationState extends State<CountingAnimation>
         return Text(
           _animation.value.toInt().toString(),
           style: TextStyle(
-            fontSize: 10,
+            fontSize: 8,
             color: Colors.white,
           ),
         );

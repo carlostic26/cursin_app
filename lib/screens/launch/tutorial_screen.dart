@@ -34,7 +34,7 @@ final slidesTutorial = <SlideInfo>[
 //checkbox
   SlideInfo(
       'Comprendo que...',
-      'Cursin es un buscador de cursos y no es dueño de ellos. \n\nAunque todos los cursos son gratis, algunos pocos pueden no emitir diplomas o certificados. \n\nCursin se actualiza constantemente para avisarme cuando hay cursos nuevos. \n\nCursin me servirá como herramienta para encontrar cursos online gratis cuando lo necesite.',
+      'Cursin es un buscador de cursos y no es dueño de ellos.\n\nAunque todos los cursos son gratis, algunos pocos pueden no emitir diplomas o certificados. \n\nCursin se actualiza constantemente para avisarme cuando hay cursos nuevos. \n\nCursin me servirá como herramienta para encontrar cursos online gratis cuando lo necesite.',
       'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiqMAKKMpgeugG5DtqGLdUlYqIimMoi6KCbn12CsnIYB0JGbWT3Zc3MmASM16eETFiESLLKq-ZqWC4kmZHtKeMQAafD0p0w4j8CfwAfRimQEksLVYpWg5ms0FDOI2DWPWiSsDFWIcJ9eVT6QHi4J0wFAt9n89JP1G0RzbHFNHumaIaH52rkrb-_-c0l/w400-h246/img6.png'),
 ];
 
@@ -49,7 +49,6 @@ class _TutorialScreenState extends State<TutorialScreen> {
   final PageController pageviewController = PageController();
   bool endReached = false;
   bool showImage = false;
-
 
   @override
   void initState() {
@@ -71,16 +70,12 @@ class _TutorialScreenState extends State<TutorialScreen> {
         showImage = true;
       });
 
-
-
       Future.delayed(Duration(seconds: 5), () {
         setState(() {
           showImage = false;
         });
       });
-    }
-    
-    );
+    });
   }
 
   Future<void> initTheme() async {
@@ -96,61 +91,67 @@ class _TutorialScreenState extends State<TutorialScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Colors.grey[850],
       body: Stack(
         children: [
-          PageView(
-            controller: pageviewController, 
-            physics: const BouncingScrollPhysics(),
-            children: slidesTutorial
-                .map((slideData) => _Slide(
-                      title: slideData.title,
-                      caption: slideData.caption,
-                      imageUrl: slideData.imageUrl,
-                    ))
-                .toList(),
+          Container(
+            height: height * 0.99,
+            child: PageView(
+              scrollDirection: Axis.horizontal,
+              controller: pageviewController,
+              physics: const BouncingScrollPhysics(),
+              children: slidesTutorial
+                  .map((slideData) => _Slide(
+                        title: slideData.title,
+                        caption: slideData.caption,
+                        imageUrl: slideData.imageUrl,
+                      ))
+                  .toList(),
+            ),
           ),
           if (endReached)
-          Positioned(
-            bottom: 30,
-            right: 30,
-            child: ElevatedButton(
-              onPressed: () {
-                guardarPrimerAcceso();
-                   Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                          builder: (context) => HomeCategoriasSelectCards()),
-                    );
-              },
-              child: const Text(
-                'Comenzar',
-                style: TextStyle(color: Colors.white),
+            Positioned(
+              bottom: 30,
+              right: 30,
+              child: ElevatedButton(
+                onPressed: () {
+                  guardarPrimerAcceso();
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                        builder: (context) => HomeCategoriasSelectCards()),
+                  );
+                },
+                child: const Text(
+                  'Comenzar',
+                  style: TextStyle(color: Colors.white),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blueGrey,
+                ),
               ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueGrey,
+            )
+          else
+            Positioned(
+              bottom: 30,
+              right: 30,
+              child: AnimatedOpacity(
+                duration: Duration(seconds: 2),
+                opacity: showImage
+                    ? 1.0
+                    : 0.0, // Opacidad inicial (visible o invisible)
+                child: SizedBox(
+                  height: 70,
+                  width: 70,
+                  child: Image.network(
+                    'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjKXWs4G03tCuF-aV3kGFZ26BroRXsGhqY80d8r8VKPT2WaQkunZMxd-l_95-B-dhNY_U2vj5RNmB-6aMkym3Us2sTwcL6ehdBTp4AP_5wTq8CcF_X-IvpHJk6TSqTFQodEFEbi9fnKfYnRPjSBeKsVPjeGlNMhHbOsAIQArzJy5UfwyfdhgyN6h7Tm/s218/swip.gif',
+                    // Añade más propiedades a la imagen según tus necesidades
+                  ),
+                ),
               ),
             ),
-          )
-        else
-              Positioned(
-          bottom: 30,
-          right: 30,
-          child: AnimatedOpacity(
-            duration: Duration(seconds: 2),
-            opacity: showImage ? 1.0 : 0.0, // Opacidad inicial (visible o invisible)
-            child: SizedBox(
-              height: 70,
-              width: 70,
-              child: Image.network(
-                'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjKXWs4G03tCuF-aV3kGFZ26BroRXsGhqY80d8r8VKPT2WaQkunZMxd-l_95-B-dhNY_U2vj5RNmB-6aMkym3Us2sTwcL6ehdBTp4AP_5wTq8CcF_X-IvpHJk6TSqTFQodEFEbi9fnKfYnRPjSBeKsVPjeGlNMhHbOsAIQArzJy5UfwyfdhgyN6h7Tm/s218/swip.gif',
-                // Añade más propiedades a la imagen según tus necesidades
-              ),
-            ),
-          ),
-        ),
-          
-
         ],
       ),
     );
@@ -189,7 +190,7 @@ class _Slide extends StatelessWidget {
             children: [
               Center(
                 child: SizedBox(
-                  height: 300,
+                  height: 220,
                   width: size.width * 0.7,
                   child: CachedNetworkImage(
                     imageUrl: imageUrl,
@@ -208,16 +209,16 @@ class _Slide extends StatelessWidget {
                 title,
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 24,
+                    fontSize: 22,
                     fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 17),
               Text(caption,
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 14,
+                    fontSize: 12,
                   )),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
             ],
           ),
         ));
