@@ -2,10 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cursin/infrastructure/localdb/cursos_PROG_db.dart';
 import 'package:cursin/infrastructure/localdb/cursos_TIC_db.dart';
 import 'package:cursin/infrastructure/localdb/cursos_db.dart';
-import 'package:cursin/screens/drawer/drawer_options/tutoriales.dart';
 import 'package:cursin/screens/launch/tutorial_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import '../../screens.dart';
 
 class HomeCategoriasSelectCards extends StatefulWidget {
@@ -139,10 +137,8 @@ class _HomeCategoriasSelectCardsState extends State<HomeCategoriasSelectCards> {
   @override
   initState() {
     super.initState();
-
     getSharedThemePrefs();
     loadCountCourses();
-    //newVersionApp();
     initializeDb();
   }
 

@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cursin/screens/screens.dart';
 import 'package:cursin/screens/option_course.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_dialogs/flutter_dialogs.dart';
 
 class CourseDetail extends StatefulWidget {
@@ -14,7 +15,7 @@ class CourseDetail extends StatefulWidget {
   State<CourseDetail> createState() => _CourseDetailState();
 }
 
-const int maxAttempts = 3;
+const int maxAttempts = 5;
 
 class _CourseDetailState extends State<CourseDetail> {
   late bool adForCourse;
@@ -65,33 +66,23 @@ class _CourseDetailState extends State<CourseDetail> {
 
       if (enterAcces <= 2) {
         Fluttertoast.showToast(
-          msg: "Intentalo de nuevo", // message
-          toastLength: Toast.LENGTH_SHORT, // length
-          gravity: ToastGravity.CENTER, // location
-        );
-        createInterstitialAd();
-        Navigator.pop(context); //close dialog
-      } else if (enterAcces > 2 && enterAcces < 4) {
-        Fluttertoast.showToast(
-          msg:
-              "Tu telefono no cargó el anuncio.\nVuelve a intentarlo.", // message
-          toastLength: Toast.LENGTH_SHORT, // length
-          gravity: ToastGravity.CENTER, // location
-        );
-        createInterstitialAd();
-        //Navigator.pop(context); //close dialog
-      } else if (enterAcces == 4) {
-        Fluttertoast.showToast(
-          msg: "No tienes buena conexión. \nIntenta de nuevo.",
+          msg: "Intenta de nuevo",
           toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
+          gravity: ToastGravity.BOTTOM,
         );
         createInterstitialAd();
         Navigator.pop(context);
-      } else if (enterAcces > 4) {
+      } else if (enterAcces > 2 && enterAcces <= 3) {
+        Fluttertoast.showToast(
+          msg: "Tu telefono no cargó el anuncio.\nVuelve a intentarlo.",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+        );
+        createInterstitialAd();
+      } else if (enterAcces > 3) {
         //5to intento
-
         //si definitivamente no ha cargado despues de 5 intentos, se deja pasar
+        Navigator.pop(context);
         Navigator.of(context).push(
           PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) =>
@@ -167,21 +158,42 @@ class _CourseDetailState extends State<CourseDetail> {
     if (rewardedAd == null) {
       if (enterAcces <= 2) {
         Fluttertoast.showToast(
-          msg: "Intentalo de nuevo.", // message
-          toastLength: Toast.LENGTH_LONG, // length
-          gravity: ToastGravity.BOTTOM, // location
+          msg: "Intenta de nuevo",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
         );
-
-        enterAcces++;
-      } else {
-        if (enterAcces >= 3) {
-          Fluttertoast.showToast(
-            msg: "Desactiva el bloqueador de anuncios", // message
-            toastLength: Toast.LENGTH_SHORT, // length
-            gravity: ToastGravity.BOTTOM, // location
-          );
-        }
-        enterAcces++;
+        createRewardedAd();
+      } else if (enterAcces > 2 && enterAcces <= 3) {
+        Fluttertoast.showToast(
+          msg: "Tu telefono no cargó el anuncio.\nVuelve a intentarlo.",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+        );
+        createRewardedAd();
+      } else if (enterAcces > 3) {
+        //5to intento
+        //si definitivamente no ha cargado despues de 5 intentos, se deja pasar
+        Navigator.pop(context);
+        Navigator.of(context).push(
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                courseOption(
+              nameCourse: widget.td.title,
+              urlCourse: widget.td.urlcourse,
+              imgCourse: widget.td.imgcourse,
+              nombreEntidad: widget.td.entidad,
+            ),
+            transitionDuration:
+                Duration(milliseconds: 500), // Duración de la transición
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            },
+          ),
+        );
       }
 
       return;
@@ -264,7 +276,25 @@ class _CourseDetailState extends State<CourseDetail> {
     createRewardedAd();
     getSharedPrefs();
     TimerLuzTablaInfo();
+
+    Timer.periodic(Duration(seconds: 1), (Timer t) {
+      if (counter > 0) {
+        setState(() {
+          counter--;
+        });
+      } else {
+        t.cancel();
+        setState(() {
+          isLoadin = false;
+          buttonText = 'Ir al curso';
+        });
+      }
+    });
   }
+
+  String buttonText = 'Lee la descripción';
+  bool isLoadin = true;
+  int counter = 10;
 
   @override
   void dispose() {
@@ -502,7 +532,7 @@ class _CourseDetailState extends State<CourseDetail> {
                 children: [
                   RichText(
                       text: TextSpan(
-                    text: "Detalles",
+                    text: "Descripción",
                     style: new TextStyle(
                       fontSize: 18.0,
                       color: darkTheme == true ? Colors.white : Colors.black,
@@ -540,7 +570,7 @@ class _CourseDetailState extends State<CourseDetail> {
                 height: 20,
               ),
 
-              Container(
+              /*  Container(
                 alignment: Alignment.topCenter,
                 padding: EdgeInsets.symmetric(horizontal: 5.0),
                 child: Container(
@@ -611,6 +641,97 @@ class _CourseDetailState extends State<CourseDetail> {
                     ), // <-- Text
                   ),
                 ),
+              ), */
+
+              Container(
+                alignment: Alignment.topCenter,
+                padding: EdgeInsets.symmetric(horizontal: 5.0),
+                child: Container(
+                  alignment: Alignment.topCenter,
+                  padding: EdgeInsets.symmetric(horizontal: 5.0),
+                  child: ElevatedButton.icon(
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.blueGrey),
+                    ),
+                    onPressed: () async {
+                      if (!isLoadin) {
+                        //Read all coins saved
+                        SharedPreferences coinsPrefs =
+                            await SharedPreferences.getInstance();
+
+                        int actualCoins =
+                            coinsPrefs.getInt('cursinCoinsSHP') ?? 2;
+
+                        //data that ask if the last acces to course is the same course in the moment:
+                        SharedPreferences lastCourse =
+                            await SharedPreferences.getInstance();
+                        lastCourse.getString('lastCourse');
+
+                        if (actualCoins >= 12 ||
+                            widget.td.title ==
+                                lastCourse.getString('lastCourse')) {
+                          //Navigator.pop(context); //close dialog
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => courseOption(
+                                      nameCourse: widget.td.title,
+                                      urlCourse: widget.td.urlcourse,
+                                      imgCourse: widget.td.imgcourse,
+                                      nombreEntidad: widget.td.entidad,
+                                    )),
+                          );
+                        } else {
+                          //show dialog saying that ads keep service of the app
+                          showDialogCourse(
+                              context,
+                              widget.td.imgcourse,
+                              widget.td.title,
+                              widget.td.entidad,
+                              widget.td.urlcourse);
+
+                          //PARA LIVES DE TIKTOK
+                          /*Navigator.pop(context); //close dialog
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => courseOption(
+                                    nameCourse: widget.td.title,
+                                    urlCourse: widget.td.urlcourse,
+                                    imgCourse: widget.td.imgcourse,
+                                    nombreEntidad: widget.td.entidad,
+                                  )),
+                        );
+                        */
+                        }
+                      }
+                    },
+                    icon: isLoadin
+                        ? Stack(
+                            alignment: Alignment.center,
+                            children: <Widget>[
+                              SizedBox(
+                                  height: 23,
+                                  width: 23,
+                                  child: CircularProgressIndicator(
+                                      color: Colors.white)),
+                              Text(
+                                '$counter',
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.white),
+                              ),
+                            ],
+                          )
+                        : Icon(
+                            Icons.play_arrow,
+                            size: 20.0,
+                            color: Colors.white,
+                          ),
+                    label: Text(
+                      buttonText,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
               ),
 
               SizedBox(
@@ -620,19 +741,14 @@ class _CourseDetailState extends State<CourseDetail> {
           ),
         ),
       ),
-      bottomNavigationBar: _anchoredAdaptiveAd != null && _isLoaded
+      bottomNavigationBar: _anchoredAdaptiveAd != null
           ? Container(
-              color: Color.fromARGB(0, 33, 149, 243),
+              color: Colors.transparent,
               width: _anchoredAdaptiveAd?.size.width.toDouble(),
               height: _anchoredAdaptiveAd?.size.height.toDouble(),
               child: AdWidget(ad: _anchoredAdaptiveAd!),
             )
-          : Container(
-              color: Color.fromARGB(0, 33, 149, 243),
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height *
-                  0.1, // 10% de la altura de la pantalla
-            ),
+          : SizedBox(), // Si no hay anuncio cargado, no muestra nada
     );
   }
 
@@ -721,7 +837,10 @@ class _CourseDetailState extends State<CourseDetail> {
             return SimpleDialog(children: [
               Text(
                 "¿Qué ha ocurrido?\n",
-                style: TextStyle(color: Colors.blue, fontSize: 20.0),
+                style: TextStyle(
+                    color: Colors.blueGrey,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               SizedBox(
@@ -730,7 +849,7 @@ class _CourseDetailState extends State<CourseDetail> {
               CheckboxListTile(
                   title: Text(
                     "Acceso caído al curso, no carga información y/o sale en blanco.",
-                    style: TextStyle(fontSize: 15.0),
+                    style: TextStyle(fontSize: 12.0),
                   ),
                   value: (valPagCaida),
                   onChanged: (valPagCaida) => setState(() {
@@ -747,7 +866,7 @@ class _CourseDetailState extends State<CourseDetail> {
               CheckboxListTile(
                   title: Text(
                     "Mi telefono no carga los anuncios.",
-                    style: TextStyle(fontSize: 15.0),
+                    style: TextStyle(fontSize: 12.0),
                   ),
                   value: (valPagCaida2),
                   onChanged: (val) => setState(() {
@@ -764,7 +883,7 @@ class _CourseDetailState extends State<CourseDetail> {
               CheckboxListTile(
                   title: Text(
                     "Algunos videos no se reproducen.",
-                    style: TextStyle(fontSize: 15.0),
+                    style: TextStyle(fontSize: 12.0),
                   ),
                   value: (valPagCaida3),
                   onChanged: (val) => setState(() {
@@ -781,7 +900,7 @@ class _CourseDetailState extends State<CourseDetail> {
               CheckboxListTile(
                   title: Text(
                     "El curso no corresponde al presentado en Cursin.",
-                    style: TextStyle(fontSize: 15.0),
+                    style: TextStyle(fontSize: 12.0),
                   ),
                   value: (valPagCaida4),
                   onChanged: (val) => setState(() {
@@ -798,7 +917,7 @@ class _CourseDetailState extends State<CourseDetail> {
               CheckboxListTile(
                   title: Text(
                     "Me están cobrando el acceso al curso.",
-                    style: TextStyle(fontSize: 15.0),
+                    style: TextStyle(fontSize: 12.0),
                   ),
                   value: (valPagCaida5),
                   onChanged: (val) => setState(() {
@@ -817,15 +936,8 @@ class _CourseDetailState extends State<CourseDetail> {
                 padding: EdgeInsets.symmetric(horizontal: 5.0),
                 child: ElevatedButton(
                     style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                          side: BorderSide(
-                            color: Colors.blueAccent,
-                            width: 2.0,
-                          ),
-                        ),
-                      ),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.blueGrey),
                     ),
                     child: Text(
                       'Reportar',
@@ -865,18 +977,22 @@ class _CourseDetailState extends State<CourseDetail> {
     bool isLandscape = width > height;
 
     double dialogHeight;
+    double dialogWidth;
     double imageHeight;
     double textSize;
 
-    if (isLandscape || isTablet) {
-      dialogHeight =
-          height * 0.85; // Ocupa más altura en modo paisaje o en tablets
-      imageHeight = height * 0.28;
+    if (isLandscape) {
+      //horizontal responsive
+      dialogHeight = height * 0.85;
+      dialogWidth = width * 0.30;
+      imageHeight = height * 0.25;
       textSize = 10;
     } else {
-      dialogHeight = height * 0.37; // Altura estándar en modo retrato
-      imageHeight = height * 0.15;
-      textSize = 12;
+      //vertical responsive
+      dialogHeight = height * 0.33;
+      dialogWidth = width * 0.8;
+      imageHeight = height * 0.14;
+      textSize = 11;
     }
 
     showPlatformDialog(
@@ -885,10 +1001,10 @@ class _CourseDetailState extends State<CourseDetail> {
       builder: (_) => BasicDialogAlert(
         content: SizedBox(
           height: dialogHeight,
-          width: double.infinity,
+          width: dialogWidth,
           child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 '👀 Antes de ir...',
@@ -902,11 +1018,17 @@ class _CourseDetailState extends State<CourseDetail> {
                 height: imageHeight,
                 width: width,
               ),
-              SizedBox(height: height * 0.03),
-              Text(
-                'Puedes tomar este curso dentro o fuera de la app y reanudarlo cuando quieras. Aprovéchalo y disfrútalo. ' +
-                    '\n\nVerás un pequeño anuncio para seguir mejorando la app Cursin 🕓',
-                style: TextStyle(color: Colors.black, fontSize: textSize),
+              SizedBox(height: height * 0.01),
+              SizedBox(
+                height: height * 0.10,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Text(
+                    'Puedes tomar este curso dentro o fuera de la app y reanudarlo cuando quieras. Aprovéchalo y disfrútalo. ' +
+                        '\nVerás un pequeño anuncio para seguir mejorando la app Cursin 🕓',
+                    style: TextStyle(color: Colors.black, fontSize: textSize),
+                  ),
+                ),
               ),
             ],
           ),

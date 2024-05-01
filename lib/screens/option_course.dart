@@ -38,6 +38,7 @@ class _courseOptionState extends State<courseOption> {
   }
 
   void initState() {
+    super.initState();
     isloaded = true;
     getSharedThemePrefs();
   }

@@ -196,8 +196,8 @@ class _Slide extends StatelessWidget {
                     imageUrl: imageUrl,
                     fit: BoxFit.contain,
                     placeholder: (context, url) => Container(
-                      width: 50, // Ajusta este valor a tu necesidad
-                      height: 50, // Ajusta este valor a tu necesidad
+                      width: 50,
+                      height: 50,
                       alignment: Alignment.center,
                       child: const CircularProgressIndicator(),
                     ),

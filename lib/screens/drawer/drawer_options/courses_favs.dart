@@ -245,7 +245,7 @@ class _CoursesFavsState extends State<CoursesFavs> {
                         decoration: BoxDecoration(
                           color: darkTheme == true
                               ? Colors.grey[850]
-                              : Colors.white, // Your desired background color
+                              : Colors.white,
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Row(
@@ -265,10 +265,8 @@ class _CoursesFavsState extends State<CoursesFavs> {
                                         fit: BoxFit.cover,
                                         placeholder: (context, url) =>
                                             Container(
-                                          width:
-                                              50, // Ajusta este valor a tu necesidad
-                                          height:
-                                              50, // Ajusta este valor a tu necesidad
+                                          width: 50,
+                                          height: 50,
                                           alignment: Alignment.center,
                                           child:
                                               const CircularProgressIndicator(),

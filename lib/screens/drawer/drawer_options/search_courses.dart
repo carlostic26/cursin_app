@@ -308,8 +308,7 @@ class _searchedCoursesState extends State<searchedCourses> {
                               decoration: BoxDecoration(
                                 color: darkTheme == true
                                     ? Colors.grey[850]
-                                    : Colors
-                                        .white, // Your desired background color
+                                    : Colors.white,
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: Container(

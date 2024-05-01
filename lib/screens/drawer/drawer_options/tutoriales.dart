@@ -26,8 +26,8 @@ class _TutorialesScreenState extends State<TutorialesScreen> {
 
   @override
   void initState() {
-    getSharedThemePrefs();
     super.initState();
+    getSharedThemePrefs();
   }
 
   @override

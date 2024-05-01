@@ -51,22 +51,25 @@ class _LoadingScreenState extends State<LoadingScreen> {
     // Calcula la diagonal de la pantalla
     double screenDiagonal = sqrt(height * height + width * width);
 
-    // Determina si el dispositivo es probablemente una tablet
-    bool isTablet = screenDiagonal >
-        900.0; // Este valor en puntos puede ajustarse según tus necesidades
+    bool isTablet = screenDiagonal > 900.0;
 
     // Determina la orientación de la pantalla
     bool isLandscape = width > height;
+    print('is Landscape? $isLandscape');
+    print('horizontal $width');
+    print('vertical $height');
 
     double imageHeight;
     double textSize;
 
-    if (isLandscape || isTablet) {
+    if (isLandscape) {
+      print('horizontal');
       imageHeight = height * 0.20;
       textSize = 10;
     } else {
-      imageHeight = height * 0.17;
-      textSize = 12;
+      print('vertical');
+      imageHeight = height * 0.15;
+      textSize = 9;
     }
 
     return Scaffold(
@@ -78,7 +81,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: height * 0.18,
+                height: height * 0.12,
               ),
               Container(
                 height: imageHeight,
@@ -112,15 +115,15 @@ class _LoadingScreenState extends State<LoadingScreen> {
                   Text(
                     "Recopilando ",
                     style: TextStyle(
-                      fontSize: 8,
+                      fontSize: textSize,
                       color: Colors.white,
                     ),
                   ),
-                  CountingAnimation(endCount: maxCourses),
+                  CountingAnimation(endCount: maxCourses, textSize: textSize),
                   Text(
                     " cursos gratuitos de 22 categorias...",
                     style: TextStyle(
-                      fontSize: 8,
+                      fontSize: textSize,
                       color: Colors.white,
                     ),
                   ),
@@ -143,9 +146,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
                       backgroundColor: buttonEnabled
                           ? MaterialStateProperty.all<Color>(
                               Colors.blueGrey,
-                            ) // Color de fondo cuando está habilitado
-                          : MaterialStateProperty.all<Color>(Colors
-                              .grey), // Color de fondo cuando está deshabilitado
+                            )
+                          : MaterialStateProperty.all<Color>(Colors.grey),
                     ),
                     child: Text(
                       'Continuar',
@@ -175,8 +177,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
 class CountingAnimation extends StatefulWidget {
   final int endCount;
+  final double textSize;
 
-  CountingAnimation({required this.endCount});
+  CountingAnimation({required this.endCount, required this.textSize});
 
   @override
   _CountingAnimationState createState() => _CountingAnimationState();
@@ -213,7 +216,7 @@ class _CountingAnimationState extends State<CountingAnimation>
         return Text(
           _animation.value.toInt().toString(),
           style: TextStyle(
-            fontSize: 8,
+            fontSize: widget.textSize,
             color: Colors.white,
           ),
         );

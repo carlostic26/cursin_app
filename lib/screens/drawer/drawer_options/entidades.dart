@@ -120,6 +120,7 @@ class _EntidadesScreenState extends State<EntidadesScreen> {
 
   @override
   void initState() {
+    super.initState();
     getSharedThemePrefs();
     _loadAdaptativeAd();
   }

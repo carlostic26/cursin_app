@@ -825,7 +825,7 @@ class ShowCursos extends StatelessWidget {
                     );
                   },
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(7, 5, 7, 5),
+                    padding: const EdgeInsets.fromLTRB(7, 3, 7, 3),
                     child: Column(
                       children: [
                         Padding(
@@ -834,8 +834,7 @@ class ShowCursos extends StatelessWidget {
                             decoration: BoxDecoration(
                               color: darkTheme == true
                                   ? Colors.grey[850]
-                                  : Colors
-                                      .white, // Your desired background color
+                                  : Colors.white,
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Container(
@@ -857,10 +856,8 @@ class ShowCursos extends StatelessWidget {
                                               fit: BoxFit.cover,
                                               placeholder: (context, url) =>
                                                   Container(
-                                                width:
-                                                    50, // Ajusta este valor a tu necesidad
-                                                height:
-                                                    50, // Ajusta este valor a tu necesidad
+                                                width: 50,
+                                                height: 50,
                                                 alignment: Alignment.center,
                                                 child:
                                                     const CircularProgressIndicator(),

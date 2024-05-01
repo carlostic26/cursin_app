@@ -83,6 +83,7 @@ class _infoAppState extends State<infoApp> {
 
   @override
   void initState() {
+    super.initState();
     //load ads
     //loadStaticBannerAd();
     //_loadAdaptativeAd();

@@ -87,6 +87,7 @@ class _UltimosCursosListaState extends State<UltimosCursosLista> {
 
   @override
   void initState() {
+    super.initState();
     getSharedThemePrefs();
     //_loadAdaptativeAd();
     handler = DatabaseHandlerGen();
@@ -96,7 +97,6 @@ class _UltimosCursosListaState extends State<UltimosCursosLista> {
         _curso = getAllListCourses();
       });
     });
-    super.initState();
   }
 
   void onClickedNotifications(String? payload) {
@@ -240,8 +240,7 @@ class _UltimosCursosListaState extends State<UltimosCursosLista> {
                               decoration: BoxDecoration(
                                 color: darkTheme == true
                                     ? Colors.grey[850]
-                                    : Colors
-                                        .white, // Your desired background color
+                                    : Colors.white,
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: Container(

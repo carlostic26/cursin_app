@@ -83,7 +83,6 @@ class _certificadosScreenState extends State<certificadosScreen> {
   @override
   void initState() {
     super.initState();
-
     getSharedThemePrefs();
   }
 
