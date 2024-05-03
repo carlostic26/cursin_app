@@ -4,7 +4,7 @@ export 'package:cursin/providers/riverpod.dart';
 export 'package:cursin/screens/drawer/drawer_options/home_menu_categoria.dart';
 export 'package:cursin/screens/drawer/drawer_options/certificados.dart';
 export 'package:cursin/screens/drawer/drawer_options/courses_favs.dart';
-export 'package:cursin/screens/drawer/drawer_options/delete_anun.dart';
+export 'package:cursin/screens/drawer/drawer_options/eliminar_anuncios.dart';
 export 'package:cursin/screens/drawer/drawer_options/noticias_screen.dart';
 export 'package:cursin/screens/drawer/drawer_options/search_courses.dart';
 

@@ -139,9 +139,9 @@ class webviewNewsScreenState extends State<webviewNewsScreen> {
   void copiarEnlace() {
     Clipboard.setData(ClipboardData(text: widget.urlNew.toString()));
     Fluttertoast.showToast(
-      msg: "Enlace copiado", // message
-      toastLength: Toast.LENGTH_LONG, // length
-      gravity: ToastGravity.BOTTOM, // location
+      msg: "Enlace copiado",
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
     );
   }
 

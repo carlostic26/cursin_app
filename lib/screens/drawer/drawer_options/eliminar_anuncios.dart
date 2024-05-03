@@ -10,7 +10,7 @@ class deleteAnunScreen extends StatefulWidget {
   State<deleteAnunScreen> createState() => _deleteAnunScreenState();
 }
 
-const int maxAttempts = 3;
+const int maxAttempts = 2;
 
 class _deleteAnunScreenState extends State<deleteAnunScreen> {
   //initializing reward ad
@@ -44,47 +44,22 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
         }));
   }
 
-  int enterAcces = 0;
-
-  bool? darkTheme;
-
-  Future<Null> getSharedThemePrefs() async {
-    SharedPreferences themePrefs = await SharedPreferences.getInstance();
-    setState(() {
-      bool? isDarkTheme = themePrefs.getBool('isDarkTheme');
-      if (isDarkTheme != null) {
-        darkTheme = isDarkTheme;
-      } else {
-        darkTheme = true;
-      }
-    });
-  }
-
-  Future<Null> getTotalCoinsPrefs() async {
-    //Read all coins saved
-    SharedPreferences coinsPrefs = await SharedPreferences.getInstance();
-    setState(() {
-      actualCursinCoins = coinsPrefs.getInt('cursinCoinsSHP') ?? 2;
-    });
-  }
-
-  //showing rewarded
   void showRewardedAd() {
     if (rewardedAd == null) {
       if (enterAcces <= 2) {
         Fluttertoast.showToast(
-          msg: "Intentalo de nuevo.", // message
-          toastLength: Toast.LENGTH_LONG, // length
-          gravity: ToastGravity.BOTTOM, // location
+          msg: "Intentalo de nuevo.",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
         );
 
         enterAcces++;
       } else {
         if (enterAcces >= 3) {
           Fluttertoast.showToast(
-            msg: "Vuelve más tarde por más monedas", // message
-            toastLength: Toast.LENGTH_SHORT, // length
-            gravity: ToastGravity.BOTTOM, // location
+            msg: "Vuelve más tarde por más monedas",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
           );
         }
         enterAcces++;
@@ -116,9 +91,9 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
       //Toast diciendo: no se han podido cargar los anuncios.\n Asegurate de tener una buena conexión a internet, volver a abrir la App o intentar abrir el curso mas tarde, cuando los anuncios estén cargados en tu telefono.
       Fluttertoast.showToast(
         msg:
-            "No se han podido cargar los anuncios.\nIntentalo de nuevo en 5 segundos", // message
-        toastLength: Toast.LENGTH_LONG, // length
-        gravity: ToastGravity.BOTTOM, // location
+            "No se han podido cargar los anuncios.\nIntentalo de nuevo en 5 segundos",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
       );
 
       createRewardedAd();
@@ -130,12 +105,42 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
     rewardedAd = null;
   }
 
+  int enterAcces = 0;
+
+  bool? darkTheme;
+
+  Future<Null> getSharedThemePrefs() async {
+    SharedPreferences themePrefs = await SharedPreferences.getInstance();
+    setState(() {
+      bool? isDarkTheme = themePrefs.getBool('isDarkTheme');
+      if (isDarkTheme != null) {
+        darkTheme = isDarkTheme;
+      } else {
+        darkTheme = true;
+      }
+    });
+  }
+
+  Future<Null> getTotalCoinsPrefs() async {
+    //Read all coins saved
+    SharedPreferences coinsPrefs = await SharedPreferences.getInstance();
+    setState(() {
+      actualCursinCoins = coinsPrefs.getInt('cursinCoinsSHP') ?? 2;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     createRewardedAd();
     getSharedThemePrefs();
     getTotalCoinsPrefs();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    createRewardedAd();
   }
 
   @override
@@ -158,7 +163,7 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
             "Eliminar anuncios",
             style: TextStyle(
               color: darkTheme == false ? Colors.grey[850] : Colors.white,
-              fontSize: 16.0, /*fontWeight: FontWeight.bold*/
+              fontSize: 16.0,
             ),
           ),
           centerTitle: true,
@@ -428,6 +433,7 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
                       icon: Icon(
                         Icons.volunteer_activism,
                         size: 20.0,
+                        color: Colors.white,
                       ),
                       label: Text(
                         'Conseguir monedas',
@@ -515,16 +521,15 @@ class _deleteAnunScreenState extends State<deleteAnunScreen> {
                     //  print('connected');
 
                     showRewardedAd(); //show ad
-                    //Navigator.pop(context); //close dialog
                   }
                   //if doesnt exist conection, then show toast to advert
                 } on SocketException catch (_) {
                   //toast no conection exist
                   Fluttertoast.showToast(
                     msg:
-                        "No estas conectado a internet.\nUsa Wi-Fi o datos moviles.", // message
-                    toastLength: Toast.LENGTH_LONG, // length
-                    gravity: ToastGravity.CENTER, // location
+                        "No estas conectado a internet.\nUsa Wi-Fi o datos moviles.",
+                    toastLength: Toast.LENGTH_LONG,
+                    gravity: ToastGravity.CENTER,
                   );
                 }
                 Navigator.pop(context);

@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import '../../screens.dart';
 
 class categorias extends StatefulWidget {
-  // se requiere recibir: 1. Nombre de categoria. 2. Pantalla de donde se proviene
   categorias({required this.catProviene});
   late String catProviene;
 
@@ -25,20 +24,24 @@ class _categoriaState extends State<categorias> {
   BannerAd? _anchoredAdaptiveAd;
   bool _isLoaded = false;
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (!_isLoaded) {
-      _loadAdaptativeAd();
-    }
-  }
-
   Future<void> setCategory() async {
     handler = DatabaseHandlerGen();
     handlerProg = DatabaseProgHandler();
     handlerTIC = DatabaseTICHandler();
 
     switch (widget.catProviene) {
+      case "Construccion":
+        {
+          handlerProg.initializeDB().whenComplete(() async {
+            List<curso> list = await getListConstruccion();
+            list.shuffle();
+            setState(() {
+              _curso = Future.value(list);
+            });
+          });
+        }
+        break;
+
       case "Programacion":
         {
           handlerProg.initializeDB().whenComplete(() async {
@@ -312,7 +315,13 @@ class _categoriaState extends State<categorias> {
     }
   }
 
-  int maxAttempts = 3;
+  int maxAttempts = 2;
+
+  static const AdRequest request = AdRequest(
+      //keywords: ['',''],
+      //contentUrl: '',
+      //nonPersonalizedAds: false
+      );
 
   //initializing intersticial ad
   InterstitialAd? interstitialAd;
@@ -342,17 +351,19 @@ class _categoriaState extends State<categorias> {
   void initState() {
     super.initState();
     getSharedThemePrefs();
-    //_loadAdaptativeAd();
+    _loadAdaptativeAd();
     tapFav = false;
     createInterstitialAd();
     setCategory();
   }
 
-  static const AdRequest request = AdRequest(
-      //keywords: ['',''],
-      //contentUrl: '',
-      //nonPersonalizedAds: false
-      );
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_isLoaded) {
+      _loadAdaptativeAd();
+    }
+  }
 
   var children;
   late bool tapFav;
@@ -371,6 +382,10 @@ class _categoriaState extends State<categorias> {
   }
 
   //Methods that receive the list select from dbhelper
+
+  Future<List<curso>> getListConstruccion() async {
+    return await handler.categoriaConstruccion();
+  }
 
   Future<List<curso>> getListTransporte() async {
     return await handler.categoriaTransporte();
@@ -465,6 +480,12 @@ class _categoriaState extends State<categorias> {
       //hacemos un switch para que sepa que cateogira es la que debe refrescar
 
       switch (widget.catProviene) {
+        case "Construccion":
+          {
+            _curso = getListConstruccion();
+          }
+          break;
+
         case "Transporte":
           {
             _curso = getListTransporte();
@@ -603,10 +624,10 @@ class _categoriaState extends State<categorias> {
 
   @override
   Widget build(BuildContext context) {
-    if (!_isAdLoaded) {
+/*     if (!_isAdLoaded) {
       _loadAdaptativeAd();
       _isAdLoaded = true;
-    }
+    } */
 
     return Scaffold(
       backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
@@ -626,7 +647,7 @@ class _categoriaState extends State<categorias> {
           "" + widget.catProviene,
           style: TextStyle(
             color: darkTheme == false ? Colors.grey[850] : Colors.white,
-            fontSize: 16.0, /*fontWeight: FontWeight.bold*/
+            fontSize: 16.0,
           ),
         ),
         actions: [
@@ -844,8 +865,8 @@ class ShowCursos extends StatelessWidget {
                                   Stack(
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.fromLTRB(0.5,
-                                            0.5, 0.0, 0.5), //borde de la imagen
+                                        padding: const EdgeInsets.fromLTRB(
+                                            0.5, 0.5, 0.0, 0.5),
                                         child: ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(20.0),

@@ -110,7 +110,7 @@ class _certificadosScreenState extends State<certificadosScreen> {
           "Certificados",
           style: TextStyle(
             color: darkTheme == false ? Colors.grey[850] : Colors.white,
-            fontSize: 16.0, /*fontWeight: FontWeight.bold*/
+            fontSize: 16.0,
           ),
         ),
         actions: [

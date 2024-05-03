@@ -51,12 +51,6 @@ class webviewTutoScreenState extends State<webviewTutoScreen> {
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
     // print('Running on ${androidInfo.model}'); // e.g. "Moto G (4)"
 
-    IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-    // print('Running on ${iosInfo.utsname.machine}'); // e.g. "iPod7,1"
-
-    WebBrowserInfo webBrowserInfo = await deviceInfo.webBrowserInfo;
-    // print('Running on ${webBrowserInfo.userAgent}'); // e.g. "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0"
-
     setState(() {
       modelDevice = androidInfo.model!;
     });
@@ -83,7 +77,7 @@ class webviewTutoScreenState extends State<webviewTutoScreen> {
               'Tutoriales Cursin',
               style: TextStyle(
                 color: darkTheme == false ? Colors.grey[850] : Colors.white,
-                fontSize: 16.0, /*fontWeight: FontWeight.bold*/
+                fontSize: 16.0,
               ),
             ),
             centerTitle: true,
@@ -154,9 +148,9 @@ class webviewTutoScreenState extends State<webviewTutoScreen> {
   void copiarEnlace() {
     Clipboard.setData(ClipboardData(text: urlYoutube));
     Fluttertoast.showToast(
-      msg: "Enlace copiado", // message
-      toastLength: Toast.LENGTH_LONG, // length
-      gravity: ToastGravity.BOTTOM, // location
+      msg: "Enlace copiado",
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
     );
   }
 

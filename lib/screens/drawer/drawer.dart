@@ -1,3 +1,4 @@
+import 'package:cursin/screens/drawer/apoyanos.dart';
 import 'package:cursin/screens/drawer/drawer_options/entidades.dart';
 import 'package:cursin/screens/drawer/drawer_options/ultimos_cursos.dart';
 import 'package:flutter/material.dart';
@@ -196,10 +197,11 @@ class _drawerCursinState extends State<drawerCursin> {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (_) => CoursesFavs()))
                     }),
+
             ListTile(
               title: Row(
                 children: [
-                  Text("Entidades",
+                  Text("Apoya la App",
                       style: TextStyle(
                           color: darkTheme == true
                               ? Colors.white
@@ -235,18 +237,34 @@ class _drawerCursinState extends State<drawerCursin> {
                 ],
               ),
               leading: Icon(
-                Icons.domain,
+                Icons.volunteer_activism,
                 color: darkTheme == true ? Colors.white : Colors.grey[850],
               ),
               onTap: () => {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => EntidadesScreen(
-                              darkTheme: darkTheme,
-                            ))),
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => apoyanosScreen())),
               },
             ),
+
+            ListTile(
+                title: Text("Entidades",
+                    style: TextStyle(
+                        color: darkTheme == true
+                            ? Colors.white
+                            : Colors.grey[850])),
+                leading: Icon(
+                  Icons.domain,
+                  color: darkTheme == true ? Colors.white : Colors.grey[850],
+                ),
+                onTap: () => {
+                      Navigator.pop(context),
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => EntidadesScreen(
+                                    darkTheme: darkTheme,
+                                  )))
+                    }),
 
             ListTile(
               title: Row(

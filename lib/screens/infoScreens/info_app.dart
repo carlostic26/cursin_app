@@ -471,7 +471,7 @@ class _infoAppState extends State<infoApp> {
         "Información",
         style: TextStyle(
           color: darkTheme == false ? Colors.grey[850] : Colors.white,
-          fontSize: 16.0, /*fontWeight: FontWeight.bold*/
+          fontSize: 16.0,
         ),
       ),
       centerTitle: true,

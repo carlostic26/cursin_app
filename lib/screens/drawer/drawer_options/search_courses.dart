@@ -319,10 +319,7 @@ class _searchedCoursesState extends State<searchedCourses> {
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.fromLTRB(
-                                              0.5,
-                                              0.5,
-                                              0.0,
-                                              0.5), //borde de la imagen
+                                              0.5, 0.5, 0.0, 0.5),
                                           child: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(20.0),

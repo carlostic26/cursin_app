@@ -248,7 +248,7 @@ class _courseOptionState extends State<courseOption> {
 
 /*                 Padding(
                     padding: const EdgeInsets.fromLTRB(
-                        12.0, 15, 12.0, 1.0), //borde de la imagen
+                        12.0, 15, 12.0, 1.0), 
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20.0),
                       child: CachedNetworkImage(

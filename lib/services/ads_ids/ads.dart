@@ -14,10 +14,9 @@ class CursinAdsIds {
   //intertitial test: ca-app-pub-3940256099942544/1033173712 || real: ca-app-pub-4336409771912215/8050361004
   String interstitial_adUnitId = 'ca-app-pub-3940256099942544/1033173712';
 
-  //rewarded test: ca-app-pub-3940256099942544/5354046379 || real: ca-app-pub-4336409771912215/7921940595
-  String reward_adUnitId = 'ca-app-pub-3940256099942544/5354046379';
+  //rewarded test: ca-app-pub-3940256099942544/5224354917 || real: ca-app-pub-4336409771912215/7469665946
+  String reward_adUnitId = 'ca-app-pub-3940256099942544/5224354917';
 }   
-
 */
 
 // //real
@@ -26,8 +25,8 @@ class CursinAdsIds {
   String banner_adUnitId = 'ca-app-pub-4336409771912215/8479495280';
   //open real: ca-app-pub-4336409771912215/5446190186 || open2: ca-app-pub-4336409771912215/5955842482 open3: ca-app-pub-4336409771912215/6974841927
   String openApp_adUnitId = 'ca-app-pub-4336409771912215/6974841927';
-  //inter real:ca-app-pub-4336409771912215/8050361004 || inter2: ca-app-pub-4336409771912215/1880915114 inter3: ca-app-pub-4336409771912215/4009659431
+  //inter real: ca-app-pub-4336409771912215/8050361004 || inter2: ca-app-pub-4336409771912215/1880915114 inter3: ca-app-pub-4336409771912215/4009659431
   String interstitial_adUnitId = 'ca-app-pub-4336409771912215/4009659431';
-  //rewarded real:real: ca-app-pub-4336409771912215/7921940595
+  //rewarded real: ca-app-pub-4336409771912215/7921940595
   String reward_adUnitId = 'ca-app-pub-4336409771912215/7469665946';
 }

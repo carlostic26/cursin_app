@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cursin/screens/drawer/apoyanos.dart';
 import 'package:cursin/screens/screens.dart';
 import 'package:cursin/screens/option_course.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_dialogs/flutter_dialogs.dart';
 
 class CourseDetail extends StatefulWidget {
@@ -269,8 +269,8 @@ class _CourseDetailState extends State<CourseDetail> {
   void initState() {
     super.initState();
     getSharedThemePrefs();
-    adForCourse = false;
-    //load ads
+    //adForCourse = false;
+
     createInterstitialAd();
     _loadAdaptativeAd();
     createRewardedAd();
@@ -286,15 +286,15 @@ class _CourseDetailState extends State<CourseDetail> {
         t.cancel();
         setState(() {
           isLoadin = false;
-          buttonText = 'Ir al curso';
+          btnRegresivo = 'Ir al curso';
         });
       }
     });
   }
 
-  String buttonText = 'Lee la descripción';
+  String btnRegresivo = 'Lee la descripción';
   bool isLoadin = true;
-  int counter = 10;
+  int counter = 12;
 
   @override
   void dispose() {
@@ -308,20 +308,18 @@ class _CourseDetailState extends State<CourseDetail> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (!_isLoaded) {
-      _loadAdaptativeAd();
-      createInterstitialAd();
-      createRewardedAd();
-    }
+    _loadAdaptativeAd();
+    createInterstitialAd();
+    createRewardedAd();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (!_isAdLoaded) {
+/*     if (!_isAdLoaded) {
       _loadAdaptativeAd();
       _isAdLoaded = true;
     }
-
+ */
     return Scaffold(
       backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
       appBar: AppBar(
@@ -331,7 +329,7 @@ class _CourseDetailState extends State<CourseDetail> {
           widget.td.title,
           style: TextStyle(
             color: darkTheme == false ? Colors.grey[850] : Colors.white,
-            fontSize: 16.0, /*fontWeight: FontWeight.bold*/
+            fontSize: 16.0,
           ),
         ),
         leading: IconButton(
@@ -370,8 +368,7 @@ class _CourseDetailState extends State<CourseDetail> {
 
               Stack(children: [
                 Padding(
-                    padding: const EdgeInsets.fromLTRB(
-                        1.0, 1.0, 0.0, 1.0), //borde de la imagen
+                    padding: const EdgeInsets.fromLTRB(1.0, 1.0, 0.0, 1.0),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20.0),
                       child: CachedNetworkImage(
@@ -570,167 +567,123 @@ class _CourseDetailState extends State<CourseDetail> {
                 height: 20,
               ),
 
-              /*  Container(
-                alignment: Alignment.topCenter,
-                padding: EdgeInsets.symmetric(horizontal: 5.0),
-                child: Container(
-                  alignment: Alignment.topCenter,
-                  padding: EdgeInsets.symmetric(horizontal: 5.0),
-                  child: ElevatedButton.icon(
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.blueGrey),
-                    ),
-                    onPressed: () async {
-                      //Read all coins saved
-                      SharedPreferences coinsPrefs =
-                          await SharedPreferences.getInstance();
-
-                      int actualCoins =
-                          coinsPrefs.getInt('cursinCoinsSHP') ?? 2;
-
-                      //data that ask if the last acces to course is the same course in the moment:
-                      SharedPreferences lastCourse =
-                          await SharedPreferences.getInstance();
-                      lastCourse.getString('lastCourse');
-
-                      if (actualCoins >= 12 ||
-                          widget.td.title ==
-                              lastCourse.getString('lastCourse')) {
-                        //Navigator.pop(context); //close dialog
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => courseOption(
-                                    nameCourse: widget.td.title,
-                                    urlCourse: widget.td.urlcourse,
-                                    imgCourse: widget.td.imgcourse,
-                                    nombreEntidad: widget.td.entidad,
-                                  )),
-                        );
-                      } else {
-                        //show dialog saying that ads keep service of the app
-                        showDialogCourse(
-                            context,
-                            widget.td.imgcourse,
-                            widget.td.title,
-                            widget.td.entidad,
-                            widget.td.urlcourse);
-
-                        //PARA LIVES DE TIKTOK
-                        /*Navigator.pop(context); //close dialog
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => courseOption(
-                                    nameCourse: widget.td.title,
-                                    urlCourse: widget.td.urlcourse,
-                                    imgCourse: widget.td.imgcourse,
-                                    nombreEntidad: widget.td.entidad,
-                                  )),
-                        );
-                        */
-                      }
-                    },
-                    icon: Icon(
-                      Icons.play_arrow,
-                      size: 20.0,
-                      color: Colors.white,
-                    ),
-                    label: Text(
-                      'Ir al curso',
-                      style: TextStyle(color: Colors.white),
-                    ), // <-- Text
-                  ),
-                ),
-              ), */
-
               Container(
                 alignment: Alignment.topCenter,
                 padding: EdgeInsets.symmetric(horizontal: 5.0),
-                child: Container(
-                  alignment: Alignment.topCenter,
-                  padding: EdgeInsets.symmetric(horizontal: 5.0),
-                  child: ElevatedButton.icon(
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.blueGrey),
-                    ),
-                    onPressed: () async {
-                      if (!isLoadin) {
-                        //Read all coins saved
-                        SharedPreferences coinsPrefs =
-                            await SharedPreferences.getInstance();
-
-                        int actualCoins =
-                            coinsPrefs.getInt('cursinCoinsSHP') ?? 2;
-
-                        //data that ask if the last acces to course is the same course in the moment:
-                        SharedPreferences lastCourse =
-                            await SharedPreferences.getInstance();
-                        lastCourse.getString('lastCourse');
-
-                        if (actualCoins >= 12 ||
-                            widget.td.title ==
-                                lastCourse.getString('lastCourse')) {
-                          //Navigator.pop(context); //close dialog
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      alignment: Alignment.topCenter,
+                      padding: EdgeInsets.symmetric(horizontal: 3.0),
+                      child: ElevatedButton.icon(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.blueGrey),
+                        ),
+                        icon: Icon(
+                          Icons.volunteer_activism,
+                          size: 18.0,
+                          color: Colors.white,
+                        ),
+                        label: Text(
+                          'Apoyar a Cursin',
+                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        ),
+                        onPressed: () async {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                                builder: (context) => courseOption(
-                                      nameCourse: widget.td.title,
-                                      urlCourse: widget.td.urlcourse,
-                                      imgCourse: widget.td.imgcourse,
-                                      nombreEntidad: widget.td.entidad,
-                                    )),
+                                builder: (context) => apoyanosScreen()),
                           );
-                        } else {
-                          //show dialog saying that ads keep service of the app
-                          showDialogCourse(
-                              context,
-                              widget.td.imgcourse,
-                              widget.td.title,
-                              widget.td.entidad,
-                              widget.td.urlcourse);
-
-                          //PARA LIVES DE TIKTOK
-                          /*Navigator.pop(context); //close dialog
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => courseOption(
-                                    nameCourse: widget.td.title,
-                                    urlCourse: widget.td.urlcourse,
-                                    imgCourse: widget.td.imgcourse,
-                                    nombreEntidad: widget.td.entidad,
-                                  )),
-                        );
-                        */
-                        }
-                      }
-                    },
-                    icon: isLoadin
-                        ? Stack(
-                            alignment: Alignment.center,
-                            children: <Widget>[
-                              SizedBox(
-                                  height: 23,
-                                  width: 23,
-                                  child: CircularProgressIndicator(
-                                      color: Colors.white)),
-                              Text(
-                                '$counter',
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.white),
-                              ),
-                            ],
-                          )
-                        : Icon(
-                            Icons.play_arrow,
-                            size: 20.0,
-                            color: Colors.white,
-                          ),
-                    label: Text(
-                      buttonText,
-                      style: TextStyle(color: Colors.white),
+                        },
+                      ),
                     ),
-                  ),
+                    Container(
+                      alignment: Alignment.topCenter,
+                      padding: EdgeInsets.symmetric(horizontal: 5.0),
+                      child: ElevatedButton.icon(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.green),
+                        ),
+                        icon: isLoadin
+                            ? Stack(
+                                alignment: Alignment.center,
+                                children: <Widget>[
+                                  SizedBox(
+                                      height: 23,
+                                      width: 23,
+                                      child: CircularProgressIndicator(
+                                          color: Colors.white)),
+                                  Text(
+                                    '$counter',
+                                    style: TextStyle(
+                                        fontSize: 12, color: Colors.white),
+                                  ),
+                                ],
+                              )
+                            : Icon(
+                                Icons.play_arrow,
+                                size: 20.0,
+                                color: Colors.white,
+                              ),
+                        label: Text(
+                          btnRegresivo,
+                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        ),
+                        onPressed: () async {
+                          if (!isLoadin) {
+                            //Read all coins saved
+                            SharedPreferences coinsPrefs =
+                                await SharedPreferences.getInstance();
+
+                            int actualCoins =
+                                coinsPrefs.getInt('cursinCoinsSHP') ?? 2;
+
+                            //data that ask if the last acces to course is the same course in the moment:
+                            SharedPreferences lastCourse =
+                                await SharedPreferences.getInstance();
+                            lastCourse.getString('lastCourse');
+
+                            if (actualCoins >= 12 ||
+                                widget.td.title ==
+                                    lastCourse.getString('lastCourse')) {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) => courseOption(
+                                          nameCourse: widget.td.title,
+                                          urlCourse: widget.td.urlcourse,
+                                          imgCourse: widget.td.imgcourse,
+                                          nombreEntidad: widget.td.entidad,
+                                        )),
+                              );
+                            } else {
+                              //show dialog saying that ads keep service of the app
+                              showDialogCourse(
+                                  context,
+                                  widget.td.imgcourse,
+                                  widget.td.title,
+                                  widget.td.entidad,
+                                  widget.td.urlcourse);
+
+                              //PARA LIVES DE TIKTOK
+                              /*Navigator.pop(context); //close dialog
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => courseOption(
+                                        nameCourse: widget.td.title,
+                                        urlCourse: widget.td.urlcourse,
+                                        imgCourse: widget.td.imgcourse,
+                                        nombreEntidad: widget.td.entidad,
+                                      )),
+                            );
+                            */
+                            }
+                          }
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
 
@@ -748,7 +701,7 @@ class _CourseDetailState extends State<CourseDetail> {
               height: _anchoredAdaptiveAd?.size.height.toDouble(),
               child: AdWidget(ad: _anchoredAdaptiveAd!),
             )
-          : SizedBox(), // Si no hay anuncio cargado, no muestra nada
+          : SizedBox(),
     );
   }
 
@@ -822,9 +775,7 @@ class _CourseDetailState extends State<CourseDetail> {
           messageMail[3] +
           messageMail[4],
     );
-    // Convert the Mailto instance into a string.
-    // Use either Dart's string interpolation
-    // or the toString() method.
+
     await launch('$mailtoLink');
   }
 
@@ -965,8 +916,6 @@ class _CourseDetailState extends State<CourseDetail> {
       BuildContext context, String img, title, entidad, urlcourse) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-
-    // Calcula la diagonal de la pantalla
     double screenDiagonal = sqrt(height * height + width * width);
 
     // Determina si el dispositivo es probablemente una tablet
@@ -989,7 +938,7 @@ class _CourseDetailState extends State<CourseDetail> {
       textSize = 10;
     } else {
       //vertical responsive
-      dialogHeight = height * 0.33;
+      dialogHeight = height * 0.30;
       dialogWidth = width * 0.8;
       imageHeight = height * 0.14;
       textSize = 11;
@@ -1040,7 +989,7 @@ class _CourseDetailState extends State<CourseDetail> {
               TextButton(
                 child: const Text('Quitar anuncios',
                     style: TextStyle(color: Colors.white, fontSize: 10)),
-                style: TextButton.styleFrom(backgroundColor: Colors.green),
+                style: TextButton.styleFrom(backgroundColor: Colors.grey),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -1051,7 +1000,7 @@ class _CourseDetailState extends State<CourseDetail> {
               TextButton(
                 child: const Text('Continuar',
                     style: TextStyle(color: Colors.white, fontSize: 10)),
-                style: TextButton.styleFrom(backgroundColor: Colors.blueGrey),
+                style: TextButton.styleFrom(backgroundColor: Colors.green),
                 onPressed: () async {
                   try {
                     final result = await InternetAddress.lookup('google.com');
@@ -1099,9 +1048,7 @@ class _CourseDetailState extends State<CourseDetail> {
 //this method fix the not jump line, adding a \n
   descriptionFix() {
     String description = widget.td.description;
-
     String newDescription = description.replaceAll("+", "\n");
-
     return newDescription;
   }
 
