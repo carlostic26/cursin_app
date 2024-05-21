@@ -11,10 +11,10 @@ class SlideInfo {
   SlideInfo(this.title, this.caption, this.imageUrl);
 }
 
-final slides = <SlideInfo>[
+final slidesTutorial = <SlideInfo>[
   SlideInfo(
       '¿Qué es Cursin?',
-      'Es una app tipo buscador, que sirve para encontrar cientos de cursos online gratuitos de diferentes sitios de internet y/o plataformas educativas ' +
+      'Es un buscador que sirve para encontrar cientos de cursos online gratuitos de diferentes sitios de internet y/o plataformas educativas ' +
           'como Google, IBM, Microsoft, Cisco, ONU, hp, Unicef, Meta, Kaggle, intel entre otras.\n\nDichas plataformas pueden emitir certificados de finalización sin costo, después de completar el curso.',
       'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiY6afS3X7LodjovbD14vTA3uGM-1cwgvofGWJ1VjPMhifTXV0ALdosXkvrzw5m1BxsyjqFe2QIs2Y8EsFDyeGx7qKYHBOXBNBNWR-IZwOSNmuGQjhbeVYl-CL-pJcIbhiIg1GUsyn__OEjAXN_0hySv-WjOYcK65EbU2M4q2vvKWyxE2S141NiGiql/s320/img_1.png'),
   SlideInfo(
@@ -34,7 +34,7 @@ final slides = <SlideInfo>[
 //checkbox
   SlideInfo(
       'Comprendo que...',
-      'Cursin es un buscador de cursos y no es dueño de ellos. \n\nAunque todos los cursos son gratis, algunos pocos pueden no emitir diplomas o certificados. \n\nCursin se actualiza constantemente para avisarme cuando hay cursos nuevos. \n\nCursin me servirá como herramienta para encontrar cursos online gratis cuando lo necesite.',
+      'Cursin es un buscador de cursos y no es dueño de ellos.\n\nAunque todos los cursos son gratis, algunos pocos pueden no emitir diplomas o certificados. \n\nCursin se actualiza constantemente para avisarme cuando hay cursos nuevos. \n\nCursin me servirá como herramienta para encontrar cursos online gratis cuando lo necesite.',
       'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiqMAKKMpgeugG5DtqGLdUlYqIimMoi6KCbn12CsnIYB0JGbWT3Zc3MmASM16eETFiESLLKq-ZqWC4kmZHtKeMQAafD0p0w4j8CfwAfRimQEksLVYpWg5ms0FDOI2DWPWiSsDFWIcJ9eVT6QHi4J0wFAt9n89JP1G0RzbHFNHumaIaH52rkrb-_-c0l/w400-h246/img6.png'),
 ];
 
@@ -48,6 +48,7 @@ class TutorialScreen extends StatefulWidget {
 class _TutorialScreenState extends State<TutorialScreen> {
   final PageController pageviewController = PageController();
   bool endReached = false;
+  bool showImage = false;
 
   @override
   void initState() {
@@ -55,7 +56,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
     pageviewController.addListener(() {
       final page = pageviewController.page ?? 0;
 
-      if (!endReached && page >= (slides.length - 1.5)) {
+      if (!endReached && page >= (slidesTutorial.length - 1.5)) {
         setState(() {
           endReached = true;
         });
@@ -63,6 +64,18 @@ class _TutorialScreenState extends State<TutorialScreen> {
     });
 
     initTheme();
+
+    Future.delayed(Duration(seconds: 2), () {
+      setState(() {
+        showImage = true;
+      });
+
+      Future.delayed(Duration(seconds: 5), () {
+        setState(() {
+          showImage = false;
+        });
+      });
+    });
   }
 
   Future<void> initTheme() async {
@@ -78,43 +91,67 @@ class _TutorialScreenState extends State<TutorialScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Colors.grey[850],
       body: Stack(
         children: [
-          PageView(
-            controller: pageviewController, // Agregamos el controlador
-            physics: const BouncingScrollPhysics(),
-            children: slides
-                .map((slideData) => _Slide(
-                      title: slideData.title,
-                      caption: slideData.caption,
-                      imageUrl: slideData.imageUrl,
-                    ))
-                .toList(),
+          Container(
+            height: height * 0.99,
+            child: PageView(
+              scrollDirection: Axis.horizontal,
+              controller: pageviewController,
+              physics: const BouncingScrollPhysics(),
+              children: slidesTutorial
+                  .map((slideData) => _Slide(
+                        title: slideData.title,
+                        caption: slideData.caption,
+                        imageUrl: slideData.imageUrl,
+                      ))
+                  .toList(),
+            ),
           ),
-          // Aquí agregamos la condición if para mostrar el botón de comenzar
           if (endReached)
             Positioned(
-                bottom: 30,
-                right: 30,
-                child: ElevatedButton(
-                  onPressed: () {
-                    guardarPrimerAcceso();
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                          builder: (context) => HomeCategoriasSelectCards()),
-                    );
-                  },
-                  child: const Text(
-                    'Comenzar',
-                    style: TextStyle(color: Colors.white),
+              bottom: 30,
+              right: 30,
+              child: ElevatedButton(
+                onPressed: () {
+                  guardarPrimerAcceso();
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                        builder: (context) => HomeCategoriasSelectCards()),
+                  );
+                },
+                child: const Text(
+                  'Comenzar',
+                  style: TextStyle(color: Colors.white),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blueGrey,
+                ),
+              ),
+            )
+          else
+            Positioned(
+              bottom: 30,
+              right: 30,
+              child: AnimatedOpacity(
+                duration: Duration(seconds: 2),
+                opacity: showImage
+                    ? 1.0
+                    : 0.0, // Opacidad inicial (visible o invisible)
+                child: SizedBox(
+                  height: 70,
+                  width: 70,
+                  child: Image.network(
+                    'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjKXWs4G03tCuF-aV3kGFZ26BroRXsGhqY80d8r8VKPT2WaQkunZMxd-l_95-B-dhNY_U2vj5RNmB-6aMkym3Us2sTwcL6ehdBTp4AP_5wTq8CcF_X-IvpHJk6TSqTFQodEFEbi9fnKfYnRPjSBeKsVPjeGlNMhHbOsAIQArzJy5UfwyfdhgyN6h7Tm/s218/swip.gif',
+                    // Añade más propiedades a la imagen según tus necesidades
                   ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        Colors.green, // Cambia el color de fondo a verde
-                  ),
-                ))
+                ),
+              ),
+            ),
         ],
       ),
     );
@@ -139,6 +176,9 @@ class _Slide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final titleStyle = Theme.of(context).textTheme.titleLarge;
+    final captionStyle = Theme.of(context).textTheme.bodySmall;
+
     final size = MediaQuery.of(context).size;
 
     return Padding(
@@ -150,7 +190,7 @@ class _Slide extends StatelessWidget {
             children: [
               Center(
                 child: SizedBox(
-                  height: 300,
+                  height: 220,
                   width: size.width * 0.7,
                   child: CachedNetworkImage(
                     imageUrl: imageUrl,
@@ -169,16 +209,16 @@ class _Slide extends StatelessWidget {
                 title,
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 24,
+                    fontSize: 22,
                     fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 17),
               Text(caption,
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 14,
+                    fontSize: 12,
                   )),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
             ],
           ),
         ));

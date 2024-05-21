@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:cursin/screens/screens.dart';
+import 'package:cursin/presentation/screens/screens.dart';
 
 AppOpenAd? openAd;
 bool isAdLoaded = false;
@@ -41,7 +41,7 @@ void main() async {
   Timer(Duration(seconds: 10), () async {
     if (!isAdLoaded) {
       openAd?.dispose();
-    } 
+    }
   });
 
   await LocalNotifications.initializeLocalNotificatios();

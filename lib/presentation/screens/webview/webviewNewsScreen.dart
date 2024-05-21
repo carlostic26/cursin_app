@@ -1,17 +1,27 @@
 import 'dart:async';
+import 'package:cursin/presentation/screens/drawer/drawer_options/home_menu_categoria.dart';
+import 'package:cursin/presentation/screens/drawer/drawer_options/noticias_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dart:io';
+import 'package:cursin/presentation/screens/option_course.dart';
 import 'package:flutter_webview_pro/webview_flutter.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'package:device_info_plus/device_info_plus.dart';
 
-import '../presentation/screens/screens.dart';
+class webviewNewsScreen extends StatefulWidget {
+  webviewNewsScreen({required this.urlNew});
 
-class webviewTutoScreen extends StatefulWidget {
+  late String urlNew;
+
   @override
-  webviewTutoScreenState createState() => webviewTutoScreenState();
+  webviewNewsScreenState createState() => webviewNewsScreenState();
 }
 
-class webviewTutoScreenState extends State<webviewTutoScreen> {
+class webviewNewsScreenState extends State<webviewNewsScreen> {
   bool isloaded = false;
 
   late WebViewController _controller;
@@ -22,34 +32,23 @@ class webviewTutoScreenState extends State<webviewTutoScreen> {
   //final globalKey = GlobalKey<ScaffoldState>();
 
   String modelDevice = '';
-  String urlYoutube =
-      'https://www.youtube.com/playlist?list=PLrCQaitBpNfdxsH5lRsCSah2TJ9aaxlCm';
 
   void initState() {
     super.initState();
-    getSharedThemePrefs();
     isloaded = true;
     if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
-  }
-
-  bool? darkTheme;
-
-  Future<Null> getSharedThemePrefs() async {
-    SharedPreferences themePrefs = await SharedPreferences.getInstance();
-    setState(() {
-      bool? isDarkTheme = themePrefs.getBool('isDarkTheme');
-      if (isDarkTheme != null) {
-        darkTheme = isDarkTheme;
-      } else {
-        darkTheme = true;
-      }
-    });
   }
 
   Future<void> userAgentOfChrome() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    // print('Running on ${androidInfo.model}'); // e.g. "Moto G (4)"
+    //print('Running on ${androidInfo.model}'); // e.g. "Moto G (4)"
+
+    IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+    //print('Running on ${iosInfo.utsname.machine}'); // e.g. "iPod7,1"
+
+    WebBrowserInfo webBrowserInfo = await deviceInfo.webBrowserInfo;
+    //print('Running on ${webBrowserInfo.userAgent}'); // e.g. "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0"
 
     setState(() {
       modelDevice = androidInfo.model!;
@@ -62,23 +61,16 @@ class webviewTutoScreenState extends State<webviewTutoScreen> {
       onWillPop: () => _goBack(),
       child: Scaffold(
         appBar: AppBar(
-            elevation: 0,
-            backgroundColor:
-                darkTheme == true ? Colors.grey[850] : Colors.white,
             leading: IconButton(
-                icon: Icon(
-                  Icons.arrow_back,
-                  color: darkTheme == false ? Colors.grey[850] : Colors.white,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                }),
+              icon: Icon(Icons.arrow_back),
+              iconSize: 20,
+              onPressed: () {
+                _goBack();
+              },
+            ),
             title: Text(
-              'Tutoriales Cursin',
-              style: TextStyle(
-                color: darkTheme == false ? Colors.grey[850] : Colors.white,
-                fontSize: 16.0,
-              ),
+              'Noticias Cursin',
+              style: TextStyle(fontSize: 15),
             ),
             centerTitle: true,
             actions: <Widget>[
@@ -93,7 +85,6 @@ class webviewTutoScreenState extends State<webviewTutoScreen> {
                         Navigator.pop(context);
                       }),
                   PopupMenuButton<String>(
-                    color: darkTheme == false ? Colors.grey[850] : Colors.white,
                     iconSize: 20,
                     onSelected: handleClick,
                     itemBuilder: (BuildContext context) {
@@ -122,7 +113,7 @@ class webviewTutoScreenState extends State<webviewTutoScreen> {
             _controllerCompleter.future.then((value) => _controller = value);
             _controllerCompleter.complete(webViewController);
           },
-          initialUrl: urlYoutube,
+          initialUrl: widget.urlNew.toString(),
         ),
       ),
     );
@@ -141,12 +132,12 @@ class webviewTutoScreenState extends State<webviewTutoScreen> {
 
   //metodo para ejecutar el link de abrir en Chrome
   void openUrl() async {
-    String url = urlYoutube; //antes era const
+    String url = widget.urlNew.toString(); //antes era const
     if (await canLaunch(url)) launch(url);
   }
 
   void copiarEnlace() {
-    Clipboard.setData(ClipboardData(text: urlYoutube));
+    Clipboard.setData(ClipboardData(text: widget.urlNew.toString()));
     Fluttertoast.showToast(
       msg: "Enlace copiado",
       toastLength: Toast.LENGTH_LONG,
@@ -159,7 +150,7 @@ class webviewTutoScreenState extends State<webviewTutoScreen> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (_) => HomeCategoriasSelectCards(),
+        builder: (_) => noticiasScreen(context),
       ),
     );
   }
