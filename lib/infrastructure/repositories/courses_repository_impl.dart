@@ -4,23 +4,35 @@ import 'package:cursin/infrastructure/models/curso_model.dart';
 
 /*
   infrastructure/repositories
-  NOTE: Esta clase implementa lo definido en model/repositories
 
+  NOTE: Se implementa, NO se define
+        Esta clase implementa lo definido en model/repositories
+
+        implements = usa interfaz
+        extendes = hereda todo
 */
 
 class CoursesRepository implements CourseRepository {
-  final CourseDatasource course_datasource;
-
-  CoursesRepository({required this.course_datasource});
+  final CourseDatasource coursesDatasource;
+  CoursesRepository({required this.coursesDatasource});
 
   @override
   Future<List<curso>> getFavoriteCoursesByUser(
       handler, progHandler, ticHandler) {
-    throw UnimplementedError();
+    try {
+      return coursesDatasource.getFavoriteCoursesByUser(
+          handler, progHandler, ticHandler);
+    } catch (e) {
+      return [];
+    }
   }
 
   @override
   Future<List<curso>> getAllCourses(handler, progHandler, ticHandler) {
-    throw UnimplementedError();
+    try {
+      return coursesDatasource.getAllCourses(handler, progHandler, ticHandler);
+    } catch (e) {
+      return [];
+    }
   }
 }

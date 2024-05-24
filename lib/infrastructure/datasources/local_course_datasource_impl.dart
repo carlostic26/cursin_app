@@ -4,7 +4,7 @@ import 'package:cursin/infrastructure/models/curso_model.dart';
 /* 
   infrastructre/datasources
 
-  NOTE: Esta clase implementa lo definido en el datasource de domain.        
+  NOTE: Esta clase de infraestructure implementa lo definido en el datasource de domain.        
         Aqui se hace la magia. Es posible cambiar las implementaciones mas adelante, por si mudamos a API, web, etc.
 
   En primera instancia necesitamos obtener los cursos favoritos locales del usuario
@@ -34,7 +34,16 @@ class LocalCourseDatasource implements CourseDatasource {
 
   @override
   Future<List<curso>> getAllCourses(handler, progHandler, ticHandler) async {
-    List<curso> courses = await handler.course();
+    List<curso> coursesGen = await handler.course();
+    List<curso> coursesProg = await progHandler.course();
+    List<curso> coursesTic = await ticHandler.course();
+
+    // Combina los resultados en una sola lista
+    List<curso> courses = [
+      ...coursesGen,
+      ...coursesProg,
+      ...coursesTic,
+    ];
 
     return courses;
   }
