@@ -16,6 +16,8 @@ class _HomeCategoriasSelectCardsState extends State<HomeCategoriasSelectCards> {
   late DatabaseProgHandler handlerProg;
   late DatabaseTICHandler handlerTIC;
 
+  
+
   bool darkTheme = true;
 
   Future<Null> getSharedThemePrefs() async {
@@ -50,6 +52,8 @@ class _HomeCategoriasSelectCardsState extends State<HomeCategoriasSelectCards> {
 
   @override
   Widget build(BuildContext context) {
+
+    
     return Scaffold(
       backgroundColor: darkTheme == true ? Colors.grey[850] : Colors.white,
       appBar: AppBar(

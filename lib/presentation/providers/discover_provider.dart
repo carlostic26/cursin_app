@@ -21,7 +21,7 @@ class DiscoverProvider extends ChangeNotifier {
   late DatabaseProgHandler progHandler;
   late DatabaseTICHandler ticHandler;
 
-  //Obtengo todos los cursos de las 3 bd y los cargo a la lista "courses" de la linea 13
+  //Obtengo todos los cursos de las 3 bd y los cargo a la lista "courses" 
   Future<void> loadCourses() async {
     final newCourses =
         await courseRepository.getAllCourses(handler, progHandler, ticHandler);

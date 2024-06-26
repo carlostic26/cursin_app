@@ -12,27 +12,30 @@ import 'package:cursin/infrastructure/models/curso_model.dart';
         extendes = hereda todo
 */
 
-class CoursesRepository implements CourseRepository {
+class CoursesRepositoryImpl implements CourseRepository {
   final CourseDatasource coursesDatasource;
-  CoursesRepository({required this.coursesDatasource});
+  CoursesRepositoryImpl({required this.coursesDatasource});
 
   @override
   Future<List<curso>> getFavoriteCoursesByUser(
-      handler, progHandler, ticHandler) {
+      handler, progHandler, ticHandler) async{
     try {
       return coursesDatasource.getFavoriteCoursesByUser(
           handler, progHandler, ticHandler);
     } catch (e) {
+      print('Error al obtener los cursos favoritos: $e');
       return [];
     }
   }
 
   @override
-  Future<List<curso>> getAllCourses(handler, progHandler, ticHandler) {
+  Future<List<curso>> getAllCourses(handler, progHandler, ticHandler) async{
     try {
       return coursesDatasource.getAllCourses(handler, progHandler, ticHandler);
     } catch (e) {
+      print('Error al obtener todos los cursos: $e');
       return [];
     }
   }
 }
+

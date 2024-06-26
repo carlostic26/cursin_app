@@ -4,14 +4,14 @@ import 'package:cursin/infrastructure/models/curso_model.dart';
 /* 
   infrastructre/datasources
 
-  NOTE: Esta clase de infraestructure implementa lo definido en el datasource de domain.        
-        Aqui se hace la magia. Es posible cambiar las implementaciones mas adelante, por si mudamos a API, web, etc.
+  NOTE: Se implementa, NO se define
+        Esta clase de infraestructure implementa lo definido en el datasource de domain.        
+        Aqui se hace la magia. Es posible cambiar las implementaciones mas adelante, por si mudamos a API, web, etc, por ahora: SQFlite
 
   En primera instancia necesitamos obtener los cursos favoritos locales del usuario
   Para ello, necesitamos solicitar el "HANDLER" de las 3 bd diferentes
   Luego combinamos esos 3 resultados en una sola lista a retornar
 
-  TODO: implement getAllCourses
 */
 
 class LocalCourseDatasource implements CourseDatasource {
